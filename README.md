@@ -6,19 +6,24 @@ GitHub Pages. Inspired by [pinout.xyz](https://pinout.xyz).
 
 Pick a board from the dropdown. Each header is drawn the way it sits on the
 board — pin numbers down the middle, odd pins on the left rail, even on the
-right. Every pin carries a square split across its axis: the half facing the
-connector is the board's own colour for that pin (yellow I2C, blue SPI, green
-GPIO, orange 3.3V, red 5V), and the far half is one strip per *other* mux the
-pad can reach. Hover a pin for its mux list, click it for the full pinmux
-(SoC function, libgpiod chip/line, legacy sysfs number, BGA pad, alternate
-functions), click a legend entry to show only pins that can mux to that class,
-or search across names, functions, pads and pin numbers.
+right. Every pin carries a square split across the middle: the top band is the
+board's own colour for that pin (yellow I2C, blue SPI, orange 3.3V, red 5V),
+and below it sits one vertical stripe per *other* mux the pad can reach. A pin
+whose only role is GPIO has no band — green would say what every pad on the
+header already is, and the stripes get the whole tile instead.
 
-**Click to relabel.** A legend class, or a function chip in a pin's detail
+Select a pin for the full pinmux (SoC function, libgpiod chip/line, legacy
+sysfs number, BGA pad, alternate functions with the register write that
+chooses each one, then the pad's electrical characteristics); select it again
+to close. Select a legend class to show only pins that can mux to it, or
+search across names, functions, pads and pin numbers. On a pointer device,
+hovering a pin also gives its mux list without opening anything.
+
+**Select to relabel.** A legend class, or a function chip in a pin's detail
 panel, rewrites the header labels with that mux name: the rails read
 `TDMB_SCLK` / `TDMB_FS` instead of `GPIOAO_8` / `GPIOAO_7`, which is how you
 see where a bus actually lands (and that a signal reaches more than one pad).
-Click again to clear; the pad name stays in the tooltip throughout.
+Select it again to clear; the pad name stays in the tooltip throughout.
 
 ## Data
 
