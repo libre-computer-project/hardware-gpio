@@ -304,11 +304,18 @@ footer {
 .pin-stack.side-left { align-items: stretch; }
 
 /* ---- mux square ----
-   Half facing the connector = the board's colour for that pin; far half =
-   one strip per mux the pad can be switched to. */
+   Bottom half = the board's colour for that pin; top half = one vertical
+   strip per mux the pad can be switched to.
+
+   The two splits run in different directions on purpose. The primary is one
+   band across the tile, so it reads as a single fact at a glance; the
+   alternates are a picket of narrow verticals, so their COUNT is legible
+   without counting. Splitting both the same way made a four-mux pin look like
+   a five-band gradient with no way to tell which band was the answer. */
 
 .mux-square {
   display: flex;
+  flex-direction: column;
   flex: none;
   width: 19px;
   height: 19px;
@@ -317,12 +324,14 @@ footer {
   box-shadow: 0 0 0 1px #0006 inset;
 }
 
-.mux-square.near-left { flex-direction: row-reverse; }
+/* near-left/near-right no longer flip anything: with a horizontal split
+   there is no side facing the connector. Kept as hooks the JS still
+   sets, so a future layout can use them. */
 
 .mux-alts {
   flex: 1 1 50%;
   display: grid;
-  grid-auto-flow: column;
+  grid-auto-flow: column;      /* stripes stay VERTICAL within the top band */
   grid-auto-columns: 1fr;
   min-width: 0;
 }
@@ -332,13 +341,13 @@ footer {
 /* No primary half to sit beside: the alternates take the tile. */
 .mux-square.alts-only .mux-alts { flex: 1 1 100%; }
 
-.mux-square.near-right .mux-primary { border-left: 1px solid #0009; }
-.mux-square.near-left .mux-primary { border-right: 1px solid #0009; }
+.mux-square .mux-primary { border-top: 1px solid #0009; }
 .mux-square.solid .mux-primary { border: 0; }
 
 /* Power and ground have no alternates -- one solid colour reads better. */
 .mux-square.solid .mux-alts { display: none; }
 .mux-square.solid .mux-primary { flex-basis: 100%; }
+.mux-square.alts-only .mux-primary { display: none; }
 
 .mux-strip { display: block; }
 
