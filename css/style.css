@@ -45,11 +45,12 @@
    header, board and detail panel are all visible at once and the document
    never scrolls. Only a column that genuinely overflows scrolls, inside
    itself. */
+/* Plain column, and it has to stay one: the mux tile's column-reverse (below)
+   was copied onto the page shell once, which put the footer above the board
+   and the brand + board picker off the bottom of the window. */
 body {
   display: flex;
-  /* -reverse, because the JS appends alts then primary and the primary
-     belongs on top -- the pin's own colour is read first. */
-  flex-direction: column-reverse;
+  flex-direction: column;
   min-height: 100%;
   margin: 0;
   background: var(--bg);
@@ -419,9 +420,13 @@ footer {
   word-break: break-word;
 }
 
+/* Qualified with the id, because the generic `#pin-detail th/td` padding above
+   outranks a class on its own -- these column gaps were being dropped, which
+   only showed once the table had no slack to spread and the field and write
+   values ran together. */
 .mux-table { margin-top: 14px; border-top: 1px solid var(--border); }
-.mux-table th { padding-top: 8px; font-size: 12px; }
-.mux-table td { padding-right: 12px; white-space: nowrap; }
+#pin-detail .mux-table th { padding: 11px 12px 3px 0; font-size: 12px; }
+#pin-detail .mux-table td { padding: 3px 12px 3px 0; white-space: nowrap; }
 
 /* ---- electrical section ---- */
 
@@ -437,9 +442,9 @@ footer {
 }
 
 .dc-table { margin-top: 10px; }
-.dc-table th { font-size: 11.5px; padding-right: 8px; }
-.dc-table th[colspan] { color: var(--text); padding-top: 8px; }
-.dc-table td { padding-right: 8px; white-space: nowrap; }
+#pin-detail .dc-table th { font-size: 11.5px; padding: 3px 8px 3px 0; }
+#pin-detail .dc-table th[colspan] { color: var(--text); padding-top: 11px; }
+#pin-detail .dc-table td { padding: 3px 8px 3px 0; white-space: nowrap; }
 .dc-table td.dc-sym { font-family: inherit; font-size: 12px; color: var(--text-dim); }
 
 .elec-note, .elec-analog, .elec-none { margin-top: 8px; font-size: 12px; }
@@ -487,6 +492,10 @@ pre.usage {
 }
 
 .muted { color: var(--text-dim); margin: 0; }
+
+/* Only the bottom sheet needs a way out that is not the pin itself -- with a
+   pane beside the drawing the pin is always on screen to click again. */
+#sheet-close { display: none; }
 
 /* ---- legend (also a mux filter) ---- */
 
@@ -585,10 +594,123 @@ pre.usage {
      columns would be ~45px each and every label would ellipse away, so
      the key goes back to wrapping and each entry keeps its name. */
   #legend { display: flex; flex-wrap: wrap; gap: 6px 14px; }
-  #panel { max-width: none; }
+  /* The pane gets the width, not a 300px column beside a drawing that needs
+     every pixel of it -- main wraps here, so this is one column. */
+  #panel { max-width: none; min-width: 0; }
   input[type="search"] { min-width: 160px; flex: 1; }
-  .pin { font-size: 10.5px; padding: 3px 5px; }
+  /* 16px exactly: below it Safari zooms the page when the field takes focus,
+     and the only way back out of that zoom is a pinch. */
+  select, input[type="search"] { font-size: 16px; }
   .pin-grid-dual { grid-template-columns: 1fr 24px 24px 1fr; }
+
+  /* ---- touch targets ----
+
+     There is no cursor to aim with, so the row is the target: the numbered
+     pad and the name rail both select the same pin, and the rail is the one
+     with room to be big -- ~136x40 at 360px, comfortably past the 44px
+     guidance in its long axis. The pad cannot join it sideways: its column is
+     24px wide and the odd and even pads are adjacent, so a 44px-wide hit box
+     would reach into the neighbouring PIN and turn a near-miss into a
+     confident wrong answer. It grows to fill its column and the row instead
+     (24x40), and the rail carries the guidance. */
+  .pin { font-size: 10.5px; padding: 3px 5px; min-height: 40px; }
+
+  .pin-pad {
+    width: 22px;
+    height: 22px;
+    line-height: 20px;
+    font-size: 11px;
+  }
+
+  /* Ink stays inside the connector body; the hit box stops at the column and
+     the row, so no two pads share one. */
+  .pin-pad::after {
+    content: "";
+    position: absolute;
+    inset: -9px -1px;
+  }
+
+  /* A 12px swatch with 2px of padding is a 16px target. */
+  .legend-item { padding: 7px 6px; }
+
+  /* ---- detail as a bottom sheet ----
+
+     One column means the pane sits under the drawing, and on a 390x844
+     viewport that put it 1280px down -- off-screen at the moment a tap asks
+     for it. It stays in flow while nothing is selected, because the intro
+     paragraph is worth meeting on the way past, and is lifted over the
+     drawing once a pin is selected so the answer arrives where the question
+     was asked. Tapping the pin again, or Close, puts it back. */
+  body.pin-open #panel {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 15;
+    max-height: 60vh;
+    overflow: auto;
+    background: var(--bg-raised);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -10px 30px #000a;
+  }
+
+  body.pin-open #pin-detail { border: 0; margin: 0 12px 16px; }
+
+  /* The pinmux and DC tables are nowrap on purpose -- a register field or a
+     threshold broken over two lines stops being one fact -- so at this width
+     they are wider than the pane and the columns close up until the field and
+     the write value touch. Each scrolls in its own box instead. */
+  #pin-detail .mux-table, #pin-detail .dc-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  /* The sheet covers the bottom 60vh, so the diagram needs somewhere to
+     scroll to -- otherwise the last rows of a header can never be read while
+     a pin is open, and scrollIntoView on the selected pin has no room to
+     work. Both numbers track max-height above. */
+  body.pin-open main { padding-bottom: 62vh; }
+  .pin, .pin-pad { scroll-margin-bottom: 62vh; }
+
+  body.pin-open #sheet-close {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-raised);
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+    font: inherit;
+    font-size: 13px;
+    text-align: right;
+    cursor: pointer;
+  }
+}
+
+/* Phone portrait: the dual header's width budget.
+
+   At 360px the drawing gets 336px, and the grid spends 48 of it on the two
+   pin-number columns -- so each name rail is 144px, and everything the rail
+   is not spending on the name (margin, padding, border, mux tile, gap) comes
+   straight off the name. The longest label in the data today is 17 chars
+   (roc-rk3328-cc J1: FEPHY_LED_LINK_M1, and GPIO2_C0/GPIO2_C1 on the pin the
+   board ties to two SoC lines), which is 102px at 10px in a monospace whose
+   advance is 0.6em. The numbers below leave 107px for it -- 7 of the 9px it
+   was short of before. A longer name than that ellipses rather than
+   overflowing, which is the fallback, not the plan: if one appears, this is
+   the arithmetic to redo. */
+@media (max-width: 420px) {
+  .pin {
+    font-size: 10px;
+    padding: 3px 4px;
+    gap: 4px;
+  }
+  .pin.side-left { margin-right: 6px; }
+  .pin.side-right { margin-left: 6px; }
+  .mux-square { width: 17px; height: 17px; }
 }
 
 /* ---- one-page frame (desktop) ----

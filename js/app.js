@@ -73,6 +73,7 @@ const diagramEl = document.getElementById("diagram");
 const detailEl = document.getElementById("pin-detail");
 const legendEl = document.getElementById("legend");
 const tooltipEl = document.getElementById("tooltip");
+const sheetCloseEl = document.getElementById("sheet-close");
 
 /* Pre-production and unreleased boards ship in the data but stay out of the
    picker until ?hidden=1 asks for them. */
@@ -108,11 +109,15 @@ async function init() {
   selectEl.value = initial.id;
   selectEl.addEventListener("change", () => loadBoard(selectEl.value));
   searchEl.addEventListener("input", applySearch);
-  diagramEl.addEventListener("mouseover", onPinOver);
-  diagramEl.addEventListener("mouseout", onPinOut);
+  /* pointerover/-out rather than mouseover/-out, so the handler can see what
+     the pointer WAS -- a touch synthesises a mouseover the tooltip has no way
+     to tell from a real one. See onPinOver. */
+  diagramEl.addEventListener("pointerover", onPinOver);
+  diagramEl.addEventListener("pointerout", onPinOut);
   diagramEl.addEventListener("click", onPinClick);
   legendEl.addEventListener("click", onLegendClick);
   detailEl.addEventListener("click", onDetailClick);
+  sheetCloseEl.addEventListener("click", closeDetail);
   await loadBoard(initial.id);
 }
 
@@ -393,12 +398,23 @@ function renderLegend() {
 }
 
 function renderDetailPlaceholder() {
+  /* Nothing is selected, so the pane is back to being a pane: on a narrow
+     screen `pin-open` is what lifts it into a sheet over the drawing. Cleared
+     here rather than at each call site, because every route back to the
+     placeholder -- deselect, Close, a board switch, a legend re-render --
+     comes through this function. */
+  document.body.classList.remove("pin-open");
   detailEl.innerHTML =
     '<p class="muted">The half of each square facing the connector is the ' +
     "board's colour for that pin (yellow I2C, blue SPI, green GPIO); the far " +
     "half carries one strip per other mux the pad can reach. Hover a pin " +
-    "for its mux list, click it for the full pinmux, or click a legend entry " +
-    "to filter.</p>";
+    "for its mux list, select it for the full pinmux, or select a legend " +
+    "entry to filter.</p>";
+}
+
+function closeDetail() {
+  diagramEl.querySelectorAll(".selected").forEach((n) => n.classList.remove("selected"));
+  renderDetailPlaceholder();
 }
 
 /* ---- pin lookup + events ---- */
@@ -416,6 +432,18 @@ function pinCells(headerId, pinNum) {
 }
 
 function onPinOver(e) {
+  /* A tap raises the pointer's over event and then never a matching out, so on
+     touch this tooltip would open on the first pin and stay there, parked over
+     the sheet the same tap just raised. Nothing is lost by dropping it: the
+     tooltip's facts -- the pad name, the mux list and the groups -- are all in
+     the detail pane the tap opens.
+
+     Keyed on the pointer that raised the event, not on a media query: a
+     desktop seat with no mouse attached matches `(hover: none)` too (measured
+     on this project's own Wayland test seat, maxTouchPoints 0), and it would
+     have lost the tooltip for a machine that can hover perfectly well. Pen is
+     left alone -- it hovers. */
+  if (e.pointerType === "touch") return;
   const el = e.target.closest("[data-pin]");
   if (!el) return;
   const found = findPin(el.dataset.h, el.dataset.pin);
@@ -467,6 +495,12 @@ function onPinClick(e) {
   }
   pinCells(found.header.id, found.pin.pin).forEach((n) => n.classList.add("selected"));
   renderDetail(found.header, found.pin);
+  /* The sheet takes the bottom of the screen, so a pin tapped down there ends
+     up underneath it. scroll-margin-bottom in the stylesheet is what the
+     "nearest" edge is measured against, so this lifts the pin clear of the
+     sheet and leaves a pin already above it alone. */
+  if (document.body.classList.contains("pin-open"))
+    el.scrollIntoView({ block: "nearest", behavior: "smooth" });
 }
 
 function onLegendClick(e) {
@@ -536,6 +570,13 @@ function renderDetail(header, p) {
   const info = CLASS_INFO[primaryClass(p)] || CLASS_INFO.gpio;
   const rows = [];
   rows.push(["SoC function", p.name]);
+  /* Which buses the pad can reach, spelled out. It is the one thing the
+     tooltip said that nothing else did, and the tooltip needs a cursor --
+     on a phone the colours in the mux chips were the only trace of it. */
+  if (p.type === "gpio") {
+    rows.push(["Groups", muxClasses(p)
+      .map((c) => (CLASS_INFO[c] || CLASS_INFO.misc).label).join(" · ")]);
+  }
   if (p.chip !== null) {
     rows.push(["GPIO (libgpiod)", `gpiochip${p.chip} line ${p.line}`]);
     if (p.sysfs !== null) rows.push(["Legacy sysfs", `/sys/class/gpio/gpio${p.sysfs}`]);
@@ -608,6 +649,7 @@ gpioset gpiochip${p.chip} ${p.line}=1</pre>`;
   }
   html += renderElectrical(p);
   detailEl.innerHTML = html;
+  document.body.classList.add("pin-open");
 }
 
 /* ---- electrical ----
