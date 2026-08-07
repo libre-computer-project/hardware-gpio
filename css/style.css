@@ -47,7 +47,9 @@
    itself. */
 body {
   display: flex;
-  flex-direction: column;
+  /* -reverse, because the JS appends alts then primary and the primary
+     belongs on top -- the pin's own colour is read first. */
+  flex-direction: column-reverse;
   min-height: 100%;
   margin: 0;
   background: var(--bg);
@@ -304,7 +306,7 @@ footer {
 .pin-stack.side-left { align-items: stretch; }
 
 /* ---- mux square ----
-   Bottom half = the board's colour for that pin; top half = one vertical
+   Top half = the board's colour for that pin; bottom half = one vertical
    strip per mux the pad can be switched to.
 
    The two splits run in different directions on purpose. The primary is one
@@ -315,7 +317,9 @@ footer {
 
 .mux-square {
   display: flex;
-  flex-direction: column;
+  /* -reverse, because the JS appends alts then primary and the primary
+     belongs on top -- the pin's own colour is read first. */
+  flex-direction: column-reverse;
   flex: none;
   width: 19px;
   height: 19px;
@@ -341,7 +345,7 @@ footer {
 /* No primary half to sit beside: the alternates take the tile. */
 .mux-square.alts-only .mux-alts { flex: 1 1 100%; }
 
-.mux-square .mux-primary { border-top: 1px solid #0009; }
+.mux-square .mux-primary { border-bottom: 1px solid #0009; }
 .mux-square.solid .mux-primary { border: 0; }
 
 /* Power and ground have no alternates -- one solid colour reads better. */
