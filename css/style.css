@@ -1,0 +1,624 @@
+/* Libre Computer GPIO Pinout — dark theme, board-shaped header layout */
+
+:root {
+  --bg: #14161a;
+  --bg-raised: #1d2026;
+  --bg-pin: #22262d;
+  --bg-connector: #0e1013;
+  --border: #33383f;
+  --text: #e8eaed;
+  --text-dim: #9aa0a6;
+  --accent: #4da3ff;
+  --brass: #c9a227;
+
+  --c-power5v: #e5484d;
+  --c-power3v3: #f76b15;
+  --c-gnd: #454b54;
+  --c-gpio: #46a758;
+  /* I2C yellow / SPI blue / GPIO green match the board silkscreen. */
+  --c-i2c: #eac54f;
+  --c-spi: #3b82f6;
+  --c-uart: #a855f7;
+  --c-pwm: #ec5f87;
+  --c-i2s: #1098ad;
+  --c-pcm: #0b7285;
+  --c-tdm: #63e6be;
+  --c-spdif: #862e9e;
+  --c-pdm: #5c940d;
+  --c-dac: #087f5b;
+  --c-adc: #94d82d;
+  --c-clk: #adb5bd;
+  --c-jtag: #ff922b;
+  --c-cec: #7048e8;
+  --c-ir: #f06595;
+  --c-sdio: #66d9e8;
+  --c-nand: #8d6e63;
+  --c-video: #c2255c;
+  --c-usb: #74c0fc;
+  --c-eth: #12b886;
+  --c-misc: #6c757d;
+}
+
+* { box-sizing: border-box; }
+
+/* The pinout is a reference you read at a glance, so the frame is the window:
+   header, board and detail panel are all visible at once and the document
+   never scrolls. Only a column that genuinely overflows scrolls, inside
+   itself. */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.45 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ---- top bar ---- */
+
+#topbar {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  /* The bar keeps its full-width background and rule, but its CONTENTS line
+     up with the column everything below uses -- the class key, the headers,
+     the detail panel. Without this the brand sat at the window's left edge
+     and the search box at its right while the page proper began 520px in,
+     which reads as two unrelated layouts stacked on top of each other.
+     The 20px matches main's own gutter; max() keeps it at just the gutter
+     once the window is narrower than the column. */
+  padding: 8px max(20px, calc((100% - 1280px) / 2 + 20px));
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#brand { display: flex; align-items: baseline; gap: 10px; }
+#brand-name { font-size: 19px; font-weight: 700; letter-spacing: .3px; }
+#brand-sub { font-size: 14px; color: var(--text-dim); }
+
+#controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+#controls label { color: var(--text-dim); font-size: 13px; }
+
+select, input[type="search"] {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 14px;
+}
+
+select:focus, input[type="search"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+input[type="search"] { min-width: 240px; }
+
+/* ---- layout ---- */
+
+main {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 14px 20px 10px;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#diagram {
+  flex: 1 1 620px;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+  align-content: flex-start;
+}
+
+#panel {
+  flex: 1 1 320px;
+  min-width: 300px;
+  max-width: 460px;
+  min-height: 0;
+  overflow: auto;
+}
+
+footer {
+  flex: none;
+  padding: 6px 20px 8px;
+  color: var(--text-dim);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ---- unreleased / pre-production boards (?hidden=1) ---- */
+
+#hidden-flag {
+  border: 1px solid var(--c-jtag);
+  border-radius: 4px;
+  padding: 1px 7px;
+  color: var(--c-jtag);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+}
+
+.board-flag {
+  flex: 1 0 100%;
+  background: #ff922b18;
+  border: 1px solid var(--c-jtag);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: var(--c-jtag);
+  font-size: 13px;
+}
+
+/* ---- headers ---- */
+
+.header-block { break-inside: avoid; }
+
+.header-block h2 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin: 0 0 7px;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+
+/* Physical shape: odd-pin rail | pin numbers | even-pin rail. */
+.pin-grid-dual {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) 26px 26px minmax(150px, 1fr);
+  row-gap: 2px;
+  column-gap: 0;
+  max-width: 620px;
+  padding: 6px 0;
+}
+
+.pin-grid-strip {
+  position: relative;
+  display: grid;
+  grid-template-columns: 26px minmax(200px, 1fr);
+  row-gap: 2px;
+  column-gap: 0;
+  max-width: 320px;
+  padding: 6px 0;
+}
+
+/* The black plastic body the pads sit in. */
+.connector-body {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 62px;
+  background: var(--bg-connector);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  z-index: 0;
+}
+
+.pin-grid-strip::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 32px;
+  background: var(--bg-connector);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+}
+
+/* ---- numbered pads (the metal pins) ---- */
+
+.pin-pad {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  justify-self: center;
+  width: 20px;
+  height: 20px;
+  line-height: 18px;
+  text-align: center;
+  border: 1px solid #6b5a1f;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #d8be5c, #9a7d1c);
+  color: #17140a;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Pin 1 is square on the silkscreen — keep that cue. */
+.pin-pad.first { border-radius: 4px; box-shadow: 0 0 0 2px #fff6; }
+
+.pin-blank { display: block; }
+
+/* ---- name rails ---- */
+
+.pin {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 22px;
+  padding: 2px 6px;
+  background: var(--bg-pin);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11.5px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.pin.side-left {
+  justify-content: flex-end;
+  margin-right: 8px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.pin.side-right {
+  justify-content: flex-start;
+  margin-left: 8px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.pin .pin-label { overflow: hidden; text-overflow: ellipsis; }
+
+/* One header position, two SoC lines (each through its own series resistor) */
+.pin-stack { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.pin-stack.side-left { align-items: stretch; }
+
+/* ---- mux square ----
+   Half facing the connector = the board's colour for that pin; far half =
+   one strip per mux the pad can be switched to. */
+
+.mux-square {
+  display: flex;
+  flex: none;
+  width: 19px;
+  height: 19px;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px #0006 inset;
+}
+
+.mux-square.near-left { flex-direction: row-reverse; }
+
+.mux-alts {
+  flex: 1 1 50%;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  min-width: 0;
+}
+
+.mux-primary { flex: 1 1 50%; }
+
+.mux-square.near-right .mux-primary { border-left: 1px solid #0009; }
+.mux-square.near-left .mux-primary { border-right: 1px solid #0009; }
+.mux-square.solid .mux-primary { border: 0; }
+
+/* Power and ground have no alternates -- one solid colour reads better. */
+.mux-square.solid .mux-alts { display: none; }
+.mux-square.solid .mux-primary { flex-basis: 100%; }
+
+.mux-strip { display: block; }
+
+/* Analog pads (SARADC in, DAC line-out) are not digital GPIO: no mux, no pull
+   or drive control, no digital thresholds. Round tile + round-ringed pad, so
+   they never read as one more switchable GPIO. */
+.pin[data-analog] .mux-square { border-radius: 50%; }
+.pin[data-analog] .pin-label { font-style: italic; }
+.pin-pad[data-analog] { box-shadow: 0 0 0 2px var(--c-adc); }
+
+/* ---- states ---- */
+
+.pin.hl, .pin-pad.hl { outline: 2px solid var(--accent); outline-offset: -1px; }
+.pin.hover, .pin-pad.hover { filter: brightness(1.25); }
+.pin.dim, .pin-pad.dim { opacity: .18; }
+.pin.match, .pin-pad.match { outline: 2px solid #fff; outline-offset: -1px; }
+.pin.selected, .pin-pad.selected { outline: 2px solid #fff; outline-offset: -1px; }
+
+/* ---- detail panel ---- */
+
+#pin-detail {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+}
+
+#pin-detail h3 {
+  margin: 0 0 4px;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cls-badge {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex: none;
+}
+
+#pin-detail table {
+  border-collapse: collapse;
+  margin-top: 10px;
+  width: 100%;
+  font-size: 13px;
+}
+
+#pin-detail th {
+  text-align: left;
+  color: var(--text-dim);
+  font-weight: 500;
+  padding: 3px 12px 3px 0;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+#pin-detail td {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  padding: 3px 0;
+  word-break: break-word;
+}
+
+.mux-table { margin-top: 14px; border-top: 1px solid var(--border); }
+.mux-table th { padding-top: 8px; font-size: 12px; }
+.mux-table td { padding-right: 12px; white-space: nowrap; }
+
+/* ---- electrical section ---- */
+
+.elec-head {
+  margin: 16px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.dc-table { margin-top: 10px; }
+.dc-table th { font-size: 11.5px; padding-right: 8px; }
+.dc-table th[colspan] { color: var(--text); padding-top: 8px; }
+.dc-table td { padding-right: 8px; white-space: nowrap; }
+.dc-table td.dc-sym { font-family: inherit; font-size: 12px; color: var(--text-dim); }
+
+.elec-note, .elec-analog, .elec-none { margin-top: 8px; font-size: 12px; }
+
+/* The source citation is a title on .elec-head now -- see renderElectrical. */
+.elec-head[title] { cursor: help; text-decoration: underline dotted var(--border); }
+
+.func-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.func-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11.5px;
+}
+
+.chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex: none;
+}
+
+.func-chip { cursor: pointer; }
+.func-chip:hover { border-color: var(--text-dim); }
+.func-chip.ref { border-color: var(--accent); color: var(--accent); }
+.func-chip.focused { border-color: #fff; color: #fff; background: #ffffff1a; }
+
+/* A pin showing a mux name instead of its pad name */
+.pin.relabelled .pin-label { color: #fff; }
+
+pre.usage {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 12px;
+  overflow-x: auto;
+  margin: 10px 0 0;
+}
+
+.muted { color: var(--text-dim); margin: 0; }
+
+/* ---- legend (also a mux filter) ---- */
+
+/* Its own full-width row above the headers, not a footnote under the detail
+   card. The swatches are the key to every colour in the drawings AND the mux
+   filter, so they belong where the drawings are read from -- below the card
+   they sat off-screen on a long pin list, which is exactly when a reader
+   wants to know what a colour means. main wraps, so a 100% basis puts the
+   legend on a line of its own ahead of the diagram and the panel. */
+/* Its own band between the controls and the headers, not a footnote under
+   the detail card. The swatches are the key to every colour in the drawings
+   AND the mux filter, so they belong where the drawings are read from --
+   under the card they sat off-screen on a long pin list, which is exactly
+   when a reader wants to know what a colour means.
+
+   Outside main, because main is deliberately nowrap on desktop: it is a
+   locked two-column frame, so a full-width flex sibling cannot get a line of
+   its own there and would squeeze the diagram to zero instead. */
+#legend-bar {
+  flex: none;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 20px 0;
+}
+
+/* One row of equal columns rather than a wrapped list of ragged chips. The
+   entries are a KEY -- read by scanning for a colour, not by reading text --
+   and a ragged wrap makes every scan start over on the next line. Equal
+   columns give the eye a fixed stride.
+
+   grid-auto-flow: column with auto-columns is what keeps it to one line: no
+   count is hardcoded, so a board with 14 classes and one with 19 both fill
+   the width. minmax(0, 1fr) lets a column shrink below its content so the
+   row never overflows -- the label ellipses instead, and the full name is in
+   the title. */
+#legend {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 0 4px;
+  padding: 0 2px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;              /* or a long label refuses to let its column shrink */
+  font-size: 12px;
+  color: var(--text-dim);
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 1px 2px;
+}
+
+.legend-item span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.legend-item:hover { color: var(--text); }
+.legend-item.active { color: var(--text); background: #ffffff14; }
+
+.legend-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex: none;
+}
+
+/* ---- tooltip ---- */
+
+#tooltip {
+  position: fixed;
+  z-index: 20;
+  background: #000c;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+  pointer-events: none;
+  max-width: 340px;
+  white-space: pre-line;
+  backdrop-filter: blur(2px);
+}
+
+@media (max-width: 900px) {
+  main { padding: 16px 12px 30px; }
+  /* Stay flush with main's narrow gutter, or the legend hangs 8px proud. */
+  #legend-bar { padding: 12px 12px 0; }
+  /* One line is a wide-screen affordance. Below this, nineteen equal
+     columns would be ~45px each and every label would ellipse away, so
+     the key goes back to wrapping and each entry keeps its name. */
+  #legend { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  #panel { max-width: none; }
+  input[type="search"] { min-width: 160px; flex: 1; }
+  .pin { font-size: 10.5px; padding: 3px 5px; }
+  .pin-grid-dual { grid-template-columns: 1fr 24px 24px 1fr; }
+}
+
+/* ---- one-page frame (desktop) ----
+
+   Wide enough for both columns side by side: pin the frame to the window so
+   header, board and detail panel are visible together and the document never
+   scrolls. A column taller than the frame scrolls inside itself -- a long
+   electrical table moves the panel, not the page. Below this size the columns
+   wrap and the page scrolls normally, because a locked frame would clip them. */
+
+@media (min-width: 900px) and (min-height: 560px) {
+  html, body { height: 100%; }
+  body { overflow: hidden; }
+  main { flex-wrap: nowrap; }
+  #diagram, #panel { max-height: 100%; }
+  /* Stack the headers into COLUMNS rather than rows. Each keeps its natural
+     width -- a 40-pin header is wide because two rails of pad names are wide,
+     and squeezing it to share a row only ellipses the names. What wastes
+     space is a 4-pin header owning a whole row: La Frite's 2J2 and 9J5 are
+     four pins each next to a 20-row 7J1, so column wrap puts them one above
+     the other in the gap 7J1 leaves rather than on rows of their own.
+
+     Needs the definite height the one-page frame already gives #diagram,
+     which is why this lives here and not in the base rule -- below this size
+     the diagram has no bounded height and a column wrap would make one very
+     tall column. */
+  #diagram { flex-flow: column wrap; }
+  .header-block { flex: none; }
+}
+
+/* ---- the operating point this board actually runs ---- */
+
+/* A selectable rail prints both tables, and only one of them is true of the
+   board in front of you. The active one is marked in the border and the
+   heading rather than by hiding the other: the inactive figures still belong
+   to the pad, and a reader checking a design against the datasheet needs to
+   see that the choice exists. */
+.dc-table.dc-active {
+  border-left: 3px solid var(--accent);
+}
+
+.dc-table.dc-active th[colspan] {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.dc-table.dc-inactive {
+  opacity: .55;
+}

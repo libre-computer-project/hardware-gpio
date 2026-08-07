@@ -1,0 +1,2028 @@
+{
+ "id": "aml-s905x-cc",
+ "model": "AML-S905X-CC",
+ "name": "Le Potato",
+ "soc": "S905X",
+ "vendor": "Amlogic",
+ "status": "production",
+ "mux": {
+  "family": "meson-gxl",
+  "driver": "drivers/pinctrl/meson/pinctrl-meson-gxl.c",
+  "note": "meson8-pmx: one enable bit per pin group at base + reg*4; bit 1 selects the function, 0 = GPIO",
+  "bases": {
+   "aobus": "0xc8100014",
+   "periphs": "0xc88344b0"
+  }
+ },
+ "headers": [
+  {
+   "id": "7J1",
+   "rows": 2,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "3.3V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "3.3V",
+     "pad": "3.3V",
+     "ref": "VCC3.3V",
+     "funcs": [
+      "3.3V"
+     ],
+     "cls": "power3v3"
+    },
+    {
+     "pin": 2,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "5V",
+     "pad": "5V",
+     "ref": "VCC5V",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v"
+    },
+    {
+     "pin": 3,
+     "type": "gpio",
+     "chip": 0,
+     "line": 5,
+     "sysfs": 506,
+     "name": "GPIOAO_5",
+     "pad": "D13",
+     "ref": "I2C_SDA_AO",
+     "funcs": [
+      "UART_RX_AO_B",
+      "I2C_SDA_AO",
+      "I2C_SLAVE_SDA_AO"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_AO"
+     },
+     "muxes": [
+      {
+       "name": "UART_RX_AO_B",
+       "group": "uart_rx_ao_b",
+       "funcs": [
+        "uart_ao_b"
+       ],
+       "reg": "0xc8100014",
+       "bit": 23,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "I2C_SDA_AO",
+       "group": "i2c_sda_ao",
+       "funcs": [
+        "i2c_ao"
+       ],
+       "reg": "0xc8100014",
+       "bit": 5,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "I2C_SLAVE_SDA_AO",
+       "group": "i2c_slave_sda_ao",
+       "funcs": [
+        "i2c_slave_ao"
+       ],
+       "reg": "0xc8100014",
+       "bit": 1,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 4,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "5V",
+     "pad": "5V",
+     "ref": "VCC5V",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v"
+    },
+    {
+     "pin": 5,
+     "type": "gpio",
+     "chip": 0,
+     "line": 4,
+     "sysfs": 505,
+     "name": "GPIOAO_4",
+     "pad": "A10",
+     "ref": "I2C_SCK_AO",
+     "funcs": [
+      "UART_TX_AO_B",
+      "I2C_SCK_AO",
+      "I2C_SLAVE_SCK_AO"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_AO"
+     },
+     "muxes": [
+      {
+       "name": "UART_TX_AO_B",
+       "group": "uart_tx_ao_b",
+       "funcs": [
+        "uart_ao_b"
+       ],
+       "reg": "0xc8100014",
+       "bit": 24,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "I2C_SCK_AO",
+       "group": "i2c_sck_ao",
+       "funcs": [
+        "i2c_ao"
+       ],
+       "reg": "0xc8100014",
+       "bit": 6,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "I2C_SLAVE_SCK_AO",
+       "group": "i2c_slave_sck_ao",
+       "funcs": [
+        "i2c_slave_ao"
+       ],
+       "reg": "0xc8100014",
+       "bit": 2,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 6,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 7,
+     "type": "gpio",
+     "chip": 1,
+     "line": 98,
+     "sysfs": 499,
+     "name": "GPIOCLK_0",
+     "pad": "E9",
+     "ref": "GPIOCLK_0",
+     "funcs": [
+      "CLK24",
+      "CLK12"
+     ],
+     "cls": "clk",
+     "elec": {
+      "pad_type": "DIO_3mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "3mA",
+      "domain": "VDDIO_DV_CLK"
+     }
+    },
+    {
+     "pin": 8,
+     "type": "gpio",
+     "chip": 1,
+     "line": 91,
+     "sysfs": 492,
+     "name": "GPIOX_12",
+     "pad": "A6",
+     "ref": "UART_A_TX",
+     "funcs": [
+      "UART_TX_A"
+     ],
+     "cls": "uart",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "UART_TX_A",
+       "group": "uart_tx_a",
+       "funcs": [
+        "uart_a"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 19,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 9,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 10,
+     "type": "gpio",
+     "chip": 1,
+     "line": 92,
+     "sysfs": 493,
+     "name": "GPIOX_13",
+     "pad": "B6",
+     "ref": "UART_A_RX",
+     "funcs": [
+      "UART_RX_A"
+     ],
+     "cls": "uart",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "UART_RX_A",
+       "group": "uart_rx_a",
+       "funcs": [
+        "uart_a"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 18,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 11,
+     "type": "gpio",
+     "chip": 0,
+     "line": 8,
+     "sysfs": 509,
+     "name": "GPIOAO_8*",
+     "pad": "F17",
+     "ref": "I2SOUT-CH23",
+     "funcs": [
+      "AO_CEC",
+      "EE_CEC",
+      "I2SOUT_CH23",
+      "PWM_AO_A"
+     ],
+     "cls": "pwm",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_AO"
+     },
+     "muxes": [
+      {
+       "name": "AO_CEC",
+       "group": "ao_cec",
+       "funcs": [
+        "cec_ao"
+       ],
+       "reg": "0xc8100014",
+       "bit": 15,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "EE_CEC",
+       "group": "ee_cec",
+       "funcs": [
+        "cec_ao"
+       ],
+       "reg": "0xc8100014",
+       "bit": 14,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "I2SOUT_CH23",
+       "group": "i2s_out_ch23_ao",
+       "funcs": [
+        "i2s_out_ao"
+       ],
+       "reg": "0xc8100018",
+       "bit": 0,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "PWM_AO_A",
+       "group": "pwm_ao_a_8",
+       "funcs": [
+        "pwm_ao_a"
+       ],
+       "reg": "0xc8100014",
+       "bit": 17,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 12,
+     "type": "gpio",
+     "chip": 0,
+     "line": 6,
+     "sysfs": 507,
+     "name": "GPIOAO_6",
+     "pad": "C11",
+     "ref": "PWM_F",
+     "funcs": [
+      "I2S_IN_01",
+      "SPDIF_OUT",
+      "PWM_AO_B"
+     ],
+     "cls": "pwm",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_AO"
+     },
+     "muxes": [
+      {
+       "name": "SPDIF_OUT",
+       "group": "spdif_out_ao_6",
+       "funcs": [
+        "spdif_out_ao"
+       ],
+       "reg": "0xc8100014",
+       "bit": 16,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "PWM_AO_B",
+       "group": "pwm_ao_b_6",
+       "funcs": [
+        "pwm_ao_b"
+       ],
+       "reg": "0xc8100014",
+       "bit": 18,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 13,
+     "type": "gpio",
+     "chip": 0,
+     "line": 9,
+     "sysfs": 510,
+     "name": "GPIOAO_9",
+     "pad": "C12",
+     "ref": "I2SOUT-CH45",
+     "funcs": [
+      "REMOTE_OUTPUT",
+      "SPDIF_OUT",
+      "I2SOUT_CH45",
+      "PWM_AO_B"
+     ],
+     "cls": "pwm",
+     "elec": {
+      "pad_type": "DIO_3mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "3mA",
+      "domain": "VDDIO_AO"
+     },
+     "muxes": [
+      {
+       "name": "REMOTE_OUTPUT",
+       "source": "datasheet",
+       "bit": 31,
+       "width": 1,
+       "value": 1,
+       "register": "AO_REG"
+      },
+      {
+       "name": "SPDIF_OUT",
+       "group": "spdif_out_ao_9",
+       "funcs": [
+        "spdif_out_ao"
+       ],
+       "reg": "0xc8100014",
+       "bit": 4,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "I2SOUT_CH45",
+       "group": "i2s_out_ch45_ao",
+       "funcs": [
+        "i2s_out_ao"
+       ],
+       "reg": "0xc8100018",
+       "bit": 1,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "PWM_AO_B",
+       "group": "pwm_ao_b",
+       "funcs": [
+        "pwm_ao_b"
+       ],
+       "reg": "0xc8100014",
+       "bit": 3,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 14,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 15,
+     "type": "gpio",
+     "chip": 0,
+     "line": 10,
+     "sysfs": 511,
+     "name": "TEST_N**",
+     "pad": "B12",
+     "ref": "I2SOUT-CH67",
+     "funcs": [
+      "wd_gpio",
+      "I2SOUT_CH67"
+     ],
+     "cls": "i2s",
+     "muxes": [
+      {
+       "name": "I2SOUT_CH67",
+       "group": "i2s_out_ch67_ao",
+       "funcs": [
+        "i2s_out_ao"
+       ],
+       "reg": "0xc8100018",
+       "bit": 2,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 16,
+     "type": "gpio",
+     "chip": 1,
+     "line": 93,
+     "sysfs": 494,
+     "name": "GPIOX_14",
+     "pad": "C6",
+     "ref": "UART_A_CTS_N",
+     "funcs": [
+      "UART_CTS_A"
+     ],
+     "cls": "uart",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "UART_CTS_A",
+       "group": "uart_cts_a",
+       "funcs": [
+        "uart_a"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 17,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 17,
+     "type": "3.3V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "3.3V",
+     "pad": "3.3V",
+     "ref": "VCC3.3V",
+     "funcs": [
+      "3.3V"
+     ],
+     "cls": "power3v3"
+    },
+    {
+     "pin": 18,
+     "type": "gpio",
+     "chip": 1,
+     "line": 94,
+     "sysfs": 495,
+     "name": "GPIOX_15",
+     "pad": "C7",
+     "ref": "UART_A_RTS_N",
+     "funcs": [
+      "UART_RTS_A"
+     ],
+     "cls": "uart",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "UART_RTS_A",
+       "group": "uart_rts_a",
+       "funcs": [
+        "uart_a"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 16,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 19,
+     "type": "gpio",
+     "chip": 1,
+     "line": 87,
+     "sysfs": 488,
+     "name": "GPIOX_8",
+     "pad": "B4",
+     "ref": "BTPCM_DOUT",
+     "funcs": [
+      "PCM_OUT_A",
+      "UART_TX_C",
+      "SPI_MOSI"
+     ],
+     "cls": "spi",
+     "elec": {
+      "pad_type": "DIO_3mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "3mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "UART_TX_C",
+       "group": "uart_tx_c",
+       "funcs": [
+        "uart_c"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 13,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "SPI_MOSI",
+       "group": "spi_mosi",
+       "funcs": [
+        "spi"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 3,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 20,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 21,
+     "type": "gpio",
+     "chip": 1,
+     "line": 88,
+     "sysfs": 489,
+     "name": "GPIOX_9",
+     "pad": "B3",
+     "ref": "BTPCM_DIN",
+     "funcs": [
+      "PCM_IN_A",
+      "UART_RX_C",
+      "SPI_MISO"
+     ],
+     "cls": "spi",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "UART_RX_C",
+       "group": "uart_rx_c",
+       "funcs": [
+        "uart_c"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 12,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "SPI_MISO",
+       "group": "spi_miso",
+       "funcs": [
+        "spi"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 2,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 22,
+     "type": "gpio",
+     "chip": 1,
+     "line": 79,
+     "sysfs": 480,
+     "name": "GPIOX_0",
+     "pad": "A2",
+     "ref": "WIFI_SD_D0",
+     "funcs": [
+      "SDIO_D0"
+     ],
+     "cls": "sdio",
+     "elec": {
+      "pad_type": "DIO_4mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "4mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "SDIO_D0",
+       "group": "sdio_d0",
+       "funcs": [
+        "sdio"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 31,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 23,
+     "type": "gpio",
+     "chip": 1,
+     "line": 90,
+     "sysfs": 491,
+     "name": "GPIOX_11",
+     "pad": "C4",
+     "ref": "BTPCM_CLK",
+     "funcs": [
+      "PCM_CLK_A",
+      "UART_RTS_C",
+      "I2C_SCK_D",
+      "SPI_SCLK"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO_3mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "3mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "UART_RTS_C",
+       "group": "uart_rts_c",
+       "funcs": [
+        "uart_c"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 10,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "I2C_SCK_D",
+       "group": "i2c_sck_d",
+       "funcs": [
+        "i2c_d"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 4,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "SPI_SCLK",
+       "group": "spi_sclk",
+       "funcs": [
+        "spi"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 0,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 24,
+     "type": "gpio",
+     "chip": 1,
+     "line": 89,
+     "sysfs": 490,
+     "name": "GPIOX_10",
+     "pad": "C5",
+     "ref": "BTPCM_SYNC",
+     "funcs": [
+      "PCM_FS_A",
+      "UART_CTS_C",
+      "I2C_SDA_D",
+      "SPI_SS0"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "UART_CTS_C",
+       "group": "uart_cts_c",
+       "funcs": [
+        "uart_c"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 11,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "I2C_SDA_D",
+       "group": "i2c_sda_d",
+       "funcs": [
+        "i2c_d"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 5,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "SPI_SS0",
+       "group": "spi_ss0",
+       "funcs": [
+        "spi"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 1,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 25,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 26,
+     "type": "gpio",
+     "chip": 1,
+     "line": 80,
+     "sysfs": 481,
+     "name": "GPIOX_1",
+     "pad": "C3",
+     "ref": "WIFI_SD_D1",
+     "funcs": [
+      "SDIO_D1"
+     ],
+     "cls": "sdio",
+     "elec": {
+      "pad_type": "DIO_4mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "4mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "SDIO_D1",
+       "group": "sdio_d1",
+       "funcs": [
+        "sdio"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 30,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 27,
+     "type": "gpio",
+     "chip": 1,
+     "line": 75,
+     "sysfs": 476,
+     "name": "GPIODV_26",
+     "pad": "E2",
+     "ref": "I2C_SDA_A",
+     "funcs": [
+      "UART_CTS_B",
+      "I2C_SDA_B"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO_4mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "high-z",
+      "drive": "4mA",
+      "domain": "GPIO_DV_CLK"
+     },
+     "muxes": [
+      {
+       "name": "UART_CTS_B",
+       "group": "uart_cts_b",
+       "funcs": [
+        "uart_b"
+       ],
+       "reg": "0xc88344b8",
+       "bit": 14,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "I2C_SDA_B",
+       "group": "i2c_sda_b",
+       "funcs": [
+        "i2c_b"
+       ],
+       "reg": "0xc88344b4",
+       "bit": 13,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 28,
+     "type": "gpio",
+     "chip": 1,
+     "line": 76,
+     "sysfs": 477,
+     "name": "GPIODV_27",
+     "pad": "F3",
+     "ref": "I2C_SCK_A",
+     "funcs": [
+      "UART_RTS_B",
+      "I2C_SCK_B"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO_4mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "high-z",
+      "drive": "4mA",
+      "domain": "GPIO_DV_CLK"
+     },
+     "muxes": [
+      {
+       "name": "UART_RTS_B",
+       "group": "uart_rts_b",
+       "funcs": [
+        "uart_b"
+       ],
+       "reg": "0xc88344b8",
+       "bit": 13,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "I2C_SCK_B",
+       "group": "i2c_sck_b",
+       "funcs": [
+        "i2c_b"
+       ],
+       "reg": "0xc88344b4",
+       "bit": 12,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 29,
+     "type": "gpio",
+     "chip": 1,
+     "line": 96,
+     "sysfs": 497,
+     "name": "GPIOX_17",
+     "pad": "B5",
+     "ref": "BT_EN",
+     "funcs": [],
+     "cls": "gpio",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "drive": "2mA",
+      "domain": "VDDIO_X"
+     }
+    },
+    {
+     "pin": 30,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 31,
+     "type": "gpio",
+     "chip": 1,
+     "line": 97,
+     "sysfs": 498,
+     "name": "GPIOX_18",
+     "pad": "B7",
+     "ref": "BT_WAKE_HOST",
+     "funcs": [],
+     "cls": "gpio",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_X"
+     }
+    },
+    {
+     "pin": 32,
+     "type": "gpio",
+     "chip": 1,
+     "line": 95,
+     "sysfs": 496,
+     "name": "GPIOX_16",
+     "pad": "A3",
+     "ref": "WIFI_32K",
+     "funcs": [
+      "PWM_E"
+     ],
+     "cls": "pwm",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "PWM_E",
+       "group": "pwm_e",
+       "funcs": [
+        "pwm_e"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 15,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 33,
+     "type": "gpio",
+     "chip": 1,
+     "line": 85,
+     "sysfs": 486,
+     "name": "GPIOX_6",
+     "pad": "D2",
+     "ref": "WIFI_PWREN",
+     "funcs": [
+      "PWM_A"
+     ],
+     "cls": "pwm",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "drive": "2mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "PWM_A",
+       "group": "pwm_a",
+       "funcs": [
+        "pwm_a"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 25,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 34,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 35,
+     "type": "gpio",
+     "chip": 1,
+     "line": 86,
+     "sysfs": 487,
+     "name": "GPIOX_7",
+     "pad": "C1",
+     "ref": "WIFI_WAKE_HOST",
+     "funcs": [
+      "SDIO_IRQ",
+      "PWM_F"
+     ],
+     "cls": "pwm",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "SDIO_IRQ",
+       "group": "sdio_irq",
+       "funcs": [
+        "sdio"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 24,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "PWM_F",
+       "group": "pwm_f_x",
+       "funcs": [
+        "pwm_f"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 14,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 36,
+     "type": "gpio",
+     "chip": 1,
+     "line": 81,
+     "sysfs": 482,
+     "name": "GPIOX_2",
+     "pad": "C2",
+     "ref": "WIFI_SD_D2",
+     "funcs": [
+      "SDIO_D2"
+     ],
+     "cls": "sdio",
+     "elec": {
+      "pad_type": "DIO_4mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "4mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "SDIO_D2",
+       "group": "sdio_d2",
+       "funcs": [
+        "sdio"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 29,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 37,
+     "type": "gpio",
+     "chip": 1,
+     "line": 84,
+     "sysfs": 485,
+     "name": "GPIOX_5",
+     "pad": "D3",
+     "ref": "WIFI_SD_CMD",
+     "funcs": [
+      "SDIO_CMD"
+     ],
+     "cls": "sdio",
+     "elec": {
+      "pad_type": "DIO_4mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "4mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "SDIO_CMD",
+       "group": "sdio_cmd",
+       "funcs": [
+        "sdio"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 26,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 38,
+     "type": "gpio",
+     "chip": 1,
+     "line": 82,
+     "sysfs": 483,
+     "name": "GPIOX_3",
+     "pad": "B1",
+     "ref": "WIFI_SD_D3",
+     "funcs": [
+      "SDIO_D3"
+     ],
+     "cls": "sdio",
+     "elec": {
+      "pad_type": "DIO_4mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "4mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "SDIO_D3",
+       "group": "sdio_d3",
+       "funcs": [
+        "sdio"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 28,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 39,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 40,
+     "type": "gpio",
+     "chip": 1,
+     "line": 83,
+     "sysfs": 484,
+     "name": "GPIOX_4",
+     "pad": "B2",
+     "ref": "WIFI_SD_CLK",
+     "funcs": [
+      "SDIO_CLK"
+     ],
+     "cls": "clk",
+     "elec": {
+      "pad_type": "DIO_4mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "4mA",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "SDIO_CLK",
+       "group": "sdio_clk",
+       "funcs": [
+        "sdio"
+       ],
+       "reg": "0xc88344c4",
+       "bit": 27,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "2J3",
+   "rows": 1,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "ADC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SARADC_CH0",
+     "pad": "B8",
+     "ref": "ADC0",
+     "funcs": [
+      "SARADC_CH0"
+     ],
+     "cls": "adc",
+     "elec": {
+      "pad_type": "analog",
+      "note": "Analog input to the SoC's SAR ADC \u2014 not a digital GPIO pad, so the digital thresholds, pull and drive settings do not apply."
+     }
+    },
+    {
+     "pin": 2,
+     "type": "ADC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SARADC_CH2",
+     "pad": "F9",
+     "ref": "ADC2",
+     "funcs": [
+      "SARADC_CH2"
+     ],
+     "cls": "adc",
+     "elec": {
+      "pad_type": "analog",
+      "note": "Analog input to the SoC's SAR ADC \u2014 not a digital GPIO pad, so the digital thresholds, pull and drive settings do not apply."
+     }
+    },
+    {
+     "pin": 3,
+     "type": "gpio",
+     "chip": 1,
+     "line": 25,
+     "sysfs": 426,
+     "name": "GPIOH_9",
+     "pad": "N19",
+     "ref": "I2SOUT-CH01",
+     "funcs": [
+      "JTAG_TDO",
+      "I2SOUT_CH01",
+      "TSIN_B_VALID"
+     ],
+     "cls": "i2s",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_HZ"
+     },
+     "muxes": [
+      {
+       "name": "I2SOUT_CH01",
+       "group": "i2s_out_ch01",
+       "funcs": [
+        "i2s_out"
+       ],
+       "reg": "0xc88344c8",
+       "bit": 23,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 4,
+     "type": "gpio",
+     "chip": 1,
+     "line": 24,
+     "sysfs": 425,
+     "name": "GPIOH_8",
+     "pad": "M19",
+     "ref": "I2S-LR-CLK",
+     "funcs": [
+      "JTAG_TDI",
+      "I2S_LR_CLK_OUT",
+      "I2S_LR_CLK_IN",
+      "TSIN_B_SOP"
+     ],
+     "cls": "i2s",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_HZ"
+     },
+     "muxes": [
+      {
+       "name": "I2S_LR_CLK_OUT",
+       "group": "i2s_out_lr_clk",
+       "funcs": [
+        "i2s_out"
+       ],
+       "reg": "0xc88344c8",
+       "bit": 24,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "TSIN_B_SOP",
+       "group": "tsin_b_sop",
+       "funcs": [
+        "tsin_b"
+       ],
+       "reg": "0xc88344c8",
+       "bit": 18,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 5,
+     "type": "gpio",
+     "chip": 1,
+     "line": 23,
+     "sysfs": 424,
+     "name": "GPIOH_7",
+     "pad": "N18",
+     "ref": "I2S-AO-CLK",
+     "funcs": [
+      "JTAG_TMS",
+      "I2S_AO_CLK_OUT",
+      "I2S_AO_CLK_IN",
+      "TSIN_B_D0"
+     ],
+     "cls": "i2s",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_HZ"
+     },
+     "muxes": [
+      {
+       "name": "I2S_AO_CLK_OUT",
+       "group": "i2s_out_ao_clk",
+       "funcs": [
+        "i2s_out"
+       ],
+       "reg": "0xc88344c8",
+       "bit": 25,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "TSIN_B_D0",
+       "group": "tsin_b_d0",
+       "funcs": [
+        "tsin_b"
+       ],
+       "reg": "0xc88344c8",
+       "bit": 17,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 6,
+     "type": "gpio",
+     "chip": 1,
+     "line": 22,
+     "sysfs": 423,
+     "name": "GPIOH_6",
+     "pad": "N20",
+     "ref": "I2S-AM-CLK",
+     "funcs": [
+      "JTAG_TCK",
+      "I2S_AM_CLK",
+      "TSIN_B_CLK"
+     ],
+     "cls": "i2s",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_HZ"
+     },
+     "muxes": [
+      {
+       "name": "I2S_AM_CLK",
+       "group": "i2s_am_clk",
+       "funcs": [
+        "i2s_out"
+       ],
+       "reg": "0xc88344c8",
+       "bit": 26,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "TSIN_B_CLK",
+       "group": "tsin_b_clk",
+       "funcs": [
+        "tsin_b"
+       ],
+       "reg": "0xc88344c8",
+       "bit": 20,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 7,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 8,
+     "type": "3.3V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "3.3V",
+     "pad": "3.3V",
+     "ref": "VDDIO_AO3.3V",
+     "funcs": [
+      "3.3V"
+     ],
+     "cls": "power3v3"
+    }
+   ]
+  },
+  {
+   "id": "2J1",
+   "rows": 1,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 2,
+     "type": "gpio",
+     "chip": 0,
+     "line": 0,
+     "sysfs": 501,
+     "name": "GPIOAO_0",
+     "pad": "C9",
+     "ref": "Linux_TX",
+     "funcs": [
+      "UART_TX_AO_A",
+      "UART_TX_AO_B"
+     ],
+     "cls": "uart",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_AO"
+     },
+     "muxes": [
+      {
+       "name": "UART_TX_AO_A",
+       "group": "uart_tx_ao_a",
+       "funcs": [
+        "uart_ao"
+       ],
+       "reg": "0xc8100014",
+       "bit": 12,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "UART_TX_AO_B",
+       "group": "uart_tx_ao_b_0",
+       "funcs": [
+        "uart_ao_b"
+       ],
+       "reg": "0xc8100014",
+       "bit": 26,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 3,
+     "type": "gpio",
+     "chip": 0,
+     "line": 1,
+     "sysfs": 502,
+     "name": "GPIOAO_1",
+     "pad": "B9",
+     "ref": "Linux_RX",
+     "funcs": [
+      "UART_RX_AO_A",
+      "UART_RX_AO_B"
+     ],
+     "cls": "uart",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_AO"
+     },
+     "muxes": [
+      {
+       "name": "UART_RX_AO_A",
+       "group": "uart_rx_ao_a",
+       "funcs": [
+        "uart_ao"
+       ],
+       "reg": "0xc8100014",
+       "bit": 11,
+       "width": 1,
+       "value": 1
+      },
+      {
+       "name": "UART_RX_AO_B",
+       "group": "uart_rx_ao_b_1",
+       "funcs": [
+        "uart_ao_b"
+       ],
+       "reg": "0xc8100014",
+       "bit": 25,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9J1",
+   "rows": 1,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 2,
+     "type": "gpio",
+     "chip": 1,
+     "line": 20,
+     "sysfs": 421,
+     "name": "GPIOH_4",
+     "pad": "G19",
+     "ref": "SPDIF_OUT",
+     "funcs": [
+      "SPDIF_OUT",
+      "SPDIF_IN"
+     ],
+     "cls": "spdif",
+     "elec": {
+      "pad_type": "DIO_3mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "3mA",
+      "domain": "VDDIO_HZ"
+     },
+     "muxes": [
+      {
+       "name": "SPDIF_OUT",
+       "group": "spdif_out_h",
+       "funcs": [
+        "spdif_out"
+       ],
+       "reg": "0xc88344c8",
+       "bit": 28,
+       "width": 1,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 3,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "5V",
+     "pad": "5V",
+     "ref": "VCC5V",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v"
+    }
+   ]
+  }
+ ],
+ "electrical": {
+  "source": "S905X Datasheet, Revision 02 (2025-02-17), chapter 9 Absolute Maximum Ratings, chapter 10 Recommended Operating Conditions, chapter 12 DC Electrical Characteristics (12.1 Normal GPIO Specifications, 12.2 Open Drain GPIO Specifications).",
+  "pad_types": {
+   "DIO_4mA": {
+    "desc": "Push-pull digital IO, drive fixed at 4 mA by the pad cell"
+   },
+   "DIO_2mA": {
+    "desc": "Push-pull digital IO, drive fixed at 2 mA by the pad cell"
+   },
+   "DIO_3mA": {
+    "desc": "Push-pull digital IO, drive fixed at 3 mA by the pad cell"
+   },
+   "DIO_OD": {
+    "desc": "Digital IO"
+   },
+   "DI": {
+    "desc": "Digital IO"
+   }
+  },
+  "rails": {
+   "VDDIO_AO": {
+    "select": [
+     "3.3",
+     "1.8"
+    ],
+    "3.3": {
+     "min": "3.0",
+     "typ": "3.3",
+     "max": "3.45"
+    },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.80",
+     "max": "1.89"
+    }
+   },
+   "VDDIO_BOOT": {
+    "select": [
+     "3.3",
+     "1.8"
+    ],
+    "3.3": {
+     "min": "3.0",
+     "typ": "3.3",
+     "max": "3.45"
+    },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.80",
+     "max": "1.89"
+    }
+   },
+   "VDDIO_DV_CLK": {
+    "select": [
+     "3.3",
+     "1.8"
+    ],
+    "3.3": {
+     "min": "3.0",
+     "typ": "3.3",
+     "max": "3.45"
+    },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.80",
+     "max": "1.89"
+    }
+   },
+   "VDDIO_HZ": {
+    "select": [
+     "3.3",
+     "1.8"
+    ],
+    "3.3": {
+     "min": "3.0",
+     "typ": "3.3",
+     "max": "3.45"
+    },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.80",
+     "max": "1.89"
+    }
+   },
+   "VDDIO_X": {
+    "select": [
+     "3.3",
+     "1.8"
+    ],
+    "3.3": {
+     "min": "3.0",
+     "typ": "3.3",
+     "max": "3.45"
+    },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.80",
+     "max": "1.89"
+    }
+   }
+  },
+  "dc": {
+   "DIO_xmA": {
+    "3.3": {
+     "vih": {
+      "min": "IOVREF/2+0.3",
+      "typ": "",
+      "max": "VDDIO+0.3"
+     },
+     "vil": {
+      "min": "-0.3",
+      "typ": "",
+      "max": "IOVREF/2-0.3"
+     },
+     "voh": {
+      "min": "VDDIO-0.5",
+      "typ": "",
+      "max": ""
+     },
+     "vol": {
+      "min": "",
+      "typ": "",
+      "max": "0.4"
+     },
+     "rpu": {
+      "min": "",
+      "typ": "60K",
+      "max": ""
+     },
+     "rpd": {
+      "min": "",
+      "typ": "60K",
+      "max": ""
+     }
+    },
+    "1.8": {
+     "vih": {
+      "min": "IOVREF/2+0.3",
+      "typ": "",
+      "max": "VDDIO+0.3"
+     },
+     "vil": {
+      "min": "-0.3",
+      "typ": "",
+      "max": "IOVREF/2-0.3"
+     },
+     "voh": {
+      "min": "VDDIO-0.5",
+      "typ": "",
+      "max": ""
+     },
+     "vol": {
+      "min": "",
+      "typ": "",
+      "max": "0.4"
+     },
+     "rpu": {
+      "min": "",
+      "typ": "60K",
+      "max": ""
+     },
+     "rpd": {
+      "min": "",
+      "typ": "60K",
+      "max": ""
+     }
+    }
+   },
+   "DIO_OD": {
+    "3.3": {
+     "vih": {
+      "min": "2.2",
+      "typ": "",
+      "max": "5.5"
+     },
+     "vil": {
+      "min": "-0.3",
+      "typ": "",
+      "max": "0.8"
+     },
+     "rpu": {
+      "min": "",
+      "typ": "N/A",
+      "max": ""
+     },
+     "rpd": {
+      "min": "",
+      "typ": "N/A",
+      "max": ""
+     }
+    },
+    "1.8": {
+     "vih": {
+      "min": "2.2",
+      "typ": "",
+      "max": "5.5"
+     },
+     "vil": {
+      "min": "-0.3",
+      "typ": "",
+      "max": "0.8"
+     },
+     "rpu": {
+      "min": "",
+      "typ": "N/A",
+      "max": ""
+     },
+     "rpd": {
+      "min": "",
+      "typ": "N/A",
+      "max": ""
+     }
+    }
+   }
+  },
+  "units": {
+   "vih": "V",
+   "vil": "V",
+   "voh": "V",
+   "vol": "V",
+   "rpu": "\u03a9",
+   "rpd": "\u03a9"
+  },
+  "dc_note": "Thresholds are stated against IOVREF, a separate 1.8 V reference rail, not as a fraction of the pad's own VDDIO. On a 3.3 V G12/SM1 pad that puts Vih min near 2.17 V rather than the 2.31 V a 0.7\u00d7VDDIO rule would predict. Every VDDIO domain is LV/HV selectable, so which column applies depends on what the board feeds that rail."
+ }
+}

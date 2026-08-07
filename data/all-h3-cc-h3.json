@@ -1,0 +1,2042 @@
+{
+ "id": "all-h3-cc-h3",
+ "model": "ALL-H3-CC-H3",
+ "name": "Tritium H3",
+ "soc": "H3",
+ "vendor": "Allwinner",
+ "status": "production",
+ "mux": {
+  "family": "sunxi",
+  "driver": "drivers/pinctrl/sunxi/pinctrl-sun8i-h3.c",
+  "note": "sunxi PIO: 4-bit mux field per pin at base + bank*0x24 + (pin%32)/8*4; value from the per-pin function table",
+  "bases": {
+   "pio": "0x1c20800"
+  }
+ },
+ "headers": [
+  {
+   "id": "7J1",
+   "rows": 2,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "3.3V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "3.3V",
+     "pad": "3.3V",
+     "ref": "VCC3V3-OUT",
+     "funcs": [
+      "3.3V"
+     ],
+     "cls": "power3v3"
+    },
+    {
+     "pin": 2,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "5V",
+     "pad": "5V",
+     "ref": "VCC5V",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v"
+    },
+    {
+     "pin": 3,
+     "type": "gpio",
+     "chip": 1,
+     "line": 12,
+     "sysfs": 12,
+     "name": "PA12",
+     "pad": "C13",
+     "ref": "TWI0-SDA",
+     "funcs": [
+      "TWI0_SDA",
+      "DI_RX",
+      "PA_EINT12"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "TWI0_SDA",
+       "group": "i2c0",
+       "funcs": [
+        "i2c0"
+       ],
+       "reg": "0x1c20804",
+       "bit": 16,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "DI_RX",
+       "group": "di",
+       "funcs": [
+        "di"
+       ],
+       "reg": "0x1c20804",
+       "bit": 16,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT12",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20804",
+       "bit": 16,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 4,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "5V",
+     "pad": "5V",
+     "ref": "VCC5V",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v"
+    },
+    {
+     "pin": 5,
+     "type": "gpio",
+     "chip": 1,
+     "line": 11,
+     "sysfs": 11,
+     "name": "PA11",
+     "pad": "F11",
+     "ref": "TWI0-SCK",
+     "funcs": [
+      "TWI0_SCK",
+      "DI_TX",
+      "PA_EINT11"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "TWI0_SCK",
+       "group": "i2c0",
+       "funcs": [
+        "i2c0"
+       ],
+       "reg": "0x1c20804",
+       "bit": 12,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "DI_TX",
+       "group": "di",
+       "funcs": [
+        "di"
+       ],
+       "reg": "0x1c20804",
+       "bit": 12,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT11",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20804",
+       "bit": 12,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 6,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 7,
+     "type": "gpio",
+     "chip": 1,
+     "line": 2,
+     "sysfs": 2,
+     "name": "PA2",
+     "pad": "D6",
+     "ref": "CPUX-TDO",
+     "funcs": [
+      "UART2_RTS",
+      "JTAG_DO0",
+      "PA_EINT2"
+     ],
+     "cls": "uart",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "UART2_RTS",
+       "group": "uart2",
+       "funcs": [
+        "uart2"
+       ],
+       "reg": "0x1c20800",
+       "bit": 8,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "JTAG_DO0",
+       "group": "jtag",
+       "funcs": [
+        "jtag"
+       ],
+       "reg": "0x1c20800",
+       "bit": 8,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT2",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20800",
+       "bit": 8,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 8,
+     "type": "gpio",
+     "chip": 1,
+     "line": 198,
+     "sysfs": 198,
+     "name": "PG6",
+     "pad": "G4",
+     "ref": "AP-UART1-TX",
+     "funcs": [
+      "UART1_TX",
+      "PG_EINT6"
+     ],
+     "cls": "uart",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_PG"
+     },
+     "muxes": [
+      {
+       "name": "UART1_TX",
+       "group": "uart1",
+       "funcs": [
+        "uart1"
+       ],
+       "reg": "0x1c208d8",
+       "bit": 24,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "PG_EINT6",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c208d8",
+       "bit": 24,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 9,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 10,
+     "type": "gpio",
+     "chip": 1,
+     "line": 199,
+     "sysfs": 199,
+     "name": "PG7",
+     "pad": "D3",
+     "ref": "AP-UART1-RX",
+     "funcs": [
+      "UART1_RX",
+      "PG_EINT7"
+     ],
+     "cls": "uart",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_PG"
+     },
+     "muxes": [
+      {
+       "name": "UART1_RX",
+       "group": "uart1",
+       "funcs": [
+        "uart1"
+       ],
+       "reg": "0x1c208d8",
+       "bit": 28,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "PG_EINT7",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c208d8",
+       "bit": 28,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 11,
+     "type": "gpio",
+     "chip": 1,
+     "line": 1,
+     "sysfs": 1,
+     "name": "PA1",
+     "pad": "D5",
+     "ref": "CPUX-TCK",
+     "funcs": [
+      "UART2_RX",
+      "JTAG_CK0",
+      "PA_EINT1"
+     ],
+     "cls": "uart",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "UART2_RX",
+       "group": "uart2",
+       "funcs": [
+        "uart2"
+       ],
+       "reg": "0x1c20800",
+       "bit": 4,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "JTAG_CK0",
+       "group": "jtag",
+       "funcs": [
+        "jtag"
+       ],
+       "reg": "0x1c20800",
+       "bit": 4,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT1",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20800",
+       "bit": 4,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 12,
+     "type": "gpio",
+     "chip": 1,
+     "line": 203,
+     "sysfs": 203,
+     "name": "PG11",
+     "pad": "D2",
+     "ref": "BB-PCM-CLK",
+     "funcs": [
+      "PCM1_CLK",
+      "PG_EINT11"
+     ],
+     "cls": "pcm",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_PG"
+     },
+     "muxes": [
+      {
+       "name": "PCM1_CLK",
+       "group": "i2s1",
+       "funcs": [
+        "i2s1"
+       ],
+       "reg": "0x1c208dc",
+       "bit": 12,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "PG_EINT11",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c208dc",
+       "bit": 12,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 13,
+     "type": "gpio",
+     "chip": 1,
+     "line": 0,
+     "sysfs": 0,
+     "name": "PA0",
+     "pad": "D11",
+     "ref": "CPUX-TMS",
+     "funcs": [
+      "UART2_TX",
+      "JTAG_MS0",
+      "PA_EINT0"
+     ],
+     "cls": "uart",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "UART2_TX",
+       "group": "uart2",
+       "funcs": [
+        "uart2"
+       ],
+       "reg": "0x1c20800",
+       "bit": 0,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "JTAG_MS0",
+       "group": "jtag",
+       "funcs": [
+        "jtag"
+       ],
+       "reg": "0x1c20800",
+       "bit": 0,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT0",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20800",
+       "bit": 0,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 14,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 15,
+     "type": "gpio",
+     "chip": 1,
+     "line": 3,
+     "sysfs": 3,
+     "name": "PA3",
+     "pad": "D13",
+     "ref": "CPUX-TDI",
+     "funcs": [
+      "UART2_CTS",
+      "JTAG_DI0",
+      "PA_EINT3"
+     ],
+     "cls": "uart",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "UART2_CTS",
+       "group": "uart2",
+       "funcs": [
+        "uart2"
+       ],
+       "reg": "0x1c20800",
+       "bit": 12,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "JTAG_DI0",
+       "group": "jtag",
+       "funcs": [
+        "jtag"
+       ],
+       "reg": "0x1c20800",
+       "bit": 12,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT3",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20800",
+       "bit": 12,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 16,
+     "type": "gpio",
+     "chip": 1,
+     "line": 201,
+     "sysfs": 201,
+     "name": "PG9",
+     "pad": "D3",
+     "ref": "AP-UART1-CTS",
+     "funcs": [
+      "UART1_CTS",
+      "PG_EINT9"
+     ],
+     "cls": "uart",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_PG"
+     },
+     "muxes": [
+      {
+       "name": "UART1_CTS",
+       "group": "uart1",
+       "funcs": [
+        "uart1"
+       ],
+       "reg": "0x1c208dc",
+       "bit": 4,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "PG_EINT9",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c208dc",
+       "bit": 4,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 17,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "VCC3V3-OUT",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 18,
+     "type": "gpio",
+     "chip": 1,
+     "line": 200,
+     "sysfs": 200,
+     "name": "PG8",
+     "pad": "C3",
+     "ref": "AP-UART1-RTS",
+     "funcs": [
+      "UART1_RTS",
+      "PG_EINT8"
+     ],
+     "cls": "uart",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_PG"
+     },
+     "muxes": [
+      {
+       "name": "UART1_RTS",
+       "group": "uart1",
+       "funcs": [
+        "uart1"
+       ],
+       "reg": "0x1c208dc",
+       "bit": 0,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "PG_EINT8",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c208dc",
+       "bit": 0,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 19,
+     "type": "gpio",
+     "chip": 1,
+     "line": 64,
+     "sysfs": 64,
+     "name": "PC0",
+     "pad": "C15",
+     "ref": "SPI0-MOSI",
+     "funcs": [
+      "NAND_WE",
+      "SPI0_MOSI"
+     ],
+     "cls": "spi",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA"
+     },
+     "muxes": [
+      {
+       "name": "NAND_WE",
+       "group": "nand0",
+       "funcs": [
+        "nand0"
+       ],
+       "reg": "0x1c20848",
+       "bit": 0,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SPI0_MOSI",
+       "group": "spi0",
+       "funcs": [
+        "spi0"
+       ],
+       "reg": "0x1c20848",
+       "bit": 0,
+       "width": 4,
+       "value": 3
+      }
+     ]
+    },
+    {
+     "pin": 20,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 21,
+     "type": "gpio",
+     "chip": 1,
+     "line": 65,
+     "sysfs": 65,
+     "name": "PC1",
+     "pad": "C16",
+     "ref": "SPI0-MISO",
+     "funcs": [
+      "NAND_ALE",
+      "SPI0_MISO"
+     ],
+     "cls": "spi",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA"
+     },
+     "muxes": [
+      {
+       "name": "NAND_ALE",
+       "group": "nand0",
+       "funcs": [
+        "nand0"
+       ],
+       "reg": "0x1c20848",
+       "bit": 4,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SPI0_MISO",
+       "group": "spi0",
+       "funcs": [
+        "spi0"
+       ],
+       "reg": "0x1c20848",
+       "bit": 4,
+       "width": 4,
+       "value": 3
+      }
+     ]
+    },
+    {
+     "pin": 22,
+     "type": "gpio",
+     "chip": 1,
+     "line": 14,
+     "sysfs": 14,
+     "name": "PA14",
+     "pad": "G12",
+     "ref": "UART3-RX",
+     "funcs": [
+      "SPI1_CLK",
+      "UART3_RX",
+      "PA_EINT14"
+     ],
+     "cls": "spi",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "SPI1_CLK",
+       "group": "spi1",
+       "funcs": [
+        "spi1"
+       ],
+       "reg": "0x1c20804",
+       "bit": 24,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "UART3_RX",
+       "group": "uart3",
+       "funcs": [
+        "uart3"
+       ],
+       "reg": "0x1c20804",
+       "bit": 24,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT14",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20804",
+       "bit": 24,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 23,
+     "type": "gpio",
+     "chip": 1,
+     "line": 66,
+     "sysfs": 66,
+     "name": "PC2",
+     "pad": "B16",
+     "ref": "SPI0-CLK",
+     "funcs": [
+      "NAND_CLE",
+      "SPI0_CLK"
+     ],
+     "cls": "spi",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA"
+     },
+     "muxes": [
+      {
+       "name": "NAND_CLE",
+       "group": "nand0",
+       "funcs": [
+        "nand0"
+       ],
+       "reg": "0x1c20848",
+       "bit": 8,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SPI0_CLK",
+       "group": "spi0",
+       "funcs": [
+        "spi0"
+       ],
+       "reg": "0x1c20848",
+       "bit": 8,
+       "width": 4,
+       "value": 3
+      }
+     ]
+    },
+    {
+     "pin": 24,
+     "type": "gpio",
+     "chip": 1,
+     "line": 67,
+     "sysfs": 67,
+     "name": "PC3",
+     "pad": "B15",
+     "ref": "SPI0-CS",
+     "funcs": [
+      "NAND_CE1",
+      "SPI0_CS"
+     ],
+     "cls": "spi",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA"
+     },
+     "muxes": [
+      {
+       "name": "NAND_CE1",
+       "group": "nand0",
+       "funcs": [
+        "nand0"
+       ],
+       "reg": "0x1c20848",
+       "bit": 12,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SPI0_CS",
+       "group": "spi0",
+       "funcs": [
+        "spi0"
+       ],
+       "reg": "0x1c20848",
+       "bit": 12,
+       "width": 4,
+       "value": 3
+      }
+     ]
+    },
+    {
+     "pin": 25,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 26,
+     "type": "gpio",
+     "chip": 1,
+     "line": 17,
+     "sysfs": 17,
+     "name": "PA17",
+     "pad": "C14",
+     "ref": "SPDIF",
+     "funcs": [
+      "SPDIF_OUT",
+      "PA_EINT17"
+     ],
+     "cls": "spdif",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "SPDIF_OUT",
+       "group": "spdif",
+       "funcs": [
+        "spdif"
+       ],
+       "reg": "0x1c20808",
+       "bit": 4,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "PA_EINT17",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20808",
+       "bit": 4,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 27,
+     "type": "gpio",
+     "chip": 1,
+     "line": 19,
+     "sysfs": 19,
+     "name": "PA19",
+     "pad": "B14",
+     "ref": "I2S0-SCLK",
+     "funcs": [
+      "PCM0_CLK",
+      "TWI1_SDA",
+      "PA_EINT19"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "PCM0_CLK",
+       "group": "i2s0",
+       "funcs": [
+        "i2s0"
+       ],
+       "reg": "0x1c20808",
+       "bit": 12,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "TWI1_SDA",
+       "group": "i2c1",
+       "funcs": [
+        "i2c1"
+       ],
+       "reg": "0x1c20808",
+       "bit": 12,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT19",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20808",
+       "bit": 12,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 28,
+     "type": "gpio",
+     "chip": 1,
+     "line": 18,
+     "sysfs": 18,
+     "name": "PA18",
+     "pad": "B13",
+     "ref": "I2S0-LRCK",
+     "funcs": [
+      "PCM0_SYNC",
+      "TWI1_SCK",
+      "PA_EINT18"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "PCM0_SYNC",
+       "group": "i2s0",
+       "funcs": [
+        "i2s0"
+       ],
+       "reg": "0x1c20808",
+       "bit": 8,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "TWI1_SCK",
+       "group": "i2c1",
+       "funcs": [
+        "i2c1"
+       ],
+       "reg": "0x1c20808",
+       "bit": 8,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT18",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20808",
+       "bit": 8,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 29,
+     "type": "gpio",
+     "chip": 1,
+     "line": 20,
+     "sysfs": 20,
+     "name": "PA20",
+     "pad": "A13",
+     "ref": "I2S0-SDO",
+     "funcs": [
+      "PCM0_DOUT",
+      "SIM_VPPEN",
+      "PA_EINT20"
+     ],
+     "cls": "pcm",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "PCM0_DOUT",
+       "group": "i2s0",
+       "funcs": [
+        "i2s0"
+       ],
+       "reg": "0x1c20808",
+       "bit": 16,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SIM_VPPEN",
+       "group": "sim",
+       "funcs": [
+        "sim"
+       ],
+       "reg": "0x1c20808",
+       "bit": 16,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT20",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20808",
+       "bit": 16,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 30,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 31,
+     "type": "gpio",
+     "chip": 1,
+     "line": 21,
+     "sysfs": 21,
+     "name": "PA21",
+     "pad": "A14",
+     "ref": "I2S0-SDI",
+     "funcs": [
+      "PCM0_DIN",
+      "SIM_VPPPP",
+      "PA_EINT21"
+     ],
+     "cls": "pcm",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "PCM0_DIN",
+       "group": "i2s0",
+       "funcs": [
+        "i2s0"
+       ],
+       "reg": "0x1c20808",
+       "bit": 20,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SIM_VPPPP",
+       "group": "sim",
+       "funcs": [
+        "sim"
+       ],
+       "reg": "0x1c20808",
+       "bit": 20,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT21",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20808",
+       "bit": 20,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 32,
+     "type": "gpio",
+     "chip": 1,
+     "line": 13,
+     "sysfs": 13,
+     "name": "PA13",
+     "pad": "E15",
+     "ref": "UART3-TX",
+     "funcs": [
+      "SPI1_CS",
+      "UART3_TX",
+      "PA_EINT13"
+     ],
+     "cls": "spi",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "SPI1_CS",
+       "group": "spi1",
+       "funcs": [
+        "spi1"
+       ],
+       "reg": "0x1c20804",
+       "bit": 20,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "UART3_TX",
+       "group": "uart3",
+       "funcs": [
+        "uart3"
+       ],
+       "reg": "0x1c20804",
+       "bit": 20,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT13",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20804",
+       "bit": 20,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 33,
+     "type": "gpio",
+     "chip": 1,
+     "line": 6,
+     "sysfs": 6,
+     "name": "PA6",
+     "pad": "E14",
+     "ref": "PWM1",
+     "funcs": [
+      "SIM_PWREN",
+      "PA_EINT6"
+     ],
+     "cls": "pwm",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "SIM_PWREN",
+       "group": "sim",
+       "funcs": [
+        "sim"
+       ],
+       "reg": "0x1c20800",
+       "bit": 24,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "PA_EINT6",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20800",
+       "bit": 24,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 34,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 35,
+     "type": "gpio",
+     "chip": 1,
+     "line": 202,
+     "sysfs": 202,
+     "name": "PG10",
+     "pad": "M3",
+     "ref": "BB-PCM-SYNC",
+     "funcs": [
+      "PCM1_SYNC",
+      "PG_EINT10"
+     ],
+     "cls": "pcm",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_PG"
+     },
+     "muxes": [
+      {
+       "name": "PCM1_SYNC",
+       "group": "i2s1",
+       "funcs": [
+        "i2s1"
+       ],
+       "reg": "0x1c208dc",
+       "bit": 8,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "PG_EINT10",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c208dc",
+       "bit": 8,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 36,
+     "type": "gpio",
+     "chip": 1,
+     "line": 15,
+     "sysfs": 15,
+     "name": "PA15",
+     "pad": "F14",
+     "ref": "UART3-RTS",
+     "funcs": [
+      "SPI1_MOSI",
+      "UART3_RTS",
+      "PA_EINT15"
+     ],
+     "cls": "spi",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "SPI1_MOSI",
+       "group": "spi1",
+       "funcs": [
+        "spi1"
+       ],
+       "reg": "0x1c20804",
+       "bit": 28,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "UART3_RTS",
+       "group": "uart3",
+       "funcs": [
+        "uart3"
+       ],
+       "reg": "0x1c20804",
+       "bit": 28,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT15",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20804",
+       "bit": 28,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 37,
+     "type": "gpio",
+     "chip": 1,
+     "line": 16,
+     "sysfs": 16,
+     "name": "PA16",
+     "pad": "D15",
+     "ref": "UART3-CTS",
+     "funcs": [
+      "SPI1_MISO",
+      "UART3_CTS",
+      "PA_EINT16"
+     ],
+     "cls": "spi",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "SPI1_MISO",
+       "group": "spi1",
+       "funcs": [
+        "spi1"
+       ],
+       "reg": "0x1c20808",
+       "bit": 0,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "UART3_CTS",
+       "group": "uart3",
+       "funcs": [
+        "uart3"
+       ],
+       "reg": "0x1c20808",
+       "bit": 0,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT16",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20808",
+       "bit": 0,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 38,
+     "type": "gpio",
+     "chip": 1,
+     "line": 205,
+     "sysfs": 205,
+     "name": "PG13",
+     "pad": "B1",
+     "ref": "BB-PCM-DIN",
+     "funcs": [
+      "PCM1_DIN",
+      "PG_EINT13"
+     ],
+     "cls": "pcm",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_PG"
+     },
+     "muxes": [
+      {
+       "name": "PCM1_DIN",
+       "group": "i2s1",
+       "funcs": [
+        "i2s1"
+       ],
+       "reg": "0x1c208dc",
+       "bit": 20,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "PG_EINT13",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c208dc",
+       "bit": 20,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 39,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 40,
+     "type": "gpio",
+     "chip": 1,
+     "line": 204,
+     "sysfs": 204,
+     "name": "PG12",
+     "pad": "D1",
+     "ref": "BB-PCM-DOUT",
+     "funcs": [
+      "PCM1_DOUT",
+      "PG_EINT12"
+     ],
+     "cls": "pcm",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_PG"
+     },
+     "muxes": [
+      {
+       "name": "PCM1_DOUT",
+       "group": "i2s1",
+       "funcs": [
+        "i2s1"
+       ],
+       "reg": "0x1c208dc",
+       "bit": 16,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "PG_EINT12",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c208dc",
+       "bit": 16,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "2J3",
+   "rows": 1,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 2,
+     "type": "gpio",
+     "chip": 1,
+     "line": 4,
+     "sysfs": 4,
+     "name": "PA4",
+     "pad": "F5",
+     "ref": "CPUX-TX",
+     "funcs": [
+      "UART0_TX",
+      "PA_EINT4"
+     ],
+     "cls": "uart",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "UART0_TX",
+       "group": "uart0",
+       "funcs": [
+        "uart0"
+       ],
+       "reg": "0x1c20800",
+       "bit": 16,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "PA_EINT4",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20800",
+       "bit": 16,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 3,
+     "type": "gpio",
+     "chip": 1,
+     "line": 5,
+     "sysfs": 5,
+     "name": "PA5",
+     "pad": "H6",
+     "ref": "CPUX-RX",
+     "funcs": [
+      "UART0_RX",
+      "PWM0",
+      "PA_EINT5"
+     ],
+     "cls": "uart",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "Z",
+      "drive": "20 mA",
+      "domain": "VCC_IO"
+     },
+     "muxes": [
+      {
+       "name": "UART0_RX",
+       "group": "uart0",
+       "funcs": [
+        "uart0"
+       ],
+       "reg": "0x1c20800",
+       "bit": 20,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "PWM0",
+       "group": "pwm0",
+       "funcs": [
+        "pwm0"
+       ],
+       "reg": "0x1c20800",
+       "bit": 20,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "PA_EINT5",
+       "group": "irq",
+       "funcs": [
+        "irq"
+       ],
+       "reg": "0x1c20800",
+       "bit": 20,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "electrical": {
+  "source": "H3 datasheet v1.2, Table 9-1 (absolute maximum ratings) + Table 9-2 (recommended operating conditions) + Table 9-3 (DC electrical characteristics)",
+  "applies_to": "Per IO power domain. The DC table states one set of thresholds as fractions of the pad's own supply rail, so read it together with the pad's `power_supply` and that rail's row in `recommended_operating_conditions`.",
+  "rails": {
+   "VCC_IO": {
+    "select": [
+     "VCC_IO"
+    ],
+    "min": "1.7",
+    "typ": "1.8~3.3",
+    "max": "3.6",
+    "unit": "V"
+   },
+   "VCC_PD": {
+    "select": [
+     "VCC_PD"
+    ],
+    "min": "1.7",
+    "typ": "1.8~3.3",
+    "max": "3.6",
+    "unit": "V"
+   },
+   "VCC_PG": {
+    "select": [
+     "VCC_PG"
+    ],
+    "min": "1.7",
+    "typ": "1.8~3.3",
+    "max": "3.6",
+    "unit": "V"
+   },
+   "VCC_PLL": {
+    "select": [
+     "VCC_PLL"
+    ],
+    "min": "3.0",
+    "typ": "3.3",
+    "max": "3.6",
+    "unit": "V"
+   },
+   "VCC_RTC": {
+    "select": [
+     "VCC_RTC"
+    ],
+    "min": "3.0",
+    "typ": "3.3",
+    "max": "3.6",
+    "unit": "V"
+   },
+   "VCC_USB": {
+    "select": [
+     "VCC_USB"
+    ],
+    "min": "3.0",
+    "typ": "3.3",
+    "max": "3.45",
+    "unit": "V"
+   },
+   "VCC-DRAM": {
+    "select": [
+     "VCC-DRAM"
+    ],
+    "min": "1.425",
+    "typ": "1.5",
+    "max": "1.575",
+    "unit": "V"
+   }
+  },
+  "dc": {
+   "VCC_IO": {
+    "vih": {
+     "min": "0.7*VCC_IO",
+     "typ": "-",
+     "max": "VCC_IO+0.3"
+    },
+    "vil": {
+     "min": "-0.3",
+     "typ": "-",
+     "max": "0.3*VCC_IO"
+    },
+    "rpu": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "rpd": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "voh": {
+     "min": "VCC_IO-0.2",
+     "typ": "-",
+     "max": "VCC_IO"
+    },
+    "vol": {
+     "min": "0",
+     "typ": "-",
+     "max": "0.2"
+    }
+   },
+   "VCC_PD": {
+    "vih": {
+     "min": "0.7*VCC_IO",
+     "typ": "-",
+     "max": "VCC_IO+0.3"
+    },
+    "vil": {
+     "min": "-0.3",
+     "typ": "-",
+     "max": "0.3*VCC_IO"
+    },
+    "rpu": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "rpd": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "voh": {
+     "min": "VCC_IO-0.2",
+     "typ": "-",
+     "max": "VCC_IO"
+    },
+    "vol": {
+     "min": "0",
+     "typ": "-",
+     "max": "0.2"
+    }
+   },
+   "VCC_PG": {
+    "vih": {
+     "min": "0.7*VCC_IO",
+     "typ": "-",
+     "max": "VCC_IO+0.3"
+    },
+    "vil": {
+     "min": "-0.3",
+     "typ": "-",
+     "max": "0.3*VCC_IO"
+    },
+    "rpu": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "rpd": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "voh": {
+     "min": "VCC_IO-0.2",
+     "typ": "-",
+     "max": "VCC_IO"
+    },
+    "vol": {
+     "min": "0",
+     "typ": "-",
+     "max": "0.2"
+    }
+   },
+   "VCC_PLL": {
+    "vih": {
+     "min": "0.7*VCC_IO",
+     "typ": "-",
+     "max": "VCC_IO+0.3"
+    },
+    "vil": {
+     "min": "-0.3",
+     "typ": "-",
+     "max": "0.3*VCC_IO"
+    },
+    "rpu": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "rpd": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "voh": {
+     "min": "VCC_IO-0.2",
+     "typ": "-",
+     "max": "VCC_IO"
+    },
+    "vol": {
+     "min": "0",
+     "typ": "-",
+     "max": "0.2"
+    }
+   },
+   "VCC_RTC": {
+    "vih": {
+     "min": "0.7*VCC_IO",
+     "typ": "-",
+     "max": "VCC_IO+0.3"
+    },
+    "vil": {
+     "min": "-0.3",
+     "typ": "-",
+     "max": "0.3*VCC_IO"
+    },
+    "rpu": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "rpd": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "voh": {
+     "min": "VCC_IO-0.2",
+     "typ": "-",
+     "max": "VCC_IO"
+    },
+    "vol": {
+     "min": "0",
+     "typ": "-",
+     "max": "0.2"
+    }
+   },
+   "VCC_USB": {
+    "vih": {
+     "min": "0.7*VCC_IO",
+     "typ": "-",
+     "max": "VCC_IO+0.3"
+    },
+    "vil": {
+     "min": "-0.3",
+     "typ": "-",
+     "max": "0.3*VCC_IO"
+    },
+    "rpu": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "rpd": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "voh": {
+     "min": "VCC_IO-0.2",
+     "typ": "-",
+     "max": "VCC_IO"
+    },
+    "vol": {
+     "min": "0",
+     "typ": "-",
+     "max": "0.2"
+    }
+   },
+   "VCC-DRAM": {
+    "vih": {
+     "min": "0.7*VCC_IO",
+     "typ": "-",
+     "max": "VCC_IO+0.3"
+    },
+    "vil": {
+     "min": "-0.3",
+     "typ": "-",
+     "max": "0.3*VCC_IO"
+    },
+    "rpu": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "rpd": {
+     "min": "50",
+     "typ": "100",
+     "max": "150"
+    },
+    "voh": {
+     "min": "VCC_IO-0.2",
+     "typ": "-",
+     "max": "VCC_IO"
+    },
+    "vol": {
+     "min": "0",
+     "typ": "-",
+     "max": "0.2"
+    }
+   }
+  },
+  "units": {
+   "vih": "V",
+   "vil": "V",
+   "rpu": "K\u03a9",
+   "rpd": "K\u03a9",
+   "voh": "V",
+   "vol": "V"
+  },
+  "pad_types": {}
+ }
+}

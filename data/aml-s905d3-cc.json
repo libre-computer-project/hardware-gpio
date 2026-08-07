@@ -1,0 +1,1767 @@
+{
+ "id": "aml-s905d3-cc",
+ "model": "AML-S905D3-CC",
+ "name": "Solitude",
+ "soc": "S905D3",
+ "vendor": "Amlogic",
+ "status": "production",
+ "mux": {
+  "family": "meson-g12a",
+  "driver": "drivers/pinctrl/meson/pinctrl-meson-g12a.c",
+  "note": "meson-axg-pmx: 4-bit mux field per pin at base + reg*4; the written value is the group's mux setting (0 = GPIO)",
+  "bases": {
+   "aobus": "0xff800014",
+   "periphs": "0xff6346c0"
+  }
+ },
+ "headers": [
+  {
+   "id": "7J1",
+   "rows": 2,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "3.3V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "3.3V",
+     "pad": "3.3V",
+     "ref": "VCC3.3V",
+     "funcs": [
+      "3.3V"
+     ],
+     "cls": "power3v3"
+    },
+    {
+     "pin": 2,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "5V",
+     "pad": "5V",
+     "ref": "VCC5V",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v"
+    },
+    {
+     "pin": 3,
+     "type": "gpio",
+     "chip": 1,
+     "line": 3,
+     "sysfs": 18,
+     "name": "GPIOAO_3",
+     "pad": "BF13",
+     "ref": "I2C_AO_M0_SDA",
+     "funcs": [
+      "I2C_AO_M0_SDA",
+      "UART_AO_B_RX",
+      "I2C_AO_S0_SDA"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "domain": "VDDIO_AO"
+     }
+    },
+    {
+     "pin": 4,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "5V",
+     "pad": "5V",
+     "ref": "VCC5V",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v"
+    },
+    {
+     "pin": 5,
+     "type": "gpio",
+     "chip": 1,
+     "line": 2,
+     "sysfs": 17,
+     "name": "GPIOAO_2",
+     "pad": "AU40",
+     "ref": "I2C_AO_M0_SCL",
+     "funcs": [
+      "I2C_AO_M0_SCL",
+      "UART_AO_B_TX",
+      "I2C_AO_S0_SCL"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_AO"
+     }
+    },
+    {
+     "pin": 6,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 7,
+     "type": "gpio",
+     "chip": 1,
+     "line": 6,
+     "sysfs": 21,
+     "name": "GPIOAO_6",
+     "pad": "AV44",
+     "ref": "GPIOAO_6/JTAG_CLK",
+     "funcs": [
+      "JTAG_A_CLK",
+      "PWMAO_C",
+      "TSIN_A_SOP",
+      "TDMB_D2",
+      "TDMB_DIN2"
+     ],
+     "cls": "pwm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_AO"
+     }
+    },
+    {
+     "pin": 8,
+     "type": "gpio",
+     "chip": 1,
+     "line": 8,
+     "sysfs": 23,
+     "name": "GPIOAO_8",
+     "pad": "AT42",
+     "ref": "GPIOAO_8/JTAG_TDI",
+     "funcs": [
+      "JTAG_A_TDI",
+      "UART_AO_B_TX",
+      "TSIN_A_CLK",
+      "TDMB_SCLK",
+      "TDMB_SLV_SCLK"
+     ],
+     "cls": "uart",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "domain": "VDDIO_AO"
+     }
+    },
+    {
+     "pin": 9,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 10,
+     "type": "gpio",
+     "chip": 1,
+     "line": 9,
+     "sysfs": 24,
+     "name": "GPIOAO_9",
+     "pad": "AT44",
+     "ref": "GPIOAO_9/JTAG_TDO",
+     "funcs": [
+      "JTAG_A_TDO",
+      "IR_REMOTE_OUT",
+      "UART_AO_B_RX",
+      "TSIN_A_VALID",
+      "MCLK_0"
+     ],
+     "cls": "uart",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_AO"
+     },
+     "muxes": [
+      {
+       "name": "MCLK_0",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff800018",
+       "register": "AO_RTI_PIN_MUX_REG1"
+      }
+     ]
+    },
+    {
+     "pin": 11,
+     "type": "gpio",
+     "chip": 1,
+     "line": 7,
+     "sysfs": 22,
+     "name": "GPIOAO_7",
+     "pad": "AV46",
+     "ref": "GPIOAO_7/JTAG_TMS",
+     "funcs": [
+      "JTAG_A_TMS",
+      "TSIN_A_DIN0",
+      "TDMB_FS",
+      "TDMB_SLV_FS"
+     ],
+     "cls": "tdm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "domain": "VDDIO_AO"
+     }
+    },
+    {
+     "pin": 12,
+     "type": "gpio",
+     "chip": 0,
+     "line": 76,
+     "sysfs": 76,
+     "name": "GPIOX_11",
+     "pad": "BF34",
+     "ref": "PCM_CLK",
+     "funcs": [
+      "TDMA_SCLK",
+      "TDMA_SLV_SCLK",
+      "TSIN_B_CLK",
+      "SPI_A_SCLK",
+      "I2C_EE_M1_SCL"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "TDMA_SCLK",
+       "source": "datasheet",
+       "bit": 12,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "TSIN_B_CLK",
+       "source": "datasheet",
+       "bit": 12,
+       "width": 4,
+       "value": 3,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "SPI_A_SCLK",
+       "source": "datasheet",
+       "bit": 12,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "I2C_EE_M1_SCL",
+       "source": "datasheet",
+       "bit": 12,
+       "width": 4,
+       "value": 5,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      }
+     ]
+    },
+    {
+     "pin": 13,
+     "type": "gpio",
+     "chip": 0,
+     "line": 57,
+     "sysfs": 57,
+     "name": "GPIOA_8",
+     "pad": "A15",
+     "ref": "GPIOA_8",
+     "funcs": [
+      "PDM_DIN0",
+      "TDMC_D2",
+      "TDMC_DIN2",
+      "TDMB_D5"
+     ],
+     "cls": "pdm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_A"
+     },
+     "muxes": [
+      {
+       "name": "PDM_DIN0",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346f8",
+       "register": "PERIPHS_PIN_MUX_E"
+      },
+      {
+       "name": "TDMC_D2",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346f8",
+       "register": "PERIPHS_PIN_MUX_E"
+      },
+      {
+       "name": "TDMC_DIN2",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 3,
+       "reg": "0xff6346f8",
+       "register": "PERIPHS_PIN_MUX_E"
+      },
+      {
+       "name": "TDMB_D5",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff6346f8",
+       "register": "PERIPHS_PIN_MUX_E"
+      }
+     ]
+    },
+    {
+     "pin": 14,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 15,
+     "type": "gpio",
+     "chip": 0,
+     "line": 49,
+     "sysfs": 49,
+     "name": "GPIOA_0",
+     "pad": "A19",
+     "ref": "GPIOA_0",
+     "funcs": [
+      "MCLK_0",
+      "TDMB_D7"
+     ],
+     "cls": "tdm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_A"
+     },
+     "muxes": [
+      {
+       "name": "MCLK_0",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMB_D7",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      }
+     ]
+    },
+    {
+     "pin": 16,
+     "type": "gpio",
+     "chip": 0,
+     "line": 53,
+     "sysfs": 53,
+     "name": "GPIOA_4",
+     "pad": "G16",
+     "ref": "GPIOA_4",
+     "funcs": [
+      "TDMB_D1",
+      "TDMB_DIN1",
+      "PWM_D"
+     ],
+     "cls": "pwm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_A"
+     },
+     "muxes": [
+      {
+       "name": "TDMB_D1",
+       "source": "datasheet",
+       "bit": 16,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMB_DIN1",
+       "source": "datasheet",
+       "bit": 16,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "PWM_D",
+       "source": "datasheet",
+       "bit": 16,
+       "width": 4,
+       "value": 3,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      }
+     ]
+    },
+    {
+     "pin": 17,
+     "type": "3.3V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "3.3V",
+     "pad": "3.3V",
+     "ref": "VCC3.3V",
+     "funcs": [
+      "3.3V"
+     ],
+     "cls": "power3v3"
+    },
+    {
+     "pin": 18,
+     "type": "gpio",
+     "chip": 0,
+     "line": 54,
+     "sysfs": 54,
+     "name": "GPIOA_5",
+     "pad": "J13",
+     "ref": "GPIOA_5",
+     "funcs": [
+      "PDM_DIN3",
+      "TDMB_DIN2",
+      "TDMB_D2",
+      "TDMC_D5"
+     ],
+     "cls": "pdm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_A"
+     },
+     "muxes": [
+      {
+       "name": "PDM_DIN3",
+       "source": "datasheet",
+       "bit": 20,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMB_DIN2",
+       "source": "datasheet",
+       "bit": 20,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMB_D2",
+       "source": "datasheet",
+       "bit": 20,
+       "width": 4,
+       "value": 3,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMC_D5",
+       "source": "datasheet",
+       "bit": 20,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      }
+     ]
+    },
+    {
+     "pin": 19,
+     "type": "gpio",
+     "chip": 0,
+     "line": 20,
+     "sysfs": 20,
+     "name": "GPIOH_4",
+     "pad": "W40",
+     "ref": "SPI_B_MOSI",
+     "funcs": [
+      "SPDIF_OUT",
+      "UART_EE_C_RTS",
+      "SPI_B_MOSI"
+     ],
+     "cls": "spi",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_H"
+     }
+    },
+    {
+     "pin": 20,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 21,
+     "type": "gpio",
+     "chip": 0,
+     "line": 21,
+     "sysfs": 21,
+     "name": "GPIOH_5",
+     "pad": "W38",
+     "ref": "SPI_B_MISO",
+     "funcs": [
+      "SPDIF_IN",
+      "UART_EE_C_CTS",
+      "SPI_B_MISO",
+      "PWM_F",
+      "TDMB_D3",
+      "TDMB_DIN3"
+     ],
+     "cls": "spi",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_H"
+     },
+     "muxes": [
+      {
+       "name": "SPDIF_IN",
+       "source": "datasheet",
+       "bit": 20,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346ec",
+       "register": "PERIPHS_PIN_MUX_B"
+      },
+      {
+       "name": "PWM_F",
+       "source": "datasheet",
+       "bit": 20,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346ec",
+       "register": "PERIPHS_PIN_MUX_B"
+      },
+      {
+       "name": "TDMB_D3",
+       "source": "datasheet",
+       "bit": 20,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346ec",
+       "register": "PERIPHS_PIN_MUX_B"
+      }
+     ]
+    },
+    {
+     "pin": 22,
+     "type": "gpio",
+     "chip": 0,
+     "line": 55,
+     "sysfs": 55,
+     "name": "GPIOA_6",
+     "pad": "E15",
+     "ref": "GPIOA_6",
+     "funcs": [
+      "PDM_DIN2",
+      "TDMB_DIN3",
+      "TDMB_D3",
+      "TDMC_D4"
+     ],
+     "cls": "pdm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_A"
+     },
+     "muxes": [
+      {
+       "name": "PDM_DIN2",
+       "source": "datasheet",
+       "bit": 24,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMB_DIN3",
+       "source": "datasheet",
+       "bit": 24,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMB_D3",
+       "source": "datasheet",
+       "bit": 24,
+       "width": 4,
+       "value": 3,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMC_D4",
+       "source": "datasheet",
+       "bit": 24,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      }
+     ]
+    },
+    {
+     "pin": 23,
+     "type": "gpio",
+     "chip": 0,
+     "line": 23,
+     "sysfs": 23,
+     "name": "GPIOH_7",
+     "pad": "AB38",
+     "ref": "SPI_B_SCLK",
+     "funcs": [
+      "ISO7816_DATA",
+      "UART_EE_C_TX",
+      "SPI_B_SCLK",
+      "I2C_EE_M1_SCL",
+      "PWM_B"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_H"
+     },
+     "muxes": [
+      {
+       "name": "PWM_B",
+       "source": "datasheet",
+       "bit": 28,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346ec",
+       "register": "PERIPHS_PIN_MUX_B"
+      }
+     ]
+    },
+    {
+     "pin": 24,
+     "type": "gpio",
+     "chip": 0,
+     "line": 22,
+     "sysfs": 22,
+     "name": "GPIOH_6",
+     "pad": "H40",
+     "ref": "SPI_B_SS0",
+     "funcs": [
+      "ISO7816_CLK",
+      "UART_EE_C_RX",
+      "SPI_B_SS0",
+      "I2C_EE_M1_SDA",
+      "IR_REMOTE_OUT"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_H"
+     }
+    },
+    {
+     "pin": 25,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 26,
+     "type": "gpio",
+     "chip": 0,
+     "line": 58,
+     "sysfs": 58,
+     "name": "GPIOA_9",
+     "pad": "C15",
+     "ref": "GPIOA_9",
+     "funcs": [
+      "PDM_DIN1",
+      "TDMC_D1",
+      "TDMC_DIN1",
+      "TDMB_D6"
+     ],
+     "cls": "pdm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_A"
+     },
+     "muxes": [
+      {
+       "name": "PDM_DIN1",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346f8",
+       "register": "PERIPHS_PIN_MUX_E"
+      },
+      {
+       "name": "TDMC_D1",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346f8",
+       "register": "PERIPHS_PIN_MUX_E"
+      },
+      {
+       "name": "TDMC_DIN1",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 3,
+       "reg": "0xff6346f8",
+       "register": "PERIPHS_PIN_MUX_E"
+      },
+      {
+       "name": "TDMB_D6",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff6346f8",
+       "register": "PERIPHS_PIN_MUX_E"
+      }
+     ]
+    },
+    {
+     "pin": 27,
+     "type": "gpio",
+     "chip": 0,
+     "line": 82,
+     "sysfs": 82,
+     "name": "GPIOX_17",
+     "pad": "BF31",
+     "ref": "I2C_EE_M2_SDA",
+     "funcs": [
+      "I2C_EE_M2_SDA"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "I2C_EE_M2_SDA",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346d4",
+       "register": "PERIPHS_PIN_MUX_5"
+      }
+     ]
+    },
+    {
+     "pin": 28,
+     "type": "gpio",
+     "chip": 0,
+     "line": 83,
+     "sysfs": 83,
+     "name": "GPIOX_18",
+     "pad": "BM24",
+     "ref": "I2C_EE_M2_SCL",
+     "funcs": [
+      "I2C_EE_M2_SCL"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "I2C_EE_M2_SCL",
+       "source": "datasheet",
+       "bit": 8,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346d4",
+       "register": "PERIPHS_PIN_MUX_5"
+      }
+     ]
+    },
+    {
+     "pin": 29,
+     "type": "gpio",
+     "chip": 0,
+     "line": 50,
+     "sysfs": 50,
+     "name": "GPIOA_1",
+     "pad": "C19",
+     "ref": "GPIOA_1",
+     "funcs": [
+      "TDMB_SCLK",
+      "TDMB_SLV_SCLK"
+     ],
+     "cls": "tdm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_A"
+     },
+     "muxes": [
+      {
+       "name": "TDMB_SCLK",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMB_SLV_SCLK",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      }
+     ]
+    },
+    {
+     "pin": 30,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 31,
+     "type": "gpio",
+     "chip": 0,
+     "line": 51,
+     "sysfs": 51,
+     "name": "GPIOA_2",
+     "pad": "E17",
+     "ref": "GPIOA_2",
+     "funcs": [
+      "TDMB_FS",
+      "TDMB_SLV_FS"
+     ],
+     "cls": "tdm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_A"
+     },
+     "muxes": [
+      {
+       "name": "TDMB_FS",
+       "source": "datasheet",
+       "bit": 8,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMB_SLV_FS",
+       "source": "datasheet",
+       "bit": 8,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      }
+     ]
+    },
+    {
+     "pin": 32,
+     "type": "gpio",
+     "chip": 0,
+     "line": 60,
+     "sysfs": 60,
+     "name": "GPIOA_11",
+     "pad": "G22",
+     "ref": "GPIOA_11",
+     "funcs": [
+      "SPDIF_OUT",
+      "MCLK_1",
+      "PWM_F"
+     ],
+     "cls": "pwm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_A"
+     },
+     "muxes": [
+      {
+       "name": "SPDIF_OUT",
+       "source": "datasheet",
+       "bit": 12,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346f8",
+       "register": "PERIPHS_PIN_MUX_E"
+      },
+      {
+       "name": "MCLK_1",
+       "source": "datasheet",
+       "bit": 12,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346f8",
+       "register": "PERIPHS_PIN_MUX_E"
+      },
+      {
+       "name": "PWM_F",
+       "source": "datasheet",
+       "bit": 12,
+       "width": 4,
+       "value": 3,
+       "reg": "0xff6346f8",
+       "register": "PERIPHS_PIN_MUX_E"
+      }
+     ]
+    },
+    {
+     "pin": 33,
+     "type": "gpio",
+     "chip": 0,
+     "line": 70,
+     "sysfs": 70,
+     "name": "GPIOX_5",
+     "pad": "BK38",
+     "ref": "GPIOX_5",
+     "funcs": [
+      "SDIO_CMD",
+      "SDCARD_CMD",
+      "MCLK_1",
+      "PWM_C"
+     ],
+     "cls": "pwm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "SDIO_CMD",
+       "source": "datasheet",
+       "bit": 20,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346cc",
+       "register": "PERIPHS_PIN_MUX_3"
+      },
+      {
+       "name": "SDCAR-D_CMD",
+       "source": "datasheet",
+       "bit": 20,
+       "width": 4,
+       "value": 5,
+       "reg": "0xff6346cc",
+       "register": "PERIPHS_PIN_MUX_3"
+      },
+      {
+       "name": "MCLK_1",
+       "source": "datasheet",
+       "bit": 20,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346cc",
+       "register": "PERIPHS_PIN_MUX_3"
+      },
+      {
+       "name": "PWM_C",
+       "source": "datasheet",
+       "bit": 20,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff6346cc",
+       "register": "PERIPHS_PIN_MUX_3"
+      }
+     ]
+    },
+    {
+     "pin": 34,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 35,
+     "type": "gpio",
+     "chip": 0,
+     "line": 75,
+     "sysfs": 75,
+     "name": "GPIOX_10",
+     "pad": "BD31",
+     "ref": "PCM_SYNC",
+     "funcs": [
+      "TDMA_FS",
+      "TDMA_SLV_FS",
+      "TSIN_B_DIN0",
+      "SPI_A_SS0",
+      "I2C_EE_M1_SDA"
+     ],
+     "cls": "i2c",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "TDMA_FS",
+       "source": "datasheet",
+       "bit": 8,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "TDMA_SLV_FS",
+       "source": "datasheet",
+       "bit": 8,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "TSIN_B_DIN0",
+       "source": "datasheet",
+       "bit": 8,
+       "width": 4,
+       "value": 3,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "I2C_EE_M1_SDA",
+       "source": "datasheet",
+       "bit": 8,
+       "width": 4,
+       "value": 5,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      }
+     ]
+    },
+    {
+     "pin": 36,
+     "type": "gpio",
+     "chip": 0,
+     "line": 56,
+     "sysfs": 56,
+     "name": "GPIOA_7",
+     "pad": "J16",
+     "ref": "GPIOA_7",
+     "funcs": [
+      "PDM_DCLK",
+      "TDMC_D3",
+      "TDMC_DIN3",
+      "TDMB_D4"
+     ],
+     "cls": "pdm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_A"
+     },
+     "muxes": [
+      {
+       "name": "PDM_DCLK",
+       "source": "datasheet",
+       "bit": 28,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMC_D3",
+       "source": "datasheet",
+       "bit": 28,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMC_DIN3",
+       "source": "datasheet",
+       "bit": 28,
+       "width": 4,
+       "value": 3,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMB_D4",
+       "source": "datasheet",
+       "bit": 28,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      }
+     ]
+    },
+    {
+     "pin": 37,
+     "type": "gpio",
+     "chip": 0,
+     "line": 52,
+     "sysfs": 52,
+     "name": "GPIOA_3",
+     "pad": "C17",
+     "ref": "GPIOA_3",
+     "funcs": [
+      "TDMB_D0",
+      "TDMB_DIN0"
+     ],
+     "cls": "tdm",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-down",
+      "domain": "VDDIO_A"
+     },
+     "muxes": [
+      {
+       "name": "TDMB_D0",
+       "source": "datasheet",
+       "bit": 12,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      },
+      {
+       "name": "TDMB_DIN0",
+       "source": "datasheet",
+       "bit": 12,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346f4",
+       "register": "PERIPHS_PIN_MUX_D"
+      }
+     ]
+    },
+    {
+     "pin": 38,
+     "type": "gpio",
+     "chip": 0,
+     "line": 73,
+     "sysfs": 73,
+     "name": "GPIOX_8",
+     "pad": "BB34",
+     "ref": "PCM_DIN",
+     "funcs": [
+      "TDMA_D1",
+      "TDMA_DIN1",
+      "TSIN_B_SOP",
+      "SPI_A_MOSI",
+      "PWM_C",
+      "ISO7816_CLK"
+     ],
+     "cls": "spi",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "TDMA_D1",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "TDMA_DIN1",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "TSIN_B_SOP",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 3,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "SPI_A_MOSI",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "PWM_C",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 5,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      }
+     ]
+    },
+    {
+     "pin": 39,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 40,
+     "type": "gpio",
+     "chip": 0,
+     "line": 74,
+     "sysfs": 74,
+     "name": "GPIOX_9",
+     "pad": "BD34",
+     "ref": "PCM_DOUT",
+     "funcs": [
+      "TDMA_D0",
+      "TDMA_DIN0",
+      "TSIN_B_VALID",
+      "SPI_A_MISO",
+      "ISO7816_DATA"
+     ],
+     "cls": "spi",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "domain": "VDDIO_X"
+     },
+     "muxes": [
+      {
+       "name": "TDMA_D0",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "TDMA_DIN0",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "TSIN_B_VALID",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 3,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "SPI_A_MISO",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "IS-O7816_DATA",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 6,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "2J1",
+   "rows": 1,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 2,
+     "type": "gpio",
+     "chip": 1,
+     "line": 0,
+     "sysfs": 15,
+     "name": "GPIOAO_0",
+     "pad": "AP36",
+     "ref": "LINUX_TX",
+     "funcs": [
+      "UART_AO_A_TX"
+     ],
+     "cls": "uart",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "domain": "VDDIO_AO"
+     }
+    },
+    {
+     "pin": 3,
+     "type": "gpio",
+     "chip": 1,
+     "line": 1,
+     "sysfs": 16,
+     "name": "GPIOAO_1",
+     "pad": "AP38",
+     "ref": "LINUX_RX",
+     "funcs": [
+      "UART_AO_A_RX"
+     ],
+     "cls": "uart",
+     "elec": {
+      "pad_type": "DIO",
+      "dc_family": "DIO",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "domain": "VDDIO_AO"
+     }
+    }
+   ]
+  }
+ ],
+ "electrical": {
+  "source": "S905D3 Datasheet, Revision 14 (2025-05-22), chapter 5 Operating Conditions: 5.1 Absolute Maximum Ratings, 5.2 Recommended Operating Conditions, 5.5.1 Normal GPIO Specifications (For DIO_xmA), 5.5.2 Open Drain GPIO Specifications (For DIO_OD).",
+  "pad_types": {
+   "DIO": {
+    "desc": "Push-pull digital IO, drive strength register-selectable"
+   },
+   "OD5V": {
+    "desc": "Open-drain, 5 V-tolerant \u2014 needs an external pull-up, and will not drive high on its own"
+   }
+  },
+  "rails": {
+   "VDDIO_": {
+    "select": [
+     "3.3",
+     "1.8"
+    ],
+    "3.3": {
+     "min": "3.03",
+     "typ": "3.3",
+     "max": "3.45"
+    },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.804",
+     "max": "1.89"
+    }
+   },
+   "VDDIO_A": {
+    "select": [
+     "3.3",
+     "1.8"
+    ],
+    "3.3": {
+     "min": "3.03",
+     "typ": "3.3",
+     "max": "3.45"
+    },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.804",
+     "max": "1.89"
+    }
+   },
+   "VDDIO_AO": {
+    "select": [
+     "3.3",
+     "1.8"
+    ],
+    "3.3": {
+     "min": "3.03",
+     "typ": "3.3",
+     "max": "3.45"
+    },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.804",
+     "max": "1.89"
+    }
+   },
+   "VDDIO_C": {
+    "select": [
+     "3.3",
+     "1.8"
+    ],
+    "3.3": {
+     "min": "3.03",
+     "typ": "3.3",
+     "max": "3.45"
+    },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.804",
+     "max": "1.89"
+    }
+   },
+   "VDDIO_H": {
+    "select": [
+     "3.3",
+     "1.8"
+    ],
+    "3.3": {
+     "min": "3.03",
+     "typ": "3.3",
+     "max": "3.45"
+    },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.804",
+     "max": "1.89"
+    }
+   },
+   "VDDIO_X": {
+    "select": [
+     "3.3",
+     "1.8"
+    ],
+    "3.3": {
+     "min": "3.03",
+     "typ": "3.3",
+     "max": "3.45"
+    },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.804",
+     "max": "1.89"
+    }
+   },
+   "VDDIO_Z": {
+    "select": [
+     "3.3",
+     "1.8"
+    ],
+    "3.3": {
+     "min": "3.03",
+     "typ": "3.3",
+     "max": "3.45"
+    },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.804",
+     "max": "1.89"
+    }
+   }
+  },
+  "dc": {
+   "DIO": {
+    "3.3": {
+     "vih": {
+      "min": "IOVREF+0.37",
+      "typ": "",
+      "max": "VDDIO+0.3"
+     },
+     "vil": {
+      "min": "-0.3",
+      "typ": "",
+      "max": "IOVREF-0.23"
+     },
+     "voh": {
+      "min": "VDDIO-0.5",
+      "typ": "",
+      "max": ""
+     },
+     "vol": {
+      "min": "",
+      "typ": "",
+      "max": "0.4"
+     },
+     "rpu": {
+      "min": "50K",
+      "typ": "60K",
+      "max": "70K"
+     },
+     "rpd": {
+      "min": "50K",
+      "typ": "60K",
+      "max": "500K"
+     }
+    },
+    "1.8": {
+     "vih": {
+      "min": "IOVREF/2+0.3",
+      "typ": "",
+      "max": "VDDIO+0.3"
+     },
+     "vil": {
+      "min": "-0.3",
+      "typ": "",
+      "max": "IOVREF/2-0.3"
+     },
+     "voh": {
+      "min": "VDDIO-0.5",
+      "typ": "",
+      "max": ""
+     },
+     "vol": {
+      "min": "",
+      "typ": "",
+      "max": "0.4"
+     },
+     "rpu": {
+      "min": "50K",
+      "typ": "60K",
+      "max": "70K"
+     },
+     "rpd": {
+      "min": "50K",
+      "typ": "60K",
+      "max": "500K"
+     }
+    }
+   },
+   "OD": {
+    "3.3": {
+     "vol": {
+      "min": "",
+      "typ": "",
+      "max": "0.4"
+     },
+     "rpu": {
+      "min": "",
+      "typ": "",
+      "max": ""
+     },
+     "rpd": {
+      "min": "",
+      "typ": "",
+      "max": ""
+     }
+    },
+    "1.8": {
+     "vol": {
+      "min": "",
+      "typ": "",
+      "max": "0.4"
+     },
+     "rpu": {
+      "min": "",
+      "typ": "",
+      "max": ""
+     },
+     "rpd": {
+      "min": "",
+      "typ": "",
+      "max": ""
+     }
+    }
+   }
+  },
+  "units": {
+   "vih": "V",
+   "vil": "V",
+   "voh": "V",
+   "vol": "V",
+   "rpu": "\u03a9",
+   "rpd": "\u03a9"
+  },
+  "dc_note": "Thresholds are stated against IOVREF, a separate 1.8 V reference rail, not as a fraction of the pad's own VDDIO. On a 3.3 V G12/SM1 pad that puts Vih min near 2.17 V rather than the 2.31 V a 0.7\u00d7VDDIO rule would predict. Every VDDIO domain is LV/HV selectable, so which column applies depends on what the board feeds that rail."
+ }
+}

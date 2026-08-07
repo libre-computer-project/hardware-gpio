@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Libre Computer GPIO Pinout</title>
+<meta name="description" content="Interactive GPIO pinout and pinmux reference for Libre Computer single-board computers.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header id="topbar">
+  <div id="brand">
+    <span id="brand-name">Libre Computer</span>
+    <span id="brand-sub">GPIO Pinout</span>
+  </div>
+  <div id="controls">
+    <label for="board-select">Board</label>
+    <select id="board-select" aria-label="Select board"></select>
+    <input id="search" type="search" placeholder="Search: GPIOX_12, I2C, pin 7, B4…" autocomplete="off" spellcheck="false">
+  </div>
+</header>
+
+<nav id="legend-bar" aria-label="Mux classes"><div id="legend"></div></nav>
+
+<main>
+  <section id="diagram" aria-label="Pin headers"></section>
+  <aside id="panel">
+    <div id="pin-detail"><p class="muted">The half of each square facing the connector is the board's colour for that pin (yellow I2C, blue SPI, green GPIO); the far half carries one strip per other mux the pad can reach. Hover a pin for its mux list, click it for the full pinmux, or click a legend entry to filter.</p></div>
+  </aside>
+</main>
+
+<footer>
+  Pin data from <a href="https://github.com/libre-computer-project/libretech-wiring-tool">libretech-wiring-tool</a> (MIT)
+  &middot; <a href="https://libre.computer">libre.computer</a>
+</footer>
+
+<div id="tooltip" hidden></div>
+<script src="js/app.js"></script>
+</body>
+</html>

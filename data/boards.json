@@ -1,0 +1,328 @@
+{
+ "boards": [
+  {
+   "id": "all-h3-cc-h3",
+   "model": "ALL-H3-CC-H3",
+   "name": "Tritium H3",
+   "soc": "H3",
+   "vendor": "Allwinner",
+   "status": "production",
+   "hidden": false,
+   "npins": 43,
+   "headers": [
+    {
+     "id": "7J1",
+     "pins": 40
+    },
+    {
+     "id": "2J3",
+     "pins": 3
+    }
+   ]
+  },
+  {
+   "id": "all-h3-cc-h5",
+   "model": "ALL-H3-CC-H5",
+   "name": "Tritium H5",
+   "soc": "H5",
+   "vendor": "Allwinner",
+   "status": "production",
+   "hidden": false,
+   "npins": 43,
+   "headers": [
+    {
+     "id": "7J1",
+     "pins": 40
+    },
+    {
+     "id": "2J3",
+     "pins": 3
+    }
+   ]
+  },
+  {
+   "id": "aml-a311d-cc",
+   "model": "AML-A311D-CC",
+   "name": "Alta",
+   "soc": "A311D",
+   "vendor": "Amlogic",
+   "status": "production",
+   "hidden": false,
+   "npins": 43,
+   "headers": [
+    {
+     "id": "7J1",
+     "pins": 40
+    },
+    {
+     "id": "2J1",
+     "pins": 3
+    }
+   ]
+  },
+  {
+   "id": "aml-a311d-cc-v01",
+   "model": "AML-A311D-CC-V01",
+   "name": "Alta (pre-prod)",
+   "soc": "A311D",
+   "vendor": "Amlogic",
+   "status": "preprod",
+   "hidden": true,
+   "npins": 43,
+   "headers": [
+    {
+     "id": "7J1",
+     "pins": 40
+    },
+    {
+     "id": "2J1",
+     "pins": 3
+    }
+   ]
+  },
+  {
+   "id": "aml-s805x-ac",
+   "model": "AML-S805X-AC",
+   "name": "La Frite",
+   "soc": "S805X",
+   "vendor": "Amlogic",
+   "status": "production",
+   "hidden": false,
+   "npins": 48,
+   "headers": [
+    {
+     "id": "7J1",
+     "pins": 40
+    },
+    {
+     "id": "2J2",
+     "pins": 4
+    },
+    {
+     "id": "9J5",
+     "pins": 4
+    }
+   ]
+  },
+  {
+   "id": "aml-s805x-ac-v2",
+   "model": "AML-S805X-AC-V2",
+   "name": "Das Frite",
+   "soc": "S805X",
+   "vendor": "Amlogic",
+   "status": "production",
+   "hidden": false,
+   "npins": 48,
+   "headers": [
+    {
+     "id": "7J1",
+     "pins": 40
+    },
+    {
+     "id": "2J2",
+     "pins": 4
+    },
+    {
+     "id": "9J5",
+     "pins": 4
+    }
+   ]
+  },
+  {
+   "id": "aml-s905d3-cc",
+   "model": "AML-S905D3-CC",
+   "name": "Solitude",
+   "soc": "S905D3",
+   "vendor": "Amlogic",
+   "status": "production",
+   "hidden": false,
+   "npins": 43,
+   "headers": [
+    {
+     "id": "7J1",
+     "pins": 40
+    },
+    {
+     "id": "2J1",
+     "pins": 3
+    }
+   ]
+  },
+  {
+   "id": "aml-s905d3-cc-v01",
+   "model": "AML-S905D3-CC-V01",
+   "name": "Solitude (pre-prod)",
+   "soc": "S905D3",
+   "vendor": "Amlogic",
+   "status": "preprod",
+   "hidden": true,
+   "npins": 43,
+   "headers": [
+    {
+     "id": "7J1",
+     "pins": 40
+    },
+    {
+     "id": "2J1",
+     "pins": 3
+    }
+   ]
+  },
+  {
+   "id": "aml-s905x-cc",
+   "model": "AML-S905X-CC",
+   "name": "Le Potato",
+   "soc": "S905X",
+   "vendor": "Amlogic",
+   "status": "production",
+   "hidden": false,
+   "npins": 54,
+   "headers": [
+    {
+     "id": "7J1",
+     "pins": 40
+    },
+    {
+     "id": "2J3",
+     "pins": 8
+    },
+    {
+     "id": "2J1",
+     "pins": 3
+    },
+    {
+     "id": "9J1",
+     "pins": 3
+    }
+   ]
+  },
+  {
+   "id": "aml-s905x-cc-v2",
+   "model": "AML-S905X-CC-V2",
+   "name": "Sweet Potato",
+   "soc": "S905X",
+   "vendor": "Amlogic",
+   "status": "production",
+   "hidden": false,
+   "npins": 54,
+   "headers": [
+    {
+     "id": "7J1",
+     "pins": 40
+    },
+    {
+     "id": "2J3",
+     "pins": 8
+    },
+    {
+     "id": "2J1",
+     "pins": 3
+    },
+    {
+     "id": "9J1",
+     "pins": 3
+    }
+   ]
+  },
+  {
+   "id": "aml-s905x-cc-v3",
+   "model": "AML-S905X-CC-V3",
+   "name": "Das Potato",
+   "soc": "S905X",
+   "vendor": "Amlogic",
+   "status": "unreleased",
+   "hidden": true,
+   "npins": 54,
+   "headers": [
+    {
+     "id": "7J1",
+     "pins": 40
+    },
+    {
+     "id": "2J3",
+     "pins": 8
+    },
+    {
+     "id": "2J1",
+     "pins": 3
+    },
+    {
+     "id": "9J1",
+     "pins": 3
+    }
+   ]
+  },
+  {
+   "id": "roc-rk3328-cc",
+   "model": "ROC-RK3328-CC",
+   "name": "Renegade",
+   "soc": "RK3328",
+   "vendor": "Rockchip",
+   "status": "production",
+   "hidden": false,
+   "npins": 46,
+   "headers": [
+    {
+     "id": "J1",
+     "pins": 40
+    },
+    {
+     "id": "J21",
+     "pins": 3
+    },
+    {
+     "id": "J22",
+     "pins": 3
+    }
+   ]
+  },
+  {
+   "id": "roc-rk3328-cc-v2",
+   "model": "ROC-RK3328-CC-V2",
+   "name": "Das Renegade",
+   "soc": "RK3328",
+   "vendor": "Rockchip",
+   "status": "unreleased",
+   "hidden": true,
+   "npins": 46,
+   "headers": [
+    {
+     "id": "J1",
+     "pins": 40
+    },
+    {
+     "id": "J21",
+     "pins": 3
+    },
+    {
+     "id": "J22",
+     "pins": 3
+    }
+   ]
+  },
+  {
+   "id": "roc-rk3399-pc",
+   "model": "ROC-RK3399-PC",
+   "name": "Renegade Elite",
+   "soc": "RK3399",
+   "vendor": "Rockchip",
+   "status": "production",
+   "hidden": false,
+   "npins": 70,
+   "headers": [
+    {
+     "id": "J12",
+     "pins": 10
+    },
+    {
+     "id": "J15",
+     "pins": 30
+    },
+    {
+     "id": "J20",
+     "pins": 30
+    }
+   ]
+  }
+ ]
+}
