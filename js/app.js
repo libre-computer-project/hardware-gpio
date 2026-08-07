@@ -353,6 +353,16 @@ function muxSquare(p, side) {
   /* Nothing left to show beside the primary (power, ground, a pad whose only
      function is GPIO) -- one solid colour. */
   if (!classes.length) box.classList.add("solid");
+  /* GPIO is not a primary the way I2C or SPI is -- it is what every one of
+     these pads already does, so spending half the tile on it says nothing
+     while halving the room the alternates get to say something. A pad whose
+     ONLY function is GPIO keeps its solid green: there the colour IS the
+     answer. */
+  if (primary === "gpio" && classes.length) {
+    box.classList.add("alts-only");
+    box.append(alts);
+    return box;
+  }
   box.append(alts, near);
   return box;
 }

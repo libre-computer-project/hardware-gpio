@@ -329,6 +329,9 @@ footer {
 
 .mux-primary { flex: 1 1 50%; }
 
+/* No primary half to sit beside: the alternates take the tile. */
+.mux-square.alts-only .mux-alts { flex: 1 1 100%; }
+
 .mux-square.near-right .mux-primary { border-left: 1px solid #0009; }
 .mux-square.near-left .mux-primary { border-right: 1px solid #0009; }
 .mux-square.solid .mux-primary { border: 0; }
