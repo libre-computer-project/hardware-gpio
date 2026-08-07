@@ -586,7 +586,18 @@ pre.usage {
   backdrop-filter: blur(2px);
 }
 
-@media (max-width: 900px) {
+/* Portrait is stacked at ANY width, not just below 900px. A 1024x1366 tablet
+   clears the width gate while being far taller than it is wide, and the
+   landscape frame served it a 630px diagram beside a 330px panel with 1216px
+   of height mostly empty. Given a tall screen the right move is to give the
+   drawing the whole width and let the page scroll, which is what portrait is
+   for.
+
+   Keyed on aspect-ratio, not `orientation`: that feature follows the SCREEN,
+   so a tall viewport on a landscape display still reports landscape and the
+   frame stayed locked. Aspect ratio is computed from the viewport, which is
+   the thing the layout has to fit. */
+@media (max-width: 900px), (max-aspect-ratio: 1/1) {
   main { padding: 16px 12px 30px; }
   /* Stay flush with main's narrow gutter, or the legend hangs 8px proud. */
   #legend-bar { padding: 12px 12px 0; }
@@ -596,7 +607,9 @@ pre.usage {
   #legend { display: flex; flex-wrap: wrap; gap: 6px 14px; }
   /* The pane gets the width, not a 300px column beside a drawing that needs
      every pixel of it -- main wraps here, so this is one column. */
-  #panel { max-width: none; min-width: 0; }
+  /* Take the whole line: at 1024px the diagram's 620px basis and the panel's
+     320px still fit side by side, so wrapping alone never stacks them. */
+  #panel { flex: 1 1 100%; max-width: none; min-width: 0; }
   input[type="search"] { min-width: 160px; flex: 1; }
   /* 16px exactly: below it Safari zooms the page when the field takes focus,
      and the only way back out of that zoom is a pinch. */
@@ -721,7 +734,7 @@ pre.usage {
    electrical table moves the panel, not the page. Below this size the columns
    wrap and the page scrolls normally, because a locked frame would clip them. */
 
-@media (min-width: 900px) and (min-height: 560px) {
+@media (min-width: 900px) and (min-height: 560px) and (min-aspect-ratio: 1/1) {
   html, body { height: 100%; }
   body { overflow: hidden; }
   main { flex-wrap: nowrap; }
