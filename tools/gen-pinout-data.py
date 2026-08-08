@@ -30,6 +30,7 @@ Usage: tools/gen-pinout-data.py [--lwt ...] [--linux ...] [--out ...]
 import argparse
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -144,9 +145,17 @@ def is_dual_row(board, header):
 # number (7J1 does not mean "sheet 7", and even where it does that is a
 # schematic fact, not a placement).
 #
-# `dxf` is relative to --docs-repo (the internal hardware-documentation repo).
+# Paths are relative to --docs-repo (the internal hardware-documentation repo).
 # `source` is what the site shows as provenance, so it has to name the file and
 # what was read out of it, not just the board.
+#
+# An entry is one of two shapes, matching the two readers in pcb_layout:
+#
+#   dxf   a mechanical DXF, which places the parts itself.
+#   fab   a fab package -- {pnp, mask, frame, board}. `pnp` and `mask` are
+#         archive-member chains ("a.rar!inner.rar!x.gts"); `frame` and `board`
+#         are the two facts about the panel that neither file states, quoted
+#         with the file they were read from in the comment on the entry.
 PCB_LAYOUT = {
     "aml-s805x-ac": {
         "dxf": "amlogic/gxl/s805x/schematics/aml-s805x-ac/technical-reference/"
@@ -155,6 +164,40 @@ PCB_LAYOUT = {
                   "XH_S805X_DDR4_V01_190302.pcb: board edge from layer "
                   "BOARD_OUTLINE_00, each header from its own placed part and "
                   "the pad stacks under it",
+    },
+    # Le Potato has no mechanical export -- what it has is the SMT production
+    # package for V1.0-A, and both halves of it are needed (pcb_layout.fab_parts).
+    #
+    # frame  The gerbers are a 2-up panel, 84.000 x 112.000 mm, in which each
+    #        board is placed rotated 180 degrees; the P&P is in the design's own
+    #        frame. panel = (83.0, 56.0) - pnp maps between them, and lands
+    #        7J1 / 2J1 / 9J1 / 2J3 on their own pads to within 0.001 mm.
+    # board  Board 1 of that panel is the rounded rectangle x -2.000..82.000,
+    #        y 0..56.000 on ln457zc06129a0.gko -- 84.000 x 56.000 mm.
+    #
+    # The pin counts the grown pad arrays come to (40 / 8 / 3 / 3) are checked
+    # against the P&P's own Pins column, which is what makes the arrays the
+    # connectors they are named for rather than whatever was nearby.
+    "aml-s905x-cc": {
+        "fab": {
+            "pnp": "amlogic/gxl/s905x/schematics/aml-s905x-cc/"
+                   "AML-S905X-CC-V1.0-A-smt-production-180611.rar"
+                   "!AML-S905X-CC_V1.0-A贴片生产文件_180611/坐标文件/tmp3774.xlsx",
+            "mask": "amlogic/gxl/s905x/schematics/aml-s905x-cc/"
+                    "AML-S905X-CC-V1.0-A-smt-production-180611.rar"
+                    "!AML-S905X-CC_V1.0-A贴片生产文件_180611/钢网文件/"
+                    "AML-S905X-CC_V1.0-A打板文件_180611生产稿.rar"
+                    "!ln457zc06129a0/ln457zc06129a0 Working Gerber/"
+                    "ln457zc06129a0.gts",
+            "frame": (83.0, 56.0),
+            "board": (-2.0, 0.0, 82.0, 56.0),
+        },
+        "source": "AML-S905X-CC-V1.0-A-smt-production-180611.rar — the V1.0-A "
+                  "SMT production package: designators, origins and pin counts "
+                  "from the pick-and-place 坐标文件/tmp3774.xlsx, each header's "
+                  "pad extent from the soldermask layer ln457zc06129a0.gts of "
+                  "the fab gerbers inside it, board edge 84.000 × 56.000 mm "
+                  "from ln457zc06129a0.gko",
     },
 }
 
@@ -167,22 +210,32 @@ PCB_LAYOUT = {
 #                    the one and packing the other would read as a board view
 #                    that is missing a connector rather than one this data
 #                    cannot site, which is why require_all below refuses it.
-#   roc-rk3399-pc    The only layout artefacts are rk3399-silkscreen-{top,
-#                    bottom}.pdf, which are CAM350 vector plots with the
-#                    designators drawn as strokes -- no text to read, and
-#                    pdfimages reports no raster either. The product
-#                    specification PDF gives the board as 120 x 72 x 11.9 mm and
-#                    has a "4.PCB Size" drawing, but only as a JPEG. What would
-#                    settle it: a DXF/ODB++/IPC-2581 export, or the layout in
-#                    ROC_3399_ACC_V1.0_180619.rar (a git-LFS pointer here, and
-#                    the object is not fetched).
+#                    Nothing else in the directory carries placement: the two
+#                    .dwg are unreadable (see aml-s805x-ac-v2 below) and
+#                    "ALL-H3-CC-V1.0A Headers.xlsx" is a pin table, not
+#                    coordinates.
+#   roc-rk3399-pc    No layout export for THIS board. rk3399-silkscreen-{top,
+#                    bottom}.pdf sit under roc-rk3399-pc-v2/ beside a v1.2A
+#                    schematic and changelog, so they are the later board's
+#                    plots -- and they are CAM350 vector output regardless:
+#                    pdftocairo -svg gives 5404 stroked paths, 0 text elements
+#                    and 0 images, so the designators cannot be read as text.
+#                    The product specification PDF gives the board as
+#                    120 x 72 x 11.9 mm and has a "4.PCB Size" drawing, but only
+#                    as a JPEG. What would settle it: a DXF/ODB++/IPC-2581
+#                    export, or the layout in ROC_3399_ACC_V1.0_180619.rar (a
+#                    git-LFS pointer here, and the object is not fetched).
 #   aml-a311d-cc     A311D-V0.2_Gerber.zip / S905D3-V0.2_Gerber.zip are Gerber
-#   aml-s905d3-cc    only: apertures and no reference designators, so which pad
-#                    array is which header cannot be read out, only guessed.
-#   aml-s905x-cc     AML-S905X-CC-V1.0-A-smt-production-180611.rar would carry
-#                    placement, but nothing in this environment reads RAR.
-#   aml-s805x-ac-v2  Two .dwg (binary AutoCAD), no reader available; and V2.0 is
-#                    a different PCB from the V1.0A the entry above stands on.
+#   aml-s905d3-cc    only: apertures and stroked silkscreen, no reference
+#                    designators, and no pick-and-place or assembly file beside
+#                    them -- so unlike Le Potato below there is nothing to name
+#                    a pad array, and which one is which header cannot be read
+#                    out, only guessed.
+#   aml-s805x-ac-v2  Two .dwg (binary AutoCAD AC1018) and no reader: LibreCAD
+#                    ships only a dxf2pdf console tool that takes DXF, and fed
+#                    the file it produced nothing in 180 s; no dwg2dxf/libredwg/
+#                    QCAD anywhere on the fleet. V2.0 is a different PCB from the
+#                    V1.0A the La Frite entry stands on.
 #   everything else  No mechanical or layout export in the tree at all.
 
 
@@ -199,13 +252,31 @@ def board_layout(board, headers, docs_repo, require_all=True):
     spec = PCB_LAYOUT.get(board)
     if not spec:
         return None
-    path = Path(docs_repo) / spec["dxf"]
-    if not path.is_file():
-        print(f"  {board}: layout source missing ({path})")
-        return None
-    outline, found = pcb_layout.parts(str(path))
+    if "dxf" in spec:
+        path = Path(docs_repo) / spec["dxf"]
+        if not path.is_file():
+            print(f"  {board}: layout source missing ({path})")
+            return None
+        name = path.name
+        outline, found = pcb_layout.parts(str(path))
+    else:
+        fab = dict(spec["fab"])
+        for key in ("pnp", "mask"):
+            archive, _, member = fab[key].partition("!")
+            if not (Path(docs_repo) / archive).is_file():
+                print(f"  {board}: layout source missing ({archive})")
+                return None
+            fab[key] = f"{Path(docs_repo) / archive}!{member}"
+        name = Path(spec["fab"]["pnp"].split("!")[0]).name
+        try:
+            outline, found = pcb_layout.fab_parts(fab)
+        except (OSError, subprocess.CalledProcessError) as exc:
+            # The fab packages are RARs; a host without `unrar` simply does not
+            # place these boards, the same as one without the file at all.
+            print(f"  {board}: cannot read fab package ({exc}) -- board left unplaced")
+            return None
     if not outline:
-        print(f"  {board}: no board outline in {path.name}")
+        print(f"  {board}: no board outline in {name}")
         return None
     x0, y0, x1, y1 = outline
     placed = {}
@@ -213,7 +284,7 @@ def board_layout(board, headers, docs_repo, require_all=True):
         rec = found.get(h["id"])
         if not rec or "pads" not in rec:
             if require_all:
-                print(f"  {board}: {h['id']} not placed in {path.name} "
+                print(f"  {board}: {h['id']} not placed in {name} "
                       "-- board left unplaced")
                 return None
             continue

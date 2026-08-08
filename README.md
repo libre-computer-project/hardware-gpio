@@ -67,22 +67,37 @@ photo, a sibling revision, or the designator's number. And a board is placed
 only when *every* header the wiring map lists is found: a board view missing one
 connector cannot be told apart from a board that does not have one.
 
+Two kinds of export can supply this, and `tools/pcb_layout.py` reads both:
+
+* a **mechanical DXF**, which places the parts itself;
+* a **fab package** — a pick-and-place spreadsheet beside the gerbers the
+  boards were made from. Neither half places a connector alone (the P&P names
+  the designator and its pin count but gives a point; the gerber has every pad
+  and no designator anywhere), and together they are what the DXF gives. The
+  two files also check each other: the part origin has to fall inside the pad
+  array grown from it, and that array has to come to exactly the pin count the
+  P&P states, or the header is not placed.
+
 | Board | Placed | Evidence |
 |---|---|---|
 | 🟢 La Frite (`aml-s805x-ac`) | 7J1, 2J2, 9J5 | `AML-S805X-AC-TOP-190308.dxf`, a PADS/PowerPCB export of `XH_S805X_DDR4_V01_190302.pcb`: outline 55.999 × 65.000 mm from layer `BOARD_OUTLINE_00`, each header from its placed part and the pad stacks under it |
-| 🟡 Tritium H3 / H5 | — | The same kind of export places 7J1 (40 pads, board 84.000 × 56.000 mm), but 2J3 is in neither the top nor the bottom export, so one of two headers has no position |
-| 🔴 Renegade Elite (`roc-rk3399-pc`) | — | Only `rk3399-silkscreen-{top,bottom}.pdf`, CAM350 vector plots with the designators drawn as strokes — no text and no raster to read. Needs a DXF/ODB++/IPC-2581 export, or the layout in `ROC_3399_ACC_V1.0_180619.rar` (a git-LFS pointer whose object is not fetched) |
-| 🔴 Alta, Solitude | — | The V0.2 Gerber archives are apertures only, with no reference designators — which pad array is which header cannot be read out, only guessed |
-| 🔴 Le Potato | — | `AML-S905X-CC-V1.0-A-smt-production-180611.rar` would carry placement; nothing here reads RAR |
-| 🔴 Das Frite | — | Two binary AutoCAD `.dwg` with no reader available, and V2.0 is a different PCB from the V1.0A above |
+| 🟢 Le Potato (`aml-s905x-cc`) | 7J1, 2J3, 2J1, 9J1 | `AML-S905X-CC-V1.0-A-smt-production-180611.rar`, the V1.0-A SMT production package: designators, origins and pin counts from `坐标文件/tmp3774.xlsx`, pad extents from the soldermask layer `ln457zc06129a0.gts` of the fab gerbers inside it, outline 84.000 × 56.000 mm from `ln457zc06129a0.gko`. The gerbers are a 2-up panel with each board rotated 180°; the mapping between the two frames lands all four designators on their own pads to within 0.001 mm, and the grown arrays come to 40 / 8 / 3 / 3 pads against the P&P's own counts |
+| 🟡 Tritium H3 / H5 | — | The DXF places 7J1 (40 pads, board 84.000 × 56.000 mm), but 2J3 is in neither the top nor the bottom export, so one of two headers has no position. Nothing else in the directory carries placement: the two `.dwg` are unreadable (below) and `ALL-H3-CC-V1.0A Headers.xlsx` is a pin table, not coordinates |
+| 🔴 Renegade Elite (`roc-rk3399-pc`) | — | No layout export for *this* board. `rk3399-silkscreen-{top,bottom}.pdf` are filed under `roc-rk3399-pc-v2/` beside a v1.2A schematic and changelog, so they are the later board's plots — and they are CAM350 vector output regardless: 5404 stroked paths, zero text elements and zero images after `pdftocairo -svg`, so the designators cannot be read as text. Needs a DXF/ODB++/IPC-2581 export, or the layout in `ROC_3399_ACC_V1.0_180619.rar` (a git-LFS pointer whose object is not fetched) |
+| 🔴 Alta, Solitude | — | The V0.2 Gerber archives are apertures and stroked silkscreen only — no reference designators, and no pick-and-place or assembly file beside them. Which pad array is which header cannot be read out, only guessed |
+| 🔴 Das Frite | — | Two binary AutoCAD `.dwg` (AC1018) and no reader: LibreCAD ships only a `dxf2pdf` console tool that takes DXF, and fed the file it produced nothing in 180 s; there is no `dwg2dxf`/libredwg/QCAD anywhere on the fleet. V2.0 is a different PCB from the V1.0A La Frite stands on, so that DXF is not evidence for it |
 | ⚪ everything else | — | No mechanical or layout export in the tree |
 
-`tools/pcb_layout.py` reads the DXF and can be run directly against one to see
-what it found before the number is trusted:
+`tools/pcb_layout.py` can be run directly against a DXF to see what it found
+before the number is trusted:
 
 ```sh
 tools/pcb_layout.py <file.dxf> [designator ...]
 ```
+
+Reading a fab package needs `unrar` (the packages are RARs holding a second RAR
+of gerbers). A host without it places every other board exactly as before and
+says so for this one, rather than failing the run.
 
 ### Electrical
 

@@ -2024,5 +2024,44 @@
    "rpd": "\u03a9"
   },
   "dc_note": "Thresholds are stated against IOVREF, a separate 1.8 V reference rail, not as a fraction of the pad's own VDDIO. On a 3.3 V G12/SM1 pad that puts Vih min near 2.17 V rather than the 2.31 V a 0.7\u00d7VDDIO rule would predict. Every VDDIO domain is LV/HV selectable, so which column applies depends on what the board feeds that rail."
+ },
+ "layout": {
+  "units": "mm",
+  "origin": "board outline minimum corner; +x right, +y up (CAD frame)",
+  "source": "AML-S905X-CC-V1.0-A-smt-production-180611.rar \u2014 the V1.0-A SMT production package: designators, origins and pin counts from the pick-and-place \u5750\u6807\u6587\u4ef6/tmp3774.xlsx, each header's pad extent from the soldermask layer ln457zc06129a0.gts of the fab gerbers inside it, board edge 84.000 \u00d7 56.000 mm from ln457zc06129a0.gko",
+  "board": {
+   "w": 84.0,
+   "h": 56.0
+  },
+  "headers": {
+   "7J1": {
+    "x1": 26.454,
+    "y1": 1.008,
+    "x2": 76.446,
+    "y2": 5.28,
+    "pads": 40
+   },
+   "2J3": {
+    "x1": 50.219,
+    "y1": 41.82,
+    "x2": 69.546,
+    "y2": 43.58,
+    "pads": 8
+   },
+   "2J1": {
+    "x1": 61.837,
+    "y1": 48.115,
+    "x2": 63.569,
+    "y2": 54.938,
+    "pads": 3
+   },
+   "9J1": {
+    "x1": 35.963,
+    "y1": 53.219,
+    "x2": 42.614,
+    "y2": 55.005,
+    "pads": 3
+   }
+  }
  }
 }
