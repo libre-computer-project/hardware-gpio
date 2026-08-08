@@ -336,16 +336,21 @@ function measuredGrid() {
            board: lay.board };
 }
 
-/* The arrangement a board's OWNER specified, for a board no CAD export places.
-   Read from a different key than `layout` on purpose: it is a weaker claim —
-   how to group the connectors, from someone holding the board, rather than
-   where they are — and the note beside the drawing says which one is on screen.
+/* The arrangement a board's OWNER specified. Read from a different key than
+   `layout` on purpose: it is a different claim — how to group the connectors,
+   from someone holding the board, rather than where they are — and the note
+   beside the drawing says which one is on screen.
 
    The require-every-header rule above does NOT apply here, and its absence is
    the point. A measured layout missing a header is data that failed; an
    authored one missing a header is a direction that did not cover it, which
    the generator refuses to paper over with an invented cell. Those fall to a
-   row of their own at the bottom, after everything the direction did place. */
+   row of their own at the bottom, after everything the direction did place.
+
+   `overrides` is set when the board ALSO carries a measurement, i.e. when this
+   arrangement is drawn in place of one. It changes nothing about the grid and
+   everything about the note: a drawing that departs from the board's own CAD
+   data has to say so, or the reader takes the departure for the board. */
 function authoredGrid() {
   const arr = board.arrangement;
   if (!arr || !arr.cells) return null;
@@ -365,7 +370,12 @@ function authoredGrid() {
   for (const h of board.headers) {
     if (!at.has(h.id)) at.set(h.id, { col: 0, row: rows++, span: cols });
   }
-  return { at, cols, rows, kind: "authored", source: arr.source };
+  const measured = board.layout && board.layout.source;
+  return { at, cols, rows, kind: "authored",
+           overrides: Boolean(measured),
+           /* Both citations, because both are load-bearing now: what is drawn,
+              and what was measured and is not being drawn. */
+           source: arr.source + (measured ? " · Measurement not drawn: " + measured : "") };
 }
 
 /* The board owner's rule for the simplest shape of board, 2026-08-08: "when
@@ -390,9 +400,13 @@ function authoredGrid() {
    to earn a column" would be ours, not the owner's.
 
    Two headers, not "a 40P and the rest": stacking two small connectors into the
-   right column is a different claim the direction does not make, and the one
-   board of that shape any CAD places contradicts it — La Frite measures 2J2 and
-   9J5 into SEPARATE columns (x 7.95 and 47.066 mm), not one. */
+   right column is a different claim, and this rule is not the place it gets
+   made. The owner has since directed exactly that stacking for La Frite (2J2
+   over 9J5, and against that board's own measurement, which puts them 39 mm
+   apart) — but by name, for one board, which is an `arrangement` and lands in
+   authoredGrid above. Reading it back as a rule about the shape would place
+   Das Frite and the two Renegades on a direction nobody gave for them, which
+   is the mistake this whole split exists to prevent, so they stay packed. */
 /* The connector the direction (and the page) is about, in positions — the same
    count HEADER_FIRST_POSITIONS orders by in the generator and the header title
    shows, so "40P header" means the same thing in all three. */
@@ -416,10 +430,35 @@ function ruleGrid() {
                  + 'places it' };
 }
 
-/* Strongest claim first: a measurement outranks a direction for the board, and
-   a direction for the board outranks a rule about boards of its shape. */
+/* Most specific claim about how to DRAW this board, first.
+
+   This used to read measured || authored || rule — measurement first, on the
+   reasoning that a millimetre beats an opinion. That ordering was never
+   exercised: no board carried both, so the chain expressed an intention nobody
+   had tested. La Frite is the first board where the two disagree, and the
+   direction wins, for two reasons.
+
+   The page is a pinout, not a mechanical drawing. Nothing here is to scale and
+   the note says so; what the arrangement buys the reader is which connector to
+   look at next and how much of the width each one gets. That is a question
+   about the drawing, and the person who makes the board answering it directly,
+   by connector name, is a more specific statement about the drawing than a
+   coordinate is — the coordinate is about the copper, and it is still recorded
+   as such.
+
+   The other reason is that the inverse leaves no way to correct a drawing.
+   Under measured-first, a measured board's rendering is unchallengeable: the
+   only way to act on a direction about it would be to delete or fudge the
+   measurement, which is exactly the confusion the layout/arrangement split
+   exists to prevent. Precedence keeps both facts and picks between them.
+
+   A direction is by definition per-board and by connector name, so this cannot
+   fire where nobody has spoken: aml-s905x-cc is measured with no direction and
+   is unaffected, roc-rk3399-pc is directed with no measurement and is
+   unaffected. Below both sits the rule about boards of a shape, still last —
+   it is not about this board at all. */
 function boardGrid() {
-  return measuredGrid() || authoredGrid() || ruleGrid();
+  return authoredGrid() || measuredGrid() || ruleGrid();
 }
 
 /* Whether this board's arrangement is currently drawn. The class is the whole
@@ -445,20 +484,32 @@ function fitBoardView() {
   diagramEl.classList.toggle("board-view", !clipped);
 }
 
-/* The note is where the three kinds of arrangement are told apart, and it is
-   not optional for any of them: a reader is entitled to assume a drawing that
+/* The note is where the kinds of arrangement are told apart, and it is not
+   optional for any of them: a reader is entitled to assume a drawing that
    looks like a board WAS one, and "measured off the PCB", "how the person who
    makes it says to group these connectors" and "how this page draws any board
    shaped like this one" are three different promises. So the sentence differs,
    not just the hover — and the weakest of them does not call itself a board
-   view at all, because it says nothing about the board. */
+   view at all, because it says nothing about the board.
+
+   An authored arrangement on a board that is ALSO measured is the fourth
+   sentence, and the one that most needs writing. The other three describe a
+   drawing nothing contradicts; this one describes a drawing that departs from
+   the board's own CAD export, and a reader who is not told that will read the
+   departure as the board — on La Frite, that 2J2 sits above 9J5 when the DXF
+   puts them 39 mm apart across the board. So it does not call itself a board
+   view either, and it states the disagreement in the sentence rather than
+   leaving it to the hover. */
 const BOARD_NOTE = {
   measured: (g) =>
     `Board view — headers arranged by their measured position on the ` +
     `${g.board.w} × ${g.board.h} mm PCB. Arrangement, not scale.`,
-  authored: () =>
-    "Board view — headers arranged as the board's maker specifies. " +
-    "Not measured from the PCB.",
+  authored: (g) => (g.overrides
+    ? "Grouped as the board's maker directs, NOT as measured — this board's " +
+      "own CAD export places these connectors differently, and that " +
+      "measurement is kept in its data. Not a position on the PCB."
+    : "Board view — headers arranged as the board's maker specifies. " +
+      "Not measured from the PCB."),
   rule: () =>
     "Side by side — the 40-pin header and this board's one other connector, " +
     "the way the board's maker asks for boards with just these two. Not a " +

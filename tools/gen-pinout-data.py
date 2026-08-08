@@ -354,7 +354,7 @@ def board_layout(board, headers, docs_repo, require_all=True):
     return out
 
 
-# Arrangements the board OWNER specified, for boards no CAD export places.
+# Arrangements the board OWNER specified.
 #
 # This is a different KIND of claim from PCB_LAYOUT above and is deliberately a
 # different key in the board file, so no reader -- and no later edit -- can
@@ -365,13 +365,53 @@ def board_layout(board, headers, docs_repo, require_all=True):
 # the moment it was serialised, so it is written as what it is: grid cells.
 #
 #   cells   header id -> [column, row] or [column, row, colspan], 0-based.
+#           Two headers may share a cell; they are drawn stacked in it, which
+#           is the same thing a shared cell means in the measured path (two
+#           connectors whose spans overlap on both axes).
 #   source  shown as the drawing's provenance, and says whose direction it is.
 #
 # A header the table does not name is NOT placed: it falls to a row of its own
 # below everything named, in map order. That is the honest rendering of "the
 # direction did not cover this connector" -- inventing a cell for it would put
 # an authored position on the page with nobody behind it.
+#
+# A board may carry this AND a measured PCB_LAYOUT, and where it does the
+# direction is what gets DRAWN -- see the note on emitting both, near the bottom
+# of main(). That was not true when this table held only Renegade Elite, which
+# no export places; La Frite is the first board where the two disagree.
 BOARD_ARRANGEMENT = {
+    # Board owner, 2026-08-08: "for La Frite, 2J2 and 9J5 should be one on top
+    # of another to make better use of the space."
+    #
+    # This board IS measured (PCB_LAYOUT above), and the measurement says the
+    # opposite: 2J2 sits at x 7.95 mm and 9J5 at x 47.066 mm, which is 39 mm
+    # apart on a 56 mm board, so the spans do not overlap and the measured grid
+    # gives three columns -- 7J1 | 2J2 | 9J5 -- each carrying one connector.
+    # Three columns of pad-name rails is most of the diagram's width spent on
+    # two 4-pin connectors, which is the space the direction is about.
+    #
+    # The measurement is NOT deleted or edited to agree: it is still the truth
+    # about the PCB and it stays in the board file under `layout`, cited to the
+    # DXF. What changes is only which of the two the drawing follows, and the
+    # page says which one it is looking at (BOARD_NOTE.authored in js/app.js
+    # names the disagreement rather than quietly winning it).
+    #
+    # 2J2 and 9J5 share one cell rather than taking rows 0 and 1 of the right
+    # column. A shared cell is already how the measured path draws two
+    # connectors at one position, and it is what "one on top of another" asks
+    # for: separate rows would put 9J5 on a grid row whose height is set by
+    # 7J1's 20 pin rows, leaving 9J5 stranded far below 2J2 -- the empty space
+    # the direction was given to remove.
+    "aml-s805x-ac": {
+        "cells": {"7J1": [0, 0], "2J2": [1, 0], "9J5": [1, 0]},
+        "source": "Owner-directed arrangement, 2026-08-08 — NOT measured from "
+                  "the PCB, and drawn INSTEAD OF this board's measurement: "
+                  "\"for La Frite, 2J2 and 9J5 should be one on top of another "
+                  "to make better use of the space.\" The board's own CAD "
+                  "export places 2J2 and 9J5 in separate columns 39 mm apart "
+                  "(x 7.95 mm and 47.066 mm); that measurement is unchanged in "
+                  "this board's `layout`, it is simply not what is drawn",
+    },
     # Board owner: "the 40P header should always be first. for ROC-RK3399-PC,
     # it should display similar like how it's laid out on the left/right side
     # with the 6 pin then the 30 pin headers on each side. the 3P uart header
@@ -1841,10 +1881,21 @@ def main():
         layout = board_layout(board, headers, args.docs_repo)
         if layout:
             doc["layout"] = layout
-        # Never both: a board with a measured placement has no use for an
-        # authored one, and carrying the two together would leave the drawing
-        # to decide which claim wins.
-        arrangement = board_arrangement(board, headers) if not layout else None
+        # BOTH is allowed, and on La Frite both are present. The old rule here
+        # was "never both", on the reasoning that carrying two claims would
+        # leave the drawing to decide which one wins -- but the fix for that is
+        # to DECIDE, once, in the open, not to drop one of them. The decision is
+        # in boardGrid() in js/app.js: a direction naming this board's own
+        # connectors is drawn in preference to the millimetres, because this
+        # page is a pinout and the owner's statement is about how to read it,
+        # not about where the copper is.
+        #
+        # Dropping the measurement instead would have been the destructive way
+        # to say the same thing, and it would have cost the fact: the DXF is the
+        # only record here of where these connectors actually sit, and a reader
+        # (or a later placement feature) is entitled to it. So both are emitted,
+        # each under the key that says what kind of claim it is.
+        arrangement = board_arrangement(board, headers)
         if arrangement:
             doc["arrangement"] = arrangement
         elec_stats[board] = (n_gpio, n_elec, n_domain, n_analog)
