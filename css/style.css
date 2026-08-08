@@ -17,6 +17,7 @@
   --c-power3v3: #f76b15;
   --c-powerlv: #e8b17a;   /* 1.8V / 3.0V */
   --c-gnd: #454b54;
+  --c-nc: #3c3a2e;        /* not connected -- see CLASS_INFO.nc in js/app.js */
   --c-gpio: #46a758;
   /* I2C yellow / SPI blue / GPIO green match the board silkscreen. */
   --c-i2c: #eac54f;

@@ -170,6 +170,12 @@ CHIP_CLASS = {
     # Renegade J22 PWREN/PWRON: board-level power control off the PMIC, not a
     # gpiochip line and not a bus -- "Other / control" is exactly that class.
     "PHY":   "misc",
+    # A position that physically exists on the connector and is wired to
+    # nothing: roc-rk3399-pc J12.13-30, J21.1/2, J20.30 are pads whose pin
+    # lead terminates in mid-air on the schematic. It is a class, not an
+    # omission -- skipping the row would renumber the drawing and make the
+    # reader count pads wrong, which is the failure this class exists to stop.
+    "NC":    "nc",
 }
 
 

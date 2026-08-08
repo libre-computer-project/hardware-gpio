@@ -335,6 +335,222 @@
       "GND"
      ],
      "cls": "gnd"
+    },
+    {
+     "pin": 13,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 14,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 15,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 16,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 17,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 18,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 19,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 20,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 21,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 22,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 23,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 24,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 25,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 26,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 27,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 28,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 29,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 30,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
     }
    ]
   },
@@ -2332,17 +2548,15 @@
     },
     {
      "pin": 30,
-     "type": "GND",
+     "type": "NC",
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "GND",
+     "name": "NC",
      "pad": "-",
-     "ref": "GND",
-     "funcs": [
-      "GND"
-     ],
-     "cls": "gnd"
+     "ref": "NC(V1.1A/V1.2A)/GND(V0.1)",
+     "funcs": [],
+     "cls": "nc"
     }
    ]
   },
@@ -2350,6 +2564,30 @@
    "id": "J21",
    "rows": 2,
    "pins": [
+    {
+     "pin": 1,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
+    {
+     "pin": 2,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "NC",
+     "pad": "-",
+     "ref": "NC",
+     "funcs": [],
+     "cls": "nc"
+    },
     {
      "pin": 3,
      "type": "12V",

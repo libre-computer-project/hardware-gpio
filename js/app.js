@@ -18,6 +18,18 @@ const CLASS_INFO = {
   power3v3: { label: "3.3V power",         short: "3.3V",      color: "#f76b15" },
   powerlv:  { label: "Low-voltage rail",   short: "Rail",      color: "#e8b17a" },
   gnd:      { label: "Ground",             short: "GND",       color: "#454b54" },
+  /* Not connected: a pad that is on the connector and wired to nothing. The
+     colour has to do two opposite things -- be visible enough that the
+     position reads as DRAWN (the whole point of carrying the row), and be
+     quiet enough that it never competes with a live signal. So: lower
+     lightness and lower chroma than every signal class, a warm neutral
+     rather than a slate. Warm, specifically, because the one confusion that
+     would be dangerous is NC vs ground, and on J12 the two are adjacent
+     (11/12 GND, 13-30 NC) -- GND is a cool slate, this is its opposite hue
+     at a different lightness, dE 15.8 apart in CIE Lab, against 5.5 for the
+     closest pair already in this table. dE 16.0 from the pin background, so
+     an NC pad still reads as a pad and not as a hole in the drawing. */
+  nc:       { label: "Not connected",      short: "NC",        color: "#3c3a2e" },
   gpio:     { label: "GPIO",                                   color: "#46a758" },
   i2c:      { label: "I2C",                                    color: "#eac54f" },
   spi:      { label: "SPI",                                    color: "#3b82f6" },
@@ -620,7 +632,11 @@ function renderDetail(header, p) {
      the reason to open this pane -- and they are the clickable control that
      relabels the header -- so burying them under four rows of identifiers put
      the answer below the question. */
-  html += `<tr><th>Muxes</th><td><div class="func-chips">` +
+  /* A position with no functions at all -- an NC pad, whose Desc is the map's
+     "-" -- gets no Muxes row rather than an empty one. An empty control reads
+     as "we failed to load them"; no row reads as "there are none", which is
+     the true statement about a pad wired to nothing. */
+  if (p.funcs.length) html += `<tr><th>Muxes</th><td><div class="func-chips">` +
     p.funcs.map((f) => {
       const c = funcClass(f);
       const color = (CLASS_INFO[c] || CLASS_INFO.misc).color;
