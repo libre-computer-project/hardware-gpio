@@ -138,17 +138,50 @@ CLASSES = [
 ]
 
 
+# Chip -> class for every non-gpiochip pad the maps declare.
+#
+# The Chip column is the map's OWN statement of what a pad is, so it is
+# answered here in full and never handed to the name-matching fallback below.
+# It used to answer only 5V/3.3V/GND/ADC/DAC, and everything else -- 12V,
+# PCIE, USB, 1.8V, 3.0V, PHY, AUDIO, CVBS -- fell through the fallback and
+# matched nothing, which returns "gpio", which the frontend paints green.
+# A 12V rail wearing the GPIO colour is not a cosmetic slip: green on this
+# page means "muxable pad, wire what you like to it", and the reader acts on
+# the colour before reading the name.
+CHIP_CLASS = {
+    "12V":   "power12v",
+    "5V":    "power5v",
+    "3.3V":  "power3v3",
+    "3.0V":  "powerlv",   # Renegade Elite J20.16 VCCA3V0_CODEC
+    "1.8V":  "powerlv",   # Renegade Elite J15.16 VCC_1V8
+    "GND":   "gnd",
+    "ADC":   "adc",
+    "DAC":   "dac",       # La Frite 9J5 line-out (LOLN/LORN)
+    # Renegade Elite J20 is a codec break-out: HPO_L/R out, MIC_IN and LINE_IN
+    # in. They share the DAC class because it covers analog audio in both
+    # directions (its label says so) -- they are not SAR-ADC inputs, and
+    # "adc" on this page means the SoC's SARADC.
+    "AUDIO": "dac",
+    "PCIE":  "pcie",
+    "USB":   "usb",
+    "CVBS":  "video",
+    "CLK":   "clk",
+    "I2C":   "i2c",
+    # Renegade J22 PWREN/PWRON: board-level power control off the PMIC, not a
+    # gpiochip line and not a bus -- "Other / control" is exactly that class.
+    "PHY":   "misc",
+}
+
+
 def classify(chip, ref, desc):
-    if chip in ("5V",):
-        return "power5v"
-    if chip in ("3.3V",):
-        return "power3v3"
-    if chip in ("GND",):
-        return "gnd"
-    if chip in ("ADC",):
-        return "adc"
-    if chip in ("DAC",):
-        return "dac"          # La Frite 9J5 line-out (LOLN/LORN)
+    if chip in CHIP_CLASS:
+        return CHIP_CLASS[chip]
+    if not chip.isdigit():
+        # The silent fall-through to green is what this guard exists to stop:
+        # a new fixed-function Chip value must be given a class deliberately,
+        # not inherit the one that says "safe to wire anything here".
+        sys.exit(f"classify: unmapped Chip value {chip!r} ({ref} / {desc}); "
+                 f"add it to CHIP_CLASS")
     text = (ref + " " + desc).upper()
     for cls, keys in CLASSES:
         if any(k in text for k in keys):

@@ -3,8 +3,20 @@
 
 /* Function classes. `color` mirrors --c-<key> in css/style.css. */
 const CLASS_INFO = {
+  /* The supply rails are one warm ramp ordered by voltage, and lightness
+     carries the ordering: 12V L*43, 5V L*54, 3.3V L*62, the low rails L*76.
+     Higher voltage reads deeper and more alarming, which is the only reading
+     that is safe to be wrong about. 12V gets its own deeper red rather than
+     sharing 5V's: on Renegade Elite J21 the two sit four pins apart, and one
+     swatch for both would make the drawing unable to tell them apart at
+     exactly the place it matters (dE 19 in CIE Lab, against 5.5 for the
+     closest pair already in this table). 1.8V and 3.0V share one class --
+     each is a single pin on a single board, the pin's own name says which,
+     and what the colour has to say is "supply, not signal". */
+  power12v: { label: "12V power",          short: "12V",       color: "#cc0f1b" },
   power5v:  { label: "5V power",           short: "5V",        color: "#e5484d" },
   power3v3: { label: "3.3V power",         short: "3.3V",      color: "#f76b15" },
+  powerlv:  { label: "Low-voltage rail",   short: "Rail",      color: "#e8b17a" },
   gnd:      { label: "Ground",             short: "GND",       color: "#454b54" },
   gpio:     { label: "GPIO",                                   color: "#46a758" },
   i2c:      { label: "I2C",                                    color: "#eac54f" },
@@ -21,7 +33,11 @@ const CLASS_INFO = {
   tdm:      { label: "TDM",                                    color: "#63e6be" },
   spdif:    { label: "S/PDIF",             short: "SPDIF",     color: "#862e9e" },
   pdm:      { label: "PDM / DMIC",         short: "PDM",       color: "#5c940d" },
-  dac:      { label: "Analog audio out",   short: "DAC",       color: "#087f5b" },
+  /* Both directions: La Frite's line-out and the meson AL_CH/AR_CH muxes, and
+     Renegade Elite's codec header, which brings out HPO_L/R alongside MIC_IN
+     and LINE_IN. Labelling that header "analog audio out" would be a mislabel
+     in the same class as painting it green. */
+  dac:      { label: "Analog audio",       short: "Audio",     color: "#087f5b" },
   adc:      { label: "ADC",                                    color: "#94d82d" },
   clk:      { label: "Clock",                                  color: "#adb5bd" },
   jtag:     { label: "JTAG",                                   color: "#ff922b" },
@@ -30,6 +46,7 @@ const CLASS_INFO = {
   sdio:     { label: "SDIO / SD card",     short: "SDIO",      color: "#66d9e8" },
   nand:     { label: "NAND / flash",       short: "NAND",      color: "#8d6e63" },
   video:    { label: "TS / camera / video", short: "Video",    color: "#c2255c" },
+  pcie:     { label: "PCI Express",        short: "PCIe",      color: "#b197fc" },
   usb:      { label: "USB",                                    color: "#74c0fc" },
   eth:      { label: "Ethernet",           short: "ETH",       color: "#12b886" },
   misc:     { label: "Other / control",    short: "Other",     color: "#6c757d" },
@@ -38,9 +55,14 @@ const CLASS_INFO = {
 /* Function token -> class. First match wins, so order is load-bearing:
    UART_EE_B_TX-PWM_D is a UART pin, CLKOUT_GMAC is Ethernet not clock. */
 const FUNC_RULES = [
+  [/^12V$|12V$/i,                             "power12v"],
   [/^3\.3V$|^VCC3/i,                          "power3v3"],
   [/^5V$|^VCC5/i,                             "power5v"],
+  [/^VCC_?1V8$|^VCCA?3V0/i,                   "powerlv"],
   [/^GND$/i,                                  "gnd"],
+  /* Ahead of the clock rule: PCIE_REF_CLKN is a lane pair's reference clock,
+     and it belongs with the lanes it clocks, not with CLK32K_OUT. */
+  [/^PCIE/i,                                  "pcie"],
   [/JTAG/i,                                   "jtag"],
   [/CEC/i,                                    "cec"],
   [/IR_REMOTE|REMOTE_OUT/i,                   "ir"],

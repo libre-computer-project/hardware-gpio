@@ -7,8 +7,11 @@ GitHub Pages. Inspired by [pinout.xyz](https://pinout.xyz).
 Pick a board from the dropdown. Each header is drawn the way it sits on the
 board — pin numbers down the middle, odd pins on the left rail, even on the
 right. Every pin carries a square split across the middle: the top band is the
-board's own colour for that pin (yellow I2C, blue SPI, orange 3.3V, red 5V),
-and below it sits one vertical stripe per *other* mux the pad can reach. A pin
+board's own colour for that pin (yellow I2C, blue SPI, orange 3.3V, red 5V,
+deeper red 12V), and below it sits one vertical stripe per *other* mux the pad
+can reach. Supply rails ramp by voltage — the higher the rail, the deeper the
+red — so a supply never reads as less alarming than a lower one, and never as
+the green that means "muxable pad". A pin
 whose only role is GPIO has no band — green would say what every pad on the
 header already is, and the stripes get the whole tile instead.
 
@@ -77,12 +80,22 @@ describes every digital GPIO and none of these. They get a round tile instead of
 a square one, and their panel says the digital thresholds do not apply rather
 than showing numbers that describe a different pad cell.
 
-Function classes (power, ground, GPIO, I2C, SPI, UART, PWM, I2S, PCM, TDM,
-S/PDIF, PDM/DMIC, analog audio out, ADC, clock, JTAG, CEC, IR, SDIO, NAND,
-video/TS, USB, Ethernet, misc) are derived from the pin's SoC pad name and
-declared functions. Audio is split by bus rather than lumped: an I2S data lane,
-an S/PDIF output and a mic bitstream are not interchangeable, and the audio
-master clocks (MCLK, meson AM_CLK) sit with the other clocks.
+Function classes (12V / 5V / 3.3V / low-voltage rail, ground, GPIO, I2C, SPI,
+UART, PWM, I2S, PCM, TDM, S/PDIF, PDM/DMIC, analog audio, ADC, clock, JTAG,
+CEC, IR, SDIO, NAND, video/TS, PCI Express, USB, Ethernet, misc) come from the
+map's `Chip` column where it names one outright, and otherwise from the pin's
+SoC pad name and declared functions. Audio is split by bus rather than lumped:
+an I2S data lane, an S/PDIF output and a mic bitstream are not
+interchangeable, and the audio master clocks (MCLK, meson AM_CLK) sit with the
+other clocks.
+
+**A `Chip` value the generator does not know is a build failure, not a green
+pin.** Every fixed-function `Chip` in the wiring-tool maps — `12V`, `1.8V`,
+`3.0V`, `PCIE`, `USB`, `PHY`, `AUDIO`, `CVBS`, `CLK`, `I2C` as well as the
+rails, `GND`, `ADC` and `DAC` — is mapped explicitly in `CHIP_CLASS`, and an
+unmapped one aborts the run. The classifier used to fall through to `gpio` for
+anything it did not recognise, which painted Renegade Elite's 12V rail and its
+sixteen PCIe lanes the same green as a muxable header pad.
 
 ### Board visibility
 

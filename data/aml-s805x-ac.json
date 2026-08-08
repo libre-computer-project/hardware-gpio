@@ -1609,7 +1609,7 @@
      "pad": "J16",
      "ref": "CVBS",
      "funcs": [],
-     "cls": "gpio"
+     "cls": "video"
     }
    ]
   }

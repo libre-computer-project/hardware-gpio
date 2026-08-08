@@ -292,7 +292,7 @@
      "funcs": [
       "HUB_HOST_DM3"
      ],
-     "cls": "gpio"
+     "cls": "usb"
     },
     {
      "pin": 10,
@@ -306,7 +306,7 @@
      "funcs": [
       "HUB_HOST_DP3"
      ],
-     "cls": "gpio"
+     "cls": "usb"
     },
     {
      "pin": 11,
@@ -969,7 +969,7 @@
      "funcs": [
       "VCC_1V8"
      ],
-     "cls": "gpio"
+     "cls": "powerlv"
     },
     {
      "pin": 17,
@@ -1680,7 +1680,7 @@
      "funcs": [
       "MIC_IN1P"
      ],
-     "cls": "gpio"
+     "cls": "dac"
     },
     {
      "pin": 8,
@@ -1708,7 +1708,7 @@
      "funcs": [
       "LIN2"
      ],
-     "cls": "gpio"
+     "cls": "dac"
     },
     {
      "pin": 10,
@@ -1722,7 +1722,7 @@
      "funcs": [
       "MIC_IN1N"
      ],
-     "cls": "gpio"
+     "cls": "dac"
     },
     {
      "pin": 11,
@@ -1736,7 +1736,7 @@
      "funcs": [
       "HPO_R"
      ],
-     "cls": "gpio"
+     "cls": "dac"
     },
     {
      "pin": 12,
@@ -1750,7 +1750,7 @@
      "funcs": [
       "RIN2"
      ],
-     "cls": "gpio"
+     "cls": "dac"
     },
     {
      "pin": 13,
@@ -1778,7 +1778,7 @@
      "funcs": [
       "HPO_L"
      ],
-     "cls": "gpio"
+     "cls": "dac"
     },
     {
      "pin": 15,
@@ -1857,7 +1857,7 @@
      "funcs": [
       "VCCA3V0_CODEC"
      ],
-     "cls": "gpio"
+     "cls": "powerlv"
     },
     {
      "pin": 17,
@@ -2362,7 +2362,7 @@
      "funcs": [
       "SYS_12V"
      ],
-     "cls": "gpio"
+     "cls": "power12v"
     },
     {
      "pin": 4,
@@ -2390,7 +2390,7 @@
      "funcs": [
       "SYS_12V"
      ],
-     "cls": "gpio"
+     "cls": "power12v"
     },
     {
      "pin": 6,
@@ -2474,7 +2474,7 @@
      "funcs": [
       "PCIE_RX3_N"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 12,
@@ -2488,7 +2488,7 @@
      "funcs": [
       "PCIE_RX3_P"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 13,
@@ -2502,7 +2502,7 @@
      "funcs": [
       "PCIE_TX3N"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 14,
@@ -2516,7 +2516,7 @@
      "funcs": [
       "PCIE_TX3P"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 15,
@@ -2530,7 +2530,7 @@
      "funcs": [
       "PCIE_RX2_N"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 16,
@@ -2544,7 +2544,7 @@
      "funcs": [
       "PCIE_RX2_P"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 17,
@@ -2558,7 +2558,7 @@
      "funcs": [
       "PCIE_TX2N"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 18,
@@ -2572,7 +2572,7 @@
      "funcs": [
       "PCIE_TX2P"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 19,
@@ -2614,7 +2614,7 @@
      "funcs": [
       "PCIE_RX1_N"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 22,
@@ -2628,7 +2628,7 @@
      "funcs": [
       "PCIE_RX1_P"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 23,
@@ -2642,7 +2642,7 @@
      "funcs": [
       "PCIE_TX1N"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 24,
@@ -2656,7 +2656,7 @@
      "funcs": [
       "PCIE_TX1P"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 25,
@@ -2670,7 +2670,7 @@
      "funcs": [
       "PCIE_RX0_N"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 26,
@@ -2684,7 +2684,7 @@
      "funcs": [
       "PCIE_RX0_P"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 27,
@@ -2698,7 +2698,7 @@
      "funcs": [
       "PCIE_TX0N"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 28,
@@ -2712,7 +2712,7 @@
      "funcs": [
       "PCIE_TX0P"
      ],
-     "cls": "gpio"
+     "cls": "pcie"
     },
     {
      "pin": 29,
@@ -2726,7 +2726,7 @@
      "funcs": [
       "PCIE_REF_CLKN"
      ],
-     "cls": "clk"
+     "cls": "pcie"
     },
     {
      "pin": 30,
@@ -2740,7 +2740,7 @@
      "funcs": [
       "PCIE_REF_CLKP"
      ],
-     "cls": "clk"
+     "cls": "pcie"
     }
    ]
   }

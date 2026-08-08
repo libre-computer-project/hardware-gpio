@@ -11,8 +11,11 @@
   --accent: #4da3ff;
   --brass: #c9a227;
 
+  /* Rails ramp by voltage: the higher the supply, the deeper the red. */
+  --c-power12v: #cc0f1b;
   --c-power5v: #e5484d;
   --c-power3v3: #f76b15;
+  --c-powerlv: #e8b17a;   /* 1.8V / 3.0V */
   --c-gnd: #454b54;
   --c-gpio: #46a758;
   /* I2C yellow / SPI blue / GPIO green match the board silkscreen. */
@@ -34,6 +37,7 @@
   --c-sdio: #66d9e8;
   --c-nand: #8d6e63;
   --c-video: #c2255c;
+  --c-pcie: #b197fc;
   --c-usb: #74c0fc;
   --c-eth: #12b886;
   --c-misc: #6c757d;

@@ -1993,7 +1993,7 @@
      "funcs": [
       "EN"
      ],
-     "cls": "gpio"
+     "cls": "misc"
     },
     {
      "pin": 2,
@@ -2021,7 +2021,7 @@
      "funcs": [
       "PWRON"
      ],
-     "cls": "gpio"
+     "cls": "misc"
     }
    ]
   }
