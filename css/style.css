@@ -94,13 +94,25 @@ a:hover { text-decoration: underline; }
 #brand-name { font-size: 19px; font-weight: 700; letter-spacing: .3px; }
 #brand-sub { font-size: 14px; color: var(--text-dim); }
 
+/* min-width: 0 on both the group and the select, because a <select> sizes
+   itself to its WIDEST OPTION and will not shrink below it. With ?hidden=1 the
+   longest entry is "Alta (pre-prod) (AML-A311D-CC-V01) — pre-production", which
+   made the control 495px on a 375px viewport and pushed the WHOLE PAGE 125px
+   sideways -- at every board, and on the one view (unlisted boards) nobody
+   checks on a phone. A flex item's automatic minimum is its content, so
+   flex-shrink alone never reaches it; max-width caps the box and the select
+   truncates its own text, which is the browser's job and not the layout's. */
 #controls {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
   margin-left: auto;
+  min-width: 0;
+  max-width: 100%;
 }
+
+#board-select { min-width: 0; max-width: 100%; }
 
 #controls label { color: var(--text-dim); font-size: 13px; }
 
