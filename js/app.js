@@ -13,6 +13,18 @@ const CLASS_INFO = {
      closest pair already in this table). 1.8V and 3.0V share one class --
      each is a single pin on a single board, the pin's own name says which,
      and what the colour has to say is "supply, not signal". */
+  /* PoE sits at the top of that same ramp and is drawn as its top: L*21,
+     below 12V's L*43, because it is the one thing on any of these boards that
+     can present a voltage the board neither makes nor limits -- a PSE drives
+     up to 57 V DC into Renegade Elite's J1, which is the RJ45 magnetics'
+     centre taps on a 2x3 header with no rectifier or current limit in
+     between. Deep enough to read as "do not bridge this to anything", and
+     dE 38.5 in CIE Lab from 12V, which is the neighbour that matters: J6
+     (12V) and J1 (PoE) are two headers on one sheet. Nearest class of any
+     kind is dE 33.7 (video), against 5.5 for the closest pair already in this
+     table. It is deliberately NOT "eth": that is a green, and green on this
+     page means signal. */
+  poe:      { label: "PoE (hazardous)",    short: "PoE",       color: "#6e0011" },
   power12v: { label: "12V power",          short: "12V",       color: "#cc0f1b" },
   power5v:  { label: "5V power",           short: "5V",        color: "#e5484d" },
   power3v3: { label: "3.3V power",         short: "3.3V",      color: "#f76b15" },

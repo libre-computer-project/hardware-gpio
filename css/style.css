@@ -12,6 +12,7 @@
   --brass: #c9a227;
 
   /* Rails ramp by voltage: the higher the supply, the deeper the red. */
+  --c-poe: #6e0011;       /* PoE magnetics tap -- see CLASS_INFO.poe in js/app.js */
   --c-power12v: #cc0f1b;
   --c-power5v: #e5484d;
   --c-power3v3: #f76b15;

@@ -108,7 +108,22 @@ BOARDS = {
 # SIP-3P-2D54 listed above as single-row. A bare "J21" here would draw
 # Renegade's 3-pin strip as a 2x2 -- the invented-rail error this whole
 # comment block exists to prevent.
-DUAL_ROW_HEADERS = {"7J1", "J1", "J12", "J15", "J20", "roc-rk3399-pc:J21"}
+#
+# Renegade Elite's two CON6A are the same standard again, off the same
+# Extension Interface sheet: J1 and J6 are both part CON6A with footprint
+# SMD_PH_3x2_2d0 -- "3x2" states the geometry outright -- in V0.1, V1.1-A and
+# V1.2A alike. Neither carries an SoC pad (J6 is the 12 V pair, J1 the four
+# PoE magnetics taps), which is why they were absent for a while; the
+# footprint is the same evidence the other six stand on.
+#
+# "roc-rk3399-pc:J1" is board-qualified even though a bare "J1" is already
+# present for Renegade's 40-pin CON_2X20PIN_2D54_DIP and would match it too.
+# The two are unrelated connectors that collide on an id, and the whole point
+# of the qualified form is that the set says which board's evidence it is
+# quoting -- an unqualified match here would be a coincidence, not a citation.
+DUAL_ROW_HEADERS = {"7J1", "J1", "J12", "J15", "J20",
+                    "roc-rk3399-pc:J1", "roc-rk3399-pc:J6",
+                    "roc-rk3399-pc:J21"}
 
 
 def is_dual_row(board, header):
@@ -181,6 +196,16 @@ CHIP_CLASS = {
     # board-level control line with no path to the SoC at all -- not a gpiochip
     # line, not a bus -- which is exactly what "Other / control" means here.
     "FLASH": "misc",
+    # roc-rk3399-pc J1.1/2/4/6 POE1-4: the RJ45 magnetics' centre taps, brought
+    # to a 2x3 header with nothing between them and the cable. Its own class
+    # rather than a rail class or "eth", for two reasons that point the same
+    # way. It is not a rail -- no regulator, no fuse, no current limit on this
+    # board -- so painting it with the supply ramp would say "a rail this board
+    # makes". And it is the highest voltage anything in these maps can present:
+    # a PoE PSE drives up to 57 V DC, against 12 V for the deepest rail here.
+    # "eth" would be the worst of the three: a green, on the row of a legend
+    # where green means signal.
+    "POE":   "poe",
 }
 
 

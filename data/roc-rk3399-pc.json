@@ -16,6 +16,96 @@
  },
  "headers": [
   {
+   "id": "J1",
+   "rows": 2,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "POE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "POE1",
+     "pad": "-",
+     "ref": "POE1",
+     "funcs": [
+      "POE1"
+     ],
+     "cls": "poe"
+    },
+    {
+     "pin": 2,
+     "type": "POE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "POE2",
+     "pad": "-",
+     "ref": "POE2",
+     "funcs": [
+      "POE2"
+     ],
+     "cls": "poe"
+    },
+    {
+     "pin": 3,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 4,
+     "type": "POE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "POE3",
+     "pad": "-",
+     "ref": "POE3",
+     "funcs": [
+      "POE3"
+     ],
+     "cls": "poe"
+    },
+    {
+     "pin": 5,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 6,
+     "type": "POE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "POE4",
+     "pad": "-",
+     "ref": "POE4",
+     "funcs": [
+      "POE4"
+     ],
+     "cls": "poe"
+    }
+   ]
+  },
+  {
    "id": "J12",
    "rows": 2,
    "pins": [
@@ -3207,6 +3297,96 @@
       "PCIE_REF_CLKP"
      ],
      "cls": "pcie"
+    }
+   ]
+  },
+  {
+   "id": "J6",
+   "rows": 2,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 2,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 3,
+     "type": "12V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DC_12V",
+     "pad": "-",
+     "ref": "DC_12V(V1.1A/V1.2A)/SYS_12V(V0.1)",
+     "funcs": [
+      "DC_12V"
+     ],
+     "cls": "power12v"
+    },
+    {
+     "pin": 4,
+     "type": "12V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DC_12V",
+     "pad": "-",
+     "ref": "DC_12V(V1.1A/V1.2A)/SYS_12V(V0.1)",
+     "funcs": [
+      "DC_12V"
+     ],
+     "cls": "power12v"
+    },
+    {
+     "pin": 5,
+     "type": "12V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SYS_12V",
+     "pad": "-",
+     "ref": "SYS_12V",
+     "funcs": [
+      "SYS_12V"
+     ],
+     "cls": "power12v"
+    },
+    {
+     "pin": 6,
+     "type": "12V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SYS_12V",
+     "pad": "-",
+     "ref": "SYS_12V",
+     "funcs": [
+      "SYS_12V"
+     ],
+     "cls": "power12v"
     }
    ]
   }
