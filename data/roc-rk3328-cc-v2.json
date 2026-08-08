@@ -678,17 +678,17 @@
     },
     {
      "pin": 17,
-     "type": "GND",
+     "type": "3.3V",
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "GND",
-     "pad": "GND",
+     "name": "3.3V",
+     "pad": "3.3V",
      "ref": "VCC_IO",
      "funcs": [
-      "GND"
+      "3.3V"
      ],
-     "cls": "gnd"
+     "cls": "power3v3"
     },
     {
      "pin": 18,
