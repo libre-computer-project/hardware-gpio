@@ -243,8 +243,18 @@ tools/pcb_layout.py <file.dxf> [designator ...]
 ```
 
 Reading a fab package needs `unrar` (the packages are RARs holding a second RAR
-of gerbers). A host without it places every other board exactly as before and
-says so for this one, rather than failing the run.
+of gerbers). **A host that cannot read a board's layout source stops the run**,
+because the alternative is rewriting that board's committed file with its
+`layout` block missing and saying so in one line among fourteen — a regression
+that reads exactly like a board that was never measured. `--allow-unplaced`
+places every other board exactly as before and skips that one, which is the
+same behaviour as before but as a decision rather than as what happens when you
+look away.
+
+Nothing is written until all fourteen boards are built, so every refusal in the
+generator — an unmapped `Chip` value, an arrangement naming a header the board
+does not have, a driver the parser cannot read — leaves `data/` untouched
+rather than half-replaced.
 
 ### Electrical
 
@@ -324,6 +334,7 @@ guessing its id.
 tools/gen-pinout-data.py                 # default: ../libretech-wiring-tool
 tools/gen-pinout-data.py --lwt <path>    # explicit wiring-tool checkout
 tools/gen-pinout-data.py --out <dir>     # write elsewhere (data/ is replaced)
+tools/gen-pinout-data.py --allow-unplaced   # accept losing a board's layout
 ```
 
 Add a board by extending the `BOARDS` dict in the generator and re-running it.

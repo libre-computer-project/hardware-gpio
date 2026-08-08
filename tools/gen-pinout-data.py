@@ -286,6 +286,22 @@ PCB_LAYOUT = {
 #   everything else  No mechanical or layout export in the tree at all.
 
 
+# A board named in PCB_LAYOUT that cannot be placed on THIS host is a run that
+# would emit that board with less data than the committed file already carries,
+# and nothing in the output says so. Le Potato is the live case: its measurement
+# comes out of a RAR, so a host without `unrar` writes its board file with the
+# whole `layout` block gone -- and the only trace is one line among fourteen.
+#
+# So a board that is SUPPOSED to be placed and is not stops the run by default.
+# The documented "a host without unrar places every other board exactly as
+# before and says so for this one" behaviour is still available, but as a
+# deliberate --allow-unplaced rather than as what happens when you look away.
+# Boards with no PCB_LAYOUT entry are unaffected: not being placed is their
+# normal state, not a degradation.
+class Unplaced(Exception):
+    """A board PCB_LAYOUT names could not be placed from this host's files."""
+
+
 def board_layout(board, headers, docs_repo, require_all=True):
     """Physical placement for one board, or None.
 
@@ -293,8 +309,12 @@ def board_layout(board, headers, docs_repo, require_all=True):
     minimum corner and whose +y is UP, which is the CAD frame -- the drawing
     flips it, rather than this baking a screen convention into the data.
 
-    None unless EVERY header the wiring map lists is placed: a board view with a
-    header missing cannot be told apart from a board that does not have one.
+    Raises Unplaced (never returns None) for a board PCB_LAYOUT names: see the
+    note above. None only for a board it does not name.
+
+    Nothing is placed unless EVERY header the wiring map lists is placed: a
+    board view with a header missing cannot be told apart from a board that does
+    not have one.
     """
     spec = PCB_LAYOUT.get(board)
     if not spec:
@@ -302,8 +322,7 @@ def board_layout(board, headers, docs_repo, require_all=True):
     if "dxf" in spec:
         path = Path(docs_repo) / spec["dxf"]
         if not path.is_file():
-            print(f"  {board}: layout source missing ({path})")
-            return None
+            raise Unplaced(f"layout source missing ({path})")
         name = path.name
         outline, found = pcb_layout.parts(str(path))
     else:
@@ -311,29 +330,23 @@ def board_layout(board, headers, docs_repo, require_all=True):
         for key in ("pnp", "mask"):
             archive, _, member = fab[key].partition("!")
             if not (Path(docs_repo) / archive).is_file():
-                print(f"  {board}: layout source missing ({archive})")
-                return None
+                raise Unplaced(f"layout source missing ({archive})")
             fab[key] = f"{Path(docs_repo) / archive}!{member}"
         name = Path(spec["fab"]["pnp"].split("!")[0]).name
         try:
             outline, found = pcb_layout.fab_parts(fab)
         except (OSError, subprocess.CalledProcessError) as exc:
-            # The fab packages are RARs; a host without `unrar` simply does not
-            # place these boards, the same as one without the file at all.
-            print(f"  {board}: cannot read fab package ({exc}) -- board left unplaced")
-            return None
+            # The fab packages are RARs, so this is the no-`unrar` host.
+            raise Unplaced(f"cannot read fab package ({exc})") from exc
     if not outline:
-        print(f"  {board}: no board outline in {name}")
-        return None
+        raise Unplaced(f"no board outline in {name}")
     x0, y0, x1, y1 = outline
     placed = {}
     for h in headers:
         rec = found.get(h["id"])
         if not rec or "pads" not in rec:
             if require_all:
-                print(f"  {board}: {h['id']} not placed in {name} "
-                      "-- board left unplaced")
-                return None
+                raise Unplaced(f"{h['id']} not placed in {name}")
             continue
         px0, py0, px1, py1 = rec["pads"]
         placed[h["id"]] = {
@@ -739,6 +752,38 @@ def _parse_pin_numbers(header_text):
     return chips
 
 
+def meson_domain(sym, chip, line, name, family):
+    """Which meson pinctrl DOMAIN (0 aobus / 1 periphs) a map row belongs to.
+
+    Not the map's Chip column, which is the LINUX GPIOCHIP INDEX -- a probe
+    order, not a property of the silicon. GXL enumerates the AO controller as
+    gpiochip0 and the periphs one as gpiochip1; G12/SM1 does the OPPOSITE, so
+    reading Chip as a domain silently resolved every A311D and S905D3 pad
+    against the wrong bank. It did not fail loudly: the group search simply
+    matched nothing, every function fell through to the datasheet fallback, and
+    the ~47 tokens per board the datasheet does not carry were dropped as
+    "unmatched" -- a board's whole pinmux missing its register rows, with the
+    only trace a count at the end of the run.
+
+    The pad NAME is the fact that cannot be ambiguous: GPIOAO_3 names its own
+    bank, and every bank belongs to exactly one domain. So the domain is read
+    off the dt-bindings header, which is the same file the pin numbers come
+    from. A name the header does not carry (TEST_N**, which has no muxes) falls
+    back to Chip, which is no worse than before; a name it carries at a
+    DIFFERENT pin number is a disagreement between the kernel and the wiring
+    map, and picking either would put a wrong register on the page.
+    """
+    key = re.sub(r"[^A-Z0-9_]", "", (name or "").upper())
+    for domain, syms in sym.items():
+        if key in syms:
+            if syms[key] != line:
+                sys.exit(f"{family}: {name} is pin {syms[key]} in the "
+                         f"dt-bindings header but line {line} in the wiring "
+                         "map -- refusing to guess which is right")
+            return domain
+    return chip
+
+
 class MesonGxlMux:
     """meson8-pmx: one enable bit per group; reg*4 byte offset, bit set = func.
 
@@ -800,10 +845,11 @@ class MesonGxlMux:
         t = re.sub(r"^i2sin_", "i2s_in_", t)
         return self.ALIAS.get(t, t)
 
-    def lookup(self, chip, line, token):
+    def lookup(self, chip, line, token, name=None):
         t = self._base(token)
+        dom = meson_domain(self.sym, chip, line, name, self.family)
         cands = [g for g, v in self.groups.items()
-                 if v[0] == chip and line in v[3]
+                 if v[0] == dom and line in v[3]
                  and (g == t or g.startswith(t + "_"))]
         if not cands:
             return None
@@ -911,10 +957,11 @@ class MesonG12aMux:
             "hdmitx_scl": "hdmitx_sck",
         }.get(t, t)
 
-    def lookup(self, chip, line, token):
+    def lookup(self, chip, line, token, name=None):
         t = self._base(token)
+        dom = meson_domain(self.sym, chip, line, name, self.family)
         cands = [g for g, v in self.groups.items()
-                 if v[0] == chip and line in v[2]
+                 if v[0] == dom and line in v[2]
                  and (g == t or g.startswith(t + "_"))]
         if not cands:
             return None
@@ -1051,7 +1098,7 @@ class RockchipMux:
         return {"family": self.family, "driver": self.DRIVER, "note": self.NOTE,
                 "bases": {"grf": f"0x{self.BASE:x}"}}
 
-    def lookup(self, chip, line, token):
+    def lookup(self, chip, line, token, name=None):
         tok = token.lower()
         m = re.match(r"^(.*?)(_m(\d+))?$", tok)
         base, _, msuf = m.groups()
@@ -1154,7 +1201,7 @@ class Rk3399Mux:
                 "note": self.NOTE,
                 "bases": {"grf": "0xff770000", "pmugrf": "0xff320000"}}
 
-    def lookup(self, chip, line, token):
+    def lookup(self, chip, line, token, name=None):
         found = self.pads.get((chip, line))
         if not found:
             return None
@@ -1217,7 +1264,7 @@ class SunxiMux:
                     return name, funcs[name]
         return None, None
 
-    def lookup(self, chip, line, token):
+    def lookup(self, chip, line, token, name=None):
         funcs = self.pins.get(line)
         if not funcs:
             return None
@@ -1748,20 +1795,31 @@ def main():
                                 "rk3328" / "gpio_pinmux_datasheet.json"),
                     help="RK3328 datasheet Table 2-3 extract; supplies per-pad "
                          "direction, reset state/pull, drive and interrupt")
+    ap.add_argument("--allow-unplaced", action="store_true",
+                    help="emit a board PCB_LAYOUT names even when its layout "
+                         "source cannot be read here (e.g. no `unrar` for the "
+                         "fab packages). Off by default: the board file would "
+                         "otherwise be rewritten WITHOUT its layout block and "
+                         "nothing in the output would say so")
     args = ap.parse_args()
     lwt = Path(args.lwt)
     linux = Path(args.linux)
     rk_pinmux = args.rk_pinmux
 
     out = Path(args.out)
-    out.mkdir(exist_ok=True)
-    for stale in out.glob("*.json"):
-        stale.unlink()
+
+    # Nothing is written until every board has been built. Each sys.exit in this
+    # generator -- an unmapped Chip value, an arrangement naming a header the
+    # board does not have, a driver the parser cannot read -- is a refusal to
+    # emit wrong data, and a refusal that has already deleted half of data/ is
+    # not a refusal. Buffering makes the whole run atomic for free.
+    written = {}
 
     mux_cache = {}
     elec_cache = {}
     ds_mux = DatasheetMux(args.docs_repo)
     unmatched = []
+    unbound = []
     index = []
     elec_stats = {}
     for board, (model, name, soc, vendor, status) in sorted(BOARDS.items()):
@@ -1800,7 +1858,7 @@ def main():
                             n_domain += 1
                 muxes = []
                 for token in p["funcs"]:
-                    entry = mux.lookup(p["chip"], p["line"], token)
+                    entry = mux.lookup(p["chip"], p["line"], token, p["name"])
                     if entry is None:
                         # The driver models a subset of the silicon, so a real
                         # function it never gained a group for arrives here with
@@ -1876,7 +1934,17 @@ def main():
         # thresholds do: the drawing resolves it without a second fetch, and a
         # board with no layout data simply has no key, which is what makes the
         # frontend's fallback the absence of a branch rather than a flag.
-        layout = board_layout(board, headers, args.docs_repo)
+        try:
+            layout = board_layout(board, headers, args.docs_repo)
+        except Unplaced as exc:
+            if not args.allow_unplaced:
+                sys.exit(f"{board}: {exc} -- this board's committed file "
+                         "carries a layout block and this run would rewrite it "
+                         "without one. Regenerate on a host that can read the "
+                         "source, or pass --allow-unplaced to accept the loss "
+                         "deliberately. Nothing has been written.")
+            print(f"  {board}: {exc} -- board left unplaced (--allow-unplaced)")
+            layout = None
         if layout:
             doc["layout"] = layout
         # BOTH is allowed. The old rule here was "never both", on the reasoning
@@ -1900,7 +1968,20 @@ def main():
         if arrangement:
             doc["arrangement"] = arrangement
         elec_stats[board] = (n_gpio, n_elec, n_domain, n_analog)
-        (out / f"{board}.json").write_text(json.dumps(doc, indent=1) + "\n")
+        # A pad whose power domain is not a rail the board block carries resolves
+        # to no rail, so the panel shows the domain's name and NO thresholds --
+        # which looks exactly like a pad the vendor never documented. It is not:
+        # it is a name the two extracts spell differently. Said out loud here
+        # because it is silent everywhere else.
+        rails = ((doc.get("electrical") or {}).get("rails") or {})
+        for h in headers:
+            for p in h["pins"]:
+                dom = (p.get("elec") or {}).get("domain")
+                if dom and rails and dom not in rails:
+                    unbound.append(f"{board} {h['id']}.{p['pin']} {p['name']}: "
+                                   f"domain {dom!r} is not a rail in this "
+                                   "board's electrical block")
+        written[f"{board}.json"] = json.dumps(doc, indent=1) + "\n"
         index.append({
             "id": board, "model": model, "name": name, "soc": soc,
             "vendor": vendor, "status": status, "hidden": status != "production",
@@ -1912,7 +1993,15 @@ def main():
     # Catalogue order: model, not product name -- AML-S905X-CC before its -V2
     # and -V3, and each SoC family contiguous.
     index.sort(key=lambda b: b["model"])
-    (out / "boards.json").write_text(json.dumps({"boards": index}, indent=1) + "\n")
+    written["boards.json"] = json.dumps({"boards": index}, indent=1) + "\n"
+
+    # Every board survived, so data/ can be replaced.
+    out.mkdir(exist_ok=True)
+    for stale in out.glob("*.json"):
+        stale.unlink()
+    for fname, text in written.items():
+        (out / fname).write_text(text)
+
     print(f"\n{len(index)} boards -> {out}/")
     print("\nelectrical coverage (gpio rows / with pad data / with power "
           "domain / analog rows):")
@@ -1921,6 +2010,11 @@ def main():
     if unmatched:
         print(f"\n{len(unmatched)} unmatched mux tokens (kept without offsets):")
         for u in unmatched:
+            print(f"  {u}")
+    if unbound:
+        print(f"\n{len(unbound)} pads whose power domain names no rail "
+              "(panel shows the domain and no thresholds):")
+        for u in unbound:
             print(f"  {u}")
 
 

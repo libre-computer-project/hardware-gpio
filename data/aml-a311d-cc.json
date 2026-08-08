@@ -71,13 +71,37 @@
      },
      "muxes": [
       {
-       "name": "I2C_AO_S0_SDA",
-       "source": "datasheet",
+       "name": "I2C_AO_M0_SDA",
+       "group": "i2c_ao_sda",
+       "funcs": [
+        "i2c_ao"
+       ],
+       "reg": "0xff800014",
        "bit": 12,
        "width": 4,
-       "value": 3,
+       "value": 1
+      },
+      {
+       "name": "UART_AO_B_RX",
+       "group": "uart_ao_b_rx_3",
+       "funcs": [
+        "uart_ao_b"
+       ],
        "reg": "0xff800014",
-       "register": "AO_RTI_PIN_MUX_REG0"
+       "bit": 12,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "I2C_AO_S0_SDA",
+       "group": "i2c_ao_slave_sda",
+       "funcs": [
+        "i2c_ao_slave"
+       ],
+       "reg": "0xff800014",
+       "bit": 12,
+       "width": 4,
+       "value": 3
       }
      ]
     },
@@ -120,21 +144,36 @@
      "muxes": [
       {
        "name": "I2C_AO_M0_SCL",
-       "source": "datasheet",
+       "group": "i2c_ao_sck",
+       "funcs": [
+        "i2c_ao"
+       ],
+       "reg": "0xff800014",
        "bit": 8,
        "width": 4,
-       "value": 1,
+       "value": 1
+      },
+      {
+       "name": "UART_AO_B_TX",
+       "group": "uart_ao_b_tx_2",
+       "funcs": [
+        "uart_ao_b"
+       ],
        "reg": "0xff800014",
-       "register": "AO_RTI_PIN_MUX_REG0"
+       "bit": 8,
+       "width": 4,
+       "value": 2
       },
       {
        "name": "I2C_AO_S0_SCL",
-       "source": "datasheet",
+       "group": "i2c_ao_slave_sck",
+       "funcs": [
+        "i2c_ao_slave"
+       ],
+       "reg": "0xff800014",
        "bit": 8,
        "width": 4,
-       "value": 3,
-       "reg": "0xff800014",
-       "register": "AO_RTI_PIN_MUX_REG0"
+       "value": 3
       }
      ]
     },
@@ -175,7 +214,31 @@
       "direction": "I/O",
       "pupd_reset": "pull-down",
       "domain": "VDDIO_AO"
-     }
+     },
+     "muxes": [
+      {
+       "name": "JTAG_A_CLK",
+       "group": "jtag_a_clk",
+       "funcs": [
+        "jtag_a"
+       ],
+       "reg": "0xff800014",
+       "bit": 24,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "PWMAO_C",
+       "group": "pwm_ao_c_6",
+       "funcs": [
+        "pwm_ao_c"
+       ],
+       "reg": "0xff800014",
+       "bit": 24,
+       "width": 4,
+       "value": 3
+      }
+     ]
     },
     {
      "pin": 8,
@@ -200,7 +263,31 @@
       "direction": "I/O",
       "pupd_reset": "pull-up",
       "domain": "VDDIO_AO"
-     }
+     },
+     "muxes": [
+      {
+       "name": "JTAG_A_TDI",
+       "group": "jtag_a_tdi",
+       "funcs": [
+        "jtag_a"
+       ],
+       "reg": "0xff800018",
+       "bit": 0,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "UART_AO_B_TX",
+       "group": "uart_ao_b_tx_8",
+       "funcs": [
+        "uart_ao_b"
+       ],
+       "reg": "0xff800018",
+       "bit": 0,
+       "width": 4,
+       "value": 3
+      }
+     ]
     },
     {
      "pin": 9,
@@ -238,7 +325,42 @@
       "direction": "I/O",
       "pupd_reset": "pull-down",
       "domain": "VDDIO_AO"
-     }
+     },
+     "muxes": [
+      {
+       "name": "JTAG_A_TDO",
+       "group": "jtag_a_tdo",
+       "funcs": [
+        "jtag_a"
+       ],
+       "reg": "0xff800018",
+       "bit": 4,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "UART_AO_B_RX",
+       "group": "uart_ao_b_rx_9",
+       "funcs": [
+        "uart_ao_b"
+       ],
+       "reg": "0xff800018",
+       "bit": 4,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "MCLK_0",
+       "group": "mclk0_ao",
+       "funcs": [
+        "mclk0_ao"
+       ],
+       "reg": "0xff800018",
+       "bit": 4,
+       "width": 4,
+       "value": 5
+      }
+     ]
     },
     {
      "pin": 11,
@@ -262,7 +384,20 @@
       "direction": "I/O",
       "pupd_reset": "pull-up",
       "domain": "VDDIO_AO"
-     }
+     },
+     "muxes": [
+      {
+       "name": "JTAG_A_TMS",
+       "group": "jtag_a_tms",
+       "funcs": [
+        "jtag_a"
+       ],
+       "reg": "0xff800014",
+       "bit": 28,
+       "width": 4,
+       "value": 1
+      }
+     ]
     },
     {
      "pin": 12,
@@ -287,7 +422,42 @@
       "direction": "I/O",
       "pupd_reset": "pull-up",
       "domain": "VDDIO_X"
-     }
+     },
+     "muxes": [
+      {
+       "name": "TSIN_B_CLK",
+       "group": "tsin_b_clk_x",
+       "funcs": [
+        "tsin_b"
+       ],
+       "reg": "0xff6346d0",
+       "bit": 12,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "SPI_A_SCLK",
+       "group": "spi0_clk_x",
+       "funcs": [
+        "spi0"
+       ],
+       "reg": "0xff6346d0",
+       "bit": 12,
+       "width": 4,
+       "value": 4
+      },
+      {
+       "name": "I2C_EE_M1_SCL",
+       "group": "i2c1_sck_x",
+       "funcs": [
+        "i2c1"
+       ],
+       "reg": "0xff6346d0",
+       "bit": 12,
+       "width": 4,
+       "value": 5
+      }
+     ]
     },
     {
      "pin": 13,
@@ -314,21 +484,25 @@
      "muxes": [
       {
        "name": "PDM_DIN0",
-       "source": "datasheet",
+       "group": "pdm_din0_a",
+       "funcs": [
+        "pdm"
+       ],
+       "reg": "0xff6346f8",
        "bit": 0,
        "width": 4,
-       "value": 1,
-       "reg": "0xff6346f8",
-       "register": "PERIPHS_PIN_MUX_E"
+       "value": 1
       },
       {
        "name": "TDMC_D2",
-       "source": "datasheet",
+       "group": "tdm_c_dout2_a",
+       "funcs": [
+        "tdm_c"
+       ],
+       "reg": "0xff6346f8",
        "bit": 0,
        "width": 4,
-       "value": 2,
-       "reg": "0xff6346f8",
-       "register": "PERIPHS_PIN_MUX_E"
+       "value": 2
       },
       {
        "name": "TDMC_DIN2",
@@ -378,12 +552,14 @@
      "muxes": [
       {
        "name": "MCLK_0",
-       "source": "datasheet",
+       "group": "mclk0_a",
+       "funcs": [
+        "mclk0"
+       ],
+       "reg": "0xff6346f4",
        "bit": 0,
        "width": 4,
-       "value": 1,
-       "reg": "0xff6346f4",
-       "register": "PERIPHS_PIN_MUX_D"
+       "value": 1
       }
      ]
     },
@@ -412,12 +588,14 @@
      "muxes": [
       {
        "name": "TDMB_D1",
-       "source": "datasheet",
+       "group": "tdm_b_dout1",
+       "funcs": [
+        "tdm_b"
+       ],
+       "reg": "0xff6346f4",
        "bit": 16,
        "width": 4,
-       "value": 1,
-       "reg": "0xff6346f4",
-       "register": "PERIPHS_PIN_MUX_D"
+       "value": 1
       },
       {
        "name": "TDMB_DIN1",
@@ -430,12 +608,14 @@
       },
       {
        "name": "PWM_D",
-       "source": "datasheet",
+       "group": "pwm_d_a",
+       "funcs": [
+        "pwm_d"
+       ],
+       "reg": "0xff6346f4",
        "bit": 16,
        "width": 4,
-       "value": 3,
-       "reg": "0xff6346f4",
-       "register": "PERIPHS_PIN_MUX_D"
+       "value": 3
       }
      ]
     },
@@ -478,12 +658,14 @@
      "muxes": [
       {
        "name": "PDM_DIN3",
-       "source": "datasheet",
+       "group": "pdm_din3_a",
+       "funcs": [
+        "pdm"
+       ],
+       "reg": "0xff6346f4",
        "bit": 20,
        "width": 4,
-       "value": 1,
-       "reg": "0xff6346f4",
-       "register": "PERIPHS_PIN_MUX_D"
+       "value": 1
       },
       {
        "name": "TDMB_DIN2",
@@ -496,12 +678,14 @@
       },
       {
        "name": "TDMB_D2",
-       "source": "datasheet",
+       "group": "tdm_b_dout2",
+       "funcs": [
+        "tdm_b"
+       ],
+       "reg": "0xff6346f4",
        "bit": 20,
        "width": 4,
-       "value": 3,
-       "reg": "0xff6346f4",
-       "register": "PERIPHS_PIN_MUX_D"
+       "value": 3
       }
      ]
     },
@@ -530,21 +714,36 @@
      "muxes": [
       {
        "name": "SPDIF_OUT",
-       "source": "datasheet",
+       "group": "spdif_out_h",
+       "funcs": [
+        "spdif_out"
+       ],
+       "reg": "0xff6346ec",
        "bit": 16,
        "width": 4,
-       "value": 1,
+       "value": 1
+      },
+      {
+       "name": "UART_EE_C_RTS",
+       "group": "uart_c_rts",
+       "funcs": [
+        "uart_c"
+       ],
        "reg": "0xff6346ec",
-       "register": "PERIPHS_PIN_MUX_B"
+       "bit": 16,
+       "width": 4,
+       "value": 2
       },
       {
        "name": "SPI_B_MOSI",
-       "source": "datasheet",
+       "group": "spi1_mosi",
+       "funcs": [
+        "spi1"
+       ],
+       "reg": "0xff6346ec",
        "bit": 16,
        "width": 4,
-       "value": 3,
-       "reg": "0xff6346ec",
-       "register": "PERIPHS_PIN_MUX_B"
+       "value": 3
       }
      ]
     },
@@ -590,39 +789,58 @@
      "muxes": [
       {
        "name": "SPDIF_IN",
-       "source": "datasheet",
+       "group": "spdif_in_h",
+       "funcs": [
+        "spdif_in"
+       ],
+       "reg": "0xff6346ec",
        "bit": 20,
        "width": 4,
-       "value": 1,
+       "value": 1
+      },
+      {
+       "name": "UART_EE_C_CTS",
+       "group": "uart_c_cts",
+       "funcs": [
+        "uart_c"
+       ],
        "reg": "0xff6346ec",
-       "register": "PERIPHS_PIN_MUX_B"
+       "bit": 20,
+       "width": 4,
+       "value": 2
       },
       {
        "name": "SPI_B_MISO",
-       "source": "datasheet",
+       "group": "spi1_miso",
+       "funcs": [
+        "spi1"
+       ],
+       "reg": "0xff6346ec",
        "bit": 20,
        "width": 4,
-       "value": 3,
-       "reg": "0xff6346ec",
-       "register": "PERIPHS_PIN_MUX_B"
+       "value": 3
       },
       {
        "name": "PWM_F",
-       "source": "datasheet",
+       "group": "pwm_f_h",
+       "funcs": [
+        "pwm_f"
+       ],
+       "reg": "0xff6346ec",
        "bit": 20,
        "width": 4,
-       "value": 4,
-       "reg": "0xff6346ec",
-       "register": "PERIPHS_PIN_MUX_B"
+       "value": 4
       },
       {
        "name": "TDMB_D3",
-       "source": "datasheet",
+       "group": "tdm_b_dout3_h",
+       "funcs": [
+        "tdm_b"
+       ],
+       "reg": "0xff6346ec",
        "bit": 20,
        "width": 4,
-       "value": 5,
-       "reg": "0xff6346ec",
-       "register": "PERIPHS_PIN_MUX_B"
+       "value": 5
       },
       {
        "name": "TDMB_DIN3",
@@ -660,12 +878,14 @@
      "muxes": [
       {
        "name": "PDM_DIN2",
-       "source": "datasheet",
+       "group": "pdm_din2_a",
+       "funcs": [
+        "pdm"
+       ],
+       "reg": "0xff6346f4",
        "bit": 24,
        "width": 4,
-       "value": 1,
-       "reg": "0xff6346f4",
-       "register": "PERIPHS_PIN_MUX_D"
+       "value": 1
       },
       {
        "name": "TDMB_DIN3",
@@ -678,12 +898,14 @@
       },
       {
        "name": "TDMB_D3",
-       "source": "datasheet",
+       "group": "tdm_b_dout3_a",
+       "funcs": [
+        "tdm_b"
+       ],
+       "reg": "0xff6346f4",
        "bit": 24,
        "width": 4,
-       "value": 3,
-       "reg": "0xff6346f4",
-       "register": "PERIPHS_PIN_MUX_D"
+       "value": 3
       }
      ]
     },
@@ -713,31 +935,59 @@
      },
      "muxes": [
       {
-       "name": "UART_EE_C_TX",
-       "source": "datasheet",
+       "name": "ISO7816_DATA",
+       "group": "iso7816_data_h",
+       "funcs": [
+        "iso7816"
+       ],
+       "reg": "0xff6346ec",
        "bit": 28,
        "width": 4,
-       "value": 2,
+       "value": 1
+      },
+      {
+       "name": "UART_EE_C_TX",
+       "group": "uart_c_tx",
+       "funcs": [
+        "uart_c"
+       ],
        "reg": "0xff6346ec",
-       "register": "PERIPHS_PIN_MUX_B"
+       "bit": 28,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SPI_B_SCLK",
+       "group": "spi1_clk",
+       "funcs": [
+        "spi1"
+       ],
+       "reg": "0xff6346ec",
+       "bit": 28,
+       "width": 4,
+       "value": 3
       },
       {
        "name": "I2C_EE_M1_SCL",
-       "source": "datasheet",
+       "group": "i2c1_sck_h7",
+       "funcs": [
+        "i2c1"
+       ],
+       "reg": "0xff6346ec",
        "bit": 28,
        "width": 4,
-       "value": 4,
-       "reg": "0xff6346ec",
-       "register": "PERIPHS_PIN_MUX_B"
+       "value": 4
       },
       {
        "name": "PWM_B",
-       "source": "datasheet",
+       "group": "pwm_b_h",
+       "funcs": [
+        "pwm_b"
+       ],
+       "reg": "0xff6346ec",
        "bit": 28,
        "width": 4,
-       "value": 5,
-       "reg": "0xff6346ec",
-       "register": "PERIPHS_PIN_MUX_B"
+       "value": 5
       }
      ]
     },
@@ -767,13 +1017,48 @@
      },
      "muxes": [
       {
-       "name": "UART_EE_C_RX",
-       "source": "datasheet",
+       "name": "ISO7816_CLK",
+       "group": "iso7816_clk_h",
+       "funcs": [
+        "iso7816"
+       ],
+       "reg": "0xff6346ec",
        "bit": 24,
        "width": 4,
-       "value": 2,
+       "value": 1
+      },
+      {
+       "name": "UART_EE_C_RX",
+       "group": "uart_c_rx",
+       "funcs": [
+        "uart_c"
+       ],
        "reg": "0xff6346ec",
-       "register": "PERIPHS_PIN_MUX_B"
+       "bit": 24,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SPI_B_SS0",
+       "group": "spi1_ss0",
+       "funcs": [
+        "spi1"
+       ],
+       "reg": "0xff6346ec",
+       "bit": 24,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "I2C_EE_M1_SDA",
+       "group": "i2c1_sda_h6",
+       "funcs": [
+        "i2c1"
+       ],
+       "reg": "0xff6346ec",
+       "bit": 24,
+       "width": 4,
+       "value": 4
       }
      ]
     },
@@ -816,21 +1101,25 @@
      "muxes": [
       {
        "name": "PDM_DIN1",
-       "source": "datasheet",
+       "group": "pdm_din1_a",
+       "funcs": [
+        "pdm"
+       ],
+       "reg": "0xff6346f8",
        "bit": 4,
        "width": 4,
-       "value": 1,
-       "reg": "0xff6346f8",
-       "register": "PERIPHS_PIN_MUX_E"
+       "value": 1
       },
       {
        "name": "TDMC_D1",
-       "source": "datasheet",
+       "group": "tdm_c_dout1_a",
+       "funcs": [
+        "tdm_c"
+       ],
+       "reg": "0xff6346f8",
        "bit": 4,
        "width": 4,
-       "value": 2,
-       "reg": "0xff6346f8",
-       "register": "PERIPHS_PIN_MUX_E"
+       "value": 2
       },
       {
        "name": "TDMC_DIN1",
@@ -866,12 +1155,14 @@
      "muxes": [
       {
        "name": "I2C_EE_M2_SDA",
-       "source": "datasheet",
+       "group": "i2c2_sda_x",
+       "funcs": [
+        "i2c2"
+       ],
+       "reg": "0xff6346d4",
        "bit": 4,
        "width": 4,
-       "value": 2,
-       "reg": "0xff6346d4",
-       "register": "PERIPHS_PIN_MUX_5"
+       "value": 1
       }
      ]
     },
@@ -898,12 +1189,14 @@
      "muxes": [
       {
        "name": "I2C_EE_M2_SCL",
-       "source": "datasheet",
+       "group": "i2c2_sck_x",
+       "funcs": [
+        "i2c2"
+       ],
+       "reg": "0xff6346d4",
        "bit": 8,
        "width": 4,
-       "value": 2,
-       "reg": "0xff6346d4",
-       "register": "PERIPHS_PIN_MUX_5"
+       "value": 1
       }
      ]
     },
@@ -1030,30 +1323,36 @@
      "muxes": [
       {
        "name": "SPDIF_OUT",
-       "source": "datasheet",
+       "group": "spdif_out_a11",
+       "funcs": [
+        "spdif_out"
+       ],
+       "reg": "0xff6346f8",
        "bit": 12,
        "width": 4,
-       "value": 1,
-       "reg": "0xff6346f8",
-       "register": "PERIPHS_PIN_MUX_E"
+       "value": 1
       },
       {
        "name": "MCLK_1",
-       "source": "datasheet",
+       "group": "mclk1_a",
+       "funcs": [
+        "mclk1"
+       ],
+       "reg": "0xff6346f8",
        "bit": 12,
        "width": 4,
-       "value": 2,
-       "reg": "0xff6346f8",
-       "register": "PERIPHS_PIN_MUX_E"
+       "value": 2
       },
       {
        "name": "PWM_F",
-       "source": "datasheet",
+       "group": "pwm_f_a",
+       "funcs": [
+        "pwm_f"
+       ],
+       "reg": "0xff6346f8",
        "bit": 12,
        "width": 4,
-       "value": 3,
-       "reg": "0xff6346f8",
-       "register": "PERIPHS_PIN_MUX_E"
+       "value": 3
       }
      ]
     },
@@ -1082,22 +1381,46 @@
      },
      "muxes": [
       {
-       "name": "MCLK_1",
-       "source": "datasheet",
+       "name": "SDIO_CMD",
+       "group": "sdio_cmd",
+       "funcs": [
+        "sdio"
+       ],
+       "reg": "0xff6346cc",
        "bit": 20,
        "width": 4,
-       "value": 2,
+       "value": 1
+      },
+      {
+       "name": "SDCARD_CMD",
+       "group": "sdcard_cmd_x",
+       "funcs": [],
        "reg": "0xff6346cc",
-       "register": "PERIPHS_PIN_MUX_3"
+       "bit": 20,
+       "width": 4,
+       "value": 5
+      },
+      {
+       "name": "MCLK_1",
+       "group": "mclk1_x",
+       "funcs": [
+        "mclk1"
+       ],
+       "reg": "0xff6346cc",
+       "bit": 20,
+       "width": 4,
+       "value": 2
       },
       {
        "name": "PWM_C",
-       "source": "datasheet",
+       "group": "pwm_c_x5",
+       "funcs": [
+        "pwm_c"
+       ],
+       "reg": "0xff6346cc",
        "bit": 20,
        "width": 4,
-       "value": 4,
-       "reg": "0xff6346cc",
-       "register": "PERIPHS_PIN_MUX_3"
+       "value": 4
       }
      ]
     },
@@ -1148,6 +1471,39 @@
        "value": 2,
        "reg": "0xff6346d0",
        "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "TSIN_B_DIN0",
+       "group": "tsin_b_din0_x",
+       "funcs": [
+        "tsin_b"
+       ],
+       "reg": "0xff6346d0",
+       "bit": 8,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "SPI_A_SS0",
+       "group": "spi0_ss0_x",
+       "funcs": [
+        "spi0"
+       ],
+       "reg": "0xff6346d0",
+       "bit": 8,
+       "width": 4,
+       "value": 4
+      },
+      {
+       "name": "I2C_EE_M1_SDA",
+       "group": "i2c1_sda_x",
+       "funcs": [
+        "i2c1"
+       ],
+       "reg": "0xff6346d0",
+       "bit": 8,
+       "width": 4,
+       "value": 5
       }
      ]
     },
@@ -1176,21 +1532,25 @@
      "muxes": [
       {
        "name": "PDM_DCLK",
-       "source": "datasheet",
+       "group": "pdm_dclk_a",
+       "funcs": [
+        "pdm"
+       ],
+       "reg": "0xff6346f4",
        "bit": 28,
        "width": 4,
-       "value": 1,
-       "reg": "0xff6346f4",
-       "register": "PERIPHS_PIN_MUX_D"
+       "value": 1
       },
       {
        "name": "TDMC_D3",
-       "source": "datasheet",
+       "group": "tdm_c_dout3_a",
+       "funcs": [
+        "tdm_c"
+       ],
+       "reg": "0xff6346f4",
        "bit": 28,
        "width": 4,
-       "value": 2,
-       "reg": "0xff6346f4",
-       "register": "PERIPHS_PIN_MUX_D"
+       "value": 2
       },
       {
        "name": "TDMC_DIN3",
@@ -1227,12 +1587,14 @@
      "muxes": [
       {
        "name": "TDMB_D0",
-       "source": "datasheet",
+       "group": "tdm_b_dout0",
+       "funcs": [
+        "tdm_b"
+       ],
+       "reg": "0xff6346f4",
        "bit": 12,
        "width": 4,
-       "value": 1,
-       "reg": "0xff6346f4",
-       "register": "PERIPHS_PIN_MUX_D"
+       "value": 1
       },
       {
        "name": "TDMB_DIN0",
@@ -1273,30 +1635,58 @@
      "muxes": [
       {
        "name": "TDMA_D1",
-       "source": "datasheet",
+       "group": "tdm_a_dout1",
+       "funcs": [
+        "tdm_a"
+       ],
+       "reg": "0xff6346d0",
        "bit": 0,
        "width": 4,
-       "value": 2,
+       "value": 1
+      },
+      {
+       "name": "TSIN_B_SOP",
+       "group": "tsin_b_sop_x",
+       "funcs": [
+        "tsin_b"
+       ],
        "reg": "0xff6346d0",
-       "register": "PERIPHS_PIN_MUX_4"
+       "bit": 0,
+       "width": 4,
+       "value": 3
       },
       {
        "name": "SPI_A_MOSI",
-       "source": "datasheet",
+       "group": "spi0_mosi_x",
+       "funcs": [
+        "spi0"
+       ],
+       "reg": "0xff6346d0",
        "bit": 0,
        "width": 4,
-       "value": 4,
-       "reg": "0xff6346d0",
-       "register": "PERIPHS_PIN_MUX_4"
+       "value": 4
       },
       {
        "name": "PWM_C",
-       "source": "datasheet",
+       "group": "pwm_c_x8",
+       "funcs": [
+        "pwm_c"
+       ],
+       "reg": "0xff6346d0",
        "bit": 0,
        "width": 4,
-       "value": 5,
+       "value": 5
+      },
+      {
+       "name": "ISO7816_CLK",
+       "group": "iso7816_clk_x",
+       "funcs": [
+        "iso7816"
+       ],
        "reg": "0xff6346d0",
-       "register": "PERIPHS_PIN_MUX_4"
+       "bit": 0,
+       "width": 4,
+       "value": 6
       }
      ]
     },
@@ -1341,30 +1731,47 @@
      "muxes": [
       {
        "name": "TDMA_D0",
-       "source": "datasheet",
+       "group": "tdm_a_dout0",
+       "funcs": [
+        "tdm_a"
+       ],
+       "reg": "0xff6346d0",
        "bit": 4,
        "width": 4,
-       "value": 2,
-       "reg": "0xff6346d0",
-       "register": "PERIPHS_PIN_MUX_4"
+       "value": 1
       },
       {
        "name": "TSIN_B_VALID",
-       "source": "datasheet",
+       "group": "tsin_b_valid_x",
+       "funcs": [
+        "tsin_b"
+       ],
+       "reg": "0xff6346d0",
        "bit": 4,
        "width": 4,
-       "value": 4,
-       "reg": "0xff6346d0",
-       "register": "PERIPHS_PIN_MUX_4"
+       "value": 3
       },
       {
        "name": "SPI_A_MISO",
-       "source": "datasheet",
+       "group": "spi0_miso_x",
+       "funcs": [
+        "spi0"
+       ],
+       "reg": "0xff6346d0",
        "bit": 4,
        "width": 4,
-       "value": 5,
+       "value": 4
+      },
+      {
+       "name": "ISO7816_DATA",
+       "group": "iso7816_data_x",
+       "funcs": [
+        "iso7816"
+       ],
        "reg": "0xff6346d0",
-       "register": "PERIPHS_PIN_MUX_4"
+       "bit": 4,
+       "width": 4,
+       "value": 6
       }
      ]
     }
@@ -1407,7 +1814,20 @@
       "direction": "I/O",
       "pupd_reset": "pull-up",
       "domain": "VDDIO_AO"
-     }
+     },
+     "muxes": [
+      {
+       "name": "UART_AO_A_TX",
+       "group": "uart_ao_a_tx",
+       "funcs": [
+        "uart_ao_a"
+       ],
+       "reg": "0xff800014",
+       "bit": 0,
+       "width": 4,
+       "value": 1
+      }
+     ]
     },
     {
      "pin": 3,
@@ -1428,7 +1848,20 @@
       "direction": "I/O",
       "pupd_reset": "pull-up",
       "domain": "VDDIO_AO"
-     }
+     },
+     "muxes": [
+      {
+       "name": "UART_AO_A_RX",
+       "group": "uart_ao_a_rx",
+       "funcs": [
+        "uart_ao_a"
+       ],
+       "reg": "0xff800014",
+       "bit": 4,
+       "width": 4,
+       "value": 1
+      }
+     ]
     }
    ]
   }
