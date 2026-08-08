@@ -368,8 +368,58 @@ function authoredGrid() {
   return { at, cols, rows, kind: "authored", source: arr.source };
 }
 
+/* The board owner's rule for the simplest shape of board, 2026-08-08: "when
+   it's just 40P header and one other header. make use of the right side space
+   and put the other header on the right side."
+
+   A third KIND of claim, and the weakest, so it is deliberately NOT a third key
+   in the board file. `layout` and `arrangement` are both statements about ONE
+   board — measured off its own export, or directed for it by name — and writing
+   this beside them would make a rule read off the header COUNT indistinguishable
+   from something someone said about that board, which is the same mistake as
+   writing an authored arrangement as invented millimetres. Nothing here is
+   per-board: the only input is which headers the file already lists, so it is
+   computed here and the note says which of the three is on screen.
+
+   Count, with no size threshold, because the direction has none. The 40-pin
+   header is 20 rows tall and the one other connector is 3 pins on every board
+   this fires on, so the right column reads sparse — but it reads sparse in the
+   packed layout too, where that connector sits UNDER the 40P and leaves the
+   whole right half of the diagram empty instead. The direction is about the
+   empty right side, not about how much fills it; a minimum size for "big enough
+   to earn a column" would be ours, not the owner's.
+
+   Two headers, not "a 40P and the rest": stacking two small connectors into the
+   right column is a different claim the direction does not make, and the one
+   board of that shape any CAD places contradicts it — La Frite measures 2J2 and
+   9J5 into SEPARATE columns (x 7.95 and 47.066 mm), not one. */
+/* The connector the direction (and the page) is about, in positions — the same
+   count HEADER_FIRST_POSITIONS orders by in the generator and the header title
+   shows, so "40P header" means the same thing in all three. */
+const MAIN_HEADER_POSITIONS = 40;
+
+function ruleGrid() {
+  if (board.headers.length !== 2) return null;
+  const positions = (h) => new Set(h.pins.map((p) => p.pin)).size;
+  const [main, other] = board.headers;
+  if (positions(main) !== MAIN_HEADER_POSITIONS) return null;
+  const at = new Map([
+    [main.id, { col: 0, row: 0, span: 1 }],
+    [other.id, { col: 1, row: 0, span: 1 }],
+  ]);
+  return { at, cols: 2, rows: 1, kind: "rule",
+           source: 'Layout rule from the board owner, 2026-08-08: "when it\'s '
+                 + 'just 40P header and one other header. make use of the right '
+                 + 'side space and put the other header on the right side." It '
+                 + 'is applied from this board\'s header count — nobody has '
+                 + 'said where either connector sits on this PCB, and no export '
+                 + 'places it' };
+}
+
+/* Strongest claim first: a measurement outranks a direction for the board, and
+   a direction for the board outranks a rule about boards of its shape. */
 function boardGrid() {
-  return measuredGrid() || authoredGrid();
+  return measuredGrid() || authoredGrid() || ruleGrid();
 }
 
 /* Whether this board's arrangement is currently drawn. The class is the whole
@@ -395,19 +445,30 @@ function fitBoardView() {
   diagramEl.classList.toggle("board-view", !clipped);
 }
 
-/* The note is where the two kinds of arrangement are told apart, and it is not
-   optional for either: a reader is entitled to assume a drawing that looks like
-   a board WAS one, and "measured off the PCB" and "how the person who makes it
-   says to group them" are not the same promise. So the sentence differs, not
-   just the hover. */
+/* The note is where the three kinds of arrangement are told apart, and it is
+   not optional for any of them: a reader is entitled to assume a drawing that
+   looks like a board WAS one, and "measured off the PCB", "how the person who
+   makes it says to group these connectors" and "how this page draws any board
+   shaped like this one" are three different promises. So the sentence differs,
+   not just the hover — and the weakest of them does not call itself a board
+   view at all, because it says nothing about the board. */
+const BOARD_NOTE = {
+  measured: (g) =>
+    `Board view — headers arranged by their measured position on the ` +
+    `${g.board.w} × ${g.board.h} mm PCB. Arrangement, not scale.`,
+  authored: () =>
+    "Board view — headers arranged as the board's maker specifies. " +
+    "Not measured from the PCB.",
+  rule: () =>
+    "Side by side — the 40-pin header and this board's one other connector, " +
+    "the way the board's maker asks for boards with just these two. Not a " +
+    "position on the PCB, and not a direction about this board.",
+};
+
 function boardNote(grid) {
   const el = document.createElement("p");
   el.className = "board-note";
-  el.textContent = grid.kind === "measured"
-    ? `Board view — headers arranged by their measured position on the ` +
-      `${grid.board.w} × ${grid.board.h} mm PCB. Arrangement, not scale.`
-    : "Board view — headers arranged as the board's maker specifies. " +
-      "Not measured from the PCB.";
+  el.textContent = BOARD_NOTE[grid.kind](grid);
   /* Same treatment as the electrical section's citation: the source belongs
      one hover away, not taking a second line on every board. */
   el.title = "Source: " + grid.source;

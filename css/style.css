@@ -761,14 +761,17 @@ pre.usage {
 
   /* ---- board view ----
 
-     Where the board file says how its connectors go together, the column
+     Where something says how a board's connectors go together, the column
      packing above is replaced by that arrangement: from measured millimetres,
      a header near the top-left edge of the PCB is drawn near the top-left;
-     from the maker's own direction, the sides they describe. Tracks are
-     written by the JS from the data (see boardGrid in js/app.js) -- there are
-     no coordinates in this file, and a board with neither key never reaches
-     this rule. Which of the two is on screen is the note's job, not the
-     grid's: the drawing looks the same and the claims do not.
+     from the maker's own direction, the sides they describe; and failing both,
+     the maker's rule for a board that is just the 40-pin header and one other,
+     which puts the other one in the column to its right instead of under it.
+     Tracks are written by the JS from the data (see boardGrid in js/app.js) --
+     there are no coordinates in this file, and a board none of the three
+     covers never reaches this rule. Which of the three is on screen is the
+     note's job, not the grid's: the drawing looks the same and the claims do
+     not.
 
      Grid, not free positioning: the drawing is not to scale and cannot be --
      a 2.5 mm connector needs two rails of pad names, which is a couple of
@@ -820,9 +823,10 @@ pre.usage {
   }
 }
 
-/* Says what the arrangement is — and which KIND it is, measured off the PCB or
-   directed by the board's maker — with the citation behind the same hover the
-   electrical section uses. Without it a reader is entitled to assume the
+/* Says what the arrangement is — and which KIND it is: measured off the PCB,
+   directed by the board's maker for this board, or the maker's rule for boards
+   of this shape — with the citation behind the same hover the electrical
+   section uses. Without it a reader is entitled to assume the
    drawing is to scale, and it is not: only the ordering is from the board.
 
    Hidden by default and turned on inside the one-page frame, because that is

@@ -434,6 +434,25 @@ def board_arrangement(board, headers):
     return {"kind": "authored", "source": spec["source"], "cells": spec["cells"]}
 
 
+# There is a THIRD way a board gets drawn side by side, and it deliberately
+# emits nothing here. The board owner also gave a rule about a shape rather than
+# about a board -- "when it's just 40P header and one other header. make use of
+# the right side space and put the other header on the right side." (2026-08-08)
+# -- which fires on the six boards whose entire header set is the 40-pin
+# connector and one 3-pin one, and needs no per-board data at all: its only input
+# is the header list already in the file.
+#
+# Writing it into those files as `arrangement` cells would be the mistake the
+# arrangement/layout split exists to prevent, one level up. `layout` is
+# millimetres off THIS board's export and `arrangement` is a direction naming
+# THIS board's connectors; a rule inferred from a header count is neither, and
+# once serialised into six board files beside the one Renegade Elite entry it
+# would be indistinguishable from six more directions somebody gave. So it lives
+# in ruleGrid() in js/app.js, computed, with its own note text that does not
+# claim the board -- and these boards keep no placement key, which is the true
+# statement about them.
+
+
 # Function-class detection, checked in order against Ref then Desc.
 CLASSES = [
     ("i2c",  ("I2C", "TWI")),
