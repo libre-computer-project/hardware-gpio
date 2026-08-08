@@ -74,6 +74,16 @@ BOARDS = {
 #   Tritium H3 / H5      7J1  CN-2P00-2X20P / A2005WV-N-2X20P
 #   Renegade (+v2)       J1   CON_2X20PIN_2D54_DIP
 #
+# Renegade Elite's four 30-pin headers are two-row on the same standard, from
+# the Extension Interface sheet of its schematic (page 28 on V0.1 / V1.1-A,
+# page 29 on V1.2A): J12, J15, J20 and J21 are every one of them part CON30A
+# with footprint SMD_PH_15x2_2d0, four of each on the sheet in all three
+# revisions -- "15x2" states the geometry outright. J21 is the last of the
+# four and carries no SoC GPIO (four PCIe lanes, the reference clock, 12V/5V
+# and grounds), which is why it was absent for a while; the footprint is the
+# same evidence the other three stand on, and a connector you can plug into
+# belongs on the pinout whatever is behind it.
+#
 # Everything else is single-row, and none of it is guesswork any more:
 #
 #   Renegade J21, J22          SIP-3P-2D54 in the schematic -- "single in-line"
@@ -91,7 +101,18 @@ BOARDS = {
 # invents a rail the board does not have; the reverse merely looks unlike the
 # hardware, and only the first misleads someone counting pads with a jumper
 # wire in hand.
-DUAL_ROW_HEADERS = {"7J1", "J1", "J12", "J15", "J20"}
+# Entries are either a bare header id, or "<board-id>:<header-id>" when the
+# same id means different geometry on different boards. J21 is exactly that
+# case and the reason the qualified form exists: on Renegade Elite it is one
+# of the four CON30A 2x15 headers, while on Renegade (+v2) J21 is the 3-pin
+# SIP-3P-2D54 listed above as single-row. A bare "J21" here would draw
+# Renegade's 3-pin strip as a 2x2 -- the invented-rail error this whole
+# comment block exists to prevent.
+DUAL_ROW_HEADERS = {"7J1", "J1", "J12", "J15", "J20", "roc-rk3399-pc:J21"}
+
+
+def is_dual_row(board, header):
+    return header in DUAL_ROW_HEADERS or f"{board}:{header}" in DUAL_ROW_HEADERS
 
 
 # Function-class detection, checked in order against Ref then Desc.
@@ -212,7 +233,7 @@ def split_funcs(desc):
     return out
 
 
-def parse_map(path):
+def parse_map(path, board):
     headers = {}
     order = []
     for lineno, raw in enumerate(path.read_text().splitlines(), 1):
@@ -242,7 +263,7 @@ def parse_map(path):
     for hdr in headers:
         headers[hdr].sort(key=lambda p: p["pin"])
     return [{"id": h,
-             "rows": 2 if h in DUAL_ROW_HEADERS else 1,
+             "rows": 2 if is_dual_row(board, h) else 1,
              "pins": headers[h]} for h in order]
 
 
@@ -1317,7 +1338,7 @@ def main():
         path = lwt / "libre-computer" / board / "gpio.map"
         if not path.is_file():
             sys.exit(f"missing {path}")
-        headers = parse_map(path)
+        headers = parse_map(path, board)
 
         factory = MUX_FOR_SOC[soc]
         if soc not in mux_cache:

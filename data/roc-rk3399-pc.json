@@ -307,6 +307,34 @@
       "HUB_HOST_DP3"
      ],
      "cls": "gpio"
+    },
+    {
+     "pin": 11,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 12,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
     }
    ]
   },
@@ -2315,6 +2343,404 @@
       "GND"
      ],
      "cls": "gnd"
+    }
+   ]
+  },
+  {
+   "id": "J21",
+   "rows": 2,
+   "pins": [
+    {
+     "pin": 3,
+     "type": "12V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SYS_12V",
+     "pad": "-",
+     "ref": "SYS_12V",
+     "funcs": [
+      "SYS_12V"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 4,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 5,
+     "type": "12V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SYS_12V",
+     "pad": "-",
+     "ref": "SYS_12V",
+     "funcs": [
+      "SYS_12V"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 6,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 7,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "VCC5V_SYS",
+     "pad": "-",
+     "ref": "VCC_SYS",
+     "funcs": [
+      "VCC5V_SYS"
+     ],
+     "cls": "power5v"
+    },
+    {
+     "pin": 8,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 9,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "VCC5V_SYS",
+     "pad": "-",
+     "ref": "VCC_SYS",
+     "funcs": [
+      "VCC5V_SYS"
+     ],
+     "cls": "power5v"
+    },
+    {
+     "pin": 10,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 11,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_RX3_N",
+     "pad": "-",
+     "ref": "PCIE_RX3_N",
+     "funcs": [
+      "PCIE_RX3_N"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 12,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_RX3_P",
+     "pad": "-",
+     "ref": "PCIE_RX3_P",
+     "funcs": [
+      "PCIE_RX3_P"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 13,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_TX3N",
+     "pad": "-",
+     "ref": "PCIE_TX3N",
+     "funcs": [
+      "PCIE_TX3N"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 14,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_TX3P",
+     "pad": "-",
+     "ref": "PCIE_TX3P",
+     "funcs": [
+      "PCIE_TX3P"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 15,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_RX2_N",
+     "pad": "-",
+     "ref": "PCIE_RX2_N",
+     "funcs": [
+      "PCIE_RX2_N"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 16,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_RX2_P",
+     "pad": "-",
+     "ref": "PCIE_RX2_P",
+     "funcs": [
+      "PCIE_RX2_P"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 17,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_TX2N",
+     "pad": "-",
+     "ref": "PCIE_TX2N",
+     "funcs": [
+      "PCIE_TX2N"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 18,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_TX2P",
+     "pad": "-",
+     "ref": "PCIE_TX2P",
+     "funcs": [
+      "PCIE_TX2P"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 19,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 20,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 21,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_RX1_N",
+     "pad": "-",
+     "ref": "PCIE_RX1_N",
+     "funcs": [
+      "PCIE_RX1_N"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 22,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_RX1_P",
+     "pad": "-",
+     "ref": "PCIE_RX1_P",
+     "funcs": [
+      "PCIE_RX1_P"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 23,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_TX1N",
+     "pad": "-",
+     "ref": "PCIE_TX1N",
+     "funcs": [
+      "PCIE_TX1N"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 24,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_TX1P",
+     "pad": "-",
+     "ref": "PCIE_TX1P",
+     "funcs": [
+      "PCIE_TX1P"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 25,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_RX0_N",
+     "pad": "-",
+     "ref": "PCIE_RX0_N",
+     "funcs": [
+      "PCIE_RX0_N"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 26,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_RX0_P",
+     "pad": "-",
+     "ref": "PCIE_RX0_P",
+     "funcs": [
+      "PCIE_RX0_P"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 27,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_TX0N",
+     "pad": "-",
+     "ref": "PCIE_TX0N",
+     "funcs": [
+      "PCIE_TX0N"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 28,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_TX0P",
+     "pad": "-",
+     "ref": "PCIE_TX0P",
+     "funcs": [
+      "PCIE_TX0P"
+     ],
+     "cls": "gpio"
+    },
+    {
+     "pin": 29,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_REF_CLKN",
+     "pad": "-",
+     "ref": "PCIE_REF_CLKN",
+     "funcs": [
+      "PCIE_REF_CLKN"
+     ],
+     "cls": "clk"
+    },
+    {
+     "pin": 30,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIE_REF_CLKP",
+     "pad": "-",
+     "ref": "PCIE_REF_CLKP",
+     "funcs": [
+      "PCIE_REF_CLKP"
+     ],
+     "cls": "clk"
     }
    ]
   }
