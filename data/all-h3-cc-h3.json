@@ -529,7 +529,7 @@
      "line": 3,
      "sysfs": 3,
      "name": "PA3",
-     "pad": "D13",
+     "pad": "E13",
      "ref": "CPUX-TDI",
      "funcs": [
       "UART2_CTS",
@@ -586,7 +586,7 @@
      "line": 201,
      "sysfs": 201,
      "name": "PG9",
-     "pad": "D3",
+     "pad": "E3",
      "ref": "AP-UART1-CTS",
      "funcs": [
       "UART1_CTS",

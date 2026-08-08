@@ -638,6 +638,15 @@
      },
      "muxes": [
       {
+       "name": "PCM_OUT_A",
+       "source": "datasheet",
+       "bit": 23,
+       "width": 1,
+       "value": 1,
+       "reg": "0xc88344c4",
+       "register": "REG5"
+      },
+      {
        "name": "UART_TX_C",
        "group": "uart_tx_c",
        "funcs": [
@@ -699,6 +708,15 @@
       "domain": "VDDIO_X"
      },
      "muxes": [
+      {
+       "name": "PCM_IN_A",
+       "source": "datasheet",
+       "bit": 22,
+       "width": 1,
+       "value": 1,
+       "reg": "0xc88344c4",
+       "register": "REG5"
+      },
       {
        "name": "UART_RX_C",
        "group": "uart_rx_c",
@@ -784,6 +802,15 @@
      },
      "muxes": [
       {
+       "name": "PCM_CLK_A",
+       "source": "datasheet",
+       "bit": 20,
+       "width": 1,
+       "value": 1,
+       "reg": "0xc88344c4",
+       "register": "REG5"
+      },
+      {
        "name": "UART_RTS_C",
        "group": "uart_rts_c",
        "funcs": [
@@ -843,6 +870,15 @@
       "domain": "VDDIO_X"
      },
      "muxes": [
+      {
+       "name": "PCM_FS_A",
+       "source": "datasheet",
+       "bit": 21,
+       "width": 1,
+       "value": 1,
+       "reg": "0xc88344c4",
+       "register": "REG5"
+      },
       {
        "name": "UART_CTS_C",
        "group": "uart_cts_c",
@@ -1476,6 +1512,15 @@
        "value": 1
       },
       {
+       "name": "I2S_LR_CLK_IN",
+       "source": "datasheet",
+       "bit": 21,
+       "width": 1,
+       "value": 1,
+       "reg": "0xc88344c8",
+       "register": "REG6"
+      },
+      {
        "name": "TSIN_B_SOP",
        "group": "tsin_b_sop",
        "funcs": [
@@ -1523,6 +1568,15 @@
        "bit": 25,
        "width": 1,
        "value": 1
+      },
+      {
+       "name": "I2S_AO_CLK_IN",
+       "source": "datasheet",
+       "bit": 22,
+       "width": 1,
+       "value": 1,
+       "reg": "0xc88344c8",
+       "register": "REG6"
       },
       {
        "name": "TSIN_B_D0",
@@ -1780,6 +1834,15 @@
        "bit": 28,
        "width": 1,
        "value": 1
+      },
+      {
+       "name": "SPDIF_IN",
+       "source": "datasheet",
+       "bit": 27,
+       "width": 1,
+       "value": 1,
+       "reg": "0xc88344c8",
+       "register": "REG6"
       }
      ]
     },

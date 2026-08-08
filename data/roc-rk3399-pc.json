@@ -116,7 +116,7 @@
      "line": 1,
      "sysfs": 65,
      "name": "GPIO2_A1",
-     "pad": "H30",
+     "pad": "H25",
      "ref": "I2C2_SCL",
      "funcs": [
       "VOP_D1",
@@ -171,7 +171,7 @@
      "line": 0,
      "sysfs": 64,
      "name": "GPIO2_A0",
-     "pad": "H25",
+     "pad": "G31",
      "ref": "I2C2_SDA",
      "funcs": [
       "VOP_D0",
@@ -783,7 +783,7 @@
      "line": 10,
      "sysfs": 10,
      "name": "GPIO0_B2",
-     "pad": "U30",
+     "pad": "W31",
      "ref": "WIFI_REG_ON_H",
      "funcs": [],
      "cls": "gpio",
@@ -802,7 +802,7 @@
      "line": 3,
      "sysfs": 3,
      "name": "GPIO0_A3",
-     "pad": "AA25",
+     "pad": "V31",
      "ref": "WIFI_HOST_WAKE_L",
      "funcs": [
       "SDIO0_WRPT_d",
@@ -1468,7 +1468,7 @@
      "line": 9,
      "sysfs": 9,
      "name": "GPIO0_B1",
-     "pad": "W31",
+     "pad": "V30",
      "ref": "BT_REG_ON_H",
      "funcs": [
       "PMUIO2_VOLSEL_d",
@@ -1735,7 +1735,7 @@
      "line": 4,
      "sysfs": 4,
      "name": "GPIO0_A4",
-     "pad": "V27",
+     "pad": "AA25",
      "ref": "BT_HOST_WAKE_L",
      "funcs": [
       "SDIO0_INTn_d",
@@ -2400,7 +2400,7 @@
      "line": 9,
      "sysfs": 73,
      "name": "GPIO2_B1",
-     "pad": "H24",
+     "pad": "F30",
      "ref": "SPI2_RXD",
      "funcs": [
       "SPI2_RXD",
@@ -2455,7 +2455,7 @@
      "line": 10,
      "sysfs": 74,
      "name": "GPIO2_B2",
-     "pad": "H31",
+     "pad": "H24",
      "ref": "SPI2_TXD",
      "funcs": [
       "SPI2_TXD",
@@ -2510,7 +2510,7 @@
      "line": 11,
      "sysfs": 75,
      "name": "GPIO2_B3",
-     "pad": "F31",
+     "pad": "H31",
      "ref": "SPI2_CLK",
      "funcs": [
       "SPI2_CLK",
@@ -2565,7 +2565,7 @@
      "line": 12,
      "sysfs": 76,
      "name": "GPIO2_B4",
-     "pad": "-",
+     "pad": "F31",
      "ref": "SPI2_CSN0",
      "funcs": [
       "SPI2_CSn0_u"
@@ -2734,7 +2734,7 @@
      "line": 1,
      "sysfs": 1,
      "name": "GPIO0_A1",
-     "pad": "N24",
+     "pad": "R29",
      "ref": "GPIO0_A1(V1.1A)/EDP_TP(V1.2A)",
      "funcs": [
       "DDRIO_PWROFF",
@@ -2778,7 +2778,7 @@
      "line": 12,
      "sysfs": 12,
      "name": "GPIO0_B4",
-     "pad": "P24",
+     "pad": "V26",
      "ref": "GPIO0_B4(V1.1A)/EDP_TP(V1.2A)",
      "funcs": [
       "TCPD_VBUS_BDIS_d"
