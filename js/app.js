@@ -134,6 +134,7 @@ let classFilter = null;   /* legend click: show only pins offering this class */
    the mux name each pin takes for the focused class or function, so the
    diagram reads as the bus rather than as a list of pad numbers. */
 let labelFocus = null;    /* {cls} | {func} */
+let resizeTimer = 0;
 
 async function init() {
   try {
@@ -164,6 +165,14 @@ async function init() {
   legendEl.addEventListener("click", onLegendClick);
   detailEl.addEventListener("click", onDetailClick);
   sheetCloseEl.addEventListener("click", closeDetail);
+  /* The board view's fit depends on the window, and it has to be able to come
+     BACK when the window grows again -- so this re-tests rather than only
+     giving up. Re-testing instead of re-rendering keeps the selected pin, the
+     search and the relabel exactly where they were. */
+  addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(fitBoardView, 120);
+  });
   await loadBoard(initial.id);
 }
 
@@ -252,10 +261,115 @@ function isAnalog(p) {
   return Boolean(p.elec && p.elec.pad_type === "analog");
 }
 
+/* ---- board view ----
+
+   Where the connectors are drawn, when the board file says where they ARE.
+
+   `layout` carries each header's pad bounding box in millimetres, measured off
+   that board's own CAD export (tools/pcb_layout.py). What it does NOT support
+   is drawing the headers to scale: a 40-pin header is two rails of pad names
+   wide, which is hundreds of pixels for a connector 2.5 mm across, so a
+   to-scale board would either be unreadable or the size of a wall. So the
+   millimetres decide the ARRANGEMENT and nothing else — which header is left
+   of which, which is above which — and the note beside the drawing says so
+   rather than letting the frame imply a scale it does not have.
+
+   The arrangement is a grid rather than free positioning because free
+   positioning of blocks whose size has nothing to do with the board's is just
+   overlap by another name. Tracks come from the connectors' own spans: two
+   headers share a column when their x ranges overlap (so a run of overlapping
+   connectors is one column, and a gap is a column boundary), and the same
+   along y. That is a fact about the board, not a threshold someone tuned. */
+
+/* Connected runs of overlapping [lo, hi] spans, in order. Returns, per input
+   index, which run it fell in. */
+function spanTracks(spans) {
+  const order = spans.map((s, i) => i).sort((a, b) => spans[a][0] - spans[b][0]);
+  const track = new Array(spans.length);
+  let n = -1;
+  let end = -Infinity;
+  for (const i of order) {
+    if (spans[i][0] > end) n += 1;      /* clear of everything so far: new track */
+    track[i] = n;
+    end = Math.max(end, spans[i][1]);
+  }
+  return { track, count: n + 1 };
+}
+
+/* null unless the board file places EVERY header. A board view missing one
+   connector reads as a board that does not have it — the generator refuses to
+   emit a partial layout for the same reason, and this is the second half of
+   that guarantee: data that arrives incomplete anyway falls back rather than
+   drawing most of a board. */
+function boardGrid() {
+  const lay = board.layout;
+  if (!lay || !lay.headers || !lay.board) return null;
+  const ids = board.headers.map((h) => h.id);
+  if (!ids.every((id) => lay.headers[id])) return null;
+
+  /* Screen frame: +y is up in the CAD data (that is the frame the board was
+     laid out in), and down on a screen, so the vertical span is flipped here
+     rather than in the data. */
+  const xs = ids.map((id) => [lay.headers[id].x1, lay.headers[id].x2]);
+  const ys = ids.map((id) =>
+    [lay.board.h - lay.headers[id].y2, lay.board.h - lay.headers[id].y1]);
+  const cols = spanTracks(xs);
+  const rows = spanTracks(ys);
+  const at = new Map();
+  ids.forEach((id, i) => at.set(id, { col: cols.track[i], row: rows.track[i] }));
+  return { at, cols: cols.count, rows: rows.count, lay };
+}
+
+/* Whether this board's arrangement is currently drawn. The class is the whole
+   switch — `.board-cell { display: contents }` outside it hands the header
+   blocks back to the packed layout — so giving up is one line. */
+let boardViewWanted = false;
+
+/* The board view is worth having only while it FITS. Its column count is the
+   board's, not the window's, so unlike the packed layout it cannot reflow: on
+   a narrow desktop the tracks are squeezed until the pad names ellipse, and a
+   pad label cut in half is worse than a header drawn in the wrong order —
+   the name is the thing the page exists to tell you. So the arrangement is
+   drawn, measured, and dropped if it cost anything.
+   (Measured on this board at 900x600: 40 of 40 labels on 7J1 ellipsed, which
+   is what this rule now catches.) */
+function fitBoardView() {
+  if (!boardViewWanted) return;
+  diagramEl.classList.add("board-view");
+  const overflows = diagramEl.scrollWidth > diagramEl.clientWidth + 1;
+  const clipped = overflows || Array.prototype.some.call(
+    diagramEl.querySelectorAll(".pin-label"),
+    (l) => l.scrollWidth > l.clientWidth + 1);
+  diagramEl.classList.toggle("board-view", !clipped);
+}
+
+function boardNote(grid) {
+  const el = document.createElement("p");
+  el.className = "board-note";
+  const b = grid.lay.board;
+  el.textContent =
+    `Board view — headers arranged by their measured position on the ` +
+    `${b.w} × ${b.h} mm PCB. Arrangement, not scale.`;
+  /* Same treatment as the electrical section's citation: the source belongs
+     one hover away, not taking a second line on every board. */
+  el.title = "Source: " + grid.lay.source;
+  return el;
+}
+
 /* ---- rendering ---- */
 
 function render() {
   diagramEl.innerHTML = "";
+  const grid = boardGrid();
+  boardViewWanted = Boolean(grid);
+  diagramEl.classList.toggle("board-view", boardViewWanted);
+  diagramEl.style.gridTemplateColumns = grid ? `repeat(${grid.cols}, auto)` : "";
+
+  /* The full-width rows come first and are placed explicitly, so the connector
+     rows can start below them with no empty track in between — an empty grid
+     row still costs a gap, which would open a hole in the middle of the board
+     view for a banner that is not there. */
+  let rowBase = 0;
   const entry = boardIndex.find((b) => b.id === board.id);
   const status = board.status || (entry && entry.status);
   if (STATUS_LABEL[status]) {
@@ -263,8 +377,35 @@ function render() {
     flag.className = "board-flag";
     flag.textContent = `${board.model} is ${STATUS_LABEL[status]} — ` +
       "pinout may change before launch.";
+    if (grid) flag.style.gridRow = String(++rowBase);
     diagramEl.appendChild(flag);
   }
+  if (grid) {
+    const note = boardNote(grid);
+    note.style.gridRow = String(++rowBase);
+    diagramEl.appendChild(note);
+  }
+
+  /* In board view the grid CELL is what gets positioned, not the header block:
+     two connectors can share a cell (they overlap on both axes) and two grid
+     items in one cell are drawn on top of each other. */
+  const cells = new Map();
+  const cellFor = (headerId) => {
+    if (!grid) return diagramEl;
+    const at = grid.at.get(headerId);
+    const key = `${at.col}/${at.row}`;
+    let cell = cells.get(key);
+    if (!cell) {
+      cell = document.createElement("div");
+      cell.className = "board-cell";
+      cell.style.gridColumn = String(at.col + 1);
+      cell.style.gridRow = String(at.row + 1 + rowBase);
+      cells.set(key, cell);
+      diagramEl.appendChild(cell);
+    }
+    return cell;
+  };
+
   for (const header of board.headers) {
     const block = document.createElement("div");
     block.className = "header-block";
@@ -282,9 +423,10 @@ function render() {
     block.appendChild(header.rows === 2
       ? renderDual(header, highest)
       : renderStrip(header));
-    diagramEl.appendChild(block);
+    cellFor(header.id).appendChild(block);
   }
   renderLegend();
+  fitBoardView();
   renderDetailPlaceholder();
   applySearch();
   applyFilter();

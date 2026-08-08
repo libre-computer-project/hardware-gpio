@@ -6,7 +6,9 @@ GitHub Pages. Inspired by [pinout.xyz](https://pinout.xyz).
 
 Pick a board from the dropdown. Each header is drawn the way it sits on the
 board — pin numbers down the middle, odd pins on the left rail, even on the
-right. Every pin carries a square split across the middle: the top band is the
+right — and where the board's own CAD data says where its connectors are, the
+headers are arranged on the page the way the PCB arranges them (see [Board
+layout](#board-layout)). Every pin carries a square split across the middle: the top band is the
 board's own colour for that pin (yellow I2C, blue SPI, orange 3.3V, red 5V,
 deeper red 12V), and below it sits one vertical stripe per *other* mux the pad
 can reach. Supply rails ramp by voltage — the higher the rail, the deeper the
@@ -38,7 +40,49 @@ Pin data is generated at build time from
 | File | Content |
 |---|---|
 | `data/boards.json` | Board index (id, model, name, SoC, vendor, status, hidden) |
-| `data/<board>.json` | Per-board headers and pins with function classes, pinmux registers, and (where published) per-pad electricals + the board's rail/DC tables |
+| `data/<board>.json` | Per-board headers and pins with function classes, pinmux registers, and (where published) per-pad electricals + the board's rail/DC tables, plus the connectors' physical placement where the board's CAD data gives it |
+
+### Board layout
+
+Where a board's own CAD export says where its connectors sit, the board file
+carries a `layout` block — the board outline's size and each header's pad
+bounding box, in millimetres, origin at the outline's minimum corner and +y up
+(the CAD frame; the drawing flips it). On a wide screen the headers are then
+arranged the way the PCB arranges them — a connector near the top-left edge is
+drawn near the top-left — instead of packed into columns in map order, which
+told the reader nothing.
+
+The arrangement is *ordinal, not to scale*, and the page says so. A 2.54 mm
+connector needs two rails of pad names, which is a few hundred pixels, so
+drawing the headers at their true relative sizes would make either the names or
+the board unreadable. What the millimetres decide is which header is left of
+which and which is above which: columns and rows come from the connectors' own
+overlapping spans, so the tracks are a fact about the board rather than a
+threshold someone tuned.
+
+**Placement is held to the same standard of proof as row count** (see
+`DUAL_ROW_HEADERS` in the generator). A header's position comes from its own
+reference designator in that board's layout export — never from a product
+photo, a sibling revision, or the designator's number. And a board is placed
+only when *every* header the wiring map lists is found: a board view missing one
+connector cannot be told apart from a board that does not have one.
+
+| Board | Placed | Evidence |
+|---|---|---|
+| 🟢 La Frite (`aml-s805x-ac`) | 7J1, 2J2, 9J5 | `AML-S805X-AC-TOP-190308.dxf`, a PADS/PowerPCB export of `XH_S805X_DDR4_V01_190302.pcb`: outline 55.999 × 65.000 mm from layer `BOARD_OUTLINE_00`, each header from its placed part and the pad stacks under it |
+| 🟡 Tritium H3 / H5 | — | The same kind of export places 7J1 (40 pads, board 84.000 × 56.000 mm), but 2J3 is in neither the top nor the bottom export, so one of two headers has no position |
+| 🔴 Renegade Elite (`roc-rk3399-pc`) | — | Only `rk3399-silkscreen-{top,bottom}.pdf`, CAM350 vector plots with the designators drawn as strokes — no text and no raster to read. Needs a DXF/ODB++/IPC-2581 export, or the layout in `ROC_3399_ACC_V1.0_180619.rar` (a git-LFS pointer whose object is not fetched) |
+| 🔴 Alta, Solitude | — | The V0.2 Gerber archives are apertures only, with no reference designators — which pad array is which header cannot be read out, only guessed |
+| 🔴 Le Potato | — | `AML-S905X-CC-V1.0-A-smt-production-180611.rar` would carry placement; nothing here reads RAR |
+| 🔴 Das Frite | — | Two binary AutoCAD `.dwg` with no reader available, and V2.0 is a different PCB from the V1.0A above |
+| ⚪ everything else | — | No mechanical or layout export in the tree |
+
+`tools/pcb_layout.py` reads the DXF and can be run directly against one to see
+what it found before the number is trusted:
+
+```sh
+tools/pcb_layout.py <file.dxf> [designator ...]
+```
 
 ### Electrical
 

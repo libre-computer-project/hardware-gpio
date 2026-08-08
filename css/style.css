@@ -758,6 +758,90 @@ pre.usage {
      tall column. */
   #diagram { flex-flow: column wrap; }
   .header-block { flex: none; }
+
+  /* ---- board view ----
+
+     Where the board file says where its connectors ARE, the column packing
+     above is replaced by their real arrangement: a header near the top-left
+     edge of the PCB is drawn near the top-left. Tracks come from the
+     connectors' own measured spans (see boardGrid in js/app.js), so the
+     template is written by the JS from the data -- there are no coordinates
+     in this file, and a board with no layout data never reaches this rule.
+
+     Grid, not free positioning: the drawing is not to scale and cannot be --
+     a 2.5 mm connector needs two rails of pad names, which is a couple of
+     hundred pixels -- so absolute positions computed from millimetres would
+     put the blocks on top of each other. The grid keeps the ordering the
+     millimetres establish and lets each block keep the width its names need,
+     which is the budget the pad labels are competing for.
+
+     It lives inside the one-page frame with the column packing it replaces:
+     both need #diagram to have a definite size, and portrait/mobile
+     deliberately falls back to the stacked single column (see the
+     max-aspect-ratio block above) -- a phone is not wide enough to say
+     anything true about left and right. */
+  #diagram.board-view {
+    display: grid;
+    /* The packed layout asks for 620px and wraps into as many columns as it
+       gets; the board view cannot wrap -- its column count is the board's --
+       so it has to ask for what the arrangement actually needs, or the panel
+       keeps width the drawing then has to scroll to reach. Still `1 1`, so a
+       window too narrow for the whole board shrinks the diagram and scrolls
+       it inside itself rather than pushing the page sideways. */
+    flex-basis: min-content;
+    /* grid-template-columns is set inline from the layout data. */
+    grid-auto-rows: min-content;
+    justify-content: start;
+    align-content: start;
+    gap: 26px;
+  }
+
+  #diagram.board-view > .board-flag,
+  #diagram.board-view > .board-note { grid-column: 1 / -1; }
+
+  /* Only shown where the arrangement it describes is the one on screen. */
+  #diagram.board-view > .board-note { display: block; }
+
+  /* Two connectors that overlap on both axes are one position on the board,
+     so they share a cell and stack inside it. */
+  #diagram.board-view .board-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    /* An `auto` grid track will happily size a cell below the width its pin
+       grid asks for, and the first thing that gives is the name rails -- which
+       is the one budget this drawing has no slack in, because a pad label that
+       ellipses stops being a pad label. min-content is the pin grid's own
+       floor (two 150px rails plus the two number columns), so the track can
+       still shrink to fit the window, just never past the names. */
+    min-width: min-content;
+  }
+}
+
+/* Says what the arrangement is, and — behind the same hover the electrical
+   citation uses — where it was measured. Without it a reader is entitled to
+   assume the drawing is to scale, and it is not: only the ordering is from
+   the board.
+
+   Hidden by default and turned on inside the one-page frame, because that is
+   the only place the board arrangement is drawn: portrait stacks the headers
+   in map order, and a note claiming they sit where the PCB puts them would be
+   describing a layout that is not on the screen. */
+/* Outside the board view the cell is not a box at all: `contents` takes it out
+   of layout and hands its header blocks straight back to #diagram, so dropping
+   the class -- on a phone, or when the arrangement will not fit (see
+   fitBoardView) -- restores the packed layout exactly, with no second code
+   path to keep in step. */
+.board-cell { display: contents; }
+
+.board-note {
+  display: none;
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 12px;
+  text-decoration: underline dotted var(--border);
+  text-underline-offset: 3px;
+  cursor: help;
 }
 
 /* ---- the operating point this board actually runs ---- */

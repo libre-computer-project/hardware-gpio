@@ -33,6 +33,8 @@ import re
 import sys
 from pathlib import Path
 
+import pcb_layout
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # Board metadata: id -> (model, product name, SoC, vendor, status)
@@ -128,6 +130,106 @@ DUAL_ROW_HEADERS = {"7J1", "J1", "J12", "J15", "J20",
 
 def is_dual_row(board, header):
     return header in DUAL_ROW_HEADERS or f"{board}:{header}" in DUAL_ROW_HEADERS
+
+
+# Where each connector physically sits on the board.
+#
+# Same standard of proof as DUAL_ROW_HEADERS above, for the same reason. Row
+# count and position are both claims about hardware, and both are only worth
+# drawing if they come from that board's own CAD data: a header drawn at the
+# wrong end of the board misleads someone counting pads with a jumper wire in
+# hand exactly as an invented second rail does. So a board is placed only from a
+# layout export that names the reference designator itself -- never from a
+# product photo, never from a sibling revision, and never from the designator's
+# number (7J1 does not mean "sheet 7", and even where it does that is a
+# schematic fact, not a placement).
+#
+# `dxf` is relative to --docs-repo (the internal hardware-documentation repo).
+# `source` is what the site shows as provenance, so it has to name the file and
+# what was read out of it, not just the board.
+PCB_LAYOUT = {
+    "aml-s805x-ac": {
+        "dxf": "amlogic/gxl/s805x/schematics/aml-s805x-ac/technical-reference/"
+               "model/public/AML-S805X-AC-TOP-190308.dxf",
+        "source": "AML-S805X-AC-TOP-190308.dxf — PADS/PowerPCB DXF export of "
+                  "XH_S805X_DDR4_V01_190302.pcb: board edge from layer "
+                  "BOARD_OUTLINE_00, each header from its own placed part and "
+                  "the pad stacks under it",
+    },
+}
+
+# Boards examined and NOT placed, so the next person does not re-walk the tree:
+#
+#   all-h3-cc-h5     "ALL-H3-CC-H5-V1.1-220802 top.dxf" is the same kind of
+#   all-h3-cc-h3     export and does place 7J1 (40 pads, board 84.000 x 56.000
+#                    mm) -- but 2J3 is in neither the top nor the bottom export,
+#                    so one of the board's two headers has no position. Placing
+#                    the one and packing the other would read as a board view
+#                    that is missing a connector rather than one this data
+#                    cannot site, which is why require_all below refuses it.
+#   roc-rk3399-pc    The only layout artefacts are rk3399-silkscreen-{top,
+#                    bottom}.pdf, which are CAM350 vector plots with the
+#                    designators drawn as strokes -- no text to read, and
+#                    pdfimages reports no raster either. The product
+#                    specification PDF gives the board as 120 x 72 x 11.9 mm and
+#                    has a "4.PCB Size" drawing, but only as a JPEG. What would
+#                    settle it: a DXF/ODB++/IPC-2581 export, or the layout in
+#                    ROC_3399_ACC_V1.0_180619.rar (a git-LFS pointer here, and
+#                    the object is not fetched).
+#   aml-a311d-cc     A311D-V0.2_Gerber.zip / S905D3-V0.2_Gerber.zip are Gerber
+#   aml-s905d3-cc    only: apertures and no reference designators, so which pad
+#                    array is which header cannot be read out, only guessed.
+#   aml-s905x-cc     AML-S905X-CC-V1.0-A-smt-production-180611.rar would carry
+#                    placement, but nothing in this environment reads RAR.
+#   aml-s805x-ac-v2  Two .dwg (binary AutoCAD), no reader available; and V2.0 is
+#                    a different PCB from the V1.0A the entry above stands on.
+#   everything else  No mechanical or layout export in the tree at all.
+
+
+def board_layout(board, headers, docs_repo, require_all=True):
+    """Physical placement for one board, or None.
+
+    Returns millimetres in a frame whose origin is the board outline's own
+    minimum corner and whose +y is UP, which is the CAD frame -- the drawing
+    flips it, rather than this baking a screen convention into the data.
+
+    None unless EVERY header the wiring map lists is placed: a board view with a
+    header missing cannot be told apart from a board that does not have one.
+    """
+    spec = PCB_LAYOUT.get(board)
+    if not spec:
+        return None
+    path = Path(docs_repo) / spec["dxf"]
+    if not path.is_file():
+        print(f"  {board}: layout source missing ({path})")
+        return None
+    outline, found = pcb_layout.parts(str(path))
+    if not outline:
+        print(f"  {board}: no board outline in {path.name}")
+        return None
+    x0, y0, x1, y1 = outline
+    placed = {}
+    for h in headers:
+        rec = found.get(h["id"])
+        if not rec or "pads" not in rec:
+            if require_all:
+                print(f"  {board}: {h['id']} not placed in {path.name} "
+                      "-- board left unplaced")
+                return None
+            continue
+        px0, py0, px1, py1 = rec["pads"]
+        placed[h["id"]] = {
+            "x1": round(px0 - x0, 3), "y1": round(py0 - y0, 3),
+            "x2": round(px1 - x0, 3), "y2": round(py1 - y0, 3),
+            "pads": rec["npads"],
+        }
+    return {
+        "units": "mm",
+        "origin": "board outline minimum corner; +x right, +y up (CAD frame)",
+        "source": spec["source"],
+        "board": {"w": round(x1 - x0, 3), "h": round(y1 - y0, 3)},
+        "headers": placed,
+    }
 
 
 # Function-class detection, checked in order against Ref then Desc.
@@ -1510,6 +1612,13 @@ def main():
             doc["electrical"] = elec.board()
             if BOARD_RAILS.get(board):
                 doc["electrical"]["board_rails"] = BOARD_RAILS[board]
+        # Placement travels with the board file for the same reason the
+        # thresholds do: the drawing resolves it without a second fetch, and a
+        # board with no layout data simply has no key, which is what makes the
+        # frontend's fallback the absence of a branch rather than a flag.
+        layout = board_layout(board, headers, args.docs_repo)
+        if layout:
+            doc["layout"] = layout
         elec_stats[board] = (n_gpio, n_elec, n_domain, n_analog)
         (out / f"{board}.json").write_text(json.dumps(doc, indent=1) + "\n")
         index.append({
