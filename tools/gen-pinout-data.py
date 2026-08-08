@@ -399,26 +399,42 @@ BOARD_ARRANGEMENT = {
     # So: two sides, each a 2x3 CON6A over two 2x15 CON30A, and J13 across the
     # bottom. What the direction does not settle is WHICH connectors share a
     # side, and no layout export for this board exists to settle it either (see
-    # the not-placed list above). The pairing below is therefore functional,
-    # read off the V1.1-A schematic's Extension Interface sheet (p28) via
-    # `roc-rk3399-pc-schematic.md` in the hardware-documentation repo, and is
-    # a grouping rather than a position:
+    # the not-placed list above). The pairing below is therefore read off the
+    # Extension Interface sheet's OWN two columns, and is a grouping rather
+    # than a position -- sheet position is draughting layout, not where the
+    # connectors sit on the PCB.
+    #
+    # Measured by geometry off the sheet (stroked body-box runs from
+    # `pdftocairo -svg`, designators from `pdftotext -bbox-layout`, both in the
+    # 842x595 device space), V1.1-A p28 -- and V0.1 p28 is identical to the
+    # hundredth of a point, V1.2A p29 within 0.3 pt:
+    #
+    #   left column    J6  x 196.70-211.80 (2x3, `DC_12V`/`SYS_12V`)
+    #                  J12 x 186.60-201.70, J21 x 186.60-201.70 (2x15)
+    #   right column   J1  x 609.90-625.10 (2x3, `POE1`-`POE4`)
+    #                  J15 x 609.90-625.10, J20 x 609.90-625.10 (2x15)
+    #
+    # So the sheet groups the DC power pass-through with the M.2 NGFF pair and
+    # the PoE tap with the two GPIO headers -- which is the opposite of what
+    # this table said until 2026-08-08, when the board owner asked whether the
+    # two 6-pin headers were reversed. They were.
     #
     #   J12 + J21  one M2.NGFF interface split across two connectors -- the
     #              schematic's p28 draws them side by side under a single
-    #              label -- so they belong to each other wherever they sit.
-    #   J1         PoE: the four RJ45 centre taps, whose PD controller is on
-    #              the mezzanine, so it is a mezzanine-side connector too.
+    #              label -- so they belong to each other wherever they sit,
+    #              and J6 is the 6-pin in their column.
     #   J15 + J20  the two connectors the product specification calls the
-    #              30-pin GPIO headers; J6 is the DC power pass-through.
+    #              30-pin GPIO headers; J1 is the 6-pin in their column.
     #
     # Left is the GPIO side because the GPIO headers are what a reader opened
-    # this page for. That, and the sides themselves, are owner-directed shape,
-    # not a measurement -- which is what `source` says.
+    # this page for -- so the sheet's right column is drawn left. The sides
+    # themselves are owner-directed shape, not a measurement, and which
+    # connector shares which side is the sheet's grouping and not a PCB
+    # position -- which is what `source` says.
     "roc-rk3399-pc": {
         "cells": {
-            "J6": [0, 0], "J15": [0, 1], "J20": [0, 2],
-            "J1": [1, 0], "J12": [1, 1], "J21": [1, 2],
+            "J1": [0, 0], "J15": [0, 1], "J20": [0, 2],
+            "J6": [1, 0], "J12": [1, 1], "J21": [1, 2],
             "J13": [0, 3, 2],
         },
         # J16 is absent on purpose: a 1x4 SPI-NOR programming header the
@@ -429,9 +445,12 @@ BOARD_ARRANGEMENT = {
                   "the PCB: a 6-pin CON6A over two 30-pin CON30A on each side, "
                   "the 3-pin UART header J13 across the bottom. Which "
                   "connectors share a side follows the V1.1-A schematic's own "
-                  "grouping (J12+J21 are one M.2 NGFF interface; J15+J20 are "
-                  "the GPIO headers), not any layout export — this board has "
-                  "none. J16 is not placed",
+                  "grouping — the Extension Interface sheet draws J1 with the "
+                  "GPIO headers J15+J20 in one column, and J6 with the M.2 "
+                  "NGFF pair J12+J21 in the other — not any layout export: "
+                  "this board has none, so the sheet says which connectors go "
+                  "together and not where any of them sits on the PCB. J16 is "
+                  "not placed",
     },
 }
 
