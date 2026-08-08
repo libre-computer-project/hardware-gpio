@@ -374,6 +374,15 @@
        "register": "PERIPHS_PIN_MUX_4"
       },
       {
+       "name": "TDMA_SLV_SCLK",
+       "source": "datasheet",
+       "bit": 12,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
        "name": "TSIN_B_CLK",
        "group": "tsin_b_clk_x",
        "funcs": [

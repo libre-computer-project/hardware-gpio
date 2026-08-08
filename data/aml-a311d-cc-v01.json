@@ -992,6 +992,15 @@
        "bit": 24,
        "width": 4,
        "value": 4
+      },
+      {
+       "name": "IR_REMOTE_OUT",
+       "source": "datasheet",
+       "bit": 24,
+       "width": 4,
+       "value": 5,
+       "reg": "0xff6346ec",
+       "register": "PERIPHS_PIN_MUX_B"
       }
      ]
     },
