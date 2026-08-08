@@ -214,6 +214,13 @@ async function loadBoard(id) {
   board = await fetchJSON(`data/${id}.json`);
   searchEl.value = "";
   classFilter = null;
+  /* The relabel goes too. It is a focus on THIS board's buses, and the control
+     that set it does not survive the switch -- the legend re-renders with
+     nothing active, and the detail pane's chips are gone with the pane -- so a
+     relabel that outlived the board left the rails reading I2C_SDA_AO with
+     nothing on screen saying why, and the legend entry that looked like the way
+     out re-armed the filter instead of clearing it. */
+  labelFocus = null;
   render();
   const url = new URL(location.href);
   url.searchParams.set("board", id);
@@ -1055,10 +1062,19 @@ function renderDetail(header, p) {
       const lo = m.bit;
       const hi = lo + (m.width || 1) - 1;
       const field = hi === lo ? `[${lo}]` : `[${hi}:${lo}]`;
+      /* An em dash, never the string "undefined". Both of these columns are
+         genuinely absent on an entry the vendor's own mux table supplied rather
+         than the kernel driver: `group` is a pinctrl concept and a datasheet
+         row has none, and one Amlogic AO function (GXL REMOTE_OUTPUT) is
+         published with a register NAME and no address. esc() stringifies
+         whatever it is given, so a missing key printed as the word
+         "undefined" -- in a register column, on a page people wire hardware
+         from. Where the extract has the name and not the address, show the
+         name: it is what the datasheet calls the register. */
       html += `<tr><td>${esc(m.name)}</td>` +
         (tied ? `<td>${esc(m.owner || "")}</td>` : "") +
-        `<td>${esc(m.group)}</td>` +
-        `<td>${esc(m.reg)}</td><td>${esc(field)}</td>` +
+        `<td>${esc(m.group || "—")}</td>` +
+        `<td>${esc(m.reg || m.register || "—")}</td><td>${esc(field)}</td>` +
         `<td>${m.value !== undefined ? esc(m.value) : "—"}</td></tr>`;
     }
     html += "</table>";
