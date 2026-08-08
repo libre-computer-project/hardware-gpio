@@ -555,6 +555,134 @@
    ]
   },
   {
+   "id": "J13",
+   "rows": 1,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "gpio",
+     "chip": 4,
+     "line": 19,
+     "sysfs": 147,
+     "name": "GPIO4_C3",
+     "pad": "AK2",
+     "ref": "UART2_RXD",
+     "funcs": [
+      "UART2C_RX_u",
+      "UART2DBGC_SIN",
+      "UARTHDCP_SIN"
+     ],
+     "cls": "uart",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "I",
+      "pupd_reset": "pull-up",
+      "drive": "3mA",
+      "interrupt": true
+     },
+     "muxes": [
+      {
+       "name": "UART2C_RX_u",
+       "group": "uart2c_rx_u",
+       "funcs": [],
+       "reg": "0xff77e028",
+       "register": "GRF_GPIO4C_IOMUX",
+       "bit": 6,
+       "width": 2
+      },
+      {
+       "name": "UART2DBGC_SIN",
+       "group": "uart2dbgc_sin",
+       "funcs": [],
+       "reg": "0xff77e028",
+       "register": "GRF_GPIO4C_IOMUX",
+       "bit": 6,
+       "width": 2,
+       "value": 1
+      },
+      {
+       "name": "UARTHDCP_SIN",
+       "group": "uarthdcp_sin",
+       "funcs": [],
+       "reg": "0xff77e028",
+       "register": "GRF_GPIO4C_IOMUX",
+       "bit": 6,
+       "width": 2,
+       "value": 2
+      }
+     ]
+    },
+    {
+     "pin": 2,
+     "type": "gpio",
+     "chip": 4,
+     "line": 20,
+     "sysfs": 148,
+     "name": "GPIO4_C4",
+     "pad": "AJ4",
+     "ref": "UART2_TXD",
+     "funcs": [
+      "UART2C_TX_u",
+      "UART2DBGC_SOUT",
+      "UARTHDCP_SOUT"
+     ],
+     "cls": "uart",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "I",
+      "pupd_reset": "pull-up",
+      "drive": "3mA",
+      "interrupt": true
+     },
+     "muxes": [
+      {
+       "name": "UART2C_TX_u",
+       "group": "uart2c_tx_u",
+       "funcs": [],
+       "reg": "0xff77e028",
+       "register": "GRF_GPIO4C_IOMUX",
+       "bit": 8,
+       "width": 2
+      },
+      {
+       "name": "UART2DBGC_SOUT",
+       "group": "uart2dbgc_sout",
+       "funcs": [],
+       "reg": "0xff77e028",
+       "register": "GRF_GPIO4C_IOMUX",
+       "bit": 8,
+       "width": 2,
+       "value": 1
+      },
+      {
+       "name": "UARTHDCP_SOUT",
+       "group": "uarthdcp_sout",
+       "funcs": [],
+       "reg": "0xff77e028",
+       "register": "GRF_GPIO4C_IOMUX",
+       "bit": 8,
+       "width": 2,
+       "value": 2
+      }
+     ]
+    },
+    {
+     "pin": 3,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    }
+   ]
+  },
+  {
    "id": "J15",
    "rows": 2,
    "pins": [
@@ -1588,6 +1716,106 @@
       "pad_type": "analog",
       "note": "Analog input to the SoC's SAR ADC \u2014 not a digital GPIO pad, so the digital thresholds, pull and drive settings do not apply."
      }
+    }
+   ]
+  },
+  {
+   "id": "J16",
+   "rows": 1,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "-",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd"
+    },
+    {
+     "pin": 2,
+     "type": "gpio",
+     "chip": 1,
+     "line": 9,
+     "sysfs": 41,
+     "name": "GPIO1_B1",
+     "pad": "P28",
+     "ref": "SPI1_CLK",
+     "funcs": [
+      "SPI1_CLK",
+      "PMCU_JTAG_TCK_u",
+      "PMUM0JTAG_TCK"
+     ],
+     "cls": "spi",
+     "elec": {
+      "direction": "I/O",
+      "io_reset": "I",
+      "pupd_reset": "pull-up",
+      "drive": "6mA",
+      "interrupt": true
+     },
+     "muxes": [
+      {
+       "name": "SPI1_CLK",
+       "group": "spi1_clk",
+       "funcs": [],
+       "reg": "0xff320014",
+       "register": "PMUGRF_GPIO1B_IOMUX",
+       "bit": 2,
+       "width": 2,
+       "value": 2
+      },
+      {
+       "name": "PMCU_JTAG_TCK_u",
+       "group": "pmcu_jtag_tck_u",
+       "funcs": [],
+       "reg": "0xff320014",
+       "register": "PMUGRF_GPIO1B_IOMUX",
+       "bit": 2,
+       "width": 2
+      },
+      {
+       "name": "PMUM0JTAG_TCK",
+       "group": "pmum0jtag_tck",
+       "funcs": [],
+       "reg": "0xff320014",
+       "register": "PMUGRF_GPIO1B_IOMUX",
+       "bit": 2,
+       "width": 2,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 3,
+     "type": "FLASH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "FLASH_WP",
+     "pad": "-",
+     "ref": "FLASH_WP",
+     "funcs": [],
+     "cls": "misc"
+    },
+    {
+     "pin": 4,
+     "type": "3.3V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "VCC3V3_SYS",
+     "pad": "-",
+     "ref": "VCC3V3_SYS",
+     "funcs": [
+      "VCC3V3_SYS"
+     ],
+     "cls": "power3v3"
     }
    ]
   },

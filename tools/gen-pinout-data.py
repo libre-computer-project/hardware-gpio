@@ -176,6 +176,11 @@ CHIP_CLASS = {
     # omission -- skipping the row would renumber the drawing and make the
     # reader count pads wrong, which is the failure this class exists to stop.
     "NC":    "nc",
+    # roc-rk3399-pc J16.3 FLASH_WP: the SPI NOR's own write-protect pin,
+    # brought to the programming header through a 1K series resistor. It is a
+    # board-level control line with no path to the SoC at all -- not a gpiochip
+    # line, not a bus -- which is exactly what "Other / control" means here.
+    "FLASH": "misc",
 }
 
 
