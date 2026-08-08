@@ -377,41 +377,20 @@ def board_layout(board, headers, docs_repo, require_all=True):
 #
 # A board may carry this AND a measured PCB_LAYOUT, and where it does the
 # direction is what gets DRAWN -- see the note on emitting both, near the bottom
-# of main(). That was not true when this table held only Renegade Elite, which
-# no export places; La Frite is the first board where the two disagree.
+# of main().
+#
+# La Frite USED TO HAVE AN ENTRY HERE and deliberately does not any more. The
+# direction it carried -- "for La Frite, 2J2 and 9J5 should be one on top of
+# another to make better use of the space" (owner, 2026-08-08) -- is now what
+# the generalised shape rule in ruleGrid() produces for that board unaided, and
+# the owner's next instruction was "das frite, le potato, sweet potato all need
+# this fix. we need to improve heuristics rather than hard code." A per-board
+# entry that restates a general rule is exactly the hardcoding that asks about:
+# it would shadow the rule (authored outranks it), so La Frite would stop
+# tracking any later change to the rule while Das Frite -- the same product, one
+# revision on, and unmeasured -- kept following it. This table is for directions
+# the rule cannot reach.
 BOARD_ARRANGEMENT = {
-    # Board owner, 2026-08-08: "for La Frite, 2J2 and 9J5 should be one on top
-    # of another to make better use of the space."
-    #
-    # This board IS measured (PCB_LAYOUT above), and the measurement says the
-    # opposite: 2J2 sits at x 7.95 mm and 9J5 at x 47.066 mm, which is 39 mm
-    # apart on a 56 mm board, so the spans do not overlap and the measured grid
-    # gives three columns -- 7J1 | 2J2 | 9J5 -- each carrying one connector.
-    # Three columns of pad-name rails is most of the diagram's width spent on
-    # two 4-pin connectors, which is the space the direction is about.
-    #
-    # The measurement is NOT deleted or edited to agree: it is still the truth
-    # about the PCB and it stays in the board file under `layout`, cited to the
-    # DXF. What changes is only which of the two the drawing follows, and the
-    # page says which one it is looking at (BOARD_NOTE.authored in js/app.js
-    # names the disagreement rather than quietly winning it).
-    #
-    # 2J2 and 9J5 share one cell rather than taking rows 0 and 1 of the right
-    # column. A shared cell is already how the measured path draws two
-    # connectors at one position, and it is what "one on top of another" asks
-    # for: separate rows would put 9J5 on a grid row whose height is set by
-    # 7J1's 20 pin rows, leaving 9J5 stranded far below 2J2 -- the empty space
-    # the direction was given to remove.
-    "aml-s805x-ac": {
-        "cells": {"7J1": [0, 0], "2J2": [1, 0], "9J5": [1, 0]},
-        "source": "Owner-directed arrangement, 2026-08-08 — NOT measured from "
-                  "the PCB, and drawn INSTEAD OF this board's measurement: "
-                  "\"for La Frite, 2J2 and 9J5 should be one on top of another "
-                  "to make better use of the space.\" The board's own CAD "
-                  "export places 2J2 and 9J5 in separate columns 39 mm apart "
-                  "(x 7.95 mm and 47.066 mm); that measurement is unchanged in "
-                  "this board's `layout`, it is simply not what is drawn",
-    },
     # Board owner: "the 40P header should always be first. for ROC-RK3399-PC,
     # it should display similar like how it's laid out on the left/right side
     # with the 6 pin then the 30 pin headers on each side. the 3P uart header
@@ -475,22 +454,22 @@ def board_arrangement(board, headers):
 
 
 # There is a THIRD way a board gets drawn side by side, and it deliberately
-# emits nothing here. The board owner also gave a rule about a shape rather than
-# about a board -- "when it's just 40P header and one other header. make use of
-# the right side space and put the other header on the right side." (2026-08-08)
-# -- which fires on the six boards whose entire header set is the 40-pin
-# connector and one 3-pin one, and needs no per-board data at all: its only input
-# is the header list already in the file.
+# emits nothing here. The board owner also gave a rule about a shape of board
+# rather than about a board: where every other connector a board has, stacked,
+# is shorter than its 40-pin header is tall, they go in one column beside it.
+# That covers thirteen of the fourteen boards -- everything with a 40-pin header
+# -- and needs no per-board data at all, because its only input is the header
+# list already in the file.
 #
 # Writing it into those files as `arrangement` cells would be the mistake the
 # arrangement/layout split exists to prevent, one level up. `layout` is
 # millimetres off THIS board's export and `arrangement` is a direction naming
-# THIS board's connectors; a rule inferred from a header count is neither, and
-# once serialised into six board files beside the one Renegade Elite entry it
-# would be indistinguishable from six more directions somebody gave. So it lives
-# in ruleGrid() in js/app.js, computed, with its own note text that does not
-# claim the board -- and these boards keep no placement key, which is the true
-# statement about them.
+# THIS board's connectors; a rule read off the header list is neither, and once
+# serialised into thirteen board files beside the one Renegade Elite entry it
+# would be indistinguishable from thirteen more directions somebody gave. So it
+# lives in ruleGrid() in js/app.js, computed, with its own note text that does
+# not claim the board -- and these boards keep no placement key, which is the
+# true statement about them.
 
 
 # Function-class detection, checked in order against Ref then Desc.
@@ -1881,20 +1860,23 @@ def main():
         layout = board_layout(board, headers, args.docs_repo)
         if layout:
             doc["layout"] = layout
-        # BOTH is allowed, and on La Frite both are present. The old rule here
-        # was "never both", on the reasoning that carrying two claims would
-        # leave the drawing to decide which one wins -- but the fix for that is
-        # to DECIDE, once, in the open, not to drop one of them. The decision is
-        # in boardGrid() in js/app.js: a direction naming this board's own
-        # connectors is drawn in preference to the millimetres, because this
-        # page is a pinout and the owner's statement is about how to read it,
-        # not about where the copper is.
+        # BOTH is allowed. The old rule here was "never both", on the reasoning
+        # that carrying two claims would leave the drawing to decide which one
+        # wins -- but the fix for that is to DECIDE, once, in the open, not to
+        # drop one of them. The decision is in boardGrid() in js/app.js, and it
+        # now demotes the millimetres twice over: below a direction naming this
+        # board's connectors, and below the owner's rule for boards of its
+        # shape. Both of those are about how to READ the page; a coordinate is
+        # about where the copper is, and this page is a pinout.
         #
-        # Dropping the measurement instead would have been the destructive way
-        # to say the same thing, and it would have cost the fact: the DXF is the
-        # only record here of where these connectors actually sit, and a reader
-        # (or a later placement feature) is entitled to it. So both are emitted,
-        # each under the key that says what kind of claim it is.
+        # So on the two measured boards -- La Frite and Le Potato -- the layout
+        # block is emitted and is currently drawn on neither. Dropping it
+        # instead would be the destructive way to say the same thing, and it
+        # would cost the fact: these exports are the only record here of where
+        # those connectors actually sit, they are what the drawing's own note
+        # cites when it says it departs from the board, and a later placement
+        # feature is entitled to them. So both keys are emitted, each saying
+        # what kind of claim it is.
         arrangement = board_arrangement(board, headers)
         if arrangement:
             doc["arrangement"] = arrangement

@@ -1854,23 +1854,5 @@
     "pads": 4
    }
   }
- },
- "arrangement": {
-  "kind": "authored",
-  "source": "Owner-directed arrangement, 2026-08-08 \u2014 NOT measured from the PCB, and drawn INSTEAD OF this board's measurement: \"for La Frite, 2J2 and 9J5 should be one on top of another to make better use of the space.\" The board's own CAD export places 2J2 and 9J5 in separate columns 39 mm apart (x 7.95 mm and 47.066 mm); that measurement is unchanged in this board's `layout`, it is simply not what is drawn",
-  "cells": {
-   "7J1": [
-    0,
-    0
-   ],
-   "2J2": [
-    1,
-    0
-   ],
-   "9J5": [
-    1,
-    0
-   ]
-  }
  }
 }

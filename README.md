@@ -6,12 +6,12 @@ GitHub Pages. Inspired by [pinout.xyz](https://pinout.xyz).
 
 Pick a board from the dropdown. Each header is drawn the way it sits on the
 board — pin numbers down the middle, odd pins on the left rail, even on the
-right — the 40-pin header first. Where the board's maker has said how the
-connectors should read, that grouping is drawn and labelled as the direction it
-is; failing that, where the board's own CAD data says where its connectors are,
-the headers are arranged on the page the way the PCB arranges them; and where a
-board is just the 40-pin header and one other connector, the maker's rule for
-that shape puts the second one beside it rather than under it (see [Board
+right — the 40-pin header first. Where the board's maker has said how this
+board's connectors should read, that grouping is drawn and labelled as the
+direction it is; failing that, the maker's rule for boards built around a 40-pin
+header puts every other connector in one column beside it rather than under it;
+and failing both, where the board's own CAD data says where its connectors are,
+the headers are arranged on the page the way the PCB arranges them (see [Board
 layout](#board-layout)). Every pin carries a square split across the middle: the top band is the
 board's own colour for that pin (yellow I2C, blue SPI, orange 3.3V, red 5V,
 deeper red 12V), and below it sits one vertical stripe per *other* mux the pad
@@ -44,7 +44,7 @@ Pin data is generated at build time from
 | File | Content |
 |---|---|
 | `data/boards.json` | Board index (id, model, name, SoC, vendor, status, hidden) |
-| `data/<board>.json` | Per-board headers and pins with function classes, pinmux registers, and (where published) per-pad electricals + the board's rail/DC tables, plus the connectors' physical placement (`layout`) where the board's CAD data gives it, and the maker's own grouping (`arrangement`) where they have given one. A board may carry both, and La Frite does — the two disagree, and what is drawn is the direction. A board drawn by the maker's 40P-and-one-other rule carries neither key — that rule needs no per-board data and is applied by the frontend, so recording it here would forge a per-board claim |
+| `data/<board>.json` | Per-board headers and pins with function classes, pinmux registers, and (where published) per-pad electricals + the board's rail/DC tables, plus the connectors' physical placement (`layout`) where the board's CAD data gives it, and the maker's own grouping (`arrangement`) where they have given one for that board by name. A board may carry both. A board drawn by the maker's 40-pin-header rule carries neither key — that rule needs no per-board data and is applied by the frontend, so recording it here would forge a per-board claim |
 
 ### Board layout
 
@@ -110,71 +110,113 @@ from the PCB" rather than naming a file. Writing an authored arrangement as
 invented coordinates would have made it indistinguishable from a measurement the
 moment it was serialised.
 
-**A direction outranks the millimetres, and La Frite is where that was
-decided.** The board owner, 2026-08-08: *"for La Frite, 2J2 and 9J5 should be
-one on top of another to make better use of the space."* The board is measured,
-and the measurement says the opposite — 2J2 at x 7.95 mm and 9J5 at x 47.066 mm
-are 39 mm apart on a 56 mm board, so their spans do not overlap and the measured
-grid gives three columns, most of the diagram's width spent on two 4-pin
-connectors. Until then the frontend ranked *measured, then authored, then rule*,
-which had never been exercised: no board carried two of them. It now ranks
-**authored, then measured, then rule**. This page is a pinout, not a mechanical
-drawing: nothing on it is to scale, and what the arrangement decides is which
-connector to read next and how much width each gets — a question about the
-drawing, which the person who makes the board answered directly, by connector
-name. The inverse order also leaves no way to *correct* a drawing: under
-measured-first, the only way to act on a direction about a measured board would
-be to delete or fudge the measurement, which is the exact confusion the two keys
-exist to prevent.
+**The 40-pin-header rule, in one sentence: where every other connector on the
+board, stacked one above another, is still shorter than the 40-pin header is
+tall, they are drawn in a single column beside it.** That is a statement about
+the only resource the drawing is short of. A 40-pin header is 20 pin rows tall
+and about two rails of pad names wide; the other connectors on these boards are
+3 to 8 pins, one or two rows apiece. Beside the 40-pin header there is therefore
+a column-shaped hole roughly 20 rows deep that the drawing is already paying for,
+and the whole question is whether the rest of the board fits in it. Where it
+does, the column is free — the diagram gets no taller and no block gets narrower
+— and the alternative is leaving that hole empty while the small connectors
+queue up underneath. Where it does not, the rule declines and the packed layout,
+which can wrap into as many columns as the window gives it, keeps the board.
 
-So **the measurement is kept, and only the drawing changes**. La Frite's board
-file still carries the full `layout` block, cited to the DXF, unedited; it also
-carries an `arrangement`, and the page draws that one. Because the drawing now
-departs from the board, its note says so in the sentence rather than in the
-hover — "Grouped as the board's maker directs, NOT as measured — this board's
-own CAD export places these connectors differently, and that measurement is kept
-in its data. Not a position on the PCB." — and the hover carries both citations,
-the direction and the measurement it is not drawing. A reader must not come away
-believing 2J2 sits above 9J5 on the PCB; it does not. Nothing else moves: a
-board with only a measurement (Le Potato) and a board with only a direction
-(Renegade Elite) each have one candidate, so the reorder cannot reach them.
+It is the board owner's, in three parts, all 2026-08-08: *"when it's just 40P
+header and one other header. make use of the right side space and put the other
+header on the right side."*; *"for La Frite, 2J2 and 9J5 should be one on top of
+another to make better use of the space."*; and *"das frite, le potato, sweet
+potato all need this fix. we need to improve heuristics rather than hard code."*
+The first two were once a count rule (exactly one other header) plus a per-board
+arrangement for La Frite; the third asked for the rule that implies both.
 
-A board with neither still gets one thing, and it is weaker again: a rule about
-a *shape* of board rather than about a board. The owner's, 2026-08-08 — "when
-it's just 40P header and one other header. make use of the right side space and
-put the other header on the right side." Where a board's entire header set is
-the 40-pin connector and one other, the two are drawn side by side, 40-pin left,
-instead of letting the small one stack underneath in the same column and leave
-the right half of the diagram empty. It fires on **six** boards — Tritium H3,
-Tritium H5, and Alta and Solitude at both their revisions — each of which is a
-40-pin header plus one 3-pin connector and nothing else.
+Height is the test rather than the header count because height is what is being
+spent. The count version fired on six boards and could not say why seven was six
+plus an exception; it stopped at two connectors and left La Frite needing its own
+arrangement block to do what the same reasoning already implied. There is no
+minimum size on the "other" connectors for the same reason there never was: a
+3-pin header in the right column reads sparse, but it reads sparse in the packed
+layout too, with the whole right half of the diagram empty behind it. And it is
+**one** column, not two or a grid — a second right-hand column costs width, and
+width is what the pad names are competing for, whereas depth beside the 40-pin
+header costs nothing until it runs out, at which point the rule stops rather than
+spending the scarce axis. The small connectors stack in the order the page
+already lists them, the wiring map's after the 40-pin hoist; inventing a
+different order would be a claim about the board, and this rule has none to make.
+
+It reaches **thirteen** of the fourteen boards — every one with a 40-pin header.
+Renegade Elite is the fourteenth and the rule cannot fire on it: it has no
+40-pin connector at all, and its eight headers (six of them 30-pin) come to 58
+pin rows against its tallest header's 15, so even a version of the rule that
+picked the tallest header would decline. It keeps its own `arrangement`, which
+outranks the rule anyway.
 
 **That rule is not in any board file, on purpose.** Its only input is the header
 list the file already carries, so there is nothing per-board to record; and
-recording it anyway, as six more `arrangement` blocks beside Renegade Elite's
-one, would make a count-derived default indistinguishable from six directions
+recording it anyway, as thirteen `arrangement` blocks beside Renegade Elite's
+one, would make a computed default indistinguishable from thirteen directions
 somebody actually gave — the same mistake as writing an authored arrangement as
 invented millimetres, one level up. So it is computed in `ruleGrid()` in
 `js/app.js`, and its note does not call itself a board view: it reads "Side by
-side — the 40-pin header and this board's one other connector, the way the
-board's maker asks for boards with just these two. Not a position on the PCB,
-and not a direction about this board." The three kinds rank — a direction for
-the board, then a measurement of it, then a rule about its shape (see the
-precedence above) — and this one is last either way, because it is the only one
-of the three that is not about the board at all. So the two measured boards and
-Renegade Elite are untouched by it.
+side — the 40-pin header, and every other connector on this board stacked in the
+space beside it, the way the board's maker asks for boards of this shape. Not a
+position on the PCB, and not a direction about this board."
 
-**Boards with two other headers are left packed.** The rule says "one other
-header" and stops. La Frite is now drawn with two others stacked on the right —
-but that is a *direction naming that board's connectors*, not this rule growing
-a case, and reading it back as a rule about the shape would put Das Frite
-(40 + 4 + 4) and the two Renegades (40 + 3 + 3) on a direction nobody gave for
-them. So they stay in the packed columns, as do the 4-header
-Potatoes, until someone says otherwise. The rule carries no minimum size for the
-other header either: at 3 pins against a 20-row 40-pin header the right column
-reads sparse either way, and sparse-on-the-right is what the direction asked for
-over empty-on-the-right. No board in the tree is a 40-pin header plus a single
-*8*-pin one, so the wider version of that question has no board to answer it.
+**La Frite's `arrangement` block was retired when the rule generalised.** The
+rule produces the same drawing for that board unaided — 7J1 left, 2J2 over 9J5 in
+the column beside it — so the block had become a per-board restatement of a
+general rule, which is exactly the hardcoding the owner's third instruction was
+about. Worse, `arrangement` outranks the rule, so leaving it would have frozen La
+Frite against any later change to the rule while Das Frite — the same product one
+revision on, and unmeasured — kept following it. Its `layout` block is untouched.
+
+#### Precedence: a direction, then the rule, then the millimetres
+
+The frontend ranks **authored, then rule, then measured**, and the ordering axis
+is *most specific statement about the drawing* — which is not the same axis as
+most specific statement about the board.
+
+It first read measured, authored, rule, on the reasoning that a millimetre beats
+an opinion. La Frite falsified that. This page is a pinout, not a mechanical
+drawing: nothing on it is to scale, and what an arrangement decides is which
+connector to read next and how much width each gets — a question about the
+drawing, which a coordinate does not answer. A coordinate answers where the
+copper is. So a direction moved above a measurement, and the measurement stayed
+in the file, cited, undrawn.
+
+The rule now sits above the measurement too, for that reason plus one the La
+Frite case could not show. It is the owner's direction as well — the same person,
+generalised at their instruction from the boards they named — and it answers the
+same drawing question. What it adds is that it answers it **uniformly**. La
+Frite is measured and Das Frite is not; Le Potato is measured and Sweet Potato
+and Das Potato are not; and those are the same products at different revisions.
+Under measured-first they would be drawn differently from each other — three
+columns for La Frite against a stacked two for Das Frite, one tall column for Le
+Potato against two for the others — with the difference tracking nothing about
+the product and everything about which board happened to have a CAD export we
+could read. A reader comparing revisions would read that as a change to the
+hardware. Le Potato is also the board the owner named: its four connectors' x
+spans all overlap 7J1's, so the measured grid is a single column and the right
+side of its diagram is empty, which is the thing being fixed.
+
+**The cost is real and is stated rather than hidden: no board in the tree is
+drawn from its measurement today**, because both measured boards carry a 40-pin
+header the rule covers. `measuredGrid()` is the fallback for a board the rule
+does not reach — one with no 40-pin header, or whose other connectors do not fit
+beside it — and Renegade Elite is that shape but carries a direction of its own.
+
+The measurements are not deleted, edited or downgraded. La Frite's and Le
+Potato's board files carry their full `layout` blocks, cited to the DXF and to
+the fab package, unedited; they are what the note and its hover cite when the
+drawing says it departs from the board; and a later placement feature is
+entitled to them. Because those two drawings do depart, their note says so in
+the sentence rather than in the hover — "Side by side as the board's maker asks
+for boards built around a 40-pin header, NOT as measured — this board's own CAD
+export places these connectors differently, and that measurement is kept in its
+data. Not a position on the PCB." A reader must not come away believing 2J2 sits
+above 9J5 on La Frite, or that Le Potato's three small connectors sit to the
+right of 7J1; neither is true of the copper.
 
 A header the arrangement does not name is **not placed**: it falls to a row of
 its own below everything that is, in map order. That is the honest rendering of
@@ -184,13 +226,13 @@ unplaced row and look exactly like a deliberate omission.
 
 | Board | Placed | Kind | Evidence |
 |---|---|---|---|
-| 🟡 La Frite (`aml-s805x-ac`) | 7J1 · 2J2 over 9J5 | measured, **but drawn owner-directed** | The board **is** measured, and that measurement is unchanged in its file: `AML-S805X-AC-TOP-190308.dxf`, a PADS/PowerPCB export of `XH_S805X_DDR4_V01_190302.pcb` — outline 55.999 × 65.000 mm from layer `BOARD_OUTLINE_00`, each header from its placed part and the pad stacks under it — which puts 7J1, 2J2 and 9J5 in **three separate columns** (2J2 at x 7.95 mm, 9J5 at x 47.066 mm). What is **drawn** is the board owner's direction, 2026-08-08: "for La Frite, 2J2 and 9J5 should be one on top of another to make better use of the space." So 2J2 above 9J5 is a **grouping on the page, not a position on the board** — see the precedence rule above |
-| 🟢 Le Potato (`aml-s905x-cc`) | 7J1, 2J3, 2J1, 9J1 | measured, `orient: 180` | `AML-S905X-CC-V1.0-A-smt-production-180611.rar`, the V1.0-A SMT production package: designators, origins and pin counts from `坐标文件/tmp3774.xlsx`, pad extents from the soldermask layer `ln457zc06129a0.gts` of the fab gerbers inside it, outline 84.000 × 56.000 mm from `ln457zc06129a0.gko`. The gerbers are a 2-up panel with each board rotated 180°; the mapping between the two frames lands all four designators on their own pads to within 0.001 mm, and the grown arrays come to 40 / 8 / 3 / 3 pads against the P&P's own counts. The **orientation** is not from the package — it is the board owner's, 2026-08-08, so the 40-pin header reads first; see `orient` above |
+| 🟡 La Frite (`aml-s805x-ac`) | 7J1 · 2J2 over 9J5 | measured, **but drawn by the 40-pin rule** | The board **is** measured, and that measurement is unchanged in its file: `AML-S805X-AC-TOP-190308.dxf`, a PADS/PowerPCB export of `XH_S805X_DDR4_V01_190302.pcb` — outline 55.999 × 65.000 mm from layer `BOARD_OUTLINE_00`, each header from its placed part and the pad stacks under it — which puts 7J1, 2J2 and 9J5 in **three separate columns** (2J2 at x 7.95 mm, 9J5 at x 47.066 mm). What is **drawn** is the 40-pin-header rule: 2J2 and 9J5 are single-row 4-pin connectors, so they stack into 8 of the 20 rows beside 7J1. That is the same drawing the owner directed for this board by name on 2026-08-08 — the per-board `arrangement` that carried it has been retired, because the rule now produces it. So 2J2 above 9J5 is a **grouping on the page, not a position on the board** — see the precedence rule above |
+| 🟡 Le Potato (`aml-s905x-cc`) | 7J1 · 2J3, 2J1, 9J1 | measured, **but drawn by the 40-pin rule** | The measurement is unchanged in its file: `AML-S905X-CC-V1.0-A-smt-production-180611.rar`, the V1.0-A SMT production package — designators, origins and pin counts from `坐标文件/tmp3774.xlsx`, pad extents from the soldermask layer `ln457zc06129a0.gts` of the fab gerbers inside it, outline 84.000 × 56.000 mm from `ln457zc06129a0.gko`. The gerbers are a 2-up panel with each board rotated 180°; the mapping between the two frames lands all four designators on their own pads to within 0.001 mm, and the grown arrays come to 40 / 8 / 3 / 3 pads against the P&P's own counts. `orient: 180` is not from the package — it is the board owner's, 2026-08-08, so the 40-pin header reads first (see `orient` above). What is **drawn** is the 40-pin-header rule: all four connectors' x spans overlap 7J1's, so the measured grid is one tall column with the right side of the diagram empty, which is what the owner asked to have fixed. 2J3, 2J1 and 9J1 are single-row 8-, 3- and 3-pin connectors, so they stack into 14 of the 20 rows beside 7J1 |
 | 🟡 Renegade Elite (`roc-rk3399-pc`) | J6, J15, J20 · J1, J12, J21 · J13 | **owner-directed, not measured** | Board owner, 2026-08-08: "the 40P header should always be first. for ROC-RK3399-PC, it should display similar like how it's laid out on the left/right side with the 6 pin then the 30 pin headers on each side. the 3P uart header can go on the bottom." Which connectors share a side is not in that direction and no export places this board (below), so the pairing follows the V1.1-A schematic's own grouping — `J12`+`J21` are one M.2 NGFF interface drawn side by side under a single label, `J15`+`J20` are the two connectors the product specification calls the 30-pin GPIO headers. **`J16` (1×4 SPI-NOR programming header) is not placed**: the direction never mentions it, so it falls to the end rather than being given a side |
-| 🟡 Tritium H3 / H5 | — | shape rule, **not a placement** | The DXF places 7J1 (40 pads, board 84.000 × 56.000 mm), but 2J3 is in neither the top nor the bottom export, so one of two headers has no position. Nothing else in the directory carries placement: the two `.dwg` are unreadable (below) and `ALL-H3-CC-V1.0A Headers.xlsx` is a pin table, not coordinates. Each is 40 pins + one 3-pin header, so both are *drawn* 7J1 left / 2J3 right by the owner's 40P-and-one-other rule (above) — which is a default for that shape, not a claim about where 2J3 sits |
+| 🟡 Tritium H3 / H5 | — | shape rule, **not a placement** | The DXF places 7J1 (40 pads, board 84.000 × 56.000 mm), but 2J3 is in neither the top nor the bottom export, so one of two headers has no position. Nothing else in the directory carries placement: the two `.dwg` are unreadable (below) and `ALL-H3-CC-V1.0A Headers.xlsx` is a pin table, not coordinates. Each is 40 pins + one 3-pin header, so both are *drawn* 7J1 left / 2J3 right by the owner's 40-pin-header rule (above) — which is a default for that shape, not a claim about where 2J3 sits |
 | 🔴 Renegade Elite — *placement* | — | — | No layout export for *this* board, which is why the row above is an arrangement and not a placement. `rk3399-silkscreen-{top,bottom}.pdf` are filed under `roc-rk3399-pc-v2/` beside a v1.2A schematic and changelog, so they are the later board's plots — and they are CAM350 vector output regardless: 5404 stroked paths, zero text elements and zero images after `pdftocairo -svg`, so the designators cannot be read as text. Needs a DXF/ODB++/IPC-2581 export, or the layout in `ROC_3399_ACC_V1.0_180619.rar` (a git-LFS pointer whose object is not fetched) |
-| 🔴 Alta, Solitude (both revisions) | — | shape rule, **not a placement** | The V0.2 Gerber archives are apertures and stroked silkscreen only — no reference designators, and no pick-and-place or assembly file beside them. Which pad array is which header cannot be read out, only guessed. Each is 40 pins + one 3-pin header, so all four are *drawn* 7J1 left / 2J1 right by the 40P-and-one-other rule (above) — a default for that shape; nothing here places either connector |
-| 🔴 Das Frite | — | — | Two binary AutoCAD `.dwg` (AC1018) and no reader: LibreCAD ships only a `dxf2pdf` console tool that takes DXF, and fed the file it produced nothing in 180 s; there is no `dwg2dxf`/libredwg/QCAD anywhere on the fleet. V2.0 is a different PCB from the V1.0A La Frite stands on, so that DXF is not evidence for it |
+| 🔴 Alta, Solitude (both revisions) | — | shape rule, **not a placement** | The V0.2 Gerber archives are apertures and stroked silkscreen only — no reference designators, and no pick-and-place or assembly file beside them. Which pad array is which header cannot be read out, only guessed. Each is 40 pins + one 3-pin header, so all four are *drawn* 7J1 left / 2J1 right by the 40-pin-header rule (above) — a default for that shape; nothing here places either connector |
+| 🔴 Das Frite, Sweet Potato, Das Potato, Renegade (both revisions) | — | shape rule, **not a placement** | No layout export names a connector on any of them — Das Frite has two binary AutoCAD `.dwg` (AC1018) and no reader (LibreCAD ships only a `dxf2pdf` console tool that takes DXF, and fed the file it produced nothing in 180 s; there is no `dwg2dxf`/libredwg/QCAD anywhere on the fleet), and V2.0 is a different PCB from the V1.0A La Frite stands on, so that DXF is not evidence for it. Each is a 40-pin header plus single-row connectors totalling well under its 20 rows — Das Frite 4+4 = 8, the two Potatoes 8+3+3 = 14, the two Renegades 3+3 = 6 — so all are *drawn* by the 40-pin-header rule (above), which places nothing |
 | ⚪ everything else | — | — | No mechanical or layout export in the tree |
 
 `tools/pcb_layout.py` can be run directly against a DXF to see what it found

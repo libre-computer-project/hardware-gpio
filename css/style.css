@@ -762,16 +762,15 @@ pre.usage {
   /* ---- board view ----
 
      Where something says how a board's connectors go together, the column
-     packing above is replaced by that arrangement: from measured millimetres,
-     a header near the top-left edge of the PCB is drawn near the top-left;
-     from the maker's own direction, the sides they describe; and failing both,
-     the maker's rule for a board that is just the 40-pin header and one other,
-     which puts the other one in the column to its right instead of under it.
-     Tracks are written by the JS from the data (see boardGrid in js/app.js) --
-     there are no coordinates in this file, and a board none of the three
-     covers never reaches this rule. Which of the three is on screen is the
-     note's job, not the grid's: the drawing looks the same and the claims do
-     not.
+     packing above is replaced by that arrangement: from the maker's own
+     direction, the sides they describe; from the maker's rule for boards built
+     around a 40-pin header, every other connector in the column to its right
+     instead of underneath it; and failing both, from measured millimetres, a
+     header near the top-left edge of the PCB drawn near the top-left. Tracks
+     are written by the JS from the data (see boardGrid in js/app.js) -- there
+     are no coordinates in this file, and a board none of the three covers
+     never reaches this rule. Which of the three is on screen is the note's
+     job, not the grid's: the drawing looks the same and the claims do not.
 
      Grid, not free positioning: the drawing is not to scale and cannot be --
      a 2.5 mm connector needs two rails of pad names, which is a couple of

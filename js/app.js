@@ -378,87 +378,146 @@ function authoredGrid() {
            source: arr.source + (measured ? " · Measurement not drawn: " + measured : "") };
 }
 
-/* The board owner's rule for the simplest shape of board, 2026-08-08: "when
-   it's just 40P header and one other header. make use of the right side space
-   and put the other header on the right side."
+/* The board owner's rule for boards built around the 40-pin header.
+   In one sentence: **where every other connector on the board, stacked one
+   above another, is still shorter than the 40-pin header is tall, they are
+   drawn in a single column beside it.**
 
-   A third KIND of claim, and the weakest, so it is deliberately NOT a third key
-   in the board file. `layout` and `arrangement` are both statements about ONE
-   board — measured off its own export, or directed for it by name — and writing
-   this beside them would make a rule read off the header COUNT indistinguishable
-   from something someone said about that board, which is the same mistake as
-   writing an authored arrangement as invented millimetres. Nothing here is
-   per-board: the only input is which headers the file already lists, so it is
-   computed here and the note says which of the three is on screen.
+   That is a statement about the only resource the drawing is short of. A 40-pin
+   header is 20 pin rows tall and about two rails of pad names wide; the other
+   connectors on these boards are 3 to 8 pins, one or two rows apiece. Beside the
+   40-pin header there is therefore a column-shaped hole roughly 20 rows deep
+   that the drawing is already paying for, and the whole question is whether the
+   rest of the board fits in it. Where it does, the column is free — the diagram
+   gets no taller and no other block gets narrower — and the alternative is
+   leaving that hole empty while the small connectors queue up underneath. Where
+   it does not, the rule declines and the packed layout, which can wrap into as
+   many columns as the window gives it, keeps the board.
 
-   Count, with no size threshold, because the direction has none. The 40-pin
-   header is 20 rows tall and the one other connector is 3 pins on every board
-   this fires on, so the right column reads sparse — but it reads sparse in the
-   packed layout too, where that connector sits UNDER the 40P and leaves the
-   whole right half of the diagram empty instead. The direction is about the
-   empty right side, not about how much fills it; a minimum size for "big enough
-   to earn a column" would be ours, not the owner's.
+   Height is the test rather than the header count because height is what is
+   actually being spent. The count version of this rule — "a 40-pin header and
+   exactly one other" — fired on six boards and could not say why seven was six
+   plus one exception; it stopped at two connectors and left La Frite needing a
+   per-board arrangement to do what the same reasoning already implied. It is
+   also why there is no minimum size on the "other" connectors: a 3-pin header
+   in the right column reads sparse, but it reads sparse in the packed layout
+   too, with the whole right half of the diagram empty behind it.
 
-   Two headers, not "a 40P and the rest": stacking two small connectors into the
-   right column is a different claim, and this rule is not the place it gets
-   made. The owner has since directed exactly that stacking for La Frite (2J2
-   over 9J5, and against that board's own measurement, which puts them 39 mm
-   apart) — but by name, for one board, which is an `arrangement` and lands in
-   authoredGrid above. Reading it back as a rule about the shape would place
-   Das Frite and the two Renegades on a direction nobody gave for them, which
-   is the mistake this whole split exists to prevent, so they stay packed. */
+   ONE column, not two or a grid. A second right-hand column costs width, and
+   width is what the pad names are competing for (see the min-width note in the
+   board-view CSS); depth beside the 40-pin header costs nothing until it runs
+   out, at which point the rule stops rather than spending the scarce axis. The
+   small connectors stack in the order the page already lists them — the wiring
+   map's, after the 40-pin hoist — because inventing a different order here
+   would be a claim about the board, and this rule has none to make.
+
+   Still a rule about a SHAPE of board, so it is still deliberately NOT a key in
+   the board file. `layout` is millimetres off THIS board's export and
+   `arrangement` is a direction naming THIS board's connectors; a rule read off
+   the header list is neither, and serialising it into nine board files beside
+   Renegade Elite's one arrangement would make a computed default
+   indistinguishable from nine directions somebody gave. Its only input is the
+   header list the file already carries, so it is computed here.
+
+   Owner, 2026-08-08, in three parts: "when it's just 40P header and one other
+   header. make use of the right side space and put the other header on the
+   right side."; "for La Frite, 2J2 and 9J5 should be one on top of another to
+   make better use of the space."; and "das frite, le potato, sweet potato all
+   need this fix. we need to improve heuristics rather than hard code." */
 /* The connector the direction (and the page) is about, in positions — the same
    count HEADER_FIRST_POSITIONS orders by in the generator and the header title
    shows, so "40P header" means the same thing in all three. */
 const MAIN_HEADER_POSITIONS = 40;
 
-function ruleGrid() {
-  if (board.headers.length !== 2) return null;
-  const positions = (h) => new Set(h.pins.map((p) => p.pin)).size;
-  const [main, other] = board.headers;
-  if (positions(main) !== MAIN_HEADER_POSITIONS) return null;
-  const at = new Map([
-    [main.id, { col: 0, row: 0, span: 1 }],
-    [other.id, { col: 1, row: 0, span: 1 }],
-  ]);
-  return { at, cols: 2, rows: 1, kind: "rule",
-           source: 'Layout rule from the board owner, 2026-08-08: "when it\'s '
-                 + 'just 40P header and one other header. make use of the right '
-                 + 'side space and put the other header on the right side." It '
-                 + 'is applied from this board\'s header count — nobody has '
-                 + 'said where either connector sits on this PCB, and no export '
-                 + 'places it' };
+/* What a connector costs the drawing vertically, in pin rows — the unit the
+   diagram is actually built out of. A dual-row header draws two pads per row,
+   which is the whole reason a 40-pin connector is the SHORT way round and has
+   room beside it. Positions, not map rows: a pin wired to two SoC lines is two
+   rows in the data and one pad on the connector. */
+function headerPositions(h) {
+  return new Set(h.pins.map((p) => p.pin)).size;
 }
 
-/* Most specific claim about how to DRAW this board, first.
+function headerRows(h) {
+  const n = headerPositions(h);
+  return h.rows === 2 ? Math.ceil(n / 2) : n;
+}
 
-   This used to read measured || authored || rule — measurement first, on the
-   reasoning that a millimetre beats an opinion. That ordering was never
-   exercised: no board carried both, so the chain expressed an intention nobody
-   had tested. La Frite is the first board where the two disagree, and the
-   direction wins, for two reasons.
+function ruleGrid() {
+  const main = board.headers.find(
+    (h) => headerPositions(h) === MAIN_HEADER_POSITIONS);
+  if (!main) return null;
+  const others = board.headers.filter((h) => h !== main);
+  if (!others.length) return null;
+  /* Strict: equal heights would fill the column exactly in pin rows and then
+     overrun it by the titles and gaps the stacked blocks also carry. */
+  if (others.reduce((n, h) => n + headerRows(h), 0) >= headerRows(main)) {
+    return null;
+  }
+  const at = new Map([[main.id, { col: 0, row: 0, span: 1 }]]);
+  /* One shared cell, which is how the measured path already draws connectors at
+     one position: the cell is a flex column, so they stack inside it. Separate
+     grid ROWS would not stack them — row 0's height is set by the 40-pin
+     header, so the second connector would land far below the first, which is
+     the empty space this rule exists to remove. */
+  for (const h of others) at.set(h.id, { col: 1, row: 0, span: 1 });
+  const measured = board.layout && board.layout.source;
+  return { at, cols: 2, rows: 1, kind: "rule",
+           overrides: Boolean(measured),
+           source: 'Layout rule from the board owner, 2026-08-08: "when it\'s '
+                 + 'just 40P header and one other header. make use of the right '
+                 + 'side space and put the other header on the right side", '
+                 + 'and, of La Frite\'s two: "2J2 and 9J5 should be one on top '
+                 + 'of another to make better use of the space" — generalised '
+                 + 'at the owner\'s direction ("we need to improve heuristics '
+                 + 'rather than hard code") to every board whose other '
+                 + 'connectors, stacked, are shorter than its 40-pin header. It '
+                 + 'is read off this board\'s header list, so it is not a '
+                 + 'statement about where any connector sits on this PCB'
+                 + (measured ? ' — and this board IS measured: ' + measured
+                             + '. That measurement is unchanged in its data; it '
+                             + 'is simply not what is drawn' : '') };
+}
 
-   The page is a pinout, not a mechanical drawing. Nothing here is to scale and
-   the note says so; what the arrangement buys the reader is which connector to
-   look at next and how much of the width each one gets. That is a question
-   about the drawing, and the person who makes the board answering it directly,
-   by connector name, is a more specific statement about the drawing than a
-   coordinate is — the coordinate is about the copper, and it is still recorded
-   as such.
+/* Most specific statement about the DRAWING, first — which is not the same
+   axis as most specific statement about the board, and the difference is the
+   whole of this chain.
 
-   The other reason is that the inverse leaves no way to correct a drawing.
-   Under measured-first, a measured board's rendering is unchallengeable: the
-   only way to act on a direction about it would be to delete or fudge the
-   measurement, which is exactly the confusion the layout/arrangement split
-   exists to prevent. Precedence keeps both facts and picks between them.
+   It first read measured || authored || rule, on the reasoning that a
+   millimetre beats an opinion. La Frite falsified that: the page is a pinout,
+   nothing on it is to scale, and what an arrangement decides is which connector
+   to read next and how much width each gets — a question about the drawing,
+   which a coordinate does not answer. A coordinate answers where the copper is.
+   So a direction moved above a measurement, and the measurement stayed in the
+   file, cited, undrawn.
 
-   A direction is by definition per-board and by connector name, so this cannot
-   fire where nobody has spoken: aml-s905x-cc is measured with no direction and
-   is unaffected, roc-rk3399-pc is directed with no measurement and is
-   unaffected. Below both sits the rule about boards of a shape, still last —
-   it is not about this board at all. */
+   The rule now sits above the measurement too, for the same reason plus one
+   the La Frite case could not show. It is the owner's direction as well — the
+   same person, generalised at their instruction from the boards they named —
+   and it answers the same drawing question. What it adds is that it is
+   answered UNIFORMLY: La Frite is measured and Das Frite is not, Le Potato is
+   measured and Sweet Potato and Das Potato are not, and those pairs are the
+   same product at different revisions. Under measured-first they would be drawn
+   differently from each other — three columns for La Frite against a stacked
+   two for Das Frite, one tall column for Le Potato against two for the others —
+   with the difference tracking nothing about the product and everything about
+   which board happened to have a CAD export we could read. A reader comparing
+   revisions would read that as a change to the hardware.
+
+   The cost is real and is stated rather than hidden: no board in the tree is
+   drawn from its measurement today, because both measured boards carry a 40-pin
+   header the rule covers. measuredGrid is the fallback for a board the rule
+   does not reach — one with no 40-pin header, or whose other connectors do not
+   fit beside it — and Renegade Elite is that shape but carries a direction of
+   its own. The measurements are not deleted, edited or downgraded: they stay in
+   the board files, they are what the note and its hover cite as not-drawn, and
+   they are the reason the page can say the drawing departs from the board at
+   all.
+
+   Order of the three: a direction naming THIS board's connectors, then the
+   owner's rule for boards of its shape, then the board's own millimetres. */
 function boardGrid() {
-  return authoredGrid() || measuredGrid() || ruleGrid();
+  return authoredGrid() || ruleGrid() || measuredGrid();
 }
 
 /* Whether this board's arrangement is currently drawn. The class is the whole
@@ -492,14 +551,16 @@ function fitBoardView() {
    not just the hover — and the weakest of them does not call itself a board
    view at all, because it says nothing about the board.
 
-   An authored arrangement on a board that is ALSO measured is the fourth
-   sentence, and the one that most needs writing. The other three describe a
-   drawing nothing contradicts; this one describes a drawing that departs from
-   the board's own CAD export, and a reader who is not told that will read the
-   departure as the board — on La Frite, that 2J2 sits above 9J5 when the DXF
-   puts them 39 mm apart across the board. So it does not call itself a board
-   view either, and it states the disagreement in the sentence rather than
-   leaving it to the hover. */
+   A drawing that DEPARTS from a measurement the board carries is the sentence
+   that most needs writing, and either of the two undrawn-measurement cases can
+   be in it — a direction for the board (La Frite, before the rule generalised)
+   or the rule for its shape (La Frite and Le Potato now). A reader who is not
+   told will read the departure as the board: that 2J2 sits above 9J5 when the
+   DXF puts them 39 mm apart, or that Le Potato's three small connectors are to
+   the right of 7J1 when the gerbers put all four in one column. So those
+   sentences do not call themselves a board view, and they state the
+   disagreement outright rather than leaving it to the hover — which carries
+   the citation for the measurement that is not being drawn. */
 const BOARD_NOTE = {
   measured: (g) =>
     `Board view — headers arranged by their measured position on the ` +
@@ -510,10 +571,15 @@ const BOARD_NOTE = {
       "measurement is kept in its data. Not a position on the PCB."
     : "Board view — headers arranged as the board's maker specifies. " +
       "Not measured from the PCB."),
-  rule: () =>
-    "Side by side — the 40-pin header and this board's one other connector, " +
-    "the way the board's maker asks for boards with just these two. Not a " +
-    "position on the PCB, and not a direction about this board.",
+  rule: (g) => (g.overrides
+    ? "Side by side as the board's maker asks for boards built around a " +
+      "40-pin header, NOT as measured — this board's own CAD export places " +
+      "these connectors differently, and that measurement is kept in its " +
+      "data. Not a position on the PCB."
+    : "Side by side — the 40-pin header, and every other connector on this " +
+      "board stacked in the space beside it, the way the board's maker asks " +
+      "for boards of this shape. Not a position on the PCB, and not a " +
+      "direction about this board."),
 };
 
 function boardNote(grid) {
@@ -582,9 +648,9 @@ function render() {
     block.className = "header-block";
     const title = document.createElement("h2");
     /* Count header positions, not rows: a pin wired to two SoC lines has two
-       rows but is still one pin on the connector. */
-    const positions = new Set(header.pins.map((p) => p.pin)).size;
-    title.textContent = header.id + " · " + positions + " pins";
+       rows but is still one pin on the connector. Same count the layout rule
+       reads, so the title and the rule cannot disagree about "40-pin". */
+    title.textContent = header.id + " · " + headerPositions(header) + " pins";
     block.appendChild(title);
     /* Geometry comes from the data, which takes it from the board's connector
        footprint. It is not inferrable from the pin count: Le Potato's 2J3 has
