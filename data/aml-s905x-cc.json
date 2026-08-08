@@ -2062,6 +2062,8 @@
     "y2": 55.005,
     "pads": 3
    }
-  }
+  },
+  "orient": 180,
+  "orient_source": "Board owner, 2026-08-08: the 40-pin header reads first. The CAD frame fixes the connectors relative to each other and not which edge is up, so this picks between the two views its data allows; the millimetres are untouched"
  }
 }

@@ -301,23 +301,75 @@ function spanTracks(spans) {
    emit a partial layout for the same reason, and this is the second half of
    that guarantee: data that arrives incomplete anyway falls back rather than
    drawing most of a board. */
-function boardGrid() {
+function measuredGrid() {
   const lay = board.layout;
   if (!lay || !lay.headers || !lay.board) return null;
   const ids = board.headers.map((h) => h.id);
   if (!ids.every((id) => lay.headers[id])) return null;
 
-  /* Screen frame: +y is up in the CAD data (that is the frame the board was
-     laid out in), and down on a screen, so the vertical span is flipped here
-     rather than in the data. */
-  const xs = ids.map((id) => [lay.headers[id].x1, lay.headers[id].x2]);
-  const ys = ids.map((id) =>
-    [lay.board.h - lay.headers[id].y2, lay.board.h - lay.headers[id].y1]);
+  /* Two frame changes, and only one of them is a fact.
+     +y is up in the CAD data (that is the frame the board was laid out in) and
+     down on a screen, so the vertical span is flipped here rather than in the
+     data — that one is forced.
+     `orient` is the other, and is a CHOICE the data cannot make: a CAD frame
+     fixes the connectors relative to each other and never says which edge the
+     reader holds towards them, so 0 and 180 are both faithful. The board file
+     carries the choice and its own provenance beside it (layout.orient_source)
+     rather than this file assuming one. 180 is a rotation, so it mirrors both
+     axes; the millimetres it reads are untouched. */
+  const flip = lay.orient === 180;
+  const xs = ids.map((id) => {
+    const h = lay.headers[id];
+    return flip ? [lay.board.w - h.x2, lay.board.w - h.x1] : [h.x1, h.x2];
+  });
+  const ys = ids.map((id) => {
+    const h = lay.headers[id];
+    return flip ? [h.y1, h.y2] : [lay.board.h - h.y2, lay.board.h - h.y1];
+  });
   const cols = spanTracks(xs);
   const rows = spanTracks(ys);
   const at = new Map();
-  ids.forEach((id, i) => at.set(id, { col: cols.track[i], row: rows.track[i] }));
-  return { at, cols: cols.count, rows: rows.count, lay };
+  ids.forEach((id, i) => at.set(id,
+    { col: cols.track[i], row: rows.track[i], span: 1 }));
+  return { at, cols: cols.count, rows: rows.count, kind: "measured",
+           source: lay.source + (flip ? " · " + lay.orient_source : ""),
+           board: lay.board };
+}
+
+/* The arrangement a board's OWNER specified, for a board no CAD export places.
+   Read from a different key than `layout` on purpose: it is a weaker claim —
+   how to group the connectors, from someone holding the board, rather than
+   where they are — and the note beside the drawing says which one is on screen.
+
+   The require-every-header rule above does NOT apply here, and its absence is
+   the point. A measured layout missing a header is data that failed; an
+   authored one missing a header is a direction that did not cover it, which
+   the generator refuses to paper over with an invented cell. Those fall to a
+   row of their own at the bottom, after everything the direction did place. */
+function authoredGrid() {
+  const arr = board.arrangement;
+  if (!arr || !arr.cells) return null;
+  const at = new Map();
+  let cols = 0;
+  let rows = 0;
+  for (const h of board.headers) {
+    const c = arr.cells[h.id];
+    if (!c) continue;
+    at.set(h.id, { col: c[0], row: c[1], span: c[2] || 1 });
+    cols = Math.max(cols, c[0] + (c[2] || 1));
+    rows = Math.max(rows, c[1] + 1);
+  }
+  if (!at.size) return null;
+  /* One row each, so an unplaced connector never reads as sharing a position
+     with another — the thing a shared cell means everywhere else here. */
+  for (const h of board.headers) {
+    if (!at.has(h.id)) at.set(h.id, { col: 0, row: rows++, span: cols });
+  }
+  return { at, cols, rows, kind: "authored", source: arr.source };
+}
+
+function boardGrid() {
+  return measuredGrid() || authoredGrid();
 }
 
 /* Whether this board's arrangement is currently drawn. The class is the whole
@@ -343,16 +395,22 @@ function fitBoardView() {
   diagramEl.classList.toggle("board-view", !clipped);
 }
 
+/* The note is where the two kinds of arrangement are told apart, and it is not
+   optional for either: a reader is entitled to assume a drawing that looks like
+   a board WAS one, and "measured off the PCB" and "how the person who makes it
+   says to group them" are not the same promise. So the sentence differs, not
+   just the hover. */
 function boardNote(grid) {
   const el = document.createElement("p");
   el.className = "board-note";
-  const b = grid.lay.board;
-  el.textContent =
-    `Board view — headers arranged by their measured position on the ` +
-    `${b.w} × ${b.h} mm PCB. Arrangement, not scale.`;
+  el.textContent = grid.kind === "measured"
+    ? `Board view — headers arranged by their measured position on the ` +
+      `${grid.board.w} × ${grid.board.h} mm PCB. Arrangement, not scale.`
+    : "Board view — headers arranged as the board's maker specifies. " +
+      "Not measured from the PCB.";
   /* Same treatment as the electrical section's citation: the source belongs
      one hover away, not taking a second line on every board. */
-  el.title = "Source: " + grid.lay.source;
+  el.title = "Source: " + grid.source;
   return el;
 }
 
@@ -398,7 +456,8 @@ function render() {
     if (!cell) {
       cell = document.createElement("div");
       cell.className = "board-cell";
-      cell.style.gridColumn = String(at.col + 1);
+      cell.style.gridColumn = at.span > 1
+        ? `${at.col + 1} / span ${at.span}` : String(at.col + 1);
       cell.style.gridRow = String(at.row + 1 + rowBase);
       cells.set(key, cell);
       diagramEl.appendChild(cell);

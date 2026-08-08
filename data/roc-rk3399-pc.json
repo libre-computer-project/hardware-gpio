@@ -3732,5 +3732,40 @@
   },
   "dc_note": "RK3399 publishes the thresholds per IO supply mode (Table 3-3) but never states which supply rail a given pad sits on \u2014 Table 2-3 has no power-domain column, and Table 2-2 lists each group's power balls rather than its signal pads. So the three operating points are on record for the part, and binding one to this pin would be a guess.",
   "pad_source": "rockchip-rk3399-datasheet-v1.8.pdf Table 2-3"
+ },
+ "arrangement": {
+  "kind": "authored",
+  "source": "Owner-directed arrangement, 2026-08-08 \u2014 NOT measured from the PCB: a 6-pin CON6A over two 30-pin CON30A on each side, the 3-pin UART header J13 across the bottom. Which connectors share a side follows the V1.1-A schematic's own grouping (J12+J21 are one M.2 NGFF interface; J15+J20 are the GPIO headers), not any layout export \u2014 this board has none. J16 is not placed",
+  "cells": {
+   "J6": [
+    0,
+    0
+   ],
+   "J15": [
+    0,
+    1
+   ],
+   "J20": [
+    0,
+    2
+   ],
+   "J1": [
+    1,
+    0
+   ],
+   "J12": [
+    1,
+    1
+   ],
+   "J21": [
+    1,
+    2
+   ],
+   "J13": [
+    0,
+    3,
+    2
+   ]
+  }
  }
 }

@@ -761,12 +761,14 @@ pre.usage {
 
   /* ---- board view ----
 
-     Where the board file says where its connectors ARE, the column packing
-     above is replaced by their real arrangement: a header near the top-left
-     edge of the PCB is drawn near the top-left. Tracks come from the
-     connectors' own measured spans (see boardGrid in js/app.js), so the
-     template is written by the JS from the data -- there are no coordinates
-     in this file, and a board with no layout data never reaches this rule.
+     Where the board file says how its connectors go together, the column
+     packing above is replaced by that arrangement: from measured millimetres,
+     a header near the top-left edge of the PCB is drawn near the top-left;
+     from the maker's own direction, the sides they describe. Tracks are
+     written by the JS from the data (see boardGrid in js/app.js) -- there are
+     no coordinates in this file, and a board with neither key never reaches
+     this rule. Which of the two is on screen is the note's job, not the
+     grid's: the drawing looks the same and the claims do not.
 
      Grid, not free positioning: the drawing is not to scale and cannot be --
      a 2.5 mm connector needs two rails of pad names, which is a couple of
@@ -818,10 +820,10 @@ pre.usage {
   }
 }
 
-/* Says what the arrangement is, and — behind the same hover the electrical
-   citation uses — where it was measured. Without it a reader is entitled to
-   assume the drawing is to scale, and it is not: only the ordering is from
-   the board.
+/* Says what the arrangement is — and which KIND it is, measured off the PCB or
+   directed by the board's maker — with the citation behind the same hover the
+   electrical section uses. Without it a reader is entitled to assume the
+   drawing is to scale, and it is not: only the ordering is from the board.
 
    Hidden by default and turned on inside the one-page frame, because that is
    the only place the board arrangement is drawn: portrait stacks the headers

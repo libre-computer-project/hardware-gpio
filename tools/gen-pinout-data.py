@@ -133,6 +133,28 @@ def is_dual_row(board, header):
     return header in DUAL_ROW_HEADERS or f"{board}:{header}" in DUAL_ROW_HEADERS
 
 
+# The 40-pin header comes first on every board that has one (board owner,
+# 2026-08-08).
+#
+# It is the connector the page exists for -- the one a reader came to count pads
+# on -- and on every other board it is also the one the wiring map happens to
+# list first, so leaving the order to the map made the right answer depend on a
+# file we do not own. Stated here it is a rule instead of a coincidence, and a
+# map that ever reorders its stanzas cannot quietly demote it.
+#
+# Positions, not rows: a pin wired to two SoC lines is two rows in the map and
+# still one position on the connector, which is the same count the header title
+# shows.
+HEADER_FIRST_POSITIONS = 40
+
+
+def order_headers(headers):
+    """Headers in draw order: a 40-position connector first, else map order."""
+    def positions(h):
+        return len({p["pin"] for p in h["pins"]})
+    return sorted(headers, key=lambda h: positions(h) != HEADER_FIRST_POSITIONS)
+
+
 # Where each connector physically sits on the board.
 #
 # Same standard of proof as DUAL_ROW_HEADERS above, for the same reason. Row
@@ -156,6 +178,14 @@ def is_dual_row(board, header):
 #         archive-member chains ("a.rar!inner.rar!x.gts"); `frame` and `board`
 #         are the two facts about the panel that neither file states, quoted
 #         with the file they were read from in the comment on the entry.
+#
+# `orient` is the one thing in the entry that is NOT measured, and is kept
+# separate from `source` for exactly that reason. A CAD frame has no "this way
+# up": it fixes every connector RELATIVE to every other, and says nothing about
+# which edge the reader is holding towards them. Both 0 and 180 are faithful
+# views of the same measurements -- 180 is the same board seen from the other
+# end -- so the choice has to come from somewhere else, and where it does it
+# says so in `orient_source` rather than riding along on the CAD citation.
 PCB_LAYOUT = {
     "aml-s805x-ac": {
         "dxf": "amlogic/gxl/s805x/schematics/aml-s805x-ac/technical-reference/"
@@ -198,6 +228,20 @@ PCB_LAYOUT = {
                   "pad extent from the soldermask layer ln457zc06129a0.gts of "
                   "the fab gerbers inside it, board edge 84.000 × 56.000 mm "
                   "from ln457zc06129a0.gko",
+        # 7J1 sits along the y-minimum edge of the design frame, so read with
+        # +y up it lands at the BOTTOM of the drawing and the three small
+        # connectors read before it. Turning the board end-for-end puts it
+        # first, which is the order the owner asked for and the way the product
+        # is pictured. Nothing measured moves: all four connectors share one
+        # column either way (their x spans all overlap 7J1's 26.454..76.446),
+        # so on THIS board the rotation is only observable in the vertical
+        # order -- it cannot swap a left for a right here.
+        "orient": 180,
+        "orient_source": "Board owner, 2026-08-08: the 40-pin header reads "
+                         "first. The CAD frame fixes the connectors relative "
+                         "to each other and not which edge is up, so this "
+                         "picks between the two views its data allows; the "
+                         "millimetres are untouched",
     },
 }
 
@@ -225,6 +269,9 @@ PCB_LAYOUT = {
 #                    as a JPEG. What would settle it: a DXF/ODB++/IPC-2581
 #                    export, or the layout in ROC_3399_ACC_V1.0_180619.rar (a
 #                    git-LFS pointer here, and the object is not fetched).
+#                    Still not placed -- it carries an owner-directed
+#                    arrangement instead (BOARD_ARRANGEMENT below), which is a
+#                    weaker claim and says so on the page.
 #   aml-a311d-cc     A311D-V0.2_Gerber.zip / S905D3-V0.2_Gerber.zip are Gerber
 #   aml-s905d3-cc    only: apertures and stroked silkscreen, no reference
 #                    designators, and no pick-and-place or assembly file beside
@@ -294,13 +341,97 @@ def board_layout(board, headers, docs_repo, require_all=True):
             "x2": round(px1 - x0, 3), "y2": round(py1 - y0, 3),
             "pads": rec["npads"],
         }
-    return {
+    out = {
         "units": "mm",
         "origin": "board outline minimum corner; +x right, +y up (CAD frame)",
         "source": spec["source"],
         "board": {"w": round(x1 - x0, 3), "h": round(y1 - y0, 3)},
         "headers": placed,
     }
+    if spec.get("orient"):
+        out["orient"] = spec["orient"]
+        out["orient_source"] = spec["orient_source"]
+    return out
+
+
+# Arrangements the board OWNER specified, for boards no CAD export places.
+#
+# This is a different KIND of claim from PCB_LAYOUT above and is deliberately a
+# different key in the board file, so no reader -- and no later edit -- can
+# mistake one for the other. PCB_LAYOUT is millimetres off that board's own
+# export and answers "where is this connector"; this answers only "how should
+# the page group them", from someone who has the board in hand. Writing it as
+# invented millimetres would have made it indistinguishable from a measurement
+# the moment it was serialised, so it is written as what it is: grid cells.
+#
+#   cells   header id -> [column, row] or [column, row, colspan], 0-based.
+#   source  shown as the drawing's provenance, and says whose direction it is.
+#
+# A header the table does not name is NOT placed: it falls to a row of its own
+# below everything named, in map order. That is the honest rendering of "the
+# direction did not cover this connector" -- inventing a cell for it would put
+# an authored position on the page with nobody behind it.
+BOARD_ARRANGEMENT = {
+    # Board owner: "the 40P header should always be first. for ROC-RK3399-PC,
+    # it should display similar like how it's laid out on the left/right side
+    # with the 6 pin then the 30 pin headers on each side. the 3P uart header
+    # can go on the bottom."
+    #
+    # So: two sides, each a 2x3 CON6A over two 2x15 CON30A, and J13 across the
+    # bottom. What the direction does not settle is WHICH connectors share a
+    # side, and no layout export for this board exists to settle it either (see
+    # the not-placed list above). The pairing below is therefore functional,
+    # read off the V1.1-A schematic's Extension Interface sheet (p28) via
+    # `roc-rk3399-pc-schematic.md` in the hardware-documentation repo, and is
+    # a grouping rather than a position:
+    #
+    #   J12 + J21  one M2.NGFF interface split across two connectors -- the
+    #              schematic's p28 draws them side by side under a single
+    #              label -- so they belong to each other wherever they sit.
+    #   J1         PoE: the four RJ45 centre taps, whose PD controller is on
+    #              the mezzanine, so it is a mezzanine-side connector too.
+    #   J15 + J20  the two connectors the product specification calls the
+    #              30-pin GPIO headers; J6 is the DC power pass-through.
+    #
+    # Left is the GPIO side because the GPIO headers are what a reader opened
+    # this page for. That, and the sides themselves, are owner-directed shape,
+    # not a measurement -- which is what `source` says.
+    "roc-rk3399-pc": {
+        "cells": {
+            "J6": [0, 0], "J15": [0, 1], "J20": [0, 2],
+            "J1": [1, 0], "J12": [1, 1], "J21": [1, 2],
+            "J13": [0, 3, 2],
+        },
+        # J16 is absent on purpose: a 1x4 SPI-NOR programming header the
+        # direction never mentions. It falls to the end rather than being given
+        # a side, because the two sides are the owner's statement and adding to
+        # them would be ours.
+        "source": "Owner-directed arrangement, 2026-08-08 — NOT measured from "
+                  "the PCB: a 6-pin CON6A over two 30-pin CON30A on each side, "
+                  "the 3-pin UART header J13 across the bottom. Which "
+                  "connectors share a side follows the V1.1-A schematic's own "
+                  "grouping (J12+J21 are one M.2 NGFF interface; J15+J20 are "
+                  "the GPIO headers), not any layout export — this board has "
+                  "none. J16 is not placed",
+    },
+}
+
+
+def board_arrangement(board, headers):
+    """Owner-directed ordinal arrangement for one board, or None."""
+    spec = BOARD_ARRANGEMENT.get(board)
+    if not spec:
+        return None
+    ids = {h["id"] for h in headers}
+    # Same standard the Chip classifier is held to: a name that does not exist
+    # is a build failure, not a header quietly dropped to the unplaced row --
+    # which is where a typo would otherwise land, looking exactly like a
+    # connector the direction chose not to place.
+    unknown = sorted(set(spec["cells"]) - ids)
+    if unknown:
+        raise SystemExit(f"{board}: arrangement names headers the board does "
+                         f"not have: {', '.join(unknown)}")
+    return {"kind": "authored", "source": spec["source"], "cells": spec["cells"]}
 
 
 # Function-class detection, checked in order against Ref then Desc.
@@ -1671,6 +1802,7 @@ def main():
                     first.setdefault("muxes", []).extend(p["muxes"])
             h["pins"] = merged
 
+        headers = order_headers(headers)
         npins = sum(len(h["pins"]) for h in headers)
         doc = {
             "id": board, "model": model, "name": name, "soc": soc,
@@ -1690,6 +1822,12 @@ def main():
         layout = board_layout(board, headers, args.docs_repo)
         if layout:
             doc["layout"] = layout
+        # Never both: a board with a measured placement has no use for an
+        # authored one, and carrying the two together would leave the drawing
+        # to decide which claim wins.
+        arrangement = board_arrangement(board, headers) if not layout else None
+        if arrangement:
+            doc["arrangement"] = arrangement
         elec_stats[board] = (n_gpio, n_elec, n_domain, n_analog)
         (out / f"{board}.json").write_text(json.dumps(doc, indent=1) + "\n")
         index.append({
