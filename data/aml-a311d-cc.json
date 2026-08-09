@@ -237,6 +237,33 @@
        "bit": 24,
        "width": 4,
        "value": 3
+      },
+      {
+       "name": "TSIN_A_SOP",
+       "source": "datasheet",
+       "bit": 24,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff800014",
+       "register": "AO_RTI_PIN_MUX_REG0"
+      },
+      {
+       "name": "TDMB_D2",
+       "source": "datasheet",
+       "bit": 24,
+       "width": 4,
+       "value": 5,
+       "reg": "0xff800014",
+       "register": "AO_RTI_PIN_MUX_REG0"
+      },
+      {
+       "name": "TDMB_DIN2",
+       "source": "datasheet",
+       "bit": 24,
+       "width": 4,
+       "value": 6,
+       "reg": "0xff800014",
+       "register": "AO_RTI_PIN_MUX_REG0"
       }
      ]
     },
@@ -286,6 +313,33 @@
        "bit": 0,
        "width": 4,
        "value": 3
+      },
+      {
+       "name": "TSIN_A_CLK",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff800018",
+       "register": "AO_RTI_PIN_MUX_REG1"
+      },
+      {
+       "name": "TDMB_SCLK",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 5,
+       "reg": "0xff800018",
+       "register": "AO_RTI_PIN_MUX_REG1"
+      },
+      {
+       "name": "TDMB_SLV_SCLK",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 6,
+       "reg": "0xff800018",
+       "register": "AO_RTI_PIN_MUX_REG1"
       }
      ]
     },
@@ -350,6 +404,15 @@
        "value": 3
       },
       {
+       "name": "TSIN_A_VALID",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff800018",
+       "register": "AO_RTI_PIN_MUX_REG1"
+      },
+      {
        "name": "MCLK_0",
        "group": "mclk0_ao",
        "funcs": [
@@ -396,6 +459,33 @@
        "bit": 28,
        "width": 4,
        "value": 1
+      },
+      {
+       "name": "TSIN_A_DIN0",
+       "source": "datasheet",
+       "bit": 28,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff800014",
+       "register": "AO_RTI_PIN_MUX_REG0"
+      },
+      {
+       "name": "TDMB_FS",
+       "source": "datasheet",
+       "bit": 28,
+       "width": 4,
+       "value": 5,
+       "reg": "0xff800014",
+       "register": "AO_RTI_PIN_MUX_REG0"
+      },
+      {
+       "name": "TDMB_SLV_FS",
+       "source": "datasheet",
+       "bit": 28,
+       "width": 4,
+       "value": 6,
+       "reg": "0xff800014",
+       "register": "AO_RTI_PIN_MUX_REG0"
       }
      ]
     },
@@ -424,6 +514,24 @@
       "domain": "VDDIO_X"
      },
      "muxes": [
+      {
+       "name": "TDMA_SCLK",
+       "source": "datasheet",
+       "bit": 12,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "TDMA_SLV_SCLK",
+       "source": "datasheet",
+       "bit": 12,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
       {
        "name": "TSIN_B_CLK",
        "group": "tsin_b_clk_x",
@@ -1477,6 +1585,15 @@
        "source": "datasheet",
        "bit": 8,
        "width": 4,
+       "value": 1,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
+       "name": "TDMA_SLV_FS",
+       "source": "datasheet",
+       "bit": 8,
+       "width": 4,
        "value": 2,
        "reg": "0xff6346d0",
        "register": "PERIPHS_PIN_MUX_4"
@@ -1654,6 +1771,15 @@
        "value": 1
       },
       {
+       "name": "TDMA_DIN1",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
+      },
+      {
        "name": "TSIN_B_SOP",
        "group": "tsin_b_sop_x",
        "funcs": [
@@ -1748,6 +1874,15 @@
        "bit": 4,
        "width": 4,
        "value": 1
+      },
+      {
+       "name": "TDMA_DIN0",
+       "source": "datasheet",
+       "bit": 4,
+       "width": 4,
+       "value": 2,
+       "reg": "0xff6346d0",
+       "register": "PERIPHS_PIN_MUX_4"
       },
       {
        "name": "TSIN_B_VALID",

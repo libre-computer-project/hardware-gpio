@@ -217,6 +217,33 @@
        "bit": 24,
        "width": 4,
        "value": 3
+      },
+      {
+       "name": "TSIN_A_SOP",
+       "source": "datasheet",
+       "bit": 24,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff800014",
+       "register": "AO_RTI_PIN_MUX_REG0"
+      },
+      {
+       "name": "TDMB_D2",
+       "source": "datasheet",
+       "bit": 24,
+       "width": 4,
+       "value": 5,
+       "reg": "0xff800014",
+       "register": "AO_RTI_PIN_MUX_REG0"
+      },
+      {
+       "name": "TDMB_DIN2",
+       "source": "datasheet",
+       "bit": 24,
+       "width": 4,
+       "value": 6,
+       "reg": "0xff800014",
+       "register": "AO_RTI_PIN_MUX_REG0"
       }
      ]
     },
@@ -336,6 +363,33 @@
        "bit": 28,
        "width": 4,
        "value": 1
+      },
+      {
+       "name": "TSIN_A_DIN0",
+       "source": "datasheet",
+       "bit": 28,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff800014",
+       "register": "AO_RTI_PIN_MUX_REG0"
+      },
+      {
+       "name": "TDMB_FS",
+       "source": "datasheet",
+       "bit": 28,
+       "width": 4,
+       "value": 5,
+       "reg": "0xff800014",
+       "register": "AO_RTI_PIN_MUX_REG0"
+      },
+      {
+       "name": "TDMB_SLV_FS",
+       "source": "datasheet",
+       "bit": 28,
+       "width": 4,
+       "value": 6,
+       "reg": "0xff800014",
+       "register": "AO_RTI_PIN_MUX_REG0"
       }
      ]
     },
@@ -463,6 +517,33 @@
        "bit": 0,
        "width": 4,
        "value": 3
+      },
+      {
+       "name": "TSIN_A_CLK",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 4,
+       "reg": "0xff800018",
+       "register": "AO_RTI_PIN_MUX_REG1"
+      },
+      {
+       "name": "TDMB_SCLK",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 5,
+       "reg": "0xff800018",
+       "register": "AO_RTI_PIN_MUX_REG1"
+      },
+      {
+       "name": "TDMB_SLV_SCLK",
+       "source": "datasheet",
+       "bit": 0,
+       "width": 4,
+       "value": 6,
+       "reg": "0xff800018",
+       "register": "AO_RTI_PIN_MUX_REG1"
       }
      ]
     },
@@ -812,6 +893,15 @@
        "bit": 20,
        "width": 4,
        "value": 5
+      },
+      {
+       "name": "TDMB_DIN3",
+       "source": "datasheet",
+       "bit": 20,
+       "width": 4,
+       "value": 6,
+       "reg": "0xff6346ec",
+       "register": "PERIPHS_PIN_MUX_B"
       }
      ]
     },
@@ -1031,6 +1121,15 @@
        "bit": 24,
        "width": 4,
        "value": 4
+      },
+      {
+       "name": "IR_REMOTE_OUT",
+       "source": "datasheet",
+       "bit": 24,
+       "width": 4,
+       "value": 5,
+       "reg": "0xff6346ec",
+       "register": "PERIPHS_PIN_MUX_B"
       }
      ]
     },
