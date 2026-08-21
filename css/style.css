@@ -880,3 +880,14 @@ pre.usage {
 .dc-table.dc-inactive {
   opacity: .55;
 }
+
+/* Shown only when ?board= named something this page cannot display, so the
+   reader knows the pinout below is not the board they asked for. */
+#board-notice {
+  margin: 0;
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-raised);
+  color: var(--text-dim);
+  font-size: 13px;
+}

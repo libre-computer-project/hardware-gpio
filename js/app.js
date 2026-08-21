@@ -153,6 +153,15 @@ async function init() {
   const wanted = params.get("board");
   const initial = visibleBoards.find((b) => b.id === wanted) ||
     visibleBoards.find((b) => b.id === "aml-s905x-cc") || visibleBoards[0];
+  /* A query string cannot 404 -- index.html exists, so ?board=<anything>
+     is a 200 on any host. Falling back silently therefore showed a DIFFERENT
+     board's pinout to someone who asked for a specific one, which is worse
+     than an error page: the pins look authoritative and belong to the wrong
+     board. Say so instead. */
+  if (wanted && initial.id !== wanted) {
+    const onlyHidden = boardIndex.some((b) => b.id === wanted);
+    reportUnknownBoard(wanted, initial, onlyHidden);
+  }
   selectEl.value = initial.id;
   selectEl.addEventListener("change", () => loadBoard(selectEl.value));
   searchEl.addEventListener("input", applySearch);
@@ -208,6 +217,19 @@ function markHiddenMode() {
   flag.textContent = `+${n} unlisted`;
   flag.title = "?hidden=1 — pre-production and unannounced boards are listed";
   document.getElementById("brand").appendChild(flag);
+}
+
+function reportUnknownBoard(wanted, shown, onlyHidden) {
+  const note = document.createElement("p");
+  note.id = "board-notice";
+  note.setAttribute("role", "status");
+  note.textContent = onlyHidden
+    ? `\u201c${wanted}\u201d is not listed publicly. Showing ${shown.name}.`
+    : `No board \u201c${wanted}\u201d. Showing ${shown.name}.`;
+  if (onlyHidden) {
+    note.title = "Append &hidden=1 to list pre-production and unannounced boards";
+  }
+  document.getElementById("legend-bar").before(note);
 }
 
 async function loadBoard(id) {
