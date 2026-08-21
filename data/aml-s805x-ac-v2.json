@@ -4,7 +4,7 @@
  "name": "Das Frite",
  "soc": "S805X",
  "vendor": "Amlogic",
- "status": "production",
+ "status": "unreleased",
  "mux": {
   "family": "meson-gxl",
   "driver": "drivers/pinctrl/meson/pinctrl-meson-gxl.c",

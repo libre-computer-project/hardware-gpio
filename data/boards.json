@@ -110,8 +110,8 @@
    "name": "Das Frite",
    "soc": "S805X",
    "vendor": "Amlogic",
-   "status": "production",
-   "hidden": false,
+   "status": "unreleased",
+   "hidden": true,
    "npins": 48,
    "headers": [
     {

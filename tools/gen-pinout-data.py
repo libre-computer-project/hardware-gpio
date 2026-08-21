@@ -50,7 +50,7 @@ BOARDS = {
     "aml-a311d-cc":    ("AML-A311D-CC",    "Alta",                 "A311D",  "Amlogic",   "production"),
     "aml-a311d-cc-v01": ("AML-A311D-CC-V01", "Alta (pre-prod)",    "A311D",  "Amlogic",   "preprod"),
     "aml-s805x-ac":    ("AML-S805X-AC",    "La Frite",             "S805X",  "Amlogic",   "production"),
-    "aml-s805x-ac-v2": ("AML-S805X-AC-V2", "Das Frite",            "S805X",  "Amlogic",   "production"),
+    "aml-s805x-ac-v2": ("AML-S805X-AC-V2", "Das Frite",            "S805X",  "Amlogic",   "unreleased"),
     "aml-s905d3-cc":   ("AML-S905D3-CC",   "Solitude",             "S905D3", "Amlogic",   "production"),
     "aml-s905d3-cc-v01": ("AML-S905D3-CC-V01", "Solitude (pre-prod)", "S905D3", "Amlogic", "preprod"),
     "aml-s905x-cc":    ("AML-S905X-CC",    "Le Potato",            "S905X",  "Amlogic",   "production"),
