@@ -74,7 +74,7 @@ const CLASS_INFO = {
   nand:     { label: "NAND / flash",       short: "NAND" },
   video:    { label: "TS / camera / video", short: "Video" },
   pcie:     { label: "PCI Express",        short: "PCIe" },
-  usb:      { label: "USB",  },
+  usb:      { label: "USB" },
   eth:      { label: "Ethernet",           short: "ETH" },
   misc:     { label: "Other / control",    short: "Other" },
 };
@@ -1070,7 +1070,11 @@ function renderDetail(header, p) {
   }
   rows.push(["SoC pad (BGA)", p.pad]);
 
-  let html = `<h3><span class="cls-badge" style="background:${classColor(primaryClass(p))}"></span>` +
+  /* Same fallback as `info` above, deliberately: a pin whose data carries a
+     class this table does not know still gets GPIO's colour beside GPIO's
+     label, rather than a grey badge over a green word. */
+  const primary = primaryClass(p) in CLASS_INFO ? primaryClass(p) : "gpio";
+  let html = `<h3><span class="cls-badge" style="background:${classColor(primary)}"></span>` +
     `${esc(header.id)} pin ${p.pin} <span class="muted" style="font-size:13px;font-weight:400">${esc(info.label)}</span></h3>`;
   html += "<table>";
   /* What the pin can BE comes before what it currently IS. The mux chips are

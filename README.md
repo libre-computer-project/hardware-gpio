@@ -342,9 +342,23 @@ Boards without a `gpio.map` in the wiring tool are not listed.
 
 ## Frontend
 
-Framework-free static site: `index.html`, `css/style.css`, `js/app.js`.
-Deep links use `?board=<id>`. Serve the directory over HTTP to run locally
+Framework-free static site: `index.html`, `css/style.css`, `js/app.js`, plus the
+shared shell in `css/lc-kit.css` and `js/lc-kit.js`. Deep links use
+`?board=<id>`. Serve the directory over HTTP to run locally
 (`python3 -m http.server`); `file://` blocks the JSON fetches.
+
+The theme is light, dark, or auto following the OS, which is the default. The
+preference is `localStorage.theme`, the same key libre.computer uses.
+
+**Do not edit `css/lc-kit.css` or `js/lc-kit.js` here.** They are the page
+shell this site shares with the [board layout
+viewer](https://layout.hardware.libre.computer) — top bar, brand, board picker,
+search, footer, theme — copied in from the internal tooling repo. Each carries a
+checksum of its own body in its first line and `tools/check-kit.py` recomputes
+it in CI, so a local change fails the build, and the next sync would revert it
+anyway. `css/style.css` is this site's own: the pinout layout and the mux-class
+palette, which is also the single source for those colours — `js/app.js` reads
+them through `classColor()` rather than keeping its own copies.
 
 ## License
 
