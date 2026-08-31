@@ -6,15 +6,20 @@
 <title>Libre Computer GPIO Pinout</title>
 <meta name="description" content="Interactive GPIO pinout and pinmux reference for Libre Computer single-board computers.">
 <link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/lc-kit.css">
 <link rel="stylesheet" href="css/style.css">
+<!-- Sets the theme before first paint, so a dark visitor never sees a white
+     flash. Must stay inline and must stay ahead of the stylesheets; the copy
+     is checked by tools/lc-ui-kit/sync.py against HEAD_SNIPPET in lc-kit.js. -->
+<script>try{var p=localStorage.getItem("theme")||"auto";if(p==="dark"||(p==="auto"&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark")}catch(e){}</script>
 </head>
 <body>
-<header id="topbar">
-  <div id="brand">
-    <span id="brand-name">Libre Computer</span>
-    <span id="brand-sub">GPIO Pinout</span>
+<header class="lc-topbar" id="topbar">
+  <div class="lc-brand" id="brand">
+    <a class="lc-brand-name" href="https://libre.computer">Libre Computer</a>
+    <span class="lc-brand-sub">GPIO Pinout</span>
   </div>
-  <div id="controls">
+  <div class="lc-controls" id="controls">
     <label for="board-select">Board</label>
     <select id="board-select" aria-label="Select board"></select>
     <input id="search" type="search" placeholder="Search: GPIOX_12, I2C, pin 7, B4…" autocomplete="off" spellcheck="false">
@@ -31,12 +36,13 @@
   </aside>
 </main>
 
-<footer>
+<footer class="lc-footer">
   Pin data from <a href="https://github.com/libre-computer-project/libretech-wiring-tool">libretech-wiring-tool</a> (MIT)
+  &middot; <a href="https://layout.hardware.libre.computer">Board layout</a>
   &middot; <a href="https://libre.computer">libre.computer</a>
 </footer>
 
 <div id="tooltip" hidden></div>
-<script src="js/app.js"></script>
+<script type="module" src="js/app.js"></script>
 </body>
 </html>

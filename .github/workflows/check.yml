@@ -1,0 +1,26 @@
+name: Check
+
+# This site publishes through Pages' deploy-from-branch, not through a
+# workflow, so nothing here deploys and nothing here can block a deploy. What
+# it does is answer the one question a vendored file raises: has the shared
+# shell kit been hand-edited in this repo, where the next sync would revert it?
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  kit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify the vendored shell kit
+        run: python3 tools/check-kit.py

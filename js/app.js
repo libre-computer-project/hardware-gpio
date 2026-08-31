@@ -1,7 +1,10 @@
-/* Libre Computer GPIO Pinout — frontend logic (no dependencies). */
+/* Libre Computer GPIO Pinout — frontend logic. */
 "use strict";
 
-/* Function classes. `color` mirrors --c-<key> in css/style.css. */
+import { mountShell, token } from "./lc-kit.js";
+
+/* Function classes. The colour of each is the --c-<key> token in
+   css/style.css, read through classColor() below. */
 const CLASS_INFO = {
   /* The supply rails are one warm ramp ordered by voltage, and lightness
      carries the ordering: 12V L*43, 5V L*54, 3.3V L*62, the low rails L*76.
@@ -24,12 +27,12 @@ const CLASS_INFO = {
      kind is dE 33.7 (video), against 5.5 for the closest pair already in this
      table. It is deliberately NOT "eth": that is a green, and green on this
      page means signal. */
-  poe:      { label: "PoE (hazardous)",    short: "PoE",       color: "#6e0011" },
-  power12v: { label: "12V power",          short: "12V",       color: "#cc0f1b" },
-  power5v:  { label: "5V power",           short: "5V",        color: "#e5484d" },
-  power3v3: { label: "3.3V power",         short: "3.3V",      color: "#f76b15" },
-  powerlv:  { label: "Low-voltage rail",   short: "Rail",      color: "#e8b17a" },
-  gnd:      { label: "Ground",             short: "GND",       color: "#454b54" },
+  poe:      { label: "PoE (hazardous)",    short: "PoE" },
+  power12v: { label: "12V power",          short: "12V" },
+  power5v:  { label: "5V power",           short: "5V" },
+  power3v3: { label: "3.3V power",         short: "3.3V" },
+  powerlv:  { label: "Low-voltage rail",   short: "Rail" },
+  gnd:      { label: "Ground",             short: "GND" },
   /* Not connected: a pad that is on the connector and wired to nothing. The
      colour has to do two opposite things -- be visible enough that the
      position reads as DRAWN (the whole point of carrying the row), and be
@@ -41,40 +44,53 @@ const CLASS_INFO = {
      at a different lightness, dE 15.8 apart in CIE Lab, against 5.5 for the
      closest pair already in this table. dE 16.0 from the pin background, so
      an NC pad still reads as a pad and not as a hole in the drawing. */
-  nc:       { label: "Not connected",      short: "NC",        color: "#3c3a2e" },
-  gpio:     { label: "GPIO",                                   color: "#46a758" },
-  i2c:      { label: "I2C",                                    color: "#eac54f" },
-  spi:      { label: "SPI",                                    color: "#3b82f6" },
-  uart:     { label: "UART / serial",      short: "UART",      color: "#a855f7" },
-  pwm:      { label: "PWM",                                    color: "#ec5f87" },
+  nc:       { label: "Not connected",      short: "NC" },
+  gpio:     { label: "GPIO" },
+  i2c:      { label: "I2C" },
+  spi:      { label: "SPI" },
+  uart:     { label: "UART / serial",      short: "UART" },
+  pwm:      { label: "PWM" },
   /* One class per audio bus. They are not variants of each other: I2S, PCM
      and TDM are separate controllers with separate pin groups, and a codec
      wired for one will not work on another. Colours are spaced in CIE Lab
      (worst in-family pair 15.1, nearest non-audio class 18.5) because several
      of them can land on the same pin's strip set. */
-  i2s:      { label: "I2S",                                    color: "#1098ad" },
-  pcm:      { label: "PCM",                                    color: "#0b7285" },
-  tdm:      { label: "TDM",                                    color: "#63e6be" },
-  spdif:    { label: "S/PDIF",             short: "SPDIF",     color: "#862e9e" },
-  pdm:      { label: "PDM / DMIC",         short: "PDM",       color: "#5c940d" },
+  i2s:      { label: "I2S" },
+  pcm:      { label: "PCM" },
+  tdm:      { label: "TDM" },
+  spdif:    { label: "S/PDIF",             short: "SPDIF" },
+  pdm:      { label: "PDM / DMIC",         short: "PDM" },
   /* Both directions: La Frite's line-out and the meson AL_CH/AR_CH muxes, and
      Renegade Elite's codec header, which brings out HPO_L/R alongside MIC_IN
      and LINE_IN. Labelling that header "analog audio out" would be a mislabel
      in the same class as painting it green. */
-  dac:      { label: "Analog audio",       short: "Audio",     color: "#087f5b" },
-  adc:      { label: "ADC",                                    color: "#94d82d" },
-  clk:      { label: "Clock",                                  color: "#adb5bd" },
-  jtag:     { label: "JTAG",                                   color: "#ff922b" },
-  cec:      { label: "CEC",                                    color: "#7048e8" },
-  ir:       { label: "IR / remote",        short: "IR",        color: "#f06595" },
-  sdio:     { label: "SDIO / SD card",     short: "SDIO",      color: "#66d9e8" },
-  nand:     { label: "NAND / flash",       short: "NAND",      color: "#8d6e63" },
-  video:    { label: "TS / camera / video", short: "Video",    color: "#c2255c" },
-  pcie:     { label: "PCI Express",        short: "PCIe",      color: "#b197fc" },
-  usb:      { label: "USB",                                    color: "#74c0fc" },
-  eth:      { label: "Ethernet",           short: "ETH",       color: "#12b886" },
-  misc:     { label: "Other / control",    short: "Other",     color: "#6c757d" },
+  dac:      { label: "Analog audio",       short: "Audio" },
+  adc:      { label: "ADC" },
+  clk:      { label: "Clock" },
+  jtag:     { label: "JTAG" },
+  cec:      { label: "CEC" },
+  ir:       { label: "IR / remote",        short: "IR" },
+  sdio:     { label: "SDIO / SD card",     short: "SDIO" },
+  nand:     { label: "NAND / flash",       short: "NAND" },
+  video:    { label: "TS / camera / video", short: "Video" },
+  pcie:     { label: "PCI Express",        short: "PCIe" },
+  usb:      { label: "USB",  },
+  eth:      { label: "Ethernet",           short: "ETH" },
+  misc:     { label: "Other / control",    short: "Other" },
 };
+
+/* A class's colour, from the stylesheet. It used to be a hex literal beside
+   each label above, duplicating the --c-* token of the same name -- the CSS
+   even carried "see CLASS_INFO.poe in js/app.js" beside one of them, which is
+   a comment you only write when two files hold one fact. Now the token is the
+   fact, which is also what makes the palette theme-aware: the light and dark
+   values are one pair in one place, and a page repainted in the other theme
+   asks again and gets the other one.
+
+   The reasoning behind the values -- the voltage ramp's lightness ordering,
+   PoE's depth, the CIE Lab spacings that keep adjacent classes apart -- stays
+   with the classes above, because it is about what the classes mean. */
+const classColor = (c) => token(`--c-${c in CLASS_INFO ? c : "misc"}`);
 
 /* Function token -> class. First match wins, so order is load-bearing:
    UART_EE_B_TX-PWM_D is a UART pin, CLKOUT_GMAC is Ethernet not clock. */
@@ -137,6 +153,7 @@ let labelFocus = null;    /* {cls} | {func} */
 let resizeTimer = 0;
 
 async function init() {
+  mountShell();
   try {
     boardIndex = (await fetchJSON("data/boards.json")).boards;
   } catch (e) {
@@ -181,6 +198,14 @@ async function init() {
   addEventListener("resize", () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(fitBoardView, 120);
+  });
+  /* Class colours reach the page as inline styles on the pin bands and the
+     legend swatches, so a stylesheet swapping the tokens underneath cannot
+     repaint them -- they hold a resolved value from the theme they were built
+     in. Re-render on a theme change, which also keeps the selected pin, the
+     search and the relabel where they were. */
+  document.addEventListener("themechange", () => {
+    if (board) render();
   });
   await loadBoard(initial.id);
 }
@@ -800,14 +825,14 @@ function muxSquare(p, side) {
     const strip = document.createElement("span");
     strip.className = "mux-strip";
     strip.dataset.cls = c;
-    strip.style.background = (CLASS_INFO[c] || CLASS_INFO.misc).color;
+    strip.style.background = classColor(c);
     alts.appendChild(strip);
   }
 
   const near = document.createElement("span");
   near.className = "mux-primary";
   near.dataset.cls = primary;
-  near.style.background = (CLASS_INFO[primary] || CLASS_INFO.gpio).color;
+  near.style.background = classColor(primary in CLASS_INFO ? primary : "gpio");
 
   /* Nothing left to show beside the primary (power, ground, a pad whose only
      function is GPIO) -- one solid colour. */
@@ -840,7 +865,7 @@ function renderLegend() {
     item.title = "Show only pins that can mux to " + info.label;
     const sw = document.createElement("span");
     sw.className = "legend-swatch";
-    sw.style.background = info.color;
+    sw.style.background = classColor(cls);
     const text = document.createElement("span");
     /* The row is one line of equal columns, so the visible text is the
        short form where one exists; the full name stays in the title, so
@@ -1045,7 +1070,7 @@ function renderDetail(header, p) {
   }
   rows.push(["SoC pad (BGA)", p.pad]);
 
-  let html = `<h3><span class="cls-badge" style="background:${info.color}"></span>` +
+  let html = `<h3><span class="cls-badge" style="background:${classColor(primaryClass(p))}"></span>` +
     `${esc(header.id)} pin ${p.pin} <span class="muted" style="font-size:13px;font-weight:400">${esc(info.label)}</span></h3>`;
   html += "<table>";
   /* What the pin can BE comes before what it currently IS. The mux chips are
@@ -1059,7 +1084,7 @@ function renderDetail(header, p) {
   if (p.funcs.length) html += `<tr><th>Muxes</th><td><div class="func-chips">` +
     p.funcs.map((f) => {
       const c = funcClass(f);
-      const color = (CLASS_INFO[c] || CLASS_INFO.misc).color;
+      const color = classColor(c);
       const focused = labelFocus && labelFocus.func === f ? " focused" : "";
       return `<span class="func-chip${f === p.ref ? " ref" : ""}${focused}" ` +
         `data-func="${esc(f)}" title="Label the header with this mux">` +
