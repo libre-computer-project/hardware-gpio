@@ -616,6 +616,9 @@ def primary_class(ptype, cls, funcs):
     of AML-A311D-CC's 40 pins -- pwm, tdm, pdm, clk and uart pads that the
     pinout shows as plain green GPIO. Computed once, here, so the two cannot
     disagree.
+
+    The layout build imports this function rather than restating the rule:
+    hardware-layout e2f6722, tools/gen-layout-data.py.
     """
     if ptype != "gpio":
         return cls                                  # 5V, 3.3V, GND
