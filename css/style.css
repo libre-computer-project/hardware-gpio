@@ -18,78 +18,18 @@
  * lavender all fall below 3:1 against white as drawn, and a swatch nobody can
  * see is a swatch that is not saying anything. The already-dark classes (PoE,
  * NC, GND) barely move: they read correctly on either ground. */
+/* The signal-class palette (--c-power5v, --c-i2c, ...) is NOT here. It moved
+   to lc-kit.css when the layout viewer began colouring the same header's pads
+   with it: one palette, both tools, so a colour means the same thing on either
+   site. What stays are the two backgrounds only this page draws. */
 :root {
   --bg-pin: #f2f5f8;
   --bg-connector: #e4e9ee;
-
-  /* Rails ramp by voltage: the higher the supply, the deeper the red. */
-  --c-poe: #6e0011;
-  --c-power12v: #b8000f;
-  --c-power5v: #cf2b30;
-  --c-power3v3: #c2530b;
-  --c-powerlv: #9a6b32;   /* 1.8V / 3.0V */
-  --c-gnd: #454b54;
-  --c-nc: #6b6547;        /* not connected */
-  --c-gpio: #2f7d3f;
-  /* I2C yellow / SPI blue / GPIO green match the board silkscreen. */
-  --c-i2c: #9a7b0a;
-  --c-spi: #1f5fd0;
-  --c-uart: #7c30cc;
-  --c-pwm: #c4295a;
-  --c-i2s: #0b6f80;
-  --c-pcm: #0b5566;
-  --c-tdm: #13876b;
-  --c-spdif: #7a2490;
-  --c-pdm: #4a7a0a;
-  --c-dac: #076a4c;
-  --c-adc: #5b8a12;
-  --c-clk: #6b737b;
-  --c-jtag: #c25a06;
-  --c-cec: #5334c4;
-  --c-ir: #c33a6a;
-  --c-sdio: #0d7f95;
-  --c-nand: #6d5449;
-  --c-video: #a81c4c;
-  --c-pcie: #6a4fc4;
-  --c-usb: #1f6fb5;
-  --c-eth: #0d8f6a;
-  --c-misc: #5a6570;
 }
 
 html.dark {
   --bg-pin: #22262d;
   --bg-connector: #0e1013;
-
-  --c-poe: #6e0011;
-  --c-power12v: #cc0f1b;
-  --c-power5v: #e5484d;
-  --c-power3v3: #f76b15;
-  --c-powerlv: #e8b17a;
-  --c-gnd: #454b54;
-  --c-nc: #3c3a2e;
-  --c-gpio: #46a758;
-  --c-i2c: #eac54f;
-  --c-spi: #3b82f6;
-  --c-uart: #a855f7;
-  --c-pwm: #ec5f87;
-  --c-i2s: #1098ad;
-  --c-pcm: #0b7285;
-  --c-tdm: #63e6be;
-  --c-spdif: #862e9e;
-  --c-pdm: #5c940d;
-  --c-dac: #087f5b;
-  --c-adc: #94d82d;
-  --c-clk: #adb5bd;
-  --c-jtag: #ff922b;
-  --c-cec: #7048e8;
-  --c-ir: #f06595;
-  --c-sdio: #66d9e8;
-  --c-nand: #8d6e63;
-  --c-video: #c2255c;
-  --c-pcie: #b197fc;
-  --c-usb: #74c0fc;
-  --c-eth: #12b886;
-  --c-misc: #6c757d;
 }
 
 /* The page frame, the top bar and its brand and controls, the form controls

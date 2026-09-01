@@ -1,4 +1,4 @@
-/* lc-kit 1 sha256:bdcc4983e79eff84a2c3a4fd82ba9ea13a01d5e2a7d5a5d8fdf03e3d44463a91 */
+/* lc-kit 1 sha256:cb2f733eaff5d727d79096939667026a1daf22ca670c0bacd867cde539fc21b3 */
 /* Libre Computer hardware-tool shell — shared by the GPIO pinout and the board
    layout viewer.
  *
@@ -120,6 +120,82 @@ a:hover { text-decoration: underline; }
   font-size: 13px;
   color: var(--text-dim);
   white-space: nowrap;
+}
+
+/* SIGNAL CLASS PALETTE -- shared, because the two tools colour the SAME pins.
+   The pinout draws a board's header and the layout draws that header's pads on
+   the PCB, and a visitor moving between them reads the colour as meaning the
+   same thing. It did not live here at first, when only one tool used it; a
+   second copy in the layout's own stylesheet would be a second answer the
+   first time a colour changed. Both sites now take the one definition, and
+   check-kit.py fails the build if a vendored copy drifts.
+
+   Rails ramp by voltage: the higher the supply, the deeper the red. I2C
+   yellow / SPI blue / GPIO green match the board silkscreen. */
+:root {
+  --c-poe: #6e0011;
+  --c-power12v: #b8000f;
+  --c-power5v: #cf2b30;
+  --c-power3v3: #c2530b;
+  --c-powerlv: #9a6b32;   /* 1.8V / 3.0V */
+  --c-gnd: #454b54;
+  --c-nc: #6b6547;        /* not connected */
+  --c-gpio: #2f7d3f;
+  --c-i2c: #9a7b0a;
+  --c-spi: #1f5fd0;
+  --c-uart: #7c30cc;
+  --c-pwm: #c4295a;
+  --c-i2s: #0b6f80;
+  --c-pcm: #0b5566;
+  --c-tdm: #13876b;
+  --c-spdif: #7a2490;
+  --c-pdm: #4a7a0a;
+  --c-dac: #076a4c;
+  --c-adc: #5b8a12;
+  --c-clk: #6b737b;
+  --c-jtag: #c25a06;
+  --c-cec: #5334c4;
+  --c-ir: #c33a6a;
+  --c-sdio: #0d7f95;
+  --c-nand: #6d5449;
+  --c-video: #a81c4c;
+  --c-pcie: #6a4fc4;
+  --c-usb: #1f6fb5;
+  --c-eth: #0d8f6a;
+  --c-misc: #5a6570;
+}
+
+html.dark {
+  --c-poe: #6e0011;
+  --c-power12v: #cc0f1b;
+  --c-power5v: #e5484d;
+  --c-power3v3: #f76b15;
+  --c-powerlv: #e8b17a;
+  --c-gnd: #454b54;
+  --c-nc: #3c3a2e;
+  --c-gpio: #46a758;
+  --c-i2c: #eac54f;
+  --c-spi: #3b82f6;
+  --c-uart: #a855f7;
+  --c-pwm: #ec5f87;
+  --c-i2s: #1098ad;
+  --c-pcm: #0b7285;
+  --c-tdm: #63e6be;
+  --c-spdif: #862e9e;
+  --c-pdm: #5c940d;
+  --c-dac: #087f5b;
+  --c-adc: #94d82d;
+  --c-clk: #adb5bd;
+  --c-jtag: #ff922b;
+  --c-cec: #7048e8;
+  --c-ir: #f06595;
+  --c-sdio: #66d9e8;
+  --c-nand: #8d6e63;
+  --c-video: #c2255c;
+  --c-pcie: #b197fc;
+  --c-usb: #74c0fc;
+  --c-eth: #12b886;
+  --c-misc: #6c757d;
 }
 
 /* The switch between the two hardware tools. It sits where the subtitle used
