@@ -599,6 +599,33 @@ def classify(chip, ref, desc):
     return "gpio"
 
 
+def primary_class(ptype, cls, funcs):
+    """The colour a pin is DRAWN in -- what the board itself calls it.
+
+    Not `cls`, which is the pin's full classification. A muxable pad can be
+    reached by half a dozen peripherals and `cls` names one of them; the board
+    paints the header's I2C pins yellow and its SPI block blue and leaves every
+    other muxable pad a green GPIO, and that is what a reader is matching
+    against when they look at the silkscreen. SPI wins a tie because the shared
+    pads (Le Potato 23/24, I2C_x_D + SPI_SCLK/SS0) sit in the header's SPI
+    block.
+
+    This used to live only in the site's own app.js, which was fine while the
+    site was the only thing drawing these pins. The layout viewer now draws the
+    same header's pads, and reading `cls` instead gave a DIFFERENT colour on 20
+    of AML-A311D-CC's 40 pins -- pwm, tdm, pdm, clk and uart pads that the
+    pinout shows as plain green GPIO. Computed once, here, so the two cannot
+    disagree.
+    """
+    if ptype != "gpio":
+        return cls                                  # 5V, 3.3V, GND
+    if any(f.upper().startswith("SPI") for f in funcs):
+        return "spi"
+    if any(f.upper().startswith(("I2C", "TWI")) for f in funcs):
+        return "i2c"
+    return "gpio"
+
+
 class DatasheetMux:
     """Mux offsets straight from the vendor's own multiplexing tables.
 
@@ -702,6 +729,10 @@ def parse_map(path, board):
             "ref": ref,
             "funcs": split_funcs(desc),
             "cls": classify(chip, ref, desc),
+            "primary": primary_class(
+                "gpio" if is_gpio else chip,
+                classify(chip, ref, desc),
+                split_funcs(desc)),
         })
     for hdr in headers:
         headers[hdr].sort(key=lambda p: p["pin"])
