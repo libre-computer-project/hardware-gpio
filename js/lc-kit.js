@@ -1,4 +1,4 @@
-/* lc-kit 1 sha256:5b0e390cc046f3067e8938d9b727bed2ecaebaeaabd325c0c87ae71a2a2ec5a5 */
+/* lc-kit 1 sha256:14cf74d4e82ce2b956df68764ff11ec9cfb5b9f2c94255fd6cd1422e10c1cf6a */
 /* Libre Computer hardware-tool shell — theme and chrome, shared by the GPIO
  * pinout and the board layout viewer.
  *
@@ -89,6 +89,7 @@ export function token(name) {
  */
 export function mountShell({ themeButton = true } = {}) {
   applyTheme();
+  mountSiteSwitch();
 
   // Follow the OS while the choice is auto, including a mid-visit change.
   window
@@ -130,6 +131,47 @@ export function mountShell({ themeButton = true } = {}) {
   document.addEventListener("themechange", paint);
   paint();
   return btn;
+}
+
+/**
+ * Carry the current query across to the other tool.
+ *
+ * Both sites name the same boards by the same id and both take `?board=` and
+ * `?hidden=`, so a visitor looking at a board here should arrive at THAT board
+ * there. The two catalogues are not identical -- the pinout has boards with no
+ * layout CAD and the layout has pre-production boards with no pinout -- but
+ * neither site fails silently on an id it lacks: each falls back to its default
+ * and says which board it is showing and why. So the query is passed through
+ * whole rather than filtered against a list of the other site's boards, which
+ * would be a second copy of that catalogue to keep in step.
+ *
+ * The href cannot be computed once at mount. Both sites keep the selected board
+ * in the URL with history.replaceState, which fires no event, so a link built
+ * at load time would still point at whatever board the page opened with. It is
+ * recomputed on the events that precede a navigation instead -- pointerdown
+ * covers middle-click and the context menu's copy-link, focus covers the
+ * keyboard -- so the address is right whichever way the link is taken.
+ *
+ * Anchors are marked in the page rather than generated here, so the switch is
+ * still there and still works with the module blocked; only the query-carrying
+ * is JavaScript's part.
+ */
+export function mountSiteSwitch(root = document) {
+  const links = [...root.querySelectorAll("a[data-lc-site]")];
+  if (!links.length) return links;
+
+  const bases = new WeakMap(); // the tool's own address, before any query
+  for (const a of links) bases.set(a, a.href.split(/[?#]/)[0]);
+
+  const refresh = () => {
+    for (const a of links) a.href = bases.get(a) + location.search;
+  };
+
+  for (const ev of ["pointerdown", "focus", "click"]) {
+    for (const a of links) a.addEventListener(ev, refresh);
+  }
+  refresh();
+  return links;
 }
 
 /**

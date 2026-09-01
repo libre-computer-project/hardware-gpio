@@ -1,4 +1,4 @@
-/* lc-kit 1 sha256:1fc4d52bcd66b6b0df385e55d4c05e482f831779502320f55d542abb6d510714 */
+/* lc-kit 1 sha256:bdcc4983e79eff84a2c3a4fd82ba9ea13a01d5e2a7d5a5d8fdf03e3d44463a91 */
 /* Libre Computer hardware-tool shell — shared by the GPIO pinout and the board
    layout viewer.
  *
@@ -120,6 +120,46 @@ a:hover { text-decoration: underline; }
   font-size: 13px;
   color: var(--text-dim);
   white-space: nowrap;
+}
+
+/* The switch between the two hardware tools. It sits where the subtitle used
+   to, because it says the same thing -- which tool this is -- and additionally
+   says what the other one is, which a visitor otherwise has no way to find out
+   from here. The current tool stays plain text: a link to the page you are on
+   is a dead control that costs a click to discover. */
+.lc-sites {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 13px;
+  min-width: 0;
+}
+
+.lc-site {
+  white-space: nowrap;
+  color: var(--text-dim);
+}
+.lc-site[aria-current="page"] {
+  color: var(--text);
+  font-weight: 600;
+}
+a.lc-site:hover { color: var(--accent); text-decoration: none; }
+a.lc-site:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Separator drawn rather than typed, so it is not read out as a word and not
+   selected when the visitor copies the heading. */
+.lc-site + .lc-site::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 11px;
+  margin-right: 10px;
+  vertical-align: -1px;
+  background: var(--border);
 }
 
 /* A pill for a state the visitor should not have to infer, e.g. that the board
