@@ -1756,9 +1756,9 @@ class SunxiElectrical:
 #   V1 (roc-rk3328-cc)     BUCK4 VCC_IO 3.3 V -> VCCIO_PMU, 1, 3, 4, 5, 6
 #   V2 (roc-rk3328-cc-v2)  BUCK4 drops VCCIO4/6; LDO1 VCC_18 1.8 V takes them
 #
-# Source: rockchip/rk3328/schematics/rk3328-v1-v2-differences.md (PMIC rail
-# table + "VCCIO4 and VCCIO6 must be the same voltage level"). vccio2 is left
-# out on purpose: no rail assignment for it was read, and a guess here puts a
+# Source: the V1 and V2 board schematics' PMIC rail assignments, and the
+# RK3328 constraint that VCCIO4 and VCCIO6 must be the same voltage level
+# (which is why V2 moves both together). vccio2 is left out on purpose: no rail assignment for it was read, and a guess here puts a
 # wrong Vih on a page people wire hardware from.
 BOARD_RAILS = {
     "roc-rk3328-cc": {
