@@ -33,34 +33,17 @@ html.dark {
 }
 
 /* The page frame, the top bar and its brand and controls, the form controls
-   and the footer all come from the kit. What stays here are the two places
-   this page genuinely differs from it.
- *
- * The pinout is a reference you read at a glance, so the frame is the window:
- * header, board and detail panel are all visible at once and the document
- * never scrolls. Only a column that genuinely overflows scrolls, inside
- * itself. */
+   and the footer all come from the kit, the same shell the layout viewer and
+   the power tree use. The bar is that shell: brand at the left edge, board
+   picker and search at the right. The pin drawings stay in the column below.
+
+   The pinout is a reference you read at a glance, so the frame is the window:
+   header, board and detail panel are all visible at once and the document
+   never scrolls. Only a column that genuinely overflows scrolls, inside
+   itself. On a narrow window the page does scroll, and the bar stays pinned. */
 body { height: 100%; font-size: 15px; }
 
-/* The bar keeps its full-width background and rule, but its CONTENTS line up
-   with the column everything below uses -- the class key, the headers, the
-   detail panel. Without this the brand sat at the window's left edge and the
-   search box at its right while the page proper began 520px in, which reads as
-   two unrelated layouts stacked on top of each other. The 20px matches main's
-   own gutter; max() keeps it at just the gutter once the window is narrower
-   than the column. */
-.lc-topbar {
-  gap: 16px;
-  padding: 8px max(20px, calc((100% - 1280px) / 2 + 20px));
-  position: sticky;
-  top: 0;
-}
-
-.lc-brand-name { font-size: 19px; }
-.lc-brand-sub { font-size: 14px; }
-
-select, input[type="search"] { border-radius: 6px; padding: 7px 10px; font-size: 14px; }
-input[type="search"] { min-width: 240px; width: auto; }
+.lc-topbar { position: sticky; top: 0; }
 
 /* ---- layout ---- */
 
