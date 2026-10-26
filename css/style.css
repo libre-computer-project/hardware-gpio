@@ -40,10 +40,18 @@ html.dark {
    The pinout is a reference you read at a glance, so the frame is the window:
    header, board and detail panel are all visible at once and the document
    never scrolls. Only a column that genuinely overflows scrolls, inside
-   itself. On a narrow window the page does scroll, and the bar stays pinned. */
-body { height: 100%; font-size: 15px; }
+   itself. On a narrow window the page does scroll, and both bars stay pinned.
+
+   A sticky element is bounded by its containing block, and so is a flex
+   item's place in it: with the kit's `height: 100%` the body is one screen
+   tall, the drawings spill out of it, and the top bar scrolls away after one
+   screen while the footer rides up into the middle of the page. So the body
+   grows with its content here, and the locked frame below puts the fixed
+   height back where the document never scrolls. */
+body { height: auto; min-height: 100%; font-size: 15px; }
 
 .lc-topbar { position: sticky; top: 0; }
+.lc-footer { position: sticky; bottom: 0; z-index: 10; }
 
 /* ---- layout ---- */
 
