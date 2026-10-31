@@ -1897,7 +1897,13 @@ _TSIN_SWAP = ("; DRIVER-ERROR on the bit: mainline pinctrl-meson-gxl.c:477/479 p
               "at reg6[17] and tsin_b_d_valid at reg6[19], while the vendor 4.9 driver "
               "(tsin_d0_b_h7 6,19; tsin_d_valid_b_h9 6,17) and the S905D (p130:16-31) and "
               "S912 (p99:25-47) books put TSin_D0_B at reg6[19] and TSin_D_VALID_B at reg6[17]")
+_S805X_TSIN = ("S805X book prints TSin_*_B on GPIOH_6-9 only in its pin-multiplex table (p26:20-26), "
+               "with no enable bit; the register field is the driver's alone")
 DRIVER_ONLY = {
+    ("S805X", "GPIOH_6", "tsin_b_clk"): f"driver-only register: BOOK-OMISSION ({_S805X_TSIN})",
+    ("S805X", "GPIOH_7", "tsin_b_d0"): f"driver-only register: BOOK-OMISSION ({_S805X_TSIN}){_TSIN_SWAP}",
+    ("S805X", "GPIOH_8", "tsin_b_sop"): f"driver-only register: BOOK-OMISSION ({_S805X_TSIN})",
+    ("S805X", "GPIOH_9", "tsin_b_d_valid"): f"driver-only register: BOOK-OMISSION ({_S805X_TSIN}){_TSIN_SWAP}",
     ("S905X", "GPIOH_6", "tsin_b_clk"): f"driver-only: BOOK-OMISSION ({_S905X_TSIN})",
     ("S905X", "GPIOH_7", "tsin_b_d0"): f"driver-only: BOOK-OMISSION ({_S905X_TSIN}){_TSIN_SWAP}",
     ("S905X", "GPIOH_8", "tsin_b_sop"): f"driver-only: BOOK-OMISSION ({_S905X_TSIN})",

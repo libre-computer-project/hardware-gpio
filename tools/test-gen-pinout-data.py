@@ -53,15 +53,19 @@ check("canon must-fire: the old rule leaves FLASH_VOL_SEL_u unpaired",
       old_canon("FLASH_VOL_SEL_u") == old_canon("flash_vol_sel"), False)
 
 CLASSES = ("BOOK-OMISSION", "DRIVER-EXTRA", "DRIVER-ERROR")
-check("driver-only: the table is closed (S905X GPIOH_6-9 TSIN_B, A311D GPIOX_5 SDCARD_CMD)",
-      sorted(gen.DRIVER_ONLY), sorted([("S905X", "GPIOH_6", "tsin_b_clk"), ("S905X", "GPIOH_7", "tsin_b_d0"),
-                                       ("S905X", "GPIOH_8", "tsin_b_sop"), ("S905X", "GPIOH_9", "tsin_b_d_valid"),
-                                       ("A311D", "GPIOX_5", "sdcard_cmd_x")]))
+TSIN = [("GPIOH_6", "tsin_b_clk"), ("GPIOH_7", "tsin_b_d0"), ("GPIOH_8", "tsin_b_sop"),
+        ("GPIOH_9", "tsin_b_d_valid")]
+check("driver-only: the table is closed (S905X and S805X GPIOH_6-9 TSIN_B, A311D GPIOX_5 SDCARD_CMD)",
+      sorted(gen.DRIVER_ONLY), sorted([(s, p, g) for s in ("S905X", "S805X") for p, g in TSIN]
+                                      + [("A311D", "GPIOX_5", "sdcard_cmd_x")]))
 check("driver-only: every flag names its class and cites a page",
       [k for k, v in gen.DRIVER_ONLY.items()
-       if not (v.startswith("driver-only: ") and any(c in v for c in CLASSES) and ":" in v.split("(", 1)[-1])], [])
-check("driver-only: the two swapped TSIN_B bits carry DRIVER-ERROR, the other three do not",
-      sorted(k[2] for k, v in gen.DRIVER_ONLY.items() if "DRIVER-ERROR" in v), ["tsin_b_d0", "tsin_b_d_valid"])
+       if not (v.startswith("driver-only") and any(c in v for c in CLASSES) and ":" in v.split("(", 1)[-1])], [])
+check("driver-only: the swapped TSIN_B bits carry DRIVER-ERROR on both SoCs, nothing else does",
+      sorted(k[1:] for k, v in gen.DRIVER_ONLY.items() if "DRIVER-ERROR" in v),
+      sorted([("GPIOH_7", "tsin_b_d0"), ("GPIOH_9", "tsin_b_d_valid")] * 2))
+check("driver-only: S805X's rows say the function is the book's and only the register is the driver's",
+      sorted(v.split(":")[0] for k, v in gen.DRIVER_ONLY.items() if k[0] == "S805X"), ["driver-only register"] * 4)
 
 linux = next((Path(p) for p in (a.linux, HERE.parent.parent / "libretech-builder" / "linux",
                                 Path.home() / "git" / "libretech-builder" / "linux")
