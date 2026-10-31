@@ -1270,7 +1270,13 @@
        "funcs": [],
        "reg": "0xff100024",
        "bit": 8,
-       "width": 2
+       "width": 2,
+       "value": 2,
+       "route": {
+        "reg": "0xff100184",
+        "value": 67109888,
+        "note": "uart2-txm1"
+       }
       }
      ]
     },

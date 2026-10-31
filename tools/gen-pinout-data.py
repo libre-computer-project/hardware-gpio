@@ -1082,7 +1082,14 @@ class RockchipMux:
         cif_data7m1 (TRM) == CIF_D7_M1_d (map): DATA vs D, glued vs separated
         route marker, and a reset-pull suffix that is not part of the name.
         Route markers (M0/M1) stay -- they pick different mux values.
+
+        The suffix is the map's lowercase _u / _d / _z, dropped before case is
+        thrown away -- after a letter as well as a digit: FLASH_VOL_SEL_u is
+        the TRM's flash_vol_sel (GPIO2_B4, value 2), and stripping only after
+        a digit left it FLASHVOLSELU, paired with nothing, and the site
+        without its value.
         """
+        name = re.sub(r"_[udz]$", "", name)
         s = re.sub(r"[^A-Z0-9]", "", name.upper()).replace("DBG", "")
         s = re.sub(r"(?<=\d)[UDZ]$", "", s)
         return s.replace("DATA", "D")
