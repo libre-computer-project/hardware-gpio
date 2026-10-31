@@ -67,6 +67,26 @@ check("driver-only: the swapped TSIN_B bits carry DRIVER-ERROR on both SoCs, not
 check("driver-only: S805X's rows say the function is the book's and only the register is the driver's",
       sorted(v.split(":")[0] for k, v in gen.DRIVER_ONLY.items() if k[0] == "S805X"), ["driver-only register"] * 4)
 
+A = gen.RK3399_ALIAS
+check("G3 alias: a closed table of 19 RK3399 pairs, each citing a datasheet and a TRM page:line",
+      (len(A), [k for k, (t, d, r) in A.items() if not (re.fullmatch(r"p\d+:\d+", d) and re.fullmatch(r"p\d+:\d+", r))]),
+      (19, []))
+docs = next((Path(p) for p in (HERE.parent.parent.parent / "claude", Path.home() / "git" / "claude")
+             if (Path(p) / "rockchip/rk3399/gpio_pinmux.json").is_file()), None)
+if docs is None:
+    print("SKIP G3 lookup arms: no docs repo with rockchip/rk3399/gpio_pinmux.json")
+else:
+    m = gen.Rk3399Mux(docs)
+    e = m.lookup(2, 20, "SDIO0_D0", "GPIO2_C4")      # GPIO2_C4: bank 2, line C4 = 20
+    check("G3 must-accept: GPIO2_C4 SDIO0_D0 takes the TRM's sdio_data0 value (1), flagged alias",
+          (e.get("value"), e.get("flag", "").startswith("alias: SDIO0_D0 is the TRM's sdio_data0")), (1, True))
+    e = m.lookup(2, 21, "SDIO0_D0", "GPIO2_C5")
+    check("G3 must-reject: an unlisted (pad, name) never aliases (SDIO0_D0 on GPIO2_C5)",
+          ("value" in e, "flag" in e), (False, False))
+    e = m.lookup(2, 16, "UART0_RX_u", "GPIO2_C0")
+    check("G3: the map's reset-pull suffix does not block the alias (UART0_RX_u -> uart0bt_sin, 1)",
+          e.get("value"), 1)
+
 linux = next((Path(p) for p in (a.linux, HERE.parent.parent / "libretech-builder" / "linux",
                                 Path.home() / "git" / "libretech-builder" / "linux")
               if p and (Path(p) / gen.RockchipMux.DRIVER).is_file()), None)

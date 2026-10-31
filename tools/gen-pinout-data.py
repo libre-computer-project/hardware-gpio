@@ -1289,9 +1289,46 @@ class Rk3399Mux:
             if v is not None:
                 entry[k] = v
         value = values.get(self.canon(token))
+        alias = RK3399_ALIAS.get((name, re.sub(r"_[udz]$", "", token)))
+        if value is None and alias:
+            trm, ds_at, trm_at = alias
+            value = values.get(self.canon(trm))
+            if value is not None:
+                entry["flag"] = (f"alias: {token} is the TRM's {trm} (datasheet Table 2-3 {ds_at}; "
+                                 f"TRM V1.4 Part 1 {trm_at})")
         if value is not None:
             entry["value"] = value
         return entry
+
+
+# RK3399 functions the map (and the datasheet's Table 2-3) name differently
+# from the TRM's GRF/PMUGRF IOMUX tables, the only place a value is stated:
+# SDIO0_* is the TRM's sdio_*, _RX/_TX its _sin/_sout, PMUIO2_VOLSEL its
+# pmu1830_volsel. A closed table (parent's ruling G3, 2026-10-31), per pad, each
+# pair citing both books: (pad, map name without its reset-pull suffix) ->
+# (TRM name, datasheet page:line, TRM page:line). An unlisted name never
+# aliases. The LWT maps keep their names; the site flags every aliased row.
+RK3399_ALIAS = {
+    ("GPIO0_A3", "SDIO0_WRPT"): ("sdio_wrprt", "p52:11", "p446:8"),
+    ("GPIO0_A4", "SDIO0_INTn"): ("sdio_intn", "p52:12", "p445:46"),
+    ("GPIO0_B1", "PMUIO2_VOLSEL"): ("pmu1830_volsel", "p52:17", "p447:36"),
+    ("GPIO1_A7", "UART4_RX"): ("uart4m0_sin", "p52:29", "p448:23"),
+    ("GPIO1_B0", "UART4_TX"): ("uart4m0_sout", "p52:30", "p450:50"),
+    ("GPIO1_B1", "PMCU_JTAG_TCK"): ("pmum0jtag_tck", "p53:5", "p450:43"),
+    ("GPIO2_C0", "UART0_RX"): ("uart0bt_sin", "p54:7", "p301:8"),
+    ("GPIO2_C1", "UART0_TX"): ("uart0bt_sout", "p54:8", "p300:50"),
+    ("GPIO2_C4", "SDIO0_D0"): ("sdio_data0", "p54:11", "p300:29"),
+    ("GPIO2_C5", "SDIO0_D1"): ("sdio_data1", "p54:12", "p300:22"),
+    ("GPIO2_C6", "SDIO0_D2"): ("sdio_data2", "p54:13", "p300:15"),
+    ("GPIO2_C7", "SDIO0_D3"): ("sdio_data3", "p54:14", "p300:8"),
+    ("GPIO2_D0", "SDIO0_CMD"): ("sdio_cmd", "p54:15", "p302:15"),
+    ("GPIO2_D1", "SDIO0_CLKOUT"): ("sdio_clkout", "p54:16", "p302:8"),
+    ("GPIO2_D2", "SDIO0_DETN"): ("sdio_detectn", "p54:17", "p301:51"),
+    ("GPIO2_D4", "SDIO0_BKPWR"): ("sdio_bkpwr", "p54:19", "p301:37"),
+    ("GPIO3_C0", "SPDIF_TX"): ("spdif_txb", "p55:10", "p306:10"),
+    ("GPIO4_C3", "UART2C_RX"): ("uart2dbgc_sin", "p56:11", "p311:51"),
+    ("GPIO4_C4", "UART2C_TX"): ("uart2dbgc_sout", "p56:12", "p311:44"),
+}
 
 
 class SunxiMux:

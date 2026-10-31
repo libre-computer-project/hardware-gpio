@@ -715,7 +715,9 @@
        "reg": "0xff77e028",
        "register": "GRF_GPIO4C_IOMUX",
        "bit": 6,
-       "width": 2
+       "width": 2,
+       "flag": "alias: UART2C_RX_u is the TRM's uart2dbgc_sin (datasheet Table 2-3 p56:11; TRM V1.4 Part 1 p311:51)",
+       "value": 1
       },
       {
        "name": "UART2DBGC_SIN",
@@ -770,7 +772,9 @@
        "reg": "0xff77e028",
        "register": "GRF_GPIO4C_IOMUX",
        "bit": 8,
-       "width": 2
+       "width": 2,
+       "flag": "alias: UART2C_TX_u is the TRM's uart2dbgc_sout (datasheet Table 2-3 p56:12; TRM V1.4 Part 1 p311:44)",
+       "value": 1
       },
       {
        "name": "UART2DBGC_SOUT",
@@ -866,7 +870,9 @@
        "reg": "0xff320000",
        "register": "PMUGRF_GPIO0A_IOMUX",
        "bit": 6,
-       "width": 2
+       "width": 2,
+       "flag": "alias: SDIO0_WRPT_d is the TRM's sdio_wrprt (datasheet Table 2-3 p52:11; TRM V1.4 Part 1 p446:8)",
+       "value": 1
       },
       {
        "name": "SDIO_WRPRT",
@@ -934,7 +940,9 @@
        "reg": "0xff77e00c",
        "register": "GRF_GPIO2D_IOMUX",
        "bit": 0,
-       "width": 2
+       "width": 2,
+       "flag": "alias: SDIO0_CMD_u is the TRM's sdio_cmd (datasheet Table 2-3 p54:15; TRM V1.4 Part 1 p302:15)",
+       "value": 1
       }
      ]
     },
@@ -968,7 +976,9 @@
        "reg": "0xff77e00c",
        "register": "GRF_GPIO2D_IOMUX",
        "bit": 2,
-       "width": 2
+       "width": 2,
+       "flag": "alias: SDIO0_CLKOUT is the TRM's sdio_clkout (datasheet Table 2-3 p54:16; TRM V1.4 Part 1 p302:8)",
+       "value": 1
       },
       {
        "name": "TEST_CLKOUT1_u",
@@ -1013,7 +1023,9 @@
        "reg": "0xff77e008",
        "register": "GRF_GPIO2C_IOMUX",
        "bit": 14,
-       "width": 2
+       "width": 2,
+       "flag": "alias: SDIO0_D3 is the TRM's sdio_data3 (datasheet Table 2-3 p54:14; TRM V1.4 Part 1 p300:8)",
+       "value": 1
       },
       {
        "name": "SPI5_CSn0_u",
@@ -1068,7 +1080,9 @@
        "reg": "0xff77e008",
        "register": "GRF_GPIO2C_IOMUX",
        "bit": 12,
-       "width": 2
+       "width": 2,
+       "flag": "alias: SDIO0_D2 is the TRM's sdio_data2 (datasheet Table 2-3 p54:13; TRM V1.4 Part 1 p300:15)",
+       "value": 1
       },
       {
        "name": "SPI5_CLK_u",
@@ -1122,7 +1136,9 @@
        "reg": "0xff77e008",
        "register": "GRF_GPIO2C_IOMUX",
        "bit": 8,
-       "width": 2
+       "width": 2,
+       "flag": "alias: SDIO0_D0 is the TRM's sdio_data0 (datasheet Table 2-3 p54:11; TRM V1.4 Part 1 p300:29)",
+       "value": 1
       },
       {
        "name": "SPI5_RXD_u",
@@ -1167,7 +1183,9 @@
        "reg": "0xff77e008",
        "register": "GRF_GPIO2C_IOMUX",
        "bit": 10,
-       "width": 2
+       "width": 2,
+       "flag": "alias: SDIO0_D1 is the TRM's sdio_data1 (datasheet Table 2-3 p54:12; TRM V1.4 Part 1 p300:22)",
+       "value": 1
       },
       {
        "name": "SPI5_TXD_u",
@@ -1550,7 +1568,9 @@
        "reg": "0xff320004",
        "register": "PMUGRF_GPIO0B_IOMUX",
        "bit": 2,
-       "width": 2
+       "width": 2,
+       "flag": "alias: PMUIO2_VOLSEL_d is the TRM's pmu1830_volsel (datasheet Table 2-3 p52:17; TRM V1.4 Part 1 p447:36)",
+       "value": 1
       },
       {
        "name": "PMU1830_VOLSEL",
@@ -1594,7 +1614,9 @@
        "reg": "0xff77e008",
        "register": "GRF_GPIO2C_IOMUX",
        "bit": 0,
-       "width": 2
+       "width": 2,
+       "flag": "alias: UART0_RX_u is the TRM's uart0bt_sin (datasheet Table 2-3 p54:7; TRM V1.4 Part 1 p301:8)",
+       "value": 1
       },
       {
        "name": "UART0BT_SIN",
@@ -1638,7 +1660,9 @@
        "reg": "0xff77e008",
        "register": "GRF_GPIO2C_IOMUX",
        "bit": 2,
-       "width": 2
+       "width": 2,
+       "flag": "alias: UART0_TX_u is the TRM's uart0bt_sout (datasheet Table 2-3 p54:8; TRM V1.4 Part 1 p300:50)",
+       "value": 1
       },
       {
        "name": "UART0BT_SOUT",
@@ -1751,7 +1775,9 @@
        "reg": "0xff77e00c",
        "register": "GRF_GPIO2D_IOMUX",
        "bit": 4,
-       "width": 2
+       "width": 2,
+       "flag": "alias: SDIO0_DETN is the TRM's sdio_detectn (datasheet Table 2-3 p54:17; TRM V1.4 Part 1 p301:51)",
+       "value": 1
       },
       {
        "name": "PCIE_CLKREQn_u",
@@ -1824,7 +1850,9 @@
        "reg": "0xff320000",
        "register": "PMUGRF_GPIO0A_IOMUX",
        "bit": 8,
-       "width": 2
+       "width": 2,
+       "flag": "alias: SDIO0_INTn_d is the TRM's sdio_intn (datasheet Table 2-3 p52:12; TRM V1.4 Part 1 p445:46)",
+       "value": 1
       },
       {
        "name": "PMU_DEBUG2",
@@ -1938,7 +1966,9 @@
        "reg": "0xff320014",
        "register": "PMUGRF_GPIO1B_IOMUX",
        "bit": 2,
-       "width": 2
+       "width": 2,
+       "flag": "alias: PMCU_JTAG_TCK_u is the TRM's pmum0jtag_tck (datasheet Table 2-3 p53:5; TRM V1.4 Part 1 p450:43)",
+       "value": 1
       },
       {
        "name": "PMUM0JTAG_TCK",
@@ -2453,7 +2483,9 @@
        "reg": "0xff77e018",
        "register": "GRF_GPIO3C_IOMUX",
        "bit": 0,
-       "width": 2
+       "width": 2,
+       "flag": "alias: SPDIF_TX_u is the TRM's spdif_txb (datasheet Table 2-3 p55:10; TRM V1.4 Part 1 p306:10)",
+       "value": 3
       },
       {
        "name": "SPDIF_TXB",
@@ -2725,7 +2757,9 @@
        "reg": "0xff320010",
        "register": "PMUGRF_GPIO1A_IOMUX",
        "bit": 14,
-       "width": 2
+       "width": 2,
+       "flag": "alias: UART4_RX_u is the TRM's uart4m0_sin (datasheet Table 2-3 p52:29; TRM V1.4 Part 1 p448:23)",
+       "value": 1
       },
       {
        "name": "UART4M0_SIN",
@@ -2780,7 +2814,9 @@
        "reg": "0xff320014",
        "register": "PMUGRF_GPIO1B_IOMUX",
        "bit": 0,
-       "width": 2
+       "width": 2,
+       "flag": "alias: UART4_TX_u is the TRM's uart4m0_sout (datasheet Table 2-3 p52:30; TRM V1.4 Part 1 p450:50)",
+       "value": 1
       },
       {
        "name": "UART4M0_SOUT",
@@ -2932,7 +2968,9 @@
        "reg": "0xff77e00c",
        "register": "GRF_GPIO2D_IOMUX",
        "bit": 8,
-       "width": 2
+       "width": 2,
+       "flag": "alias: SDIO0_BKPWR_d is the TRM's sdio_bkpwr (datasheet Table 2-3 p54:19; TRM V1.4 Part 1 p301:37)",
+       "value": 1
       }
      ]
     },
