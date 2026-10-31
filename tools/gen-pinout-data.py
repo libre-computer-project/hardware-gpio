@@ -1848,12 +1848,14 @@ class SunxiElectrical:
 # by board and not by SoC.
 #
 #   V1 (roc-rk3328-cc)     BUCK4 VCC_IO 3.3 V -> VCCIO_PMU, 1, 3, 4, 5, 6
-#   V2 (roc-rk3328-cc-v2)  BUCK4 drops VCCIO4/6; LDO1 VCC_18 1.8 V takes them
+#   V2 (roc-rk3328-cc-v2)  as V1, except VCCIO4 = VCCIO_PHY, 1.8 V from LDO1
 #
-# Source: the V1 and V2 board schematics' PMIC rail assignments, and the
-# RK3328 constraint that VCCIO4 and VCCIO6 must be the same voltage level
-# (which is why V2 moves both together). vccio2 is left out on purpose: no rail assignment for it was read, and a guess here puts a
-# wrong Vih on a page people wire hardware from.
+# Source: the ball-to-net wiring on each schematic (V1.3-B: VCCIO4 -> R3717
+# 0R -> VCC_IO; V2.1 sheet 7: VCCIO6 H6 -> VCC_IO; sheet 9: VCCIO4 U12 ->
+# VCCIO_PHY). V2.1's sheet-2 table prints VCCIO6 1.8 V; the wiring, the
+# flash on VCC_IO and the header UART all say 3.3 V, and the wiring wins.
+# vccio2 is left out on purpose: no rail assignment for it was read, and a
+# guess here puts a wrong Vih on a page people wire hardware from.
 BOARD_RAILS = {
     "roc-rk3328-cc": {
         "vccio_pmu": "3.3", "vccio1": "3.3", "vccio3": "3.3",
@@ -1861,7 +1863,7 @@ BOARD_RAILS = {
     },
     "roc-rk3328-cc-v2": {
         "vccio_pmu": "3.3", "vccio1": "3.3", "vccio3": "3.3",
-        "vccio4": "1.8", "vccio5": "3.3", "vccio6": "1.8",
+        "vccio4": "1.8", "vccio5": "3.3", "vccio6": "3.3",
     },
 }
 
