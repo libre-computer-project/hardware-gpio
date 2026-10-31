@@ -59,7 +59,18 @@ BOARDS = {
     "roc-rk3328-cc":   ("ROC-RK3328-CC",   "Renegade",             "RK3328", "Rockchip",  "production"),
     "roc-rk3328-cc-v2": ("ROC-RK3328-CC-V2", "Das Renegade",       "RK3328", "Rockchip",  "unreleased"),
     "roc-rk3399-pc":   ("ROC-RK3399-PC",   "Renegade Elite",       "RK3399", "Rockchip",  "production"),
+    "aml-a311d-cm":    ("AML-A311D-CM",    "Alta Compute Module",  "A311D",  "Amlogic",   "unreleased"),
+    "aml-s905d3-cm":   ("AML-S905D3-CM",   "Solitude Compute Module", "S905D3", "Amlogic", "unreleased"),
+    "rpi-cm4":         ("RPI-CM4",         "Raspberry Pi Compute Module 4", "BCM2711", "Raspberry Pi", "reference"),
+    "rpi-cm5":         ("RPI-CM5",         "Raspberry Pi Compute Module 5", "BCM2712", "Raspberry Pi", "reference"),
 }
+
+# Boards that are not Libre Computer products, kept beside ours so a module's
+# connector can be read against the one it is pin-compatible with. Their maps
+# are not in the wiring tool (which describes our boards); they live in this
+# repo under reference/<board>/gpio.map, transcribed from the maker's datasheet.
+#   reference   another maker's board -- only with ?hidden=1
+REFERENCE_MAPS = REPO_ROOT / "reference"
 
 # Physical arrangement per header, because the wiring-tool map does not carry
 # it: it has Header and Pin and nothing about rows. The site used to infer
@@ -124,9 +135,15 @@ BOARDS = {
 # The two are unrelated connectors that collide on an id, and the whole point
 # of the qualified form is that the set says which board's evidence it is
 # quoting -- an unqualified match here would be a coincidence, not a citation.
+# The compute modules' two board-to-board connectors are 100 pins each, odd
+# pins on one row and even on the other: the CM4 and CM5 datasheets number them
+# that way (J1 pins 1-100, J2 pins 101-200), and the AML CM V0.2 layout export
+# places J1/J2 as 2x50 arrays on the same numbering.
 DUAL_ROW_HEADERS = {"7J1", "J1", "J12", "J15", "J20",
                     "roc-rk3399-pc:J1", "roc-rk3399-pc:J6",
-                    "roc-rk3399-pc:J21"}
+                    "roc-rk3399-pc:J21",
+                    "aml-a311d-cm:J2", "aml-s905d3-cm:J2",
+                    "rpi-cm4:J2", "rpi-cm5:J2"}
 
 
 def is_dual_row(board, header):
@@ -580,6 +597,16 @@ CHIP_CLASS = {
     # "eth" would be the worst of the three: a green, on the row of a legend
     # where green means signal.
     "POE":   "poe",
+    # Compute-module connectors (AML CM, Raspberry Pi CM4/CM5): the fixed
+    # functions a 200-pin module brings out that no 40-pin header does.
+    "ETH":   "eth",       # Ethernet MDI pairs and the PHY's LED pins
+    "HDMI":  "video",     # HDMI TMDS, DDC, hot-plug, and S905D3 eARC
+    "MIPI":  "video",     # CSI / DSI lanes
+    "CEC":   "cec",
+    "SD":    "sdio",      # CM4/CM5 SD/eMMC pins, not GPIO on those SoCs
+    "VREF":  "powerlv",   # GPIO_VREF: the carrier's reference for one IO bank
+    "BAT":   "powerlv",   # CM5 VBAT (RTC coin cell)
+    "CTRL":  "misc",      # module control pins: enables, boot, LEDs, power good
 }
 
 
@@ -646,6 +673,8 @@ class DatasheetMux:
         "aml-a311d-cc-v01": "amlogic/g12sm1/a311d",
         "aml-s905d3-cc": "amlogic/g12sm1/s905d3",
         "aml-s905d3-cc-v01": "amlogic/g12sm1/s905d3",
+        "aml-a311d-cm": "amlogic/g12sm1/a311d",
+        "aml-s905d3-cm": "amlogic/g12sm1/s905d3",
         "all-h3-cc-h3": "allwinner/h3", "all-h3-cc-h5": "allwinner/h5",
     }
 
@@ -1796,7 +1825,22 @@ ANALOG_NOTE = {
 }
 
 
+class NoMux:
+    """A reference board's SoC: pin names only, no mux tables here."""
+
+    def __init__(self, soc):
+        self.soc = soc
+
+    def meta(self):
+        return {"family": self.soc, "note": "reference board: no pinmux data"}
+
+    def lookup(self, chip, line, token, name=None):
+        return None
+
+
 MUX_FOR_SOC = {
+    "BCM2711": lambda linux, rk_json, docs: NoMux("BCM2711"),
+    "BCM2712": lambda linux, rk_json, docs: NoMux("BCM2712"),
     "S905X": lambda linux, rk_json, docs: MesonGxlMux(linux),
     "S805X": lambda linux, rk_json, docs: MesonGxlMux(linux),
     "A311D": lambda linux, rk_json, docs: MesonG12aMux(linux),
@@ -1857,7 +1901,8 @@ def main():
     index = []
     elec_stats = {}
     for board, (model, name, soc, vendor, status) in sorted(BOARDS.items()):
-        path = lwt / "libre-computer" / board / "gpio.map"
+        path = ((REFERENCE_MAPS if status == "reference" else lwt / "libre-computer")
+                / board / "gpio.map")
         if not path.is_file():
             sys.exit(f"missing {path}")
         headers = parse_map(path, board)

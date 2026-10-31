@@ -81,6 +81,26 @@
    ]
   },
   {
+   "id": "aml-a311d-cm",
+   "model": "AML-A311D-CM",
+   "name": "Alta Compute Module",
+   "soc": "A311D",
+   "vendor": "Amlogic",
+   "status": "unreleased",
+   "hidden": true,
+   "npins": 200,
+   "headers": [
+    {
+     "id": "J1",
+     "pins": 100
+    },
+    {
+     "id": "J2",
+     "pins": 100
+    }
+   ]
+  },
+  {
    "id": "aml-s805x-ac",
    "model": "AML-S805X-AC",
    "name": "La Frite",
@@ -165,6 +185,26 @@
     {
      "id": "2J1",
      "pins": 3
+    }
+   ]
+  },
+  {
+   "id": "aml-s905d3-cm",
+   "model": "AML-S905D3-CM",
+   "name": "Solitude Compute Module",
+   "soc": "S905D3",
+   "vendor": "Amlogic",
+   "status": "unreleased",
+   "hidden": true,
+   "npins": 200,
+   "headers": [
+    {
+     "id": "J1",
+     "pins": 100
+    },
+    {
+     "id": "J2",
+     "pins": 100
     }
    ]
   },
@@ -341,6 +381,46 @@
     {
      "id": "J6",
      "pins": 6
+    }
+   ]
+  },
+  {
+   "id": "rpi-cm4",
+   "model": "RPI-CM4",
+   "name": "Raspberry Pi Compute Module 4",
+   "soc": "BCM2711",
+   "vendor": "Raspberry Pi",
+   "status": "reference",
+   "hidden": true,
+   "npins": 200,
+   "headers": [
+    {
+     "id": "J1",
+     "pins": 100
+    },
+    {
+     "id": "J2",
+     "pins": 100
+    }
+   ]
+  },
+  {
+   "id": "rpi-cm5",
+   "model": "RPI-CM5",
+   "name": "Raspberry Pi Compute Module 5",
+   "soc": "BCM2712",
+   "vendor": "Raspberry Pi",
+   "status": "reference",
+   "hidden": true,
+   "npins": 200,
+   "headers": [
+    {
+     "id": "J1",
+     "pins": 100
+    },
+    {
+     "id": "J2",
+     "pins": 100
     }
    ]
   }

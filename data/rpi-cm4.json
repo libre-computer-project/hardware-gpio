@@ -1,0 +1,2982 @@
+{
+ "id": "rpi-cm4",
+ "model": "RPI-CM4",
+ "name": "Raspberry Pi Compute Module 4",
+ "soc": "BCM2711",
+ "vendor": "Raspberry Pi",
+ "status": "reference",
+ "mux": {
+  "family": "BCM2711",
+  "note": "reference board: no pinmux data"
+ },
+ "headers": [
+  {
+   "id": "J1",
+   "rows": 2,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 2,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 3,
+     "type": "ETH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Ethernet_Pair3_P",
+     "pad": "ETH",
+     "ref": "Ethernet_Pair3_P",
+     "funcs": [
+      "ETH"
+     ],
+     "cls": "eth",
+     "primary": "eth"
+    },
+    {
+     "pin": 4,
+     "type": "ETH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Ethernet_Pair1_P",
+     "pad": "ETH",
+     "ref": "Ethernet_Pair1_P",
+     "funcs": [
+      "ETH"
+     ],
+     "cls": "eth",
+     "primary": "eth"
+    },
+    {
+     "pin": 5,
+     "type": "ETH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Ethernet_Pair3_N",
+     "pad": "ETH",
+     "ref": "Ethernet_Pair3_N",
+     "funcs": [
+      "ETH"
+     ],
+     "cls": "eth",
+     "primary": "eth"
+    },
+    {
+     "pin": 6,
+     "type": "ETH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Ethernet_Pair1_N",
+     "pad": "ETH",
+     "ref": "Ethernet_Pair1_N",
+     "funcs": [
+      "ETH"
+     ],
+     "cls": "eth",
+     "primary": "eth"
+    },
+    {
+     "pin": 7,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 8,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 9,
+     "type": "ETH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Ethernet_Pair2_N",
+     "pad": "ETH",
+     "ref": "Ethernet_Pair2_N",
+     "funcs": [
+      "ETH"
+     ],
+     "cls": "eth",
+     "primary": "eth"
+    },
+    {
+     "pin": 10,
+     "type": "ETH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Ethernet_Pair0_N",
+     "pad": "ETH",
+     "ref": "Ethernet_Pair0_N",
+     "funcs": [
+      "ETH"
+     ],
+     "cls": "eth",
+     "primary": "eth"
+    },
+    {
+     "pin": 11,
+     "type": "ETH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Ethernet_Pair2_P",
+     "pad": "ETH",
+     "ref": "Ethernet_Pair2_P",
+     "funcs": [
+      "ETH"
+     ],
+     "cls": "eth",
+     "primary": "eth"
+    },
+    {
+     "pin": 12,
+     "type": "ETH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Ethernet_Pair0_P",
+     "pad": "ETH",
+     "ref": "Ethernet_Pair0_P",
+     "funcs": [
+      "ETH"
+     ],
+     "cls": "eth",
+     "primary": "eth"
+    },
+    {
+     "pin": 13,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 14,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 15,
+     "type": "ETH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Ethernet_nLED3",
+     "pad": "ETH",
+     "ref": "Ethernet_nLED3",
+     "funcs": [
+      "ETH"
+     ],
+     "cls": "eth",
+     "primary": "eth"
+    },
+    {
+     "pin": 16,
+     "type": "ETH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Ethernet_SYNC_IN",
+     "pad": "ETH",
+     "ref": "Ethernet_SYNC_IN",
+     "funcs": [
+      "ETH"
+     ],
+     "cls": "eth",
+     "primary": "eth"
+    },
+    {
+     "pin": 17,
+     "type": "ETH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Ethernet_nLED2",
+     "pad": "ETH",
+     "ref": "Ethernet_nLED2",
+     "funcs": [
+      "ETH"
+     ],
+     "cls": "eth",
+     "primary": "eth"
+    },
+    {
+     "pin": 18,
+     "type": "ETH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Ethernet_SYNC_OUT",
+     "pad": "ETH",
+     "ref": "Ethernet_SYNC_OUT",
+     "funcs": [
+      "ETH"
+     ],
+     "cls": "eth",
+     "primary": "eth"
+    },
+    {
+     "pin": 19,
+     "type": "ETH",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Ethernet_nLED1",
+     "pad": "ETH",
+     "ref": "Ethernet_nLED1",
+     "funcs": [
+      "ETH"
+     ],
+     "cls": "eth",
+     "primary": "eth"
+    },
+    {
+     "pin": 20,
+     "type": "CTRL",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "EEPROM_nWP",
+     "pad": "CTRL",
+     "ref": "EEPROM_nWP",
+     "funcs": [
+      "CTRL"
+     ],
+     "cls": "misc",
+     "primary": "misc"
+    },
+    {
+     "pin": 21,
+     "type": "CTRL",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Pi_nLED_Activity",
+     "pad": "CTRL",
+     "ref": "Pi_nLED_Activity",
+     "funcs": [
+      "CTRL"
+     ],
+     "cls": "misc",
+     "primary": "misc"
+    },
+    {
+     "pin": 22,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 23,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 24,
+     "type": "gpio",
+     "chip": 0,
+     "line": 26,
+     "sysfs": null,
+     "name": "GPIO26",
+     "pad": "-",
+     "ref": "GPIO26",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 25,
+     "type": "gpio",
+     "chip": 0,
+     "line": 21,
+     "sysfs": null,
+     "name": "GPIO21",
+     "pad": "-",
+     "ref": "GPIO21",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 26,
+     "type": "gpio",
+     "chip": 0,
+     "line": 19,
+     "sysfs": null,
+     "name": "GPIO19",
+     "pad": "-",
+     "ref": "GPIO19",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 27,
+     "type": "gpio",
+     "chip": 0,
+     "line": 20,
+     "sysfs": null,
+     "name": "GPIO20",
+     "pad": "-",
+     "ref": "GPIO20",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 28,
+     "type": "gpio",
+     "chip": 0,
+     "line": 13,
+     "sysfs": null,
+     "name": "GPIO13",
+     "pad": "-",
+     "ref": "GPIO13",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 29,
+     "type": "gpio",
+     "chip": 0,
+     "line": 16,
+     "sysfs": null,
+     "name": "GPIO16",
+     "pad": "-",
+     "ref": "GPIO16",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 30,
+     "type": "gpio",
+     "chip": 0,
+     "line": 6,
+     "sysfs": null,
+     "name": "GPIO6",
+     "pad": "-",
+     "ref": "GPIO6",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 31,
+     "type": "gpio",
+     "chip": 0,
+     "line": 12,
+     "sysfs": null,
+     "name": "GPIO12",
+     "pad": "-",
+     "ref": "GPIO12",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 32,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 33,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 34,
+     "type": "gpio",
+     "chip": 0,
+     "line": 5,
+     "sysfs": null,
+     "name": "GPIO5",
+     "pad": "-",
+     "ref": "GPIO5",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 35,
+     "type": "I2C",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "ID_SC",
+     "pad": "I2C",
+     "ref": "ID_SC",
+     "funcs": [
+      "I2C"
+     ],
+     "cls": "i2c",
+     "primary": "i2c"
+    },
+    {
+     "pin": 36,
+     "type": "I2C",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "ID_SD",
+     "pad": "I2C",
+     "ref": "ID_SD",
+     "funcs": [
+      "I2C"
+     ],
+     "cls": "i2c",
+     "primary": "i2c"
+    },
+    {
+     "pin": 37,
+     "type": "gpio",
+     "chip": 0,
+     "line": 7,
+     "sysfs": null,
+     "name": "GPIO7",
+     "pad": "-",
+     "ref": "GPIO7",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 38,
+     "type": "gpio",
+     "chip": 0,
+     "line": 11,
+     "sysfs": null,
+     "name": "GPIO11",
+     "pad": "-",
+     "ref": "GPIO11",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 39,
+     "type": "gpio",
+     "chip": 0,
+     "line": 8,
+     "sysfs": null,
+     "name": "GPIO8",
+     "pad": "-",
+     "ref": "GPIO8",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 40,
+     "type": "gpio",
+     "chip": 0,
+     "line": 9,
+     "sysfs": null,
+     "name": "GPIO9",
+     "pad": "-",
+     "ref": "GPIO9",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 41,
+     "type": "gpio",
+     "chip": 0,
+     "line": 25,
+     "sysfs": null,
+     "name": "GPIO25",
+     "pad": "-",
+     "ref": "GPIO25",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 42,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 43,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 44,
+     "type": "gpio",
+     "chip": 0,
+     "line": 10,
+     "sysfs": null,
+     "name": "GPIO10",
+     "pad": "-",
+     "ref": "GPIO10",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 45,
+     "type": "gpio",
+     "chip": 0,
+     "line": 24,
+     "sysfs": null,
+     "name": "GPIO24",
+     "pad": "-",
+     "ref": "GPIO24",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 46,
+     "type": "gpio",
+     "chip": 0,
+     "line": 22,
+     "sysfs": null,
+     "name": "GPIO22",
+     "pad": "-",
+     "ref": "GPIO22",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 47,
+     "type": "gpio",
+     "chip": 0,
+     "line": 23,
+     "sysfs": null,
+     "name": "GPIO23",
+     "pad": "-",
+     "ref": "GPIO23",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 48,
+     "type": "gpio",
+     "chip": 0,
+     "line": 27,
+     "sysfs": null,
+     "name": "GPIO27",
+     "pad": "-",
+     "ref": "GPIO27",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 49,
+     "type": "gpio",
+     "chip": 0,
+     "line": 18,
+     "sysfs": null,
+     "name": "GPIO18",
+     "pad": "-",
+     "ref": "GPIO18",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 50,
+     "type": "gpio",
+     "chip": 0,
+     "line": 17,
+     "sysfs": null,
+     "name": "GPIO17",
+     "pad": "-",
+     "ref": "GPIO17",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 51,
+     "type": "gpio",
+     "chip": 0,
+     "line": 15,
+     "sysfs": null,
+     "name": "GPIO15",
+     "pad": "-",
+     "ref": "GPIO15",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 52,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 53,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 54,
+     "type": "gpio",
+     "chip": 0,
+     "line": 4,
+     "sysfs": null,
+     "name": "GPIO4",
+     "pad": "-",
+     "ref": "GPIO4",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 55,
+     "type": "gpio",
+     "chip": 0,
+     "line": 14,
+     "sysfs": null,
+     "name": "GPIO14",
+     "pad": "-",
+     "ref": "GPIO14",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 56,
+     "type": "gpio",
+     "chip": 0,
+     "line": 3,
+     "sysfs": null,
+     "name": "GPIO3",
+     "pad": "-",
+     "ref": "GPIO3",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 57,
+     "type": "SD",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SD_CLK",
+     "pad": "SD",
+     "ref": "SD_CLK",
+     "funcs": [
+      "SD"
+     ],
+     "cls": "sdio",
+     "primary": "sdio"
+    },
+    {
+     "pin": 58,
+     "type": "gpio",
+     "chip": 0,
+     "line": 2,
+     "sysfs": null,
+     "name": "GPIO2",
+     "pad": "-",
+     "ref": "GPIO2",
+     "funcs": [],
+     "cls": "gpio",
+     "primary": "gpio"
+    },
+    {
+     "pin": 59,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 60,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 61,
+     "type": "SD",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SD_DAT3",
+     "pad": "SD",
+     "ref": "SD_DAT3",
+     "funcs": [
+      "SD"
+     ],
+     "cls": "sdio",
+     "primary": "sdio"
+    },
+    {
+     "pin": 62,
+     "type": "SD",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SD_CMD",
+     "pad": "SD",
+     "ref": "SD_CMD",
+     "funcs": [
+      "SD"
+     ],
+     "cls": "sdio",
+     "primary": "sdio"
+    },
+    {
+     "pin": 63,
+     "type": "SD",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SD_DAT0",
+     "pad": "SD",
+     "ref": "SD_DAT0",
+     "funcs": [
+      "SD"
+     ],
+     "cls": "sdio",
+     "primary": "sdio"
+    },
+    {
+     "pin": 64,
+     "type": "SD",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SD_DAT5",
+     "pad": "SD",
+     "ref": "SD_DAT5",
+     "funcs": [
+      "SD"
+     ],
+     "cls": "sdio",
+     "primary": "sdio"
+    },
+    {
+     "pin": 65,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 66,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 67,
+     "type": "SD",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SD_DAT1",
+     "pad": "SD",
+     "ref": "SD_DAT1",
+     "funcs": [
+      "SD"
+     ],
+     "cls": "sdio",
+     "primary": "sdio"
+    },
+    {
+     "pin": 68,
+     "type": "SD",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SD_DAT4",
+     "pad": "SD",
+     "ref": "SD_DAT4",
+     "funcs": [
+      "SD"
+     ],
+     "cls": "sdio",
+     "primary": "sdio"
+    },
+    {
+     "pin": 69,
+     "type": "SD",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SD_DAT2",
+     "pad": "SD",
+     "ref": "SD_DAT2",
+     "funcs": [
+      "SD"
+     ],
+     "cls": "sdio",
+     "primary": "sdio"
+    },
+    {
+     "pin": 70,
+     "type": "SD",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SD_DAT7",
+     "pad": "SD",
+     "ref": "SD_DAT7",
+     "funcs": [
+      "SD"
+     ],
+     "cls": "sdio",
+     "primary": "sdio"
+    },
+    {
+     "pin": 71,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 72,
+     "type": "SD",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SD_DAT6",
+     "pad": "SD",
+     "ref": "SD_DAT6",
+     "funcs": [
+      "SD"
+     ],
+     "cls": "sdio",
+     "primary": "sdio"
+    },
+    {
+     "pin": 73,
+     "type": "CTRL",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SD_VDD_OVERRIDE",
+     "pad": "CTRL",
+     "ref": "SD_VDD_OVERRIDE",
+     "funcs": [
+      "CTRL"
+     ],
+     "cls": "misc",
+     "primary": "misc"
+    },
+    {
+     "pin": 74,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 75,
+     "type": "CTRL",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SD_PWR_ON",
+     "pad": "CTRL",
+     "ref": "SD_PWR_ON",
+     "funcs": [
+      "CTRL"
+     ],
+     "cls": "misc",
+     "primary": "misc"
+    },
+    {
+     "pin": 76,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Reserved",
+     "pad": "NC",
+     "ref": "Reserved",
+     "funcs": [
+      "NC"
+     ],
+     "cls": "nc",
+     "primary": "nc"
+    },
+    {
+     "pin": 77,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "+5V_(Input)",
+     "pad": "5V",
+     "ref": "+5V_(Input)",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v",
+     "primary": "power5v"
+    },
+    {
+     "pin": 78,
+     "type": "VREF",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GPIO_VREF",
+     "pad": "VREF",
+     "ref": "GPIO_VREF",
+     "funcs": [
+      "VREF"
+     ],
+     "cls": "powerlv",
+     "primary": "powerlv"
+    },
+    {
+     "pin": 79,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "+5V_(Input)",
+     "pad": "5V",
+     "ref": "+5V_(Input)",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v",
+     "primary": "power5v"
+    },
+    {
+     "pin": 80,
+     "type": "I2C",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SCL0",
+     "pad": "I2C",
+     "ref": "SCL0",
+     "funcs": [
+      "I2C"
+     ],
+     "cls": "i2c",
+     "primary": "i2c"
+    },
+    {
+     "pin": 81,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "+5V_(Input)",
+     "pad": "5V",
+     "ref": "+5V_(Input)",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v",
+     "primary": "power5v"
+    },
+    {
+     "pin": 82,
+     "type": "I2C",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "SDA0",
+     "pad": "I2C",
+     "ref": "SDA0",
+     "funcs": [
+      "I2C"
+     ],
+     "cls": "i2c",
+     "primary": "i2c"
+    },
+    {
+     "pin": 83,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "+5V_(Input)",
+     "pad": "5V",
+     "ref": "+5V_(Input)",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v",
+     "primary": "power5v"
+    },
+    {
+     "pin": 84,
+     "type": "3.3V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CM4_3.3V_(Output)",
+     "pad": "3.3V",
+     "ref": "CM4_3.3V_(Output)",
+     "funcs": [
+      "3.3V"
+     ],
+     "cls": "power3v3",
+     "primary": "power3v3"
+    },
+    {
+     "pin": 85,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "+5V_(Input)",
+     "pad": "5V",
+     "ref": "+5V_(Input)",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v",
+     "primary": "power5v"
+    },
+    {
+     "pin": 86,
+     "type": "3.3V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CM4_3.3V_(Output)",
+     "pad": "3.3V",
+     "ref": "CM4_3.3V_(Output)",
+     "funcs": [
+      "3.3V"
+     ],
+     "cls": "power3v3",
+     "primary": "power3v3"
+    },
+    {
+     "pin": 87,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "+5V_(Input)",
+     "pad": "5V",
+     "ref": "+5V_(Input)",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v",
+     "primary": "power5v"
+    },
+    {
+     "pin": 88,
+     "type": "1.8V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CM4_1.8V_(Output)",
+     "pad": "1.8V",
+     "ref": "CM4_1.8V_(Output)",
+     "funcs": [
+      "1.8V"
+     ],
+     "cls": "powerlv",
+     "primary": "powerlv"
+    },
+    {
+     "pin": 89,
+     "type": "CTRL",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "WL_nDisable",
+     "pad": "CTRL",
+     "ref": "WL_nDisable",
+     "funcs": [
+      "CTRL"
+     ],
+     "cls": "misc",
+     "primary": "misc"
+    },
+    {
+     "pin": 90,
+     "type": "1.8V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CM4_1.8V_(Output)",
+     "pad": "1.8V",
+     "ref": "CM4_1.8V_(Output)",
+     "funcs": [
+      "1.8V"
+     ],
+     "cls": "powerlv",
+     "primary": "powerlv"
+    },
+    {
+     "pin": 91,
+     "type": "CTRL",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "BT_nDisable",
+     "pad": "CTRL",
+     "ref": "BT_nDisable",
+     "funcs": [
+      "CTRL"
+     ],
+     "cls": "misc",
+     "primary": "misc"
+    },
+    {
+     "pin": 92,
+     "type": "CTRL",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "RUN_PG",
+     "pad": "CTRL",
+     "ref": "RUN_PG",
+     "funcs": [
+      "CTRL"
+     ],
+     "cls": "misc",
+     "primary": "misc"
+    },
+    {
+     "pin": 93,
+     "type": "CTRL",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "nRPIBOOT",
+     "pad": "CTRL",
+     "ref": "nRPIBOOT",
+     "funcs": [
+      "CTRL"
+     ],
+     "cls": "misc",
+     "primary": "misc"
+    },
+    {
+     "pin": 94,
+     "type": "ADC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "AnalogIP1",
+     "pad": "ADC",
+     "ref": "AnalogIP1",
+     "funcs": [
+      "ADC"
+     ],
+     "cls": "adc",
+     "primary": "adc",
+     "elec": {
+      "pad_type": "analog",
+      "note": "Analog input to the SoC's SAR ADC \u2014 not a digital GPIO pad, so the digital thresholds, pull and drive settings do not apply."
+     }
+    },
+    {
+     "pin": 95,
+     "type": "CTRL",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PI_LED_nPWR",
+     "pad": "CTRL",
+     "ref": "PI_LED_nPWR",
+     "funcs": [
+      "CTRL"
+     ],
+     "cls": "misc",
+     "primary": "misc"
+    },
+    {
+     "pin": 96,
+     "type": "ADC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "AnalogIP0",
+     "pad": "ADC",
+     "ref": "AnalogIP0",
+     "funcs": [
+      "ADC"
+     ],
+     "cls": "adc",
+     "primary": "adc",
+     "elec": {
+      "pad_type": "analog",
+      "note": "Analog input to the SoC's SAR ADC \u2014 not a digital GPIO pad, so the digital thresholds, pull and drive settings do not apply."
+     }
+    },
+    {
+     "pin": 97,
+     "type": "CTRL",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Camera_GPIO",
+     "pad": "CTRL",
+     "ref": "Camera_GPIO",
+     "funcs": [
+      "CTRL"
+     ],
+     "cls": "misc",
+     "primary": "misc"
+    },
+    {
+     "pin": 98,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 99,
+     "type": "CTRL",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GLOBAL_EN",
+     "pad": "CTRL",
+     "ref": "GLOBAL_EN",
+     "funcs": [
+      "CTRL"
+     ],
+     "cls": "misc",
+     "primary": "misc"
+    },
+    {
+     "pin": 100,
+     "type": "CTRL",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "nEXTRST",
+     "pad": "CTRL",
+     "ref": "nEXTRST",
+     "funcs": [
+      "CTRL"
+     ],
+     "cls": "misc",
+     "primary": "misc"
+    }
+   ]
+  },
+  {
+   "id": "J2",
+   "rows": 2,
+   "pins": [
+    {
+     "pin": 101,
+     "type": "USB",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "USB_OTG_ID",
+     "pad": "USB",
+     "ref": "USB_OTG_ID",
+     "funcs": [
+      "USB"
+     ],
+     "cls": "usb",
+     "primary": "usb"
+    },
+    {
+     "pin": 102,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIe_CLK_nREQ",
+     "pad": "PCIE",
+     "ref": "PCIe_CLK_nREQ",
+     "funcs": [
+      "PCIE"
+     ],
+     "cls": "pcie",
+     "primary": "pcie"
+    },
+    {
+     "pin": 103,
+     "type": "USB",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "USB_N",
+     "pad": "USB",
+     "ref": "USB_N",
+     "funcs": [
+      "USB"
+     ],
+     "cls": "usb",
+     "primary": "usb"
+    },
+    {
+     "pin": 104,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Reserved",
+     "pad": "NC",
+     "ref": "Reserved",
+     "funcs": [
+      "NC"
+     ],
+     "cls": "nc",
+     "primary": "nc"
+    },
+    {
+     "pin": 105,
+     "type": "USB",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "USB_P",
+     "pad": "USB",
+     "ref": "USB_P",
+     "funcs": [
+      "USB"
+     ],
+     "cls": "usb",
+     "primary": "usb"
+    },
+    {
+     "pin": 106,
+     "type": "NC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "Reserved",
+     "pad": "NC",
+     "ref": "Reserved",
+     "funcs": [
+      "NC"
+     ],
+     "cls": "nc",
+     "primary": "nc"
+    },
+    {
+     "pin": 107,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 108,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 109,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIe_nRST",
+     "pad": "PCIE",
+     "ref": "PCIe_nRST",
+     "funcs": [
+      "PCIE"
+     ],
+     "cls": "pcie",
+     "primary": "pcie"
+    },
+    {
+     "pin": 110,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIe_CLK_P",
+     "pad": "PCIE",
+     "ref": "PCIe_CLK_P",
+     "funcs": [
+      "PCIE"
+     ],
+     "cls": "pcie",
+     "primary": "pcie"
+    },
+    {
+     "pin": 111,
+     "type": "CVBS",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "VDAC_COMP",
+     "pad": "CVBS",
+     "ref": "VDAC_COMP",
+     "funcs": [
+      "CVBS"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 112,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIe_CLK_N",
+     "pad": "PCIE",
+     "ref": "PCIe_CLK_N",
+     "funcs": [
+      "PCIE"
+     ],
+     "cls": "pcie",
+     "primary": "pcie"
+    },
+    {
+     "pin": 113,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 114,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 115,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM1_D0_N",
+     "pad": "MIPI",
+     "ref": "CAM1_D0_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 116,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIe_RX_P",
+     "pad": "PCIE",
+     "ref": "PCIe_RX_P",
+     "funcs": [
+      "PCIE"
+     ],
+     "cls": "pcie",
+     "primary": "pcie"
+    },
+    {
+     "pin": 117,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM1_D0_P",
+     "pad": "MIPI",
+     "ref": "CAM1_D0_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 118,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIe_RX_N",
+     "pad": "PCIE",
+     "ref": "PCIe_RX_N",
+     "funcs": [
+      "PCIE"
+     ],
+     "cls": "pcie",
+     "primary": "pcie"
+    },
+    {
+     "pin": 119,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 120,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 121,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM1_D1_N",
+     "pad": "MIPI",
+     "ref": "CAM1_D1_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 122,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIe_TX_P",
+     "pad": "PCIE",
+     "ref": "PCIe_TX_P",
+     "funcs": [
+      "PCIE"
+     ],
+     "cls": "pcie",
+     "primary": "pcie"
+    },
+    {
+     "pin": 123,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM1_D1_P",
+     "pad": "MIPI",
+     "ref": "CAM1_D1_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 124,
+     "type": "PCIE",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "PCIe_TX_N",
+     "pad": "PCIE",
+     "ref": "PCIe_TX_N",
+     "funcs": [
+      "PCIE"
+     ],
+     "cls": "pcie",
+     "primary": "pcie"
+    },
+    {
+     "pin": 125,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 126,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 127,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM1_C_N",
+     "pad": "MIPI",
+     "ref": "CAM1_C_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 128,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM0_D0_N",
+     "pad": "MIPI",
+     "ref": "CAM0_D0_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 129,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM1_C_P",
+     "pad": "MIPI",
+     "ref": "CAM1_C_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 130,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM0_D0_P",
+     "pad": "MIPI",
+     "ref": "CAM0_D0_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 131,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 132,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 133,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM1_D2_N",
+     "pad": "MIPI",
+     "ref": "CAM1_D2_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 134,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM0_D1_N",
+     "pad": "MIPI",
+     "ref": "CAM0_D1_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 135,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM1_D2_P",
+     "pad": "MIPI",
+     "ref": "CAM1_D2_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 136,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM0_D1_P",
+     "pad": "MIPI",
+     "ref": "CAM0_D1_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 137,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 138,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 139,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM1_D3_N",
+     "pad": "MIPI",
+     "ref": "CAM1_D3_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 140,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM0_C_N",
+     "pad": "MIPI",
+     "ref": "CAM0_C_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 141,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM1_D3_P",
+     "pad": "MIPI",
+     "ref": "CAM1_D3_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 142,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "CAM0_C_P",
+     "pad": "MIPI",
+     "ref": "CAM0_C_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 143,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI1_HOTPLUG",
+     "pad": "HDMI",
+     "ref": "HDMI1_HOTPLUG",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 144,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 145,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI1_SDA",
+     "pad": "HDMI",
+     "ref": "HDMI1_SDA",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 146,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI1_TX2_P",
+     "pad": "HDMI",
+     "ref": "HDMI1_TX2_P",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 147,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI1_SCL",
+     "pad": "HDMI",
+     "ref": "HDMI1_SCL",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 148,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI1_TX2_N",
+     "pad": "HDMI",
+     "ref": "HDMI1_TX2_N",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 149,
+     "type": "CEC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI1_CEC",
+     "pad": "CEC",
+     "ref": "HDMI1_CEC",
+     "funcs": [
+      "CEC"
+     ],
+     "cls": "cec",
+     "primary": "cec"
+    },
+    {
+     "pin": 150,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 151,
+     "type": "CEC",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI0_CEC",
+     "pad": "CEC",
+     "ref": "HDMI0_CEC",
+     "funcs": [
+      "CEC"
+     ],
+     "cls": "cec",
+     "primary": "cec"
+    },
+    {
+     "pin": 152,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI1_TX1_P",
+     "pad": "HDMI",
+     "ref": "HDMI1_TX1_P",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 153,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI0_HOTPLUG",
+     "pad": "HDMI",
+     "ref": "HDMI0_HOTPLUG",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 154,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI1_TX1_N",
+     "pad": "HDMI",
+     "ref": "HDMI1_TX1_N",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 155,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 156,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 157,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI0_D0_N",
+     "pad": "MIPI",
+     "ref": "DSI0_D0_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 158,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI1_TX0_P",
+     "pad": "HDMI",
+     "ref": "HDMI1_TX0_P",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 159,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI0_D0_P",
+     "pad": "MIPI",
+     "ref": "DSI0_D0_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 160,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI1_TX0_N",
+     "pad": "HDMI",
+     "ref": "HDMI1_TX0_N",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 161,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 162,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 163,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI0_D1_N",
+     "pad": "MIPI",
+     "ref": "DSI0_D1_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 164,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI1_CLK_P",
+     "pad": "HDMI",
+     "ref": "HDMI1_CLK_P",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 165,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI0_D1_P",
+     "pad": "MIPI",
+     "ref": "DSI0_D1_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 166,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI1_CLK_N",
+     "pad": "HDMI",
+     "ref": "HDMI1_CLK_N",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 167,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 168,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 169,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI0_C_N",
+     "pad": "MIPI",
+     "ref": "DSI0_C_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 170,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI0_TX2_P",
+     "pad": "HDMI",
+     "ref": "HDMI0_TX2_P",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 171,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI0_C_P",
+     "pad": "MIPI",
+     "ref": "DSI0_C_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 172,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI0_TX2_N",
+     "pad": "HDMI",
+     "ref": "HDMI0_TX2_N",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 173,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 174,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 175,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI1_D0_N",
+     "pad": "MIPI",
+     "ref": "DSI1_D0_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 176,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI0_TX1_P",
+     "pad": "HDMI",
+     "ref": "HDMI0_TX1_P",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 177,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI1_D0_P",
+     "pad": "MIPI",
+     "ref": "DSI1_D0_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 178,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI0_TX1_N",
+     "pad": "HDMI",
+     "ref": "HDMI0_TX1_N",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 179,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 180,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 181,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI1_D1_N",
+     "pad": "MIPI",
+     "ref": "DSI1_D1_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 182,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI0_TX0_P",
+     "pad": "HDMI",
+     "ref": "HDMI0_TX0_P",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 183,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI1_D1_P",
+     "pad": "MIPI",
+     "ref": "DSI1_D1_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 184,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI0_TX0_N",
+     "pad": "HDMI",
+     "ref": "HDMI0_TX0_N",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 185,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 186,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 187,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI1_C_N",
+     "pad": "MIPI",
+     "ref": "DSI1_C_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 188,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI0_CLK_P",
+     "pad": "HDMI",
+     "ref": "HDMI0_CLK_P",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 189,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI1_C_P",
+     "pad": "MIPI",
+     "ref": "DSI1_C_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 190,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI0_CLK_N",
+     "pad": "HDMI",
+     "ref": "HDMI0_CLK_N",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 191,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 192,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 193,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI1_D2_N",
+     "pad": "MIPI",
+     "ref": "DSI1_D2_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 194,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI1_D3_N",
+     "pad": "MIPI",
+     "ref": "DSI1_D3_N",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 195,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI1_D2_P",
+     "pad": "MIPI",
+     "ref": "DSI1_D2_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 196,
+     "type": "MIPI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "DSI1_D3_P",
+     "pad": "MIPI",
+     "ref": "DSI1_D3_P",
+     "funcs": [
+      "MIPI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 197,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 198,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 199,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI0_SDA",
+     "pad": "HDMI",
+     "ref": "HDMI0_SDA",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    },
+    {
+     "pin": 200,
+     "type": "HDMI",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "HDMI0_SCL",
+     "pad": "HDMI",
+     "ref": "HDMI0_SCL",
+     "funcs": [
+      "HDMI"
+     ],
+     "cls": "video",
+     "primary": "video"
+    }
+   ]
+  }
+ ]
+}

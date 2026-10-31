@@ -139,7 +139,8 @@ const sheetCloseEl = document.getElementById("sheet-close");
 
 /* Pre-production and unreleased boards ship in the data but stay out of the
    picker until ?hidden=1 asks for them. */
-const STATUS_LABEL = { preprod: "pre-production", unreleased: "unreleased" };
+const STATUS_LABEL = { preprod: "pre-production", unreleased: "unreleased",
+                       reference: "another maker's board, shown for comparison" };
 
 let boardIndex = [];       /* every board in data/boards.json */
 let visibleBoards = [];    /* the ones this visitor may pick */
@@ -666,7 +667,9 @@ function render() {
     const flag = document.createElement("div");
     flag.className = "board-flag";
     flag.textContent = `${board.model} is ${STATUS_LABEL[status]} — ` +
-      "pinout may change before launch.";
+      (status === "reference"
+        ? "transcribed from its maker's datasheet, not a Libre Computer product."
+        : "pinout may change before launch.");
     if (grid) flag.style.gridRow = String(++rowBase);
     diagramEl.appendChild(flag);
   }
@@ -748,7 +751,10 @@ function renderDual(header, highest) {
     return stack;
   };
 
-  for (let n = 1; n <= highest; n += 2) {
+  /* A compute module's second connector is numbered 101-200, so the rails
+     start at the connector's own first odd pin, not at 1. */
+  const lowest = Math.min(...header.pins.map((p) => p.pin));
+  for (let n = lowest - ((lowest + 1) % 2); n <= highest; n += 2) {
     const left = byPin.get(n);
     const right = byPin.get(n + 1);
     grid.appendChild(cell(left, "left"));
