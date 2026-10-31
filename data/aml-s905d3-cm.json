@@ -4440,18 +4440,18 @@
     },
     {
      "pin": 140,
-     "type": "HDMI",
+     "type": "NC",
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "eARC_N",
-     "pad": "W46",
-     "ref": "eARC_N (via R131 0R)",
+     "name": "NC",
+     "pad": "NC",
+     "ref": "not connected on this BOM (R131 not fitted)",
      "funcs": [
-      "HDMI"
+      "NC"
      ],
-     "cls": "video",
-     "primary": "video"
+     "cls": "nc",
+     "primary": "nc"
     },
     {
      "pin": 141,
@@ -4470,18 +4470,18 @@
     },
     {
      "pin": 142,
-     "type": "HDMI",
+     "type": "NC",
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "eARC_P",
-     "pad": "W44",
-     "ref": "eARC_P (via R132 0R)",
+     "name": "NC",
+     "pad": "NC",
+     "ref": "not connected on this BOM (R132 not fitted)",
      "funcs": [
-      "HDMI"
+      "NC"
      ],
-     "cls": "video",
-     "primary": "video"
+     "cls": "nc",
+     "primary": "nc"
     },
     {
      "pin": 143,
@@ -4548,7 +4548,7 @@
      "sysfs": null,
      "name": "GND",
      "pad": "GND",
-     "ref": "GND",
+     "ref": "GND; also eARC_P via R134 0R + C211 1uF + R203 0R (CR-23)",
      "funcs": [
       "GND"
      ],
@@ -5043,7 +5043,7 @@
      "sysfs": 18,
      "name": "GPIOH_2",
      "pad": "N36",
-     "ref": "HDMI0_HPD (via R128 10K)",
+     "ref": "HDMI0_HPD (via R128 10K); also eARC_N via R133 0R + C210 1uF (CR-23)",
      "funcs": [
       "HDMITX_HPD_IN",
       "I2C_EE_M1_SDA"
