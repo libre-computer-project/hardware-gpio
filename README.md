@@ -39,7 +39,11 @@ Select it again to clear; the pad name stays in the tooltip throughout.
 Pin data is generated at build time from
 [libretech-wiring-tool](https://github.com/libre-computer-project/libretech-wiring-tool)
 `libre-computer/<board>/gpio.map` files (MIT) and committed as JSON under
-`data/`, so the site is fully static.
+`data/`, so the site is fully static. Reference boards from other makers (the
+Raspberry Pi CM4 and CM5, shown beside our compute modules) are not in the
+wiring tool; their maps are `reference/<board>/gpio.map` in this repo,
+transcribed from each module's datasheet pinout table, and they carry pin names
+and classes only (no pinmux or electricals).
 
 | File | Content |
 |---|---|
@@ -322,6 +326,7 @@ Each board carries a `status` in the generator's `BOARDS` table:
 | `production` | Shipping, sold to customers | Always |
 | `preprod` | V0.X engineering build, never sold | `?hidden=1` only |
 | `unreleased` | Production design, not launched yet | `?hidden=1` only |
+| `reference` | Another maker's board, for comparison (map in `reference/`) | `?hidden=1` only |
 
 `?hidden=1` adds the unlisted boards to the dropdown, badges the header, and
 banners the board itself. Without it a `?board=<unlisted-id>` deep link falls
@@ -338,7 +343,14 @@ tools/gen-pinout-data.py --allow-unplaced   # accept losing a board's layout
 ```
 
 Add a board by extending the `BOARDS` dict in the generator and re-running it.
-Boards without a `gpio.map` in the wiring tool are not listed.
+Boards without a `gpio.map` in the wiring tool (or, for `reference` boards, in
+`reference/`) are not listed. A compute module's connectors are 2x50 numbered
+1-100 and 101-200; the two-row drawing starts at a connector's own first pin.
+
+**A full run rewrites every board.** The inputs (wiring-tool maps, the kernel's
+pinctrl driver, the datasheet extracts in the docs repo) move independently, so
+a regeneration made for one board can change others; review the whole
+`data/` diff before committing it.
 
 ## Frontend
 

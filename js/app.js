@@ -241,7 +241,8 @@ function markHiddenMode() {
   const flag = document.createElement("span");
   flag.id = "hidden-flag";
   flag.textContent = `+${n} unlisted`;
-  flag.title = "?hidden=1 — pre-production and unannounced boards are listed";
+  flag.title = "?hidden=1 — pre-production and unannounced boards, and other " +
+    "makers' reference boards, are listed";
   document.getElementById("brand").appendChild(flag);
 }
 
@@ -253,7 +254,8 @@ function reportUnknownBoard(wanted, shown, onlyHidden) {
     ? `\u201c${wanted}\u201d is not listed publicly. Showing ${shown.name}.`
     : `No board \u201c${wanted}\u201d. Showing ${shown.name}.`;
   if (onlyHidden) {
-    note.title = "Append &hidden=1 to list pre-production and unannounced boards";
+    note.title = "Append &hidden=1 to list pre-production, unannounced and " +
+      "reference boards";
   }
   document.getElementById("legend-bar").before(note);
 }
