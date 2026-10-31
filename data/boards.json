@@ -293,6 +293,22 @@
    ]
   },
   {
+   "id": "med-mt83-ace",
+   "model": "MED-MT83-ACE",
+   "name": "Livia",
+   "soc": "MT8385",
+   "vendor": "MediaTek",
+   "status": "unreleased",
+   "hidden": true,
+   "npins": 40,
+   "headers": [
+    {
+     "id": "CON1",
+     "pins": 40
+    }
+   ]
+  },
+  {
    "id": "roc-rk3328-cc",
    "model": "ROC-RK3328-CC",
    "name": "Renegade",

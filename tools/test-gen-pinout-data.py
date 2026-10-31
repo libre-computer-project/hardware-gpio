@@ -5,6 +5,7 @@
     as a digit (FLASH_VOL_SEL_u pairs with the TRM's flash_vol_sel).
   - RockchipMux routes are RK3328's own: pinctrl-rockchip.c holds one route
     table per SoC, and a file-wide scan attached other SoCs' entries.
+  - MediatekMux (MT8385) reads the MT8183 pin table and mode-field geometry.
 
 The route arms read the kernel tree (--linux, default ../libretech-builder/linux
 beside this repo, else ~/git/libretech-builder/linux) and are skipped, and say
@@ -103,6 +104,16 @@ else:
     check("routes must-reject: GPIO2_B4 mux 2 carries no route (uart2-txm1 is another SoC's)",
           (2, 12, 2) in r, False)
     check("routes: exactly the 12 entries of rk3328_mux_route_data[]", len(r), 12)
+    # MediaTek (MT8385 = MT8183 die): mode field 0x10005300 + (pin/8)*0x10, bit (pin%8)*4
+    mt = gen.MUX_FOR_SOC["MT8385"](linux, None, None)
+    check("mtk must-accept: GPIO81 SDA1 is mode 1 at 0x100053a0 bit 4",
+          {k: mt.lookup(0, 81, "SDA1").get(k) for k in ("reg", "bit", "width", "value")},
+          {"reg": "0x100053a0", "bit": 4, "width": 4, "value": 1})
+    check("mtk: the datasheet's TDM_MCK_2nd matches the driver's TDM_MCK_2ND (GPIO165, case only)",
+          (mt.lookup(0, 165, "TDM_MCK_2nd") or {}).get("value"), 6)
+    check("mtk must-reject: a function of another pin is no selector here (SCL1 on GPIO81)",
+          mt.lookup(0, 81, "SCL1"), None)
+    check("mtk: all 192 pins of pinctrl-mtk-mt8183.h parsed", len(mt.pins), 192)
 
 if fails:
     print("FAIL")

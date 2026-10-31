@@ -61,6 +61,7 @@ BOARDS = {
     "roc-rk3399-pc":   ("ROC-RK3399-PC",   "Renegade Elite",       "RK3399", "Rockchip",  "production"),
     "aml-a311d-cm":    ("AML-A311D-CM",    "Alta Compute Module",  "A311D",  "Amlogic",   "unreleased"),
     "aml-s905d3-cm":   ("AML-S905D3-CM",   "Solitude Compute Module", "S905D3", "Amlogic", "unreleased"),
+    "med-mt83-ace":    ("MED-MT83-ACE",    "Livia",                "MT8385", "MediaTek",  "unreleased"),
     "rpi-cm4":         ("RPI-CM4",         "Raspberry Pi Compute Module 4", "BCM2711", "Raspberry Pi", "reference"),
     "rpi-cm5":         ("RPI-CM5",         "Raspberry Pi Compute Module 5", "BCM2712", "Raspberry Pi", "reference"),
 }
@@ -1392,6 +1393,50 @@ class SunxiMux:
                 "width": 4, "value": value}
 
 
+class MediatekMux:
+    """pinctrl-paris (MediaTek): one 4-bit mode field per pin, the function
+    table per pin in the SoC's pin header. MT8183 mode range
+    PIN_FIELD(0, 192, 0x300, 0x10, 0, 4) in pinctrl-mt8183.c: 8 pins per
+    32-bit register at base 0x10005000 (mt8183.dtsi pio reg[0]) + 0x300 +
+    (pin/8)*0x10, bit (pin%8)*4. The token is matched by name, ignoring case
+    only: the map's Desc spells functions as the datasheet does
+    (TDM_MCK_2nd), the driver upper-cases them (TDM_MCK_2ND)."""
+
+    family = "mediatek-paris"
+
+    def __init__(self, linux, header, driver, base, mode_off):
+        self.driver = driver
+        self.header = header
+        self.base, self.mode_off = base, mode_off
+        text = (linux / header).read_text()
+        self.pins = {}     # pin number -> {func name: value}
+        spans = list(re.finditer(r"MTK_PIN\(\s*(\d+),\s*\"GPIO\d+\"", text))
+        for i, m in enumerate(spans):
+            end = spans[i + 1].start() if i + 1 < len(spans) else len(text)
+            self.pins[int(m.group(1))] = {
+                name.upper(): int(val) for val, name in
+                re.findall(r"MTK_FUNCTION\((\d+),\s*\"(\w+)\"\)", text[m.end():end])}
+        if not self.pins:
+            sys.exit(f"MediatekMux: no MTK_PIN entries parsed from {header}")
+
+    def meta(self):
+        return {"family": self.family, "driver": self.driver,
+                "note": (f"pinctrl-paris mode field: 4 bits per pin at "
+                         f"0x{self.base:x} + 0x{self.mode_off:x} + (pin/8)*0x10, "
+                         f"bit (pin%8)*4; value from {self.header}"),
+                "bases": {"pio": f"0x{self.base:x}"}}
+
+    def lookup(self, chip, line, token, name=None):
+        funcs = self.pins.get(line)
+        key = token.upper()
+        if not funcs or key not in funcs:
+            return None
+        reg = self.base + self.mode_off + (line // 8) * 0x10
+        return {"name": token, "group": key, "funcs": [key],
+                "reg": f"0x{reg:x}", "bit": (line % 8) * 4,
+                "width": 4, "value": funcs[key]}
+
+
 # ---------------------------------------------------------------------------
 # Per-pad electrical characteristics
 # ---------------------------------------------------------------------------
@@ -1916,6 +1961,11 @@ MUX_FOR_SOC = {
     "RK3399": lambda linux, rk_json, docs: Rk3399Mux(docs),
     "H3": lambda linux, rk_json, docs: SunxiMux(linux, "8i-h3"),
     "H5": lambda linux, rk_json, docs: SunxiMux(linux, "50i-h5"),
+    # MT8385 is the MT8183 die (the docs repo's mediatek/mt8183 tree), so it
+    # takes the MT8183 driver's pin table.
+    "MT8385": lambda linux, rk_json, docs: MediatekMux(
+        linux, "drivers/pinctrl/mediatek/pinctrl-mtk-mt8183.h",
+        "drivers/pinctrl/mediatek/pinctrl-mt8183.c", 0x10005000, 0x300),
 }
 
 

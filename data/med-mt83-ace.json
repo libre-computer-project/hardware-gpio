@@ -1,0 +1,1780 @@
+{
+ "id": "med-mt83-ace",
+ "model": "MED-MT83-ACE",
+ "name": "Livia",
+ "soc": "MT8385",
+ "vendor": "MediaTek",
+ "status": "unreleased",
+ "mux": {
+  "family": "mediatek-paris",
+  "driver": "drivers/pinctrl/mediatek/pinctrl-mt8183.c",
+  "note": "pinctrl-paris mode field: 4 bits per pin at 0x10005000 + 0x300 + (pin/8)*0x10, bit (pin%8)*4; value from drivers/pinctrl/mediatek/pinctrl-mtk-mt8183.h",
+  "bases": {
+   "pio": "0x10005000"
+  }
+ },
+ "headers": [
+  {
+   "id": "CON1",
+   "rows": 1,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "3.3V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "3.3V",
+     "pad": "3.3V",
+     "ref": "RASP_3V3",
+     "funcs": [
+      "3.3V"
+     ],
+     "cls": "power3v3",
+     "primary": "power3v3"
+    },
+    {
+     "pin": 2,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "5V",
+     "pad": "5V",
+     "ref": "EX_DTB_POWER",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v",
+     "primary": "power5v"
+    },
+    {
+     "pin": 3,
+     "type": "gpio",
+     "chip": 0,
+     "line": 81,
+     "sysfs": 593,
+     "name": "GPIO81",
+     "pad": "AF4",
+     "ref": "SDA1",
+     "funcs": [
+      "SDA1"
+     ],
+     "cls": "gpio",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "SDA1",
+       "group": "SDA1",
+       "funcs": [
+        "SDA1"
+       ],
+       "reg": "0x100053a0",
+       "bit": 4,
+       "width": 4,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 4,
+     "type": "5V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "5V",
+     "pad": "5V",
+     "ref": "EX_DTB_POWER",
+     "funcs": [
+      "5V"
+     ],
+     "cls": "power5v",
+     "primary": "power5v"
+    },
+    {
+     "pin": 5,
+     "type": "gpio",
+     "chip": 0,
+     "line": 84,
+     "sysfs": 596,
+     "name": "GPIO84",
+     "pad": "AE4",
+     "ref": "SCL1",
+     "funcs": [
+      "SCL1"
+     ],
+     "cls": "gpio",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "SCL1",
+       "group": "SCL1",
+       "funcs": [
+        "SCL1"
+       ],
+       "reg": "0x100053a0",
+       "bit": 16,
+       "width": 4,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 6,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "D_GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 7,
+     "type": "gpio",
+     "chip": 0,
+     "line": 87,
+     "sysfs": 599,
+     "name": "GPIO87",
+     "pad": "AH2",
+     "ref": "SPI_MO_JTDI",
+     "funcs": [
+      "SPI0_MO",
+      "SCP_SPI0_MO",
+      "SDA1",
+      "I2S1_DO"
+     ],
+     "cls": "spi",
+     "primary": "spi",
+     "muxes": [
+      {
+       "name": "SPI0_MO",
+       "group": "SPI0_MO",
+       "funcs": [
+        "SPI0_MO"
+       ],
+       "reg": "0x100053a0",
+       "bit": 28,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "SCP_SPI0_MO",
+       "group": "SCP_SPI0_MO",
+       "funcs": [
+        "SCP_SPI0_MO"
+       ],
+       "reg": "0x100053a0",
+       "bit": 28,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SDA1",
+       "group": "SDA1",
+       "funcs": [
+        "SDA1"
+       ],
+       "reg": "0x100053a0",
+       "bit": 28,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "I2S1_DO",
+       "group": "I2S1_DO",
+       "funcs": [
+        "I2S1_DO"
+       ],
+       "reg": "0x100053a0",
+       "bit": 28,
+       "width": 4,
+       "value": 4
+      }
+     ]
+    },
+    {
+     "pin": 8,
+     "type": "gpio",
+     "chip": 0,
+     "line": 95,
+     "sysfs": 607,
+     "name": "GPIO95",
+     "pad": "AD2",
+     "ref": "RASPI_UTXD2",
+     "funcs": [
+      "URXD0",
+      "UTXD0"
+     ],
+     "cls": "spi",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "URXD0",
+       "group": "URXD0",
+       "funcs": [
+        "URXD0"
+       ],
+       "reg": "0x100053b0",
+       "bit": 28,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "UTXD0",
+       "group": "UTXD0",
+       "funcs": [
+        "UTXD0"
+       ],
+       "reg": "0x100053b0",
+       "bit": 28,
+       "width": 4,
+       "value": 2
+      }
+     ]
+    },
+    {
+     "pin": 9,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "D_GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 10,
+     "type": "gpio",
+     "chip": 0,
+     "line": 96,
+     "sysfs": 608,
+     "name": "GPIO96",
+     "pad": "AD1",
+     "ref": "RASPI_URXD2",
+     "funcs": [
+      "UTXD0",
+      "URXD0"
+     ],
+     "cls": "spi",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "UTXD0",
+       "group": "UTXD0",
+       "funcs": [
+        "UTXD0"
+       ],
+       "reg": "0x100053c0",
+       "bit": 0,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "URXD0",
+       "group": "URXD0",
+       "funcs": [
+        "URXD0"
+       ],
+       "reg": "0x100053c0",
+       "bit": 0,
+       "width": 4,
+       "value": 2
+      }
+     ]
+    },
+    {
+     "pin": 11,
+     "type": "gpio",
+     "chip": 0,
+     "line": 69,
+     "sysfs": 581,
+     "name": "GPIO69",
+     "pad": "AH6",
+     "ref": "GPIO69",
+     "funcs": [
+      "BPI_BUS7"
+     ],
+     "cls": "gpio",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "BPI_BUS7",
+       "group": "BPI_BUS7",
+       "funcs": [
+        "BPI_BUS7"
+       ],
+       "reg": "0x10005380",
+       "bit": 20,
+       "width": 4,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 12,
+     "type": "gpio",
+     "chip": 0,
+     "line": 1,
+     "sysfs": 513,
+     "name": "GPIO1",
+     "pad": "AB4",
+     "ref": "RASPI_PCM0_CLK",
+     "funcs": [
+      "PCM0_CLK",
+      "CLKM3",
+      "SCP_SPI2_MO",
+      "I2S3_BCK",
+      "SPI2_MO"
+     ],
+     "cls": "spi",
+     "primary": "spi",
+     "muxes": [
+      {
+       "name": "PCM0_CLK",
+       "group": "PCM0_CLK",
+       "funcs": [
+        "PCM0_CLK"
+       ],
+       "reg": "0x10005300",
+       "bit": 4,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "CLKM3",
+       "group": "CLKM3",
+       "funcs": [
+        "CLKM3"
+       ],
+       "reg": "0x10005300",
+       "bit": 4,
+       "width": 4,
+       "value": 4
+      },
+      {
+       "name": "SCP_SPI2_MO",
+       "group": "SCP_SPI2_MO",
+       "funcs": [
+        "SCP_SPI2_MO"
+       ],
+       "reg": "0x10005300",
+       "bit": 4,
+       "width": 4,
+       "value": 5
+      },
+      {
+       "name": "I2S3_BCK",
+       "group": "I2S3_BCK",
+       "funcs": [
+        "I2S3_BCK"
+       ],
+       "reg": "0x10005300",
+       "bit": 4,
+       "width": 4,
+       "value": 6
+      },
+      {
+       "name": "SPI2_MO",
+       "group": "SPI2_MO",
+       "funcs": [
+        "SPI2_MO"
+       ],
+       "reg": "0x10005300",
+       "bit": 4,
+       "width": 4,
+       "value": 7
+      }
+     ]
+    },
+    {
+     "pin": 13,
+     "type": "gpio",
+     "chip": 0,
+     "line": 86,
+     "sysfs": 598,
+     "name": "GPIO86",
+     "pad": "AG3",
+     "ref": "SPI_CSB_JTMS",
+     "funcs": [
+      "SPI0_CSB",
+      "SCP_SPI0_CS",
+      "CLKM0",
+      "I2S1_LRCK"
+     ],
+     "cls": "spi",
+     "primary": "spi",
+     "muxes": [
+      {
+       "name": "SPI0_CSB",
+       "group": "SPI0_CSB",
+       "funcs": [
+        "SPI0_CSB"
+       ],
+       "reg": "0x100053a0",
+       "bit": 24,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "SCP_SPI0_CS",
+       "group": "SCP_SPI0_CS",
+       "funcs": [
+        "SCP_SPI0_CS"
+       ],
+       "reg": "0x100053a0",
+       "bit": 24,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "CLKM0",
+       "group": "CLKM0",
+       "funcs": [
+        "CLKM0"
+       ],
+       "reg": "0x100053a0",
+       "bit": 24,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "I2S1_LRCK",
+       "group": "I2S1_LRCK",
+       "funcs": [
+        "I2S1_LRCK"
+       ],
+       "reg": "0x100053a0",
+       "bit": 24,
+       "width": 4,
+       "value": 4
+      }
+     ]
+    },
+    {
+     "pin": 14,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "D_GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 15,
+     "type": "gpio",
+     "chip": 0,
+     "line": 116,
+     "sysfs": 628,
+     "name": "GPIO116",
+     "pad": "H5",
+     "ref": "GPIO116",
+     "funcs": [
+      "CONN_BT_DATA"
+     ],
+     "cls": "gpio",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "CONN_BT_DATA",
+       "group": "CONN_BT_DATA",
+       "funcs": [
+        "CONN_BT_DATA"
+       ],
+       "reg": "0x100053e0",
+       "bit": 16,
+       "width": 4,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 16,
+     "type": "gpio",
+     "chip": 0,
+     "line": 117,
+     "sysfs": 629,
+     "name": "GPIO117",
+     "pad": "J6",
+     "ref": "GPIO117",
+     "funcs": [
+      "CONN_WF_HB0"
+     ],
+     "cls": "gpio",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "CONN_WF_HB0",
+       "group": "CONN_WF_HB0",
+       "funcs": [
+        "CONN_WF_HB0"
+       ],
+       "reg": "0x100053e0",
+       "bit": 20,
+       "width": 4,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 17,
+     "type": "3.3V",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "3.3V",
+     "pad": "3.3V",
+     "ref": "RASP_3V3",
+     "funcs": [
+      "3.3V"
+     ],
+     "cls": "power3v3",
+     "primary": "power3v3"
+    },
+    {
+     "pin": 18,
+     "type": "gpio",
+     "chip": 0,
+     "line": 85,
+     "sysfs": 597,
+     "name": "GPIO85",
+     "pad": "AJ2",
+     "ref": "SPI_MI_JTDO",
+     "funcs": [
+      "SPI0_MI",
+      "SCP_SPI0_MI",
+      "CLKM3",
+      "I2S1_BCK"
+     ],
+     "cls": "spi",
+     "primary": "spi",
+     "muxes": [
+      {
+       "name": "SPI0_MI",
+       "group": "SPI0_MI",
+       "funcs": [
+        "SPI0_MI"
+       ],
+       "reg": "0x100053a0",
+       "bit": 20,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "SCP_SPI0_MI",
+       "group": "SCP_SPI0_MI",
+       "funcs": [
+        "SCP_SPI0_MI"
+       ],
+       "reg": "0x100053a0",
+       "bit": 20,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "CLKM3",
+       "group": "CLKM3",
+       "funcs": [
+        "CLKM3"
+       ],
+       "reg": "0x100053a0",
+       "bit": 20,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "I2S1_BCK",
+       "group": "I2S1_BCK",
+       "funcs": [
+        "I2S1_BCK"
+       ],
+       "reg": "0x100053a0",
+       "bit": 20,
+       "width": 4,
+       "value": 4
+      }
+     ]
+    },
+    {
+     "pin": 19,
+     "type": "gpio",
+     "chip": 0,
+     "line": 163,
+     "sysfs": 675,
+     "name": "GPIO163",
+     "pad": "Y22",
+     "ref": "SPI1_MO",
+     "funcs": [
+      "SPI1_A_MO",
+      "SCP_SPI1_MO",
+      "SDA1",
+      "CMMCLK2",
+      "DMIC_CLK"
+     ],
+     "cls": "spi",
+     "primary": "spi",
+     "muxes": [
+      {
+       "name": "SPI1_A_MO",
+       "group": "SPI1_A_MO",
+       "funcs": [
+        "SPI1_A_MO"
+       ],
+       "reg": "0x10005440",
+       "bit": 12,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "SCP_SPI1_MO",
+       "group": "SCP_SPI1_MO",
+       "funcs": [
+        "SCP_SPI1_MO"
+       ],
+       "reg": "0x10005440",
+       "bit": 12,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SDA1",
+       "group": "SDA1",
+       "funcs": [
+        "SDA1"
+       ],
+       "reg": "0x10005440",
+       "bit": 12,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "CMMCLK2",
+       "group": "CMMCLK2",
+       "funcs": [
+        "CMMCLK2"
+       ],
+       "reg": "0x10005440",
+       "bit": 12,
+       "width": 4,
+       "value": 5
+      },
+      {
+       "name": "DMIC_CLK",
+       "group": "DMIC_CLK",
+       "funcs": [
+        "DMIC_CLK"
+       ],
+       "reg": "0x10005440",
+       "bit": 12,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 20,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "D_GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 21,
+     "type": "gpio",
+     "chip": 0,
+     "line": 161,
+     "sysfs": 673,
+     "name": "GPIO161",
+     "pad": "W22",
+     "ref": "SPI1_MI",
+     "funcs": [
+      "SPI1_A_MI",
+      "SCP_SPI1_MI",
+      "IDDIG",
+      "KPCOL2"
+     ],
+     "cls": "spi",
+     "primary": "spi",
+     "muxes": [
+      {
+       "name": "SPI1_A_MI",
+       "group": "SPI1_A_MI",
+       "funcs": [
+        "SPI1_A_MI"
+       ],
+       "reg": "0x10005440",
+       "bit": 4,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "SCP_SPI1_MI",
+       "group": "SCP_SPI1_MI",
+       "funcs": [
+        "SCP_SPI1_MI"
+       ],
+       "reg": "0x10005440",
+       "bit": 4,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "IDDIG",
+       "group": "IDDIG",
+       "funcs": [
+        "IDDIG"
+       ],
+       "reg": "0x10005440",
+       "bit": 4,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "KPCOL2",
+       "group": "KPCOL2",
+       "funcs": [
+        "KPCOL2"
+       ],
+       "reg": "0x10005440",
+       "bit": 4,
+       "width": 4,
+       "value": 5
+      }
+     ]
+    },
+    {
+     "pin": 22,
+     "type": "gpio",
+     "chip": 0,
+     "line": 88,
+     "sysfs": 600,
+     "name": "GPIO88",
+     "pad": "AF3",
+     "ref": "SPI_CLK_JTCK",
+     "funcs": [
+      "SPI0_CLK",
+      "SCP_SPI0_CK",
+      "SCL1",
+      "I2S1_MCK"
+     ],
+     "cls": "spi",
+     "primary": "spi",
+     "muxes": [
+      {
+       "name": "SPI0_CLK",
+       "group": "SPI0_CLK",
+       "funcs": [
+        "SPI0_CLK"
+       ],
+       "reg": "0x100053b0",
+       "bit": 0,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "SCP_SPI0_CK",
+       "group": "SCP_SPI0_CK",
+       "funcs": [
+        "SCP_SPI0_CK"
+       ],
+       "reg": "0x100053b0",
+       "bit": 0,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SCL1",
+       "group": "SCL1",
+       "funcs": [
+        "SCL1"
+       ],
+       "reg": "0x100053b0",
+       "bit": 0,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "I2S1_MCK",
+       "group": "I2S1_MCK",
+       "funcs": [
+        "I2S1_MCK"
+       ],
+       "reg": "0x100053b0",
+       "bit": 0,
+       "width": 4,
+       "value": 4
+      }
+     ]
+    },
+    {
+     "pin": 23,
+     "type": "gpio",
+     "chip": 0,
+     "line": 164,
+     "sysfs": 676,
+     "name": "GPIO164",
+     "pad": "AA22",
+     "ref": "SPI1_CLK",
+     "funcs": [
+      "SPI1_A_CLK",
+      "SCP_SPI1_CK",
+      "SCL1",
+      "CMMCLK3",
+      "DMIC_DAT"
+     ],
+     "cls": "spi",
+     "primary": "spi",
+     "muxes": [
+      {
+       "name": "SPI1_A_CLK",
+       "group": "SPI1_A_CLK",
+       "funcs": [
+        "SPI1_A_CLK"
+       ],
+       "reg": "0x10005440",
+       "bit": 16,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "SCP_SPI1_CK",
+       "group": "SCP_SPI1_CK",
+       "funcs": [
+        "SCP_SPI1_CK"
+       ],
+       "reg": "0x10005440",
+       "bit": 16,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SCL1",
+       "group": "SCL1",
+       "funcs": [
+        "SCL1"
+       ],
+       "reg": "0x10005440",
+       "bit": 16,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "CMMCLK3",
+       "group": "CMMCLK3",
+       "funcs": [
+        "CMMCLK3"
+       ],
+       "reg": "0x10005440",
+       "bit": 16,
+       "width": 4,
+       "value": 5
+      },
+      {
+       "name": "DMIC_DAT",
+       "group": "DMIC_DAT",
+       "funcs": [
+        "DMIC_DAT"
+       ],
+       "reg": "0x10005440",
+       "bit": 16,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 24,
+     "type": "gpio",
+     "chip": 0,
+     "line": 162,
+     "sysfs": 674,
+     "name": "GPIO162",
+     "pad": "AB25",
+     "ref": "SPI1_CSB",
+     "funcs": [
+      "SPI1_A_CSB",
+      "SCP_SPI1_CS",
+      "USB_DRVVBUS",
+      "KPROW2"
+     ],
+     "cls": "spi",
+     "primary": "spi",
+     "muxes": [
+      {
+       "name": "SPI1_A_CSB",
+       "group": "SPI1_A_CSB",
+       "funcs": [
+        "SPI1_A_CSB"
+       ],
+       "reg": "0x10005440",
+       "bit": 8,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "SCP_SPI1_CS",
+       "group": "SCP_SPI1_CS",
+       "funcs": [
+        "SCP_SPI1_CS"
+       ],
+       "reg": "0x10005440",
+       "bit": 8,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "USB_DRVVBUS",
+       "group": "USB_DRVVBUS",
+       "funcs": [
+        "USB_DRVVBUS"
+       ],
+       "reg": "0x10005440",
+       "bit": 8,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "KPROW2",
+       "group": "KPROW2",
+       "funcs": [
+        "KPROW2"
+       ],
+       "reg": "0x10005440",
+       "bit": 8,
+       "width": 4,
+       "value": 5
+      }
+     ]
+    },
+    {
+     "pin": 25,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "D_GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 26,
+     "type": "gpio",
+     "chip": 0,
+     "line": 56,
+     "sysfs": 568,
+     "name": "GPIO56",
+     "pad": "AH22",
+     "ref": "GPIO56",
+     "funcs": [
+      "BPI_BUS9"
+     ],
+     "cls": "gpio",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "BPI_BUS9",
+       "group": "BPI_BUS9",
+       "funcs": [
+        "BPI_BUS9"
+       ],
+       "reg": "0x10005370",
+       "bit": 0,
+       "width": 4,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 27,
+     "type": "gpio",
+     "chip": 0,
+     "line": 112,
+     "sysfs": 624,
+     "name": "GPIO112",
+     "pad": "K3",
+     "ref": "SDA7",
+     "funcs": [
+      "SDA7",
+      "IDDIG",
+      "AGPS_SYNC",
+      "KPROW2",
+      "UTXD1"
+     ],
+     "cls": "gpio",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "SDA7",
+       "group": "SDA7",
+       "funcs": [
+        "SDA7"
+       ],
+       "reg": "0x100053e0",
+       "bit": 0,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "IDDIG",
+       "group": "IDDIG",
+       "funcs": [
+        "IDDIG"
+       ],
+       "reg": "0x100053e0",
+       "bit": 0,
+       "width": 4,
+       "value": 4
+      },
+      {
+       "name": "AGPS_SYNC",
+       "group": "AGPS_SYNC",
+       "funcs": [
+        "AGPS_SYNC"
+       ],
+       "reg": "0x100053e0",
+       "bit": 0,
+       "width": 4,
+       "value": 5
+      },
+      {
+       "name": "KPROW2",
+       "group": "KPROW2",
+       "funcs": [
+        "KPROW2"
+       ],
+       "reg": "0x100053e0",
+       "bit": 0,
+       "width": 4,
+       "value": 6
+      },
+      {
+       "name": "UTXD1",
+       "group": "UTXD1",
+       "funcs": [
+        "UTXD1"
+       ],
+       "reg": "0x100053e0",
+       "bit": 0,
+       "width": 4,
+       "value": 7
+      }
+     ]
+    },
+    {
+     "pin": 28,
+     "type": "gpio",
+     "chip": 0,
+     "line": 110,
+     "sysfs": 622,
+     "name": "GPIO110",
+     "pad": "L3",
+     "ref": "SCL7",
+     "funcs": [
+      "SCL7",
+      "USB_DRVVBUS",
+      "SRCLKENAI1",
+      "KPCOL2",
+      "URXD1"
+     ],
+     "cls": "clk",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "SCL7",
+       "group": "SCL7",
+       "funcs": [
+        "SCL7"
+       ],
+       "reg": "0x100053d0",
+       "bit": 24,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "USB_DRVVBUS",
+       "group": "USB_DRVVBUS",
+       "funcs": [
+        "USB_DRVVBUS"
+       ],
+       "reg": "0x100053d0",
+       "bit": 24,
+       "width": 4,
+       "value": 4
+      },
+      {
+       "name": "SRCLKENAI1",
+       "group": "SRCLKENAI1",
+       "funcs": [
+        "SRCLKENAI1"
+       ],
+       "reg": "0x100053d0",
+       "bit": 24,
+       "width": 4,
+       "value": 5
+      },
+      {
+       "name": "KPCOL2",
+       "group": "KPCOL2",
+       "funcs": [
+        "KPCOL2"
+       ],
+       "reg": "0x100053d0",
+       "bit": 24,
+       "width": 4,
+       "value": 6
+      },
+      {
+       "name": "URXD1",
+       "group": "URXD1",
+       "funcs": [
+        "URXD1"
+       ],
+       "reg": "0x100053d0",
+       "bit": 24,
+       "width": 4,
+       "value": 7
+      }
+     ]
+    },
+    {
+     "pin": 29,
+     "type": "gpio",
+     "chip": 0,
+     "line": 155,
+     "sysfs": 667,
+     "name": "GPIO155",
+     "pad": "P22",
+     "ref": "GPIO155",
+     "funcs": [
+      "CMVREF1"
+     ],
+     "cls": "gpio",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "CMVREF1",
+       "group": "CMVREF1",
+       "funcs": [
+        "CMVREF1"
+       ],
+       "reg": "0x10005430",
+       "bit": 12,
+       "width": 4,
+       "value": 3
+      }
+     ]
+    },
+    {
+     "pin": 30,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "D_GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 31,
+     "type": "gpio",
+     "chip": 0,
+     "line": 157,
+     "sysfs": 669,
+     "name": "GPIO157",
+     "pad": "R22",
+     "ref": "GPIO157",
+     "funcs": [
+      "SRCLKENAI1",
+      "SDA6",
+      "KPROW2",
+      "USB_DRVVBUS"
+     ],
+     "cls": "clk",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "SRCLKENAI1",
+       "group": "SRCLKENAI1",
+       "funcs": [
+        "SRCLKENAI1"
+       ],
+       "reg": "0x10005430",
+       "bit": 20,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SDA6",
+       "group": "SDA6",
+       "funcs": [
+        "SDA6"
+       ],
+       "reg": "0x10005430",
+       "bit": 20,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "KPROW2",
+       "group": "KPROW2",
+       "funcs": [
+        "KPROW2"
+       ],
+       "reg": "0x10005430",
+       "bit": 20,
+       "width": 4,
+       "value": 4
+      },
+      {
+       "name": "USB_DRVVBUS",
+       "group": "USB_DRVVBUS",
+       "funcs": [
+        "USB_DRVVBUS"
+       ],
+       "reg": "0x10005430",
+       "bit": 20,
+       "width": 4,
+       "value": 5
+      }
+     ]
+    },
+    {
+     "pin": 32,
+     "type": "gpio",
+     "chip": 0,
+     "line": 90,
+     "sysfs": 602,
+     "name": "GPIO90",
+     "pad": "AA6",
+     "ref": "PWM_A",
+     "funcs": [
+      "PWM_A",
+      "CMMCLK2",
+      "I2S5_LRCK",
+      "SCP_VREQ_VAO",
+      "SCL8"
+     ],
+     "cls": "pwm",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "PWM_A",
+       "group": "PWM_A",
+       "funcs": [
+        "PWM_A"
+       ],
+       "reg": "0x100053b0",
+       "bit": 8,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "CMMCLK2",
+       "group": "CMMCLK2",
+       "funcs": [
+        "CMMCLK2"
+       ],
+       "reg": "0x100053b0",
+       "bit": 8,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "I2S5_LRCK",
+       "group": "I2S5_LRCK",
+       "funcs": [
+        "I2S5_LRCK"
+       ],
+       "reg": "0x100053b0",
+       "bit": 8,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "SCP_VREQ_VAO",
+       "group": "SCP_VREQ_VAO",
+       "funcs": [
+        "SCP_VREQ_VAO"
+       ],
+       "reg": "0x100053b0",
+       "bit": 8,
+       "width": 4,
+       "value": 4
+      },
+      {
+       "name": "SCL8",
+       "group": "SCL8",
+       "funcs": [
+        "SCL8"
+       ],
+       "reg": "0x100053b0",
+       "bit": 8,
+       "width": 4,
+       "value": 5
+      }
+     ]
+    },
+    {
+     "pin": 33,
+     "type": "gpio",
+     "chip": 0,
+     "line": 165,
+     "sysfs": 677,
+     "name": "GPIO165",
+     "pad": "Y25",
+     "ref": "PWM_B",
+     "funcs": [
+      "PWM_B",
+      "CMMCLK2",
+      "SCP_VREQ_VAO",
+      "TDM_MCK_2nd"
+     ],
+     "cls": "pwm",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "PWM_B",
+       "group": "PWM_B",
+       "funcs": [
+        "PWM_B"
+       ],
+       "reg": "0x10005440",
+       "bit": 20,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "CMMCLK2",
+       "group": "CMMCLK2",
+       "funcs": [
+        "CMMCLK2"
+       ],
+       "reg": "0x10005440",
+       "bit": 20,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SCP_VREQ_VAO",
+       "group": "SCP_VREQ_VAO",
+       "funcs": [
+        "SCP_VREQ_VAO"
+       ],
+       "reg": "0x10005440",
+       "bit": 20,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "TDM_MCK_2nd",
+       "group": "TDM_MCK_2ND",
+       "funcs": [
+        "TDM_MCK_2ND"
+       ],
+       "reg": "0x10005440",
+       "bit": 20,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 34,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "D_GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 35,
+     "type": "gpio",
+     "chip": 0,
+     "line": 0,
+     "sysfs": 512,
+     "name": "GPIO0",
+     "pad": "AB5",
+     "ref": "RASPI_PCM_SYNC",
+     "funcs": [
+      "PCM0_SYNC",
+      "SRCLKENAI0",
+      "SCP_SPI2_CS",
+      "I2S3_MCK",
+      "SPI2_CSB"
+     ],
+     "cls": "spi",
+     "primary": "spi",
+     "muxes": [
+      {
+       "name": "PCM0_SYNC",
+       "group": "PCM0_SYNC",
+       "funcs": [
+        "PCM0_SYNC"
+       ],
+       "reg": "0x10005300",
+       "bit": 0,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SRCLKENAI0",
+       "group": "SRCLKENAI0",
+       "funcs": [
+        "SRCLKENAI0"
+       ],
+       "reg": "0x10005300",
+       "bit": 0,
+       "width": 4,
+       "value": 4
+      },
+      {
+       "name": "SCP_SPI2_CS",
+       "group": "SCP_SPI2_CS",
+       "funcs": [
+        "SCP_SPI2_CS"
+       ],
+       "reg": "0x10005300",
+       "bit": 0,
+       "width": 4,
+       "value": 5
+      },
+      {
+       "name": "I2S3_MCK",
+       "group": "I2S3_MCK",
+       "funcs": [
+        "I2S3_MCK"
+       ],
+       "reg": "0x10005300",
+       "bit": 0,
+       "width": 4,
+       "value": 6
+      },
+      {
+       "name": "SPI2_CSB",
+       "group": "SPI2_CSB",
+       "funcs": [
+        "SPI2_CSB"
+       ],
+       "reg": "0x10005300",
+       "bit": 0,
+       "width": 4,
+       "value": 7
+      }
+     ]
+    },
+    {
+     "pin": 36,
+     "type": "gpio",
+     "chip": 0,
+     "line": 120,
+     "sysfs": 632,
+     "name": "GPIO120",
+     "pad": "K6",
+     "ref": "GPIO120",
+     "funcs": [
+      "CONN_WB_PTA"
+     ],
+     "cls": "gpio",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "CONN_WB_PTA",
+       "group": "CONN_WB_PTA",
+       "funcs": [
+        "CONN_WB_PTA"
+       ],
+       "reg": "0x100053f0",
+       "bit": 0,
+       "width": 4,
+       "value": 1
+      }
+     ]
+    },
+    {
+     "pin": 37,
+     "type": "gpio",
+     "chip": 0,
+     "line": 169,
+     "sysfs": 681,
+     "name": "GPIO169",
+     "pad": "AD25",
+     "ref": "PWM_C",
+     "funcs": [
+      "PWM_C",
+      "CMMCLK3",
+      "CMVREF1",
+      "AGPS_SYNC",
+      "TDM_BCK_2nd"
+     ],
+     "cls": "pwm",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "PWM_C",
+       "group": "PWM_C",
+       "funcs": [
+        "PWM_C"
+       ],
+       "reg": "0x10005450",
+       "bit": 4,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "CMMCLK3",
+       "group": "CMMCLK3",
+       "funcs": [
+        "CMMCLK3"
+       ],
+       "reg": "0x10005450",
+       "bit": 4,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "CMVREF1",
+       "group": "CMVREF1",
+       "funcs": [
+        "CMVREF1"
+       ],
+       "reg": "0x10005450",
+       "bit": 4,
+       "width": 4,
+       "value": 3
+      },
+      {
+       "name": "AGPS_SYNC",
+       "group": "AGPS_SYNC",
+       "funcs": [
+        "AGPS_SYNC"
+       ],
+       "reg": "0x10005450",
+       "bit": 4,
+       "width": 4,
+       "value": 5
+      },
+      {
+       "name": "TDM_BCK_2nd",
+       "group": "TDM_BCK_2ND",
+       "funcs": [
+        "TDM_BCK_2ND"
+       ],
+       "reg": "0x10005450",
+       "bit": 4,
+       "width": 4,
+       "value": 6
+      }
+     ]
+    },
+    {
+     "pin": 38,
+     "type": "gpio",
+     "chip": 0,
+     "line": 3,
+     "sysfs": 515,
+     "name": "GPIO3",
+     "pad": "AG1",
+     "ref": "RASPI_PCM_DI",
+     "funcs": [
+      "PCM0_DI",
+      "SDA6",
+      "TDM_MCK",
+      "I2S3_DO",
+      "SCP_VREQ_VAO"
+     ],
+     "cls": "spi",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "PCM0_DI",
+       "group": "PCM0_DI",
+       "funcs": [
+        "PCM0_DI"
+       ],
+       "reg": "0x10005300",
+       "bit": 12,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SDA6",
+       "group": "SDA6",
+       "funcs": [
+        "SDA6"
+       ],
+       "reg": "0x10005300",
+       "bit": 12,
+       "width": 4,
+       "value": 4
+      },
+      {
+       "name": "TDM_MCK",
+       "group": "TDM_MCK",
+       "funcs": [
+        "TDM_MCK"
+       ],
+       "reg": "0x10005300",
+       "bit": 12,
+       "width": 4,
+       "value": 5
+      },
+      {
+       "name": "I2S3_DO",
+       "group": "I2S3_DO",
+       "funcs": [
+        "I2S3_DO"
+       ],
+       "reg": "0x10005300",
+       "bit": 12,
+       "width": 4,
+       "value": 6
+      },
+      {
+       "name": "SCP_VREQ_VAO",
+       "group": "SCP_VREQ_VAO",
+       "funcs": [
+        "SCP_VREQ_VAO"
+       ],
+       "reg": "0x10005300",
+       "bit": 12,
+       "width": 4,
+       "value": 7
+      }
+     ]
+    },
+    {
+     "pin": 39,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "D_GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    },
+    {
+     "pin": 40,
+     "type": "gpio",
+     "chip": 0,
+     "line": 2,
+     "sysfs": 514,
+     "name": "GPIO2",
+     "pad": "AG2",
+     "ref": "RASPI_PCM_DO",
+     "funcs": [
+      "PCM0_DO",
+      "SCL6",
+      "SCP_SPI2_CK",
+      "I2S3_LRCK",
+      "SPI2_CLK"
+     ],
+     "cls": "spi",
+     "primary": "spi",
+     "muxes": [
+      {
+       "name": "PCM0_DO",
+       "group": "PCM0_DO",
+       "funcs": [
+        "PCM0_DO"
+       ],
+       "reg": "0x10005300",
+       "bit": 8,
+       "width": 4,
+       "value": 2
+      },
+      {
+       "name": "SCL6",
+       "group": "SCL6",
+       "funcs": [
+        "SCL6"
+       ],
+       "reg": "0x10005300",
+       "bit": 8,
+       "width": 4,
+       "value": 4
+      },
+      {
+       "name": "SCP_SPI2_CK",
+       "group": "SCP_SPI2_CK",
+       "funcs": [
+        "SCP_SPI2_CK"
+       ],
+       "reg": "0x10005300",
+       "bit": 8,
+       "width": 4,
+       "value": 5
+      },
+      {
+       "name": "I2S3_LRCK",
+       "group": "I2S3_LRCK",
+       "funcs": [
+        "I2S3_LRCK"
+       ],
+       "reg": "0x10005300",
+       "bit": 8,
+       "width": 4,
+       "value": 6
+      },
+      {
+       "name": "SPI2_CLK",
+       "group": "SPI2_CLK",
+       "funcs": [
+        "SPI2_CLK"
+       ],
+       "reg": "0x10005300",
+       "bit": 8,
+       "width": 4,
+       "value": 7
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
