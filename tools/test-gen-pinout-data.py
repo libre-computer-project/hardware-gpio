@@ -52,6 +52,19 @@ def old_canon(name):        # the pre-fix rule, kept here as the must-fire arm
 check("canon must-fire: the old rule leaves FLASH_VOL_SEL_u unpaired",
       old_canon("FLASH_VOL_SEL_u") == old_canon("flash_vol_sel"), False)
 
+linux = next((Path(p) for p in (a.linux, HERE.parent.parent / "libretech-builder" / "linux",
+                                Path.home() / "git" / "libretech-builder" / "linux")
+              if p and (Path(p) / gen.RockchipMux.DRIVER).is_file()), None)
+if linux is None:
+    print("SKIP route arms: no kernel tree with drivers/pinctrl/pinctrl-rockchip.c")
+else:
+    r = gen.RockchipMux(linux).routes
+    check("routes must-accept: RK3328 GPIO2_C0 mux 3 is its own tsp_d5m1 route",
+          (r.get((2, 16, 3)) or (None, None, None))[2], "tsp_d5m1")
+    check("routes must-reject: GPIO2_B4 mux 2 carries no route (uart2-txm1 is another SoC's)",
+          (2, 12, 2) in r, False)
+    check("routes: exactly the 12 entries of rk3328_mux_route_data[]", len(r), 12)
+
 if fails:
     print("FAIL")
     for f in fails:

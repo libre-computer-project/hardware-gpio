@@ -361,6 +361,7 @@ tools/gen-pinout-data.py                 # default: ../libretech-wiring-tool
 tools/gen-pinout-data.py --lwt <path>    # explicit wiring-tool checkout
 tools/gen-pinout-data.py --out <dir>     # write elsewhere (data/ is replaced)
 tools/gen-pinout-data.py --allow-unplaced   # accept losing a board's layout
+tools/test-gen-pinout-data.py            # Rockchip name pairing + RK3328 route-table scoping
 ```
 
 Add a board by extending the `BOARDS` dict in the generator and re-running it.

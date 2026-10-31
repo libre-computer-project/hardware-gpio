@@ -1141,10 +1141,15 @@ class RockchipMux:
             self.recalced[(int(entry.group(1)), int(entry.group(2)))] = (
                 int(entry.group(3), 16), int(entry.group(4)),
                 int(entry.group(5), 16))
+        # Scoped to RK3328's own route table for the same reason: the file holds
+        # one per SoC, and a file-wide scan attached other SoCs' entries
+        # (pinctrl-rockchip.c, e.g. GPIO2_B4 mux 2 'uart2-txm1') to RK3328 pins.
+        route_body = _array_body(
+            text, "static struct rockchip_mux_route_data rk3328_mux_route_data[]")
         self.routes = {}    # (bank, pin, mux) -> (reg, value, note)
         for m in re.finditer(r"RK_MUXROUTE_SAME\((\d+),\s*RK_P([A-D])(\d+),\s*"
                              r"(\d+),\s*(0x[0-9a-f]+),\s*(.*?)\)\s*,?\s*"
-                             r"/\* (.*?) \*/", text):
+                             r"/\* (.*?) \*/", route_body):
             bank, port, pnum, mux, reg, val, note = m.groups()
             pinn = (ord(port) - ord("A")) * 8 + int(pnum)
             self.routes[(int(bank), pinn, int(mux))] = (

@@ -463,12 +463,7 @@
        "reg": "0xff100020",
        "bit": 12,
        "width": 2,
-       "value": 1,
-       "route": {
-        "reg": "0xff100184",
-        "value": 8388608,
-        "note": "cif-d8m0"
-       }
+       "value": 1
       }
      ]
     },
@@ -514,12 +509,7 @@
        "reg": "0xff100030",
        "bit": 0,
        "width": 3,
-       "value": 2,
-       "route": {
-        "reg": "0xff100184",
-        "value": 16777472,
-        "note": "pdm-sdi0m1"
-       }
+       "value": 2
       },
       {
        "name": "CARD_DET_M1_u",
@@ -580,12 +570,7 @@
        "reg": "0xff100030",
        "bit": 3,
        "width": 3,
-       "value": 1,
-       "route": {
-        "reg": "0xff100184",
-        "value": 16777472,
-        "note": "pdm-m1"
-       }
+       "value": 1
       },
       {
        "name": "PDM_SDI3_M0",
@@ -665,12 +650,7 @@
        "reg": "0xff10003c",
        "bit": 6,
        "width": 3,
-       "value": 3,
-       "route": {
-        "reg": "0xff100184",
-        "value": 8388736,
-        "note": "cif-d4m1"
-       }
+       "value": 3
       },
       {
        "name": "UART1_CTSN",
@@ -760,12 +740,7 @@
        "reg": "0xff10003c",
        "bit": 0,
        "width": 3,
-       "value": 3,
-       "route": {
-        "reg": "0xff100184",
-        "value": 8388736,
-        "note": "cif-d3m1"
-       }
+       "value": 3
       },
       {
        "name": "UART1_RTSN",
@@ -841,12 +816,7 @@
        "reg": "0xff100038",
        "bit": 3,
        "width": 3,
-       "value": 3,
-       "route": {
-        "reg": "0xff100184",
-        "value": 8388736,
-        "note": "cif-d0m1"
-       }
+       "value": 3
       },
       {
        "name": "SPI_TXD_M2",
@@ -928,12 +898,7 @@
        "reg": "0xff100038",
        "bit": 6,
        "width": 3,
-       "value": 1,
-       "route": {
-        "reg": "0xff100050",
-        "value": 1048592,
-        "note": "sdio-1_d0"
-       }
+       "value": 1
       },
       {
        "name": "CIF_CLKIN",
@@ -1174,12 +1139,7 @@
        "reg": "0xff100040",
        "bit": 0,
        "width": 3,
-       "value": 3,
-       "route": {
-        "reg": "0xff100184",
-        "value": 8388736,
-        "note": "cif-d5m1"
-       }
+       "value": 3
       },
       {
        "name": "I2S2_LRCK_TX_M1",
@@ -1257,12 +1217,7 @@
        "reg": "0xff100024",
        "bit": 8,
        "width": 2,
-       "value": 1,
-       "route": {
-        "reg": "0xff100184",
-        "value": 8388608,
-        "note": "cif-d0m0"
-       }
+       "value": 1
       },
       {
        "name": "FLASH_VOL_SEL_u",
@@ -1271,12 +1226,7 @@
        "reg": "0xff100024",
        "bit": 8,
        "width": 2,
-       "value": 2,
-       "route": {
-        "reg": "0xff100184",
-        "value": 67109888,
-        "note": "uart2-txm1"
-       }
+       "value": 2
       }
      ]
     },
@@ -1312,12 +1262,7 @@
        "reg": "0xff100020",
        "bit": 8,
        "width": 2,
-       "value": 1,
-       "route": {
-        "reg": "0xff100184",
-        "value": 8388608,
-        "note": "cif-d6m0"
-       }
+       "value": 1
       },
       {
        "name": "I2C1_SDA",
@@ -1326,12 +1271,7 @@
        "reg": "0xff100020",
        "bit": 8,
        "width": 2,
-       "value": 2,
-       "route": {
-        "reg": "0xff100050",
-        "value": 8388736,
-        "note": "emmc-1_cmd"
-       }
+       "value": 2
       }
      ]
     },
@@ -1367,12 +1307,7 @@
        "reg": "0xff100020",
        "bit": 10,
        "width": 2,
-       "value": 1,
-       "route": {
-        "reg": "0xff100184",
-        "value": 8388608,
-        "note": "cif-d7m0"
-       }
+       "value": 1
       },
       {
        "name": "I2C1_SCL",
@@ -1577,11 +1512,6 @@
        "bit": 0,
        "width": 3,
        "value": 1,
-       "route": {
-        "reg": "0xff100184",
-        "value": 8388608,
-        "note": "cif-d11m0"
-       },
        "owner": "GPIO2_C0"
       },
       {
@@ -1778,12 +1708,7 @@
        "reg": "0xff100020",
        "bit": 0,
        "width": 2,
-       "value": 1,
-       "route": {
-        "reg": "0xff100184",
-        "value": 8388608,
-        "note": "cif-d2m0"
-       }
+       "value": 1
       },
       {
        "name": "POWERSTATE0_d",
@@ -1792,12 +1717,7 @@
        "reg": "0xff100020",
        "bit": 0,
        "width": 2,
-       "value": 2,
-       "route": {
-        "reg": "0xff100050",
-        "value": 2097184,
-        "note": "spi-1_rx"
-       }
+       "value": 2
       }
      ]
     },
@@ -1834,12 +1754,7 @@
        "reg": "0xff100028",
        "bit": 0,
        "width": 3,
-       "value": 1,
-       "route": {
-        "reg": "0xff100184",
-        "value": 8388608,
-        "note": "cif-d10m0"
-       }
+       "value": 1
       },
       {
        "name": "TSP_SYNC_M1",
@@ -1956,12 +1871,7 @@
        "reg": "0xff10000c",
        "bit": 6,
        "width": 2,
-       "value": 1,
-       "route": {
-        "reg": "0xff100050",
-        "value": 131072,
-        "note": "pwm1-0"
-       }
+       "value": 1
       }
      ]
     }
