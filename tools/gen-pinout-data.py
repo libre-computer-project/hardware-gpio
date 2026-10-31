@@ -1954,6 +1954,15 @@ DRIVER_ONLY = {
         "sdcard_cmd_x on GPIOX_5 at 5, as mainline does)"),
 }
 
+# Muxes the book states that a pinmux takeover test on silicon did not
+# reproduce, by (SoC, pad, function name). No second source contradicts the
+# book, so the mux stays on the site with the flag; nothing is dropped. A
+# closed table. Record: the docs repo's
+# tools/audit/2026-10-31-gxl-gpioh7-i2s-two-polarity.md.
+_GPIOH7_I2S_IN = ("not observed on silicon: REG6[22] did not take GPIOH_7 in a two-polarity "
+                  "pinmux takeover test; the bit may sample the pad without muxing it")
+SILICON_NOT_OBSERVED = {(soc, "GPIOH_7", "I2S_AO_CLK_IN"): _GPIOH7_I2S_IN for soc in ("S905X", "S805X")}
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -2051,7 +2060,8 @@ def main():
                     if entry is None:
                         unmatched.append(f"{board} pin {p['pin']}: {token}")
                         continue
-                    flag = DRIVER_ONLY.get((soc, p["name"].rstrip("*"), entry.get("group")))
+                    flag = (DRIVER_ONLY.get((soc, p["name"].rstrip("*"), entry.get("group")))
+                            or SILICON_NOT_OBSERVED.get((soc, p["name"].rstrip("*"), entry.get("name"))))
                     if flag:
                         entry["flag"] = flag
                     muxes.append(entry)

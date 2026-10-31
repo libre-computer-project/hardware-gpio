@@ -66,6 +66,11 @@ check("driver-only: no row carries DRIVER-ERROR since linux-6.18.y-lc fbffd1cecf
 check("driver-only: S805X's rows say the function is the book's and only the register is the driver's",
       sorted(v.split(":")[0] for k, v in gen.DRIVER_ONLY.items() if k[0] == "S805X"), ["driver-only register"] * 4)
 
+check("not-observed: a closed table, I2S_AO_CLK_IN on GPIOH_7 of S905X and S805X, each flag says so",
+      (sorted(gen.SILICON_NOT_OBSERVED),
+       all(v.startswith("not observed on silicon:") for v in gen.SILICON_NOT_OBSERVED.values())),
+      ([("S805X", "GPIOH_7", "I2S_AO_CLK_IN"), ("S905X", "GPIOH_7", "I2S_AO_CLK_IN")], True))
+
 A = gen.RK3399_ALIAS
 check("G3 alias: a closed table of 19 RK3399 pairs, each citing a datasheet and a TRM page:line",
       (len(A), [k for k, (t, d, r) in A.items() if not (re.fullmatch(r"p\d+:\d+", d) and re.fullmatch(r"p\d+:\d+", r))]),

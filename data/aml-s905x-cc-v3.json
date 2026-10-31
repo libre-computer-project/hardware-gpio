@@ -1635,7 +1635,8 @@
        "width": 1,
        "value": 1,
        "reg": "0xc88344c8",
-       "register": "REG6"
+       "register": "REG6",
+       "flag": "not observed on silicon: REG6[22] did not take GPIOH_7 in a two-polarity pinmux takeover test; the bit may sample the pad without muxing it"
       },
       {
        "name": "TSIN_B_D0",
