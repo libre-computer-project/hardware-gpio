@@ -31,7 +31,8 @@
      "funcs": [
       "3.3V"
      ],
-     "cls": "power3v3"
+     "cls": "power3v3",
+     "primary": "power3v3"
     },
     {
      "pin": 2,
@@ -45,7 +46,8 @@
      "funcs": [
       "5V"
      ],
-     "cls": "power5v"
+     "cls": "power5v",
+     "primary": "power5v"
     },
     {
      "pin": 3,
@@ -61,6 +63,7 @@
       "I2C_EE_M3_SDA"
      ],
      "cls": "i2c",
+     "primary": "i2c",
      "elec": {
       "pad_type": "OD5V",
       "dc_family": "OD",
@@ -107,7 +110,8 @@
      "funcs": [
       "5V"
      ],
-     "cls": "power5v"
+     "cls": "power5v",
+     "primary": "power5v"
     },
     {
      "pin": 5,
@@ -123,6 +127,7 @@
       "I2C_EE_M3_SCL"
      ],
      "cls": "i2c",
+     "primary": "i2c",
      "elec": {
       "pad_type": "OD5V",
       "dc_family": "OD",
@@ -169,7 +174,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 7,
@@ -188,6 +194,7 @@
       "TDMB_DIN2"
      ],
      "cls": "pwm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -260,6 +267,7 @@
       "UART_EE_A_TX"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -293,7 +301,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 10,
@@ -308,6 +317,7 @@
       "UART_EE_A_RX"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -345,6 +355,7 @@
       "TDMB_SLV_FS"
      ],
      "cls": "tdm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -410,6 +421,7 @@
       "I2C_EE_M1_SCL"
      ],
      "cls": "i2c",
+     "primary": "spi",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -488,6 +500,7 @@
       "TDMB_SLV_SCLK"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -559,7 +572,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 15,
@@ -574,6 +588,7 @@
       "MCLK_0"
      ],
      "cls": "clk",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -610,6 +625,7 @@
       "PWM_D"
      ],
      "cls": "pwm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -663,7 +679,8 @@
      "funcs": [
       "3.3V"
      ],
-     "cls": "power3v3"
+     "cls": "power3v3",
+     "primary": "power3v3"
     },
     {
      "pin": 18,
@@ -680,6 +697,7 @@
       "TDMB_D2"
      ],
      "cls": "pdm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -736,6 +754,7 @@
       "SPI_B_MOSI"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -791,7 +810,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 21,
@@ -811,6 +831,7 @@
       "TDMB_DIN3"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -900,6 +921,7 @@
       "TDMB_D3"
      ],
      "cls": "pdm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -958,6 +980,7 @@
       "PWM_B"
      ],
      "cls": "i2c",
+     "primary": "spi",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1040,6 +1063,7 @@
       "IR_REMOTE_OUT"
      ],
      "cls": "i2c",
+     "primary": "spi",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1115,7 +1139,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 26,
@@ -1132,6 +1157,7 @@
       "TDMC_DIN1"
      ],
      "cls": "pdm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1187,6 +1213,7 @@
       "I2C_EE_M3_SDA"
      ],
      "cls": "i2c",
+     "primary": "i2c",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1233,6 +1260,7 @@
       "I2C_EE_M3_SCL"
      ],
      "cls": "i2c",
+     "primary": "i2c",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1277,6 +1305,7 @@
       "TDMB_SLV_SCLK"
      ],
      "cls": "tdm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1317,7 +1346,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 31,
@@ -1333,6 +1363,7 @@
       "TDMB_SLV_FS"
      ],
      "cls": "tdm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1374,6 +1405,7 @@
       "PWM_E"
      ],
      "cls": "pwm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1410,6 +1442,7 @@
       "PWM_D"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1465,7 +1498,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 35,
@@ -1484,6 +1518,7 @@
       "I2C_EE_M1_SDA"
      ],
      "cls": "i2c",
+     "primary": "spi",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1560,6 +1595,7 @@
       "PWM_F"
      ],
      "cls": "pwm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1617,6 +1653,7 @@
       "TDMB_DIN0"
      ],
      "cls": "tdm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1665,6 +1702,7 @@
       "ISO7816_CLK"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1751,7 +1789,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 40,
@@ -1770,6 +1809,7 @@
       "ISO7816_DATA"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1851,7 +1891,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 2,
@@ -1866,6 +1907,7 @@
       "UART_AO_A_TX"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1900,6 +1942,7 @@
       "UART_AO_A_RX"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "pad_type": "DIO",
       "dc_family": "DIO",
@@ -1944,7 +1987,7 @@
      "1.8"
     ],
     "3.3": {
-     "min": "3.03",
+     "min": "3.0",
      "typ": "3.3",
      "max": "3.45"
     },
@@ -1960,7 +2003,7 @@
      "1.8"
     ],
     "3.3": {
-     "min": "3.03",
+     "min": "3.0",
      "typ": "3.3",
      "max": "3.45"
     },
@@ -1976,7 +2019,7 @@
      "1.8"
     ],
     "3.3": {
-     "min": "3.03",
+     "min": "3.0",
      "typ": "3.3",
      "max": "3.45"
     },
@@ -1992,7 +2035,7 @@
      "1.8"
     ],
     "3.3": {
-     "min": "3.03",
+     "min": "3.0",
      "typ": "3.3",
      "max": "3.45"
     },
@@ -2008,7 +2051,7 @@
      "1.8"
     ],
     "3.3": {
-     "min": "3.03",
+     "min": "3.0",
      "typ": "3.3",
      "max": "3.45"
     },
@@ -2024,7 +2067,7 @@
      "1.8"
     ],
     "3.3": {
-     "min": "3.03",
+     "min": "3.0",
      "typ": "3.3",
      "max": "3.45"
     },
@@ -2040,10 +2083,20 @@
      "1.8"
     ],
     "3.3": {
-     "min": "3.03",
+     "min": "3.0",
      "typ": "3.3",
      "max": "3.45"
     },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.80",
+     "max": "1.89"
+    }
+   },
+   "VDD18_AO_XTAL": {
+    "select": [
+     "1.8"
+    ],
     "1.8": {
      "min": "1.71",
      "typ": "1.80",

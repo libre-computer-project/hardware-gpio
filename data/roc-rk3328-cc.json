@@ -30,7 +30,8 @@
      "funcs": [
       "3.3V"
      ],
-     "cls": "power3v3"
+     "cls": "power3v3",
+     "primary": "power3v3"
     },
     {
      "pin": 2,
@@ -44,7 +45,8 @@
      "funcs": [
       "5V"
      ],
-     "cls": "power5v"
+     "cls": "power5v",
+     "primary": "power5v"
     },
     {
      "pin": 3,
@@ -61,6 +63,7 @@
       "FEPHYLED_TX_M1"
      ],
      "cls": "i2c",
+     "primary": "i2c",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -112,7 +115,8 @@
      "funcs": [
       "5V"
      ],
-     "cls": "power5v"
+     "cls": "power5v",
+     "primary": "power5v"
     },
     {
      "pin": 5,
@@ -128,6 +132,7 @@
       "FEPHY_LED_LINK_M1"
      ],
      "cls": "i2c",
+     "primary": "i2c",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -170,7 +175,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 7,
@@ -185,6 +191,7 @@
       "CLK32K_OUT_M1"
      ],
      "cls": "clk",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -222,6 +229,7 @@
       "USB3PHY_DEBUG4_u"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -291,7 +299,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 10,
@@ -310,6 +319,7 @@
       "USB3PHY_DEBUG6_u"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -382,6 +392,7 @@
       "CARD_RST_M1_u"
      ],
      "cls": "pdm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -434,6 +445,7 @@
       "PWM2_u"
      ],
      "cls": "pwm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -475,6 +487,7 @@
       "CARD_DET_M1_u"
      ],
      "cls": "pdm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -531,7 +544,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 15,
@@ -548,6 +562,7 @@
       "CARD_IO_M1_u"
      ],
      "cls": "pdm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -614,6 +629,7 @@
       "USB3PHY_DEBUG7_u"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -688,7 +704,8 @@
      "funcs": [
       "3.3V"
      ],
-     "cls": "power3v3"
+     "cls": "power3v3",
+     "primary": "power3v3"
     },
     {
      "pin": 18,
@@ -707,6 +724,7 @@
       "USB3PHY_DEBUG5_u"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -787,6 +805,7 @@
       "I2S2_SDO_M1_u"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -870,7 +889,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 21,
@@ -890,6 +910,7 @@
       "I2S2_SDI_M1_d"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -984,6 +1005,7 @@
       "SPDIF_TX_M2_d"
      ],
      "cls": "spdif",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1031,6 +1053,7 @@
       "I2S2_SCLK_M1_u"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1115,6 +1138,7 @@
       "I2S2_LRCK_RX_M1_d"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1198,7 +1222,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 26,
@@ -1214,6 +1239,7 @@
       "FLASH_VOL_SEL_u"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1262,6 +1288,7 @@
       "I2C1_SDA"
      ],
      "cls": "i2c",
+     "primary": "i2c",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1316,6 +1343,7 @@
       "I2C1_SCL"
      ],
      "cls": "i2c",
+     "primary": "i2c",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1366,6 +1394,7 @@
       "CARD_CLK_M1_u"
      ],
      "cls": "pdm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1422,7 +1451,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 31,
@@ -1438,6 +1468,7 @@
       "PDM_FSYNC_M0"
      ],
      "cls": "pdm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1481,6 +1512,7 @@
       "CLKOUT_WIFI_M0_d"
      ],
      "cls": "clk",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1520,6 +1552,7 @@
       "CIF_D6_M1_u"
      ],
      "cls": "i2s",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1639,7 +1672,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 35,
@@ -1657,6 +1691,7 @@
       "CIF_D7_M1_d"
      ],
      "cls": "pdm",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1719,6 +1754,7 @@
       "POWERSTATE0_d"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1774,6 +1810,7 @@
       "CIF_CLKOUT_M1_d"
      ],
      "cls": "i2s",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1832,6 +1869,7 @@
       "POWERSTATE1_u"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1879,7 +1917,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 40,
@@ -1894,6 +1933,7 @@
       "SPDIF_TX_M0_d"
      ],
      "cls": "spdif",
+     "primary": "gpio",
      "elec": {
       "pad_type": "B",
       "direction": "I/O",
@@ -1938,6 +1978,7 @@
       "SARADC_IN1"
      ],
      "cls": "adc",
+     "primary": "adc",
      "elec": {
       "pad_type": "analog",
       "note": "Analog input to the SoC's SAR ADC \u2014 not a digital GPIO pad, so the digital thresholds, pull and drive settings do not apply."
@@ -1955,7 +1996,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 3,
@@ -1970,6 +2012,7 @@
       "SARADC_IN0"
      ],
      "cls": "adc",
+     "primary": "adc",
      "elec": {
       "pad_type": "analog",
       "note": "Analog input to the SoC's SAR ADC \u2014 not a digital GPIO pad, so the digital thresholds, pull and drive settings do not apply."
@@ -1993,7 +2036,8 @@
      "funcs": [
       "EN"
      ],
-     "cls": "misc"
+     "cls": "misc",
+     "primary": "misc"
     },
     {
      "pin": 2,
@@ -2007,7 +2051,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 3,
@@ -2021,7 +2066,8 @@
      "funcs": [
       "PWRON"
      ],
-     "cls": "misc"
+     "cls": "misc",
+     "primary": "misc"
     }
    ]
   }

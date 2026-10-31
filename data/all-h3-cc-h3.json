@@ -30,7 +30,8 @@
      "funcs": [
       "3.3V"
      ],
-     "cls": "power3v3"
+     "cls": "power3v3",
+     "primary": "power3v3"
     },
     {
      "pin": 2,
@@ -44,7 +45,8 @@
      "funcs": [
       "5V"
      ],
-     "cls": "power5v"
+     "cls": "power5v",
+     "primary": "power5v"
     },
     {
      "pin": 3,
@@ -61,6 +63,7 @@
       "PA_EINT12"
      ],
      "cls": "i2c",
+     "primary": "i2c",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -115,7 +118,8 @@
      "funcs": [
       "5V"
      ],
-     "cls": "power5v"
+     "cls": "power5v",
+     "primary": "power5v"
     },
     {
      "pin": 5,
@@ -132,6 +136,7 @@
       "PA_EINT11"
      ],
      "cls": "i2c",
+     "primary": "i2c",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -186,7 +191,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 7,
@@ -203,6 +209,7 @@
       "PA_EINT2"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -259,6 +266,7 @@
       "PG_EINT6"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -302,7 +310,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 10,
@@ -318,6 +327,7 @@
       "PG_EINT7"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -364,6 +374,7 @@
       "PA_EINT1"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -420,6 +431,7 @@
       "PG_EINT11"
      ],
      "cls": "pcm",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -466,6 +478,7 @@
       "PA_EINT0"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -520,7 +533,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 15,
@@ -537,6 +551,7 @@
       "PA_EINT3"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -593,6 +608,7 @@
       "PG_EINT9"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -636,7 +652,8 @@
      "funcs": [
       "3.3V"
      ],
-     "cls": "power3v3"
+     "cls": "power3v3",
+     "primary": "power3v3"
     },
     {
      "pin": 18,
@@ -652,6 +669,7 @@
       "PG_EINT8"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -697,6 +715,7 @@
       "SPI0_MOSI"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -739,7 +758,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 21,
@@ -755,6 +775,7 @@
       "SPI0_MISO"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -800,6 +821,7 @@
       "PA_EINT14"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -856,6 +878,7 @@
       "SPI0_CLK"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -900,6 +923,7 @@
       "SPI0_CS"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -942,7 +966,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 26,
@@ -958,6 +983,7 @@
       "PA_EINT17"
      ],
      "cls": "spdif",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -1004,6 +1030,7 @@
       "PA_EINT19"
      ],
      "cls": "i2c",
+     "primary": "i2c",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -1061,6 +1088,7 @@
       "PA_EINT18"
      ],
      "cls": "i2c",
+     "primary": "i2c",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -1118,6 +1146,7 @@
       "PA_EINT20"
      ],
      "cls": "pcm",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -1172,7 +1201,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 31,
@@ -1189,6 +1219,7 @@
       "PA_EINT21"
      ],
      "cls": "pcm",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -1246,6 +1277,7 @@
       "PA_EINT13"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -1302,6 +1334,7 @@
       "PA_EINT6"
      ],
      "cls": "pwm",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -1345,7 +1378,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 35,
@@ -1361,6 +1395,7 @@
       "PG_EINT10"
      ],
      "cls": "pcm",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -1407,6 +1442,7 @@
       "PA_EINT15"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -1464,6 +1500,7 @@
       "PA_EINT16"
      ],
      "cls": "spi",
+     "primary": "spi",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -1520,6 +1557,7 @@
       "PG_EINT13"
      ],
      "cls": "pcm",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -1563,7 +1601,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 40,
@@ -1579,6 +1618,7 @@
       "PG_EINT12"
      ],
      "cls": "pcm",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -1628,7 +1668,8 @@
      "funcs": [
       "GND"
      ],
-     "cls": "gnd"
+     "cls": "gnd",
+     "primary": "gnd"
     },
     {
      "pin": 2,
@@ -1644,6 +1685,7 @@
       "PA_EINT4"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
@@ -1690,6 +1732,7 @@
       "PA_EINT5"
      ],
      "cls": "uart",
+     "primary": "gpio",
      "elec": {
       "direction": "I/O",
       "io_reset": "Z",
