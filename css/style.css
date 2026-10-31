@@ -693,11 +693,9 @@ pre.usage {
    one appears, measure again (tools: an emulated viewport, not a resized
    window -- desktop Chromium will not size a window below ~500px).
 
-   360px is the target. At 320px the label box is ~83px (13 chars), so the
-   longer names ellipse there: measured 28 labels across the 18 boards, none
-   overflowing the page. Fitting them would mean type under 10px, which this
-   page does not do; the full name is one tap away, in the detail sheet's
-   "SoC function" row. */
+   At 320px the label box is 83px (13 chars; measured): 28 names across the
+   18 boards ellipsed there. The 340px block below buys the width back
+   without shrinking the type. */
 @media (max-width: 420px) {
   .pin {
     font-size: 10px;
@@ -707,6 +705,18 @@ pre.usage {
   .pin.side-left { margin-right: 3px; }
   .pin.side-right { margin-left: 3px; }
   .mux-square { width: 17px; height: 17px; }
+}
+
+/* The narrowest phones (320px). The mux tile and its gap cost 21px of an 83px
+   name box, and type under 10px is not an option, so the tile gives way: the
+   pin's own colour becomes a 3px edge on the side facing the connector, drawn
+   as an inset shadow so it takes no width, and the label gets 104px -- the
+   17-char budget again. The alternates the tile's stripes showed are still
+   in the detail sheet's Muxes row and behind the legend's filters. */
+@media (max-width: 340px) {
+  .pin .mux-square { display: none; }
+  .pin.side-left { box-shadow: inset -3px 0 0 var(--pin-color); }
+  .pin.side-right { box-shadow: inset 3px 0 0 var(--pin-color); }
 }
 
 /* ---- one-page frame (desktop) ----

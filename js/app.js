@@ -811,6 +811,10 @@ function pinEl(p, header, side) {
   el.dataset.pin = p.pin;
   el.dataset.name = p.name;
   el.dataset.cls = primaryClass(p);
+  /* The pin's own colour, for the narrowest phones, where the mux tile gives
+     way to an edge in this colour (see the 340px block in style.css). */
+  el.style.setProperty("--pin-color",
+    classColor(primaryClass(p) in CLASS_INFO ? primaryClass(p) : "gpio"));
   if (isAnalog(p)) el.dataset.analog = "1";
   const label = document.createElement("span");
   label.className = "pin-label";
