@@ -1,0 +1,5 @@
+# Reviewed exceptions for tools/check-public-surface.py (<relpath>:<rule-id>).
+# The generator joins the wiring tool's public map directory,
+# libretech-wiring-tool/libre-computer/<board>/gpio.map; that path segment is
+# the repo's own directory name, not a host.
+tools/gen-pinout-data.py:fleet-host
