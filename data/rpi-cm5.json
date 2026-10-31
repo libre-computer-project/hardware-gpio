@@ -1108,9 +1108,9 @@
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "5V_(Input)",
+     "name": "5V",
      "pad": "5V",
-     "ref": "5V_(Input)",
+     "ref": "5V (Input)",
      "funcs": [
       "5V"
      ],
@@ -1138,9 +1138,9 @@
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "5V_(Input)",
+     "name": "5V",
      "pad": "5V",
-     "ref": "5V_(Input)",
+     "ref": "5V (Input)",
      "funcs": [
       "5V"
      ],
@@ -1168,9 +1168,9 @@
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "5V_(Input)",
+     "name": "5V",
      "pad": "5V",
-     "ref": "5V_(Input)",
+     "ref": "5V (Input)",
      "funcs": [
       "5V"
      ],
@@ -1198,9 +1198,9 @@
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "5V_(Input)",
+     "name": "5V",
      "pad": "5V",
-     "ref": "5V_(Input)",
+     "ref": "5V (Input)",
      "funcs": [
       "5V"
      ],
@@ -1213,9 +1213,9 @@
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "CM5_3.3V_(Output)",
+     "name": "CM5_3.3V",
      "pad": "3.3V",
-     "ref": "CM5_3.3V_(Output)",
+     "ref": "CM5_3.3V (Output)",
      "funcs": [
       "3.3V"
      ],
@@ -1228,9 +1228,9 @@
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "5V_(Input)",
+     "name": "5V",
      "pad": "5V",
-     "ref": "5V_(Input)",
+     "ref": "5V (Input)",
      "funcs": [
       "5V"
      ],
@@ -1243,9 +1243,9 @@
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "CM5_3.3V_(Output)",
+     "name": "CM5_3.3V",
      "pad": "3.3V",
-     "ref": "CM5_3.3V_(Output)",
+     "ref": "CM5_3.3V (Output)",
      "funcs": [
       "3.3V"
      ],
@@ -1258,9 +1258,9 @@
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "5V_(Input)",
+     "name": "5V",
      "pad": "5V",
-     "ref": "5V_(Input)",
+     "ref": "5V (Input)",
      "funcs": [
       "5V"
      ],
@@ -1273,9 +1273,9 @@
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "CM5_1.8V_(Output)",
+     "name": "CM5_1.8V",
      "pad": "1.8V",
-     "ref": "CM5_1.8V_(Output)",
+     "ref": "CM5_1.8V (Output)",
      "funcs": [
       "1.8V"
      ],
@@ -1303,9 +1303,9 @@
      "chip": null,
      "line": null,
      "sysfs": null,
-     "name": "CM5_1.8V_(Output)",
+     "name": "CM5_1.8V",
      "pad": "1.8V",
-     "ref": "CM5_1.8V_(Output)",
+     "ref": "CM5_1.8V (Output)",
      "funcs": [
       "1.8V"
      ],

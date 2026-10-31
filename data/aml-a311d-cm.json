@@ -3855,7 +3855,7 @@
      "chip": 0,
      "line": 84,
      "sysfs": 84,
-     "name": "GPIOX_19/CVBS_IOUT",
+     "name": "GPIOX_19/CVBS",
      "pad": "BH26/U44",
      "ref": "GPIOX_19 (via R161 0R)",
      "funcs": [
@@ -3911,7 +3911,7 @@
      ],
      "also": [
       {
-       "name": "CVBS_IOUT",
+       "name": "CVBS",
        "pad": "U44",
        "ref": "CVBS_IOUT (via R162 0R, L8 1.8uH); cable detect on SARADC_CH0 (AY38) via R162 0R, R138 47K"
       }

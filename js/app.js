@@ -1065,6 +1065,12 @@ function renderDetail(header, p) {
   const info = CLASS_INFO[primaryClass(p)] || CLASS_INFO.gpio;
   const rows = [];
   rows.push(["SoC function", p.name]);
+  /* What the board calls the pin (the map's Ref): the schematic net, and on a
+     compute module the parts between the connector and the ball ("FAN_PWM
+     (via R183 22R)"). It was carried in the data and never shown -- only used
+     to highlight a mux chip -- so the most board-specific fact on the page
+     was invisible. Skipped when it only repeats the SoC name. */
+  if (p.ref && p.ref !== p.name) rows.push(["Board signal", p.ref]);
   /* Which buses the pad can reach, spelled out. It is the one thing the
      tooltip said that nothing else did, and the tooltip needs a cursor --
      on a phone the colours in the mux chips were the only trace of it. */
@@ -1079,10 +1085,16 @@ function renderDetail(header, p) {
   /* A position the board ties to two SoC balls carries the second here. Both
      have to be configured to use the pin, so both get a row rather than the
      pane implying the first one is the whole story. */
+  /* The second entry need not be a GPIO: a compute module's pin 111 is GPIOX_19
+     and the CVBS DAC output, and a fixed function has no gpiochip line -- it
+     printed "gpiochipundefined line undefined" before this check. */
   for (const a of p.also || []) {
-    rows.push([`GPIO (${esc(a.name)})`, `gpiochip${a.chip} line ${a.line}`]);
-    if (a.sysfs !== undefined && a.sysfs !== null)
-      rows.push([`Legacy sysfs (${esc(a.name)})`, `/sys/class/gpio/gpio${a.sysfs}`]);
+    if (a.chip !== undefined && a.chip !== null) {
+      rows.push([`GPIO (${a.name})`, `gpiochip${a.chip} line ${a.line}`]);
+      if (a.sysfs !== undefined && a.sysfs !== null)
+        rows.push([`Legacy sysfs (${a.name})`, `/sys/class/gpio/gpio${a.sysfs}`]);
+    }
+    if (a.ref && a.ref !== a.name) rows.push([`Board signal (${a.name})`, a.ref]);
   }
   rows.push(["SoC pad (BGA)", p.pad]);
 

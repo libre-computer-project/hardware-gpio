@@ -683,20 +683,29 @@ pre.usage {
    pin-number columns -- so each name rail is 144px, and everything the rail
    is not spending on the name (margin, padding, border, mux tile, gap) comes
    straight off the name. The longest label in the data today is 17 chars
-   (roc-rk3328-cc J1: FEPHY_LED_LINK_M1, and GPIO2_C0/GPIO2_C1 on the pin the
-   board ties to two SoC lines), which is 102px at 10px in a monospace whose
-   advance is 0.6em. The numbers below leave 107px for it -- 7 of the 9px it
-   was short of before. A longer name than that ellipses rather than
-   overflowing, which is the fallback, not the plan: if one appears, this is
-   the arithmetic to redo. */
+   (GPIO2_C0/GPIO2_C1 on the Renegade pin the board ties to two SoC lines,
+   Ethernet_SYNC_OUT on the CM4/CM5), which is 102px at 10px in a monospace
+   whose advance is 0.6em. MEASURED in a 360px emulated viewport, not
+   computed: with a 6px margin the label box was 100px and every 17-char
+   name ellipsed by 2px (an earlier version of this note said 107px, which
+   was arithmetic). A 3px margin gives 103px. A longer name than that
+   ellipses rather than overflowing, which is the fallback, not the plan: if
+   one appears, measure again (tools: an emulated viewport, not a resized
+   window -- desktop Chromium will not size a window below ~500px).
+
+   360px is the target. At 320px the label box is ~83px (13 chars), so the
+   longer names ellipse there: measured 28 labels across the 18 boards, none
+   overflowing the page. Fitting them would mean type under 10px, which this
+   page does not do; the full name is one tap away, in the detail sheet's
+   "SoC function" row. */
 @media (max-width: 420px) {
   .pin {
     font-size: 10px;
     padding: 3px 4px;
     gap: 4px;
   }
-  .pin.side-left { margin-right: 6px; }
-  .pin.side-right { margin-left: 6px; }
+  .pin.side-left { margin-right: 3px; }
+  .pin.side-right { margin-left: 3px; }
   .mux-square { width: 17px; height: 17px; }
 }
 
