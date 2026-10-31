@@ -658,11 +658,15 @@ function render() {
   diagramEl.classList.toggle("board-view", boardViewWanted);
   diagramEl.style.gridTemplateColumns = grid ? `repeat(${grid.cols}, auto)` : "";
 
-  /* The full-width rows come first and are placed explicitly, so the connector
-     rows can start below them with no empty track in between — an empty grid
-     row still costs a gap, which would open a hole in the middle of the board
-     view for a banner that is not there. */
-  let rowBase = 0;
+  /* The status banner sits in its own slot above the diagram and the panel,
+     never inside #diagram. In the one-page frame the packed layout is a
+     COLUMN wrap, where a full-width item takes a whole column's height:
+     the banner filled the first column and pushed every connector to the
+     right (the compute modules, which have no 40-pin header and so no
+     board view, and any bannered board whose board view does not fit). */
+  const slot = document.getElementById("board-flag-slot");
+  slot.innerHTML = "";
+  slot.hidden = true;
   const entry = boardIndex.find((b) => b.id === board.id);
   const status = board.status || (entry && entry.status);
   if (STATUS_LABEL[status]) {
@@ -672,9 +676,13 @@ function render() {
       (status === "reference"
         ? "transcribed from its maker's datasheet, not a Libre Computer product."
         : "pinout may change before launch.");
-    if (grid) flag.style.gridRow = String(++rowBase);
-    diagramEl.appendChild(flag);
+    slot.appendChild(flag);
+    slot.hidden = false;
   }
+
+  /* The note comes first in the board view and is placed explicitly, so the
+     connector rows can start below it with no empty track in between. */
+  let rowBase = 0;
   if (grid) {
     const note = boardNote(grid);
     note.style.gridRow = String(++rowBase);

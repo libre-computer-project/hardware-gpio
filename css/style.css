@@ -110,8 +110,18 @@ footer {
   text-transform: uppercase;
 }
 
+/* Its own full-width bar between the legend and main, aligned with them:
+   inside #diagram the packed layout's column wrap gave it a whole column. */
+#board-flag-slot {
+  flex: none;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 20px 0;
+}
+#board-flag-slot[hidden] { display: none; }
+
 .board-flag {
-  flex: 1 0 100%;
   background: #ff922b18;
   border: 1px solid var(--c-jtag);
   border-radius: 6px;
@@ -716,6 +726,13 @@ pre.usage {
      tall column. */
   #diagram { flex-flow: column wrap; }
   .header-block { flex: none; }
+  /* In the packed layout the panel stays at its basis and the diagram takes
+     the rest. Growing both shared the slack with a detail panel that does not
+     need it, and two 100-pin module connectors side by side then overran the
+     diagram by a rail of pad names (Alta CM at 1920x1080: J2's right rail
+     clipped behind a scrollbar). The board view sizes itself to its content
+     instead (flex-basis: min-content below), so this does not touch it. */
+  #diagram:not(.board-view) + #panel { flex-grow: 0; }
 
   /* ---- board view ----
 
@@ -758,7 +775,6 @@ pre.usage {
     gap: 26px;
   }
 
-  #diagram.board-view > .board-flag,
   #diagram.board-view > .board-note { grid-column: 1 / -1; }
 
   /* Only shown where the arrangement it describes is the one on screen. */
