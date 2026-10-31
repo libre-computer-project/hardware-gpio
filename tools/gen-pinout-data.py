@@ -1639,6 +1639,19 @@ class AmlogicElectrical:
                 if lv:
                     rail["1.8"] = {k: lv.get(k, "") for k in ("min", "typ", "max")}
                 rails[domain] = rail
+        # A pad domain that is not a VDDIO bank is a fixed rail (G12/SM1
+        # GPIOE_0-2 sit on VDD18_AO_XTAL): one operating point, read from the
+        # extract's own recommended-operating-conditions row for that rail.
+        # Without it the panel names the domain and shows no thresholds.
+        for domain in sorted({p.get("power_domain") for p in doc.get("pads", [])
+                              if p.get("power_domain")
+                              and not p["power_domain"].startswith("VDDIO")}):
+            row = roc.get(domain) or {}
+            point = {"1.8": "1.8", "1.80": "1.8", "3.3": "3.3", "3.30": "3.3"}.get(
+                row.get("typ", ""))
+            if point:
+                rails[domain] = {"select": [point],
+                                 point: {k: row.get(k, "") for k in ("min", "typ", "max")}}
 
         dc, units = {}, {}
         for family, rows in dc_families.items():

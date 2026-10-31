@@ -384,7 +384,7 @@
       "dc_family": "DIO",
       "direction": "I/O",
       "pupd_reset": "pull-up",
-      "domain": "VDDIO_"
+      "domain": "VDDIO_BOOT"
      },
      "muxes": [
       {
@@ -2595,7 +2595,7 @@
       "dc_family": "DIO",
       "direction": "I/O",
       "pupd_reset": "pull-up",
-      "domain": "VDDIO_"
+      "domain": "VDDIO_BOOT"
      },
      "muxes": [
       {
@@ -2741,7 +2741,7 @@
       "dc_family": "DIO",
       "direction": "I/O",
       "pupd_reset": "pull-up",
-      "domain": "VDDIO_"
+      "domain": "VDDIO_BOOT"
      },
      "muxes": [
       {
@@ -2857,7 +2857,7 @@
       "dc_family": "DIO",
       "direction": "I/O",
       "pupd_reset": "pull-up",
-      "domain": "VDDIO_"
+      "domain": "VDDIO_BOOT"
      },
      "muxes": [
       {
@@ -2917,7 +2917,7 @@
       "dc_family": "DIO",
       "direction": "I/O",
       "pupd_reset": "pull-up",
-      "domain": "VDDIO_"
+      "domain": "VDDIO_BOOT"
      },
      "muxes": [
       {
@@ -2991,7 +2991,7 @@
       "dc_family": "DIO",
       "direction": "I/O",
       "pupd_reset": "pull-up",
-      "domain": "VDDIO_"
+      "domain": "VDDIO_BOOT"
      },
      "muxes": [
       {
@@ -3470,7 +3470,7 @@
       "dc_family": "DIO",
       "direction": "I/O",
       "pupd_reset": "pull-up",
-      "domain": "VDDIO_"
+      "domain": "VDDIO_BOOT"
      },
      "muxes": [
       {
@@ -3897,7 +3897,7 @@
       "dc_family": "DIO",
       "direction": "I/O",
       "pupd_reset": "pull-up",
-      "domain": "VDDIO_"
+      "domain": "VDDIO_BOOT"
      },
      "muxes": [
       {
@@ -4504,7 +4504,7 @@
       "dc_family": "DIO",
       "direction": "I/O",
       "pupd_reset": "high-z",
-      "domain": "VDD18_"
+      "domain": "VDD18_AO_XTAL"
      },
      "muxes": [
       {
@@ -6357,22 +6357,6 @@
    }
   },
   "rails": {
-   "VDDIO_": {
-    "select": [
-     "3.3",
-     "1.8"
-    ],
-    "3.3": {
-     "min": "3.0",
-     "typ": "3.3",
-     "max": "3.45"
-    },
-    "1.8": {
-     "min": "1.71",
-     "typ": "1.80",
-     "max": "1.89"
-    }
-   },
    "VDDIO_A": {
     "select": [
      "3.3",
@@ -6390,6 +6374,22 @@
     }
    },
    "VDDIO_AO": {
+    "select": [
+     "3.3",
+     "1.8"
+    ],
+    "3.3": {
+     "min": "3.0",
+     "typ": "3.3",
+     "max": "3.45"
+    },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.80",
+     "max": "1.89"
+    }
+   },
+   "VDDIO_BOOT": {
     "select": [
      "3.3",
      "1.8"
@@ -6463,6 +6463,16 @@
      "typ": "3.3",
      "max": "3.45"
     },
+    "1.8": {
+     "min": "1.71",
+     "typ": "1.80",
+     "max": "1.89"
+    }
+   },
+   "VDD18_AO_XTAL": {
+    "select": [
+     "1.8"
+    ],
     "1.8": {
      "min": "1.71",
      "typ": "1.80",
