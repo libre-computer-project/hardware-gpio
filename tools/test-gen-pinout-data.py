@@ -61,9 +61,8 @@ check("driver-only: the table is closed (S905X and S805X GPIOH_6-9 TSIN_B, A311D
 check("driver-only: every flag names its class and cites a page",
       [k for k, v in gen.DRIVER_ONLY.items()
        if not (v.startswith("driver-only") and any(c in v for c in CLASSES) and ":" in v.split("(", 1)[-1])], [])
-check("driver-only: the swapped TSIN_B bits carry DRIVER-ERROR on both SoCs, nothing else does",
-      sorted(k[1:] for k, v in gen.DRIVER_ONLY.items() if "DRIVER-ERROR" in v),
-      sorted([("GPIOH_7", "tsin_b_d0"), ("GPIOH_9", "tsin_b_d_valid")] * 2))
+check("driver-only: no row carries DRIVER-ERROR since linux-6.18.y-lc fbffd1cecfd82 fixed the TSIN_B bits",
+      [k for k, v in gen.DRIVER_ONLY.items() if "DRIVER-ERROR" in v], [])
 check("driver-only: S805X's rows say the function is the book's and only the register is the driver's",
       sorted(v.split(":")[0] for k, v in gen.DRIVER_ONLY.items() if k[0] == "S805X"), ["driver-only register"] * 4)
 

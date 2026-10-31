@@ -439,10 +439,10 @@
         "tsin_b"
        ],
        "reg": "0xc88344c8",
-       "bit": 17,
+       "bit": 19,
        "width": 1,
        "value": 1,
-       "flag": "driver-only register: BOOK-OMISSION (S805X book prints TSin_*_B on GPIOH_6-9 only in its pin-multiplex table (p26:20-26), with no enable bit; the register field is the driver's alone); DRIVER-ERROR on the bit: mainline pinctrl-meson-gxl.c:477/479 puts tsin_b_d0 at reg6[17] and tsin_b_d_valid at reg6[19], while the vendor 4.9 driver (tsin_d0_b_h7 6,19; tsin_d_valid_b_h9 6,17) and the S905D (p130:16-31) and S912 (p99:25-47) books put TSin_D0_B at reg6[19] and TSin_D_VALID_B at reg6[17]"
+       "flag": "driver-only register: BOOK-OMISSION (S805X book prints TSin_*_B on GPIOH_6-9 only in its pin-multiplex table (p26:20-26), with no enable bit; the register field is the driver's alone)"
       }
      ]
     },
@@ -646,10 +646,10 @@
         "tsin_b"
        ],
        "reg": "0xc88344c8",
-       "bit": 19,
+       "bit": 17,
        "width": 1,
        "value": 1,
-       "flag": "driver-only register: BOOK-OMISSION (S805X book prints TSin_*_B on GPIOH_6-9 only in its pin-multiplex table (p26:20-26), with no enable bit; the register field is the driver's alone); DRIVER-ERROR on the bit: mainline pinctrl-meson-gxl.c:477/479 puts tsin_b_d0 at reg6[17] and tsin_b_d_valid at reg6[19], while the vendor 4.9 driver (tsin_d0_b_h7 6,19; tsin_d_valid_b_h9 6,17) and the S905D (p130:16-31) and S912 (p99:25-47) books put TSin_D0_B at reg6[19] and TSin_D_VALID_B at reg6[17]"
+       "flag": "driver-only register: BOOK-OMISSION (S805X book prints TSin_*_B on GPIOH_6-9 only in its pin-multiplex table (p26:20-26), with no enable bit; the register field is the driver's alone)"
       }
      ]
     },

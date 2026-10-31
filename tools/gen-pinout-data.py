@@ -1932,10 +1932,10 @@ MUX_FOR_SOC = {
 _S905X_TSIN = ("S905X book: no TSin_*_B on GPIOH_6-9 in the pin description (p19:35-41), the "
                "pin-multiplex table (p30:61-67) or the register table (p117:73-89); Amlogic "
                "4.9 vendor pinctrl_gxl.c has the TSIN_B groups on GPIOH_6-9")
-_TSIN_SWAP = ("; DRIVER-ERROR on the bit: mainline pinctrl-meson-gxl.c:477/479 puts tsin_b_d0 "
-              "at reg6[17] and tsin_b_d_valid at reg6[19], while the vendor 4.9 driver "
-              "(tsin_d0_b_h7 6,19; tsin_d_valid_b_h9 6,17) and the S905D (p130:16-31) and "
-              "S912 (p99:25-47) books put TSin_D0_B at reg6[19] and TSin_D_VALID_B at reg6[17]")
+# The TSIN_B_D0 / TSIN_B_VALID bits were a DRIVER-ERROR in mainline (6,17 / 6,19
+# swapped against the books, the vendor drivers and silicon) until
+# linux-6.18.y-lc fbffd1cecfd82; the driver this reads now states 6,19 / 6,17.
+_TSIN_SWAP = ""
 _S805X_TSIN = ("S805X book prints TSin_*_B on GPIOH_6-9 only in its pin-multiplex table (p26:20-26), "
                "with no enable bit; the register field is the driver's alone")
 DRIVER_ONLY = {
