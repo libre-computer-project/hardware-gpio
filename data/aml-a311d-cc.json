@@ -1548,7 +1548,8 @@
        "reg": "0xff6346cc",
        "bit": 20,
        "width": 4,
-       "value": 5
+       "value": 5,
+       "flag": "driver-only: BOOK-OMISSION (A311D book: GPIOX_5's multiplex row prints SDIO_CMD / MCLK_1 / - / PWM_C / - (p46:31), SDCARD_CMD only on GPIOC_5 (p45:54); BSP common_drivers pinctrl-meson-g12a.c:473/772 and Amlogic 4.9 pinctrl-meson-g12a.c both state sdcard_cmd_x on GPIOX_5 at 5, as mainline does)"
       },
       {
        "name": "MCLK_1",

@@ -1880,6 +1880,36 @@ MUX_FOR_SOC = {
 }
 
 
+# Muxes the kernel driver states on a pad where the SoC's own book prints no
+# such function, by (SoC, pad, driver group). A closed table: each row was read
+# against every pin table of the book's text layer and against the vendor
+# drivers, and is classified --
+#   BOOK-OMISSION  the vendor drivers agree with mainline; the book leaves it out
+#   DRIVER-EXTRA   only mainline has it
+#   DRIVER-ERROR   mainline's register field disagrees with the vendor sources
+# The mux stays on the site with the class and its citations; nothing is
+# dropped. Record: the docs repo's
+# tools/audit/2026-10-31-gpio-db-site-lwt-recursive-review.md (G1).
+_S905X_TSIN = ("S905X book: no TSin_*_B on GPIOH_6-9 in the pin description (p19:35-41), the "
+               "pin-multiplex table (p30:61-67) or the register table (p117:73-89); Amlogic "
+               "4.9 vendor pinctrl_gxl.c has the TSIN_B groups on GPIOH_6-9")
+_TSIN_SWAP = ("; DRIVER-ERROR on the bit: mainline pinctrl-meson-gxl.c:477/479 puts tsin_b_d0 "
+              "at reg6[17] and tsin_b_d_valid at reg6[19], while the vendor 4.9 driver "
+              "(tsin_d0_b_h7 6,19; tsin_d_valid_b_h9 6,17) and the S905D (p130:16-31) and "
+              "S912 (p99:25-47) books put TSin_D0_B at reg6[19] and TSin_D_VALID_B at reg6[17]")
+DRIVER_ONLY = {
+    ("S905X", "GPIOH_6", "tsin_b_clk"): f"driver-only: BOOK-OMISSION ({_S905X_TSIN})",
+    ("S905X", "GPIOH_7", "tsin_b_d0"): f"driver-only: BOOK-OMISSION ({_S905X_TSIN}){_TSIN_SWAP}",
+    ("S905X", "GPIOH_8", "tsin_b_sop"): f"driver-only: BOOK-OMISSION ({_S905X_TSIN})",
+    ("S905X", "GPIOH_9", "tsin_b_d_valid"): f"driver-only: BOOK-OMISSION ({_S905X_TSIN}){_TSIN_SWAP}",
+    ("A311D", "GPIOX_5", "sdcard_cmd_x"): (
+        "driver-only: BOOK-OMISSION (A311D book: GPIOX_5's multiplex row prints SDIO_CMD / MCLK_1 / "
+        "- / PWM_C / - (p46:31), SDCARD_CMD only on GPIOC_5 (p45:54); BSP common_drivers "
+        "pinctrl-meson-g12a.c:473/772 and Amlogic 4.9 pinctrl-meson-g12a.c both state "
+        "sdcard_cmd_x on GPIOX_5 at 5, as mainline does)"),
+}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--lwt", default=str(REPO_ROOT.parent / "libretech-wiring-tool"),
@@ -1976,6 +2006,9 @@ def main():
                     if entry is None:
                         unmatched.append(f"{board} pin {p['pin']}: {token}")
                         continue
+                    flag = DRIVER_ONLY.get((soc, p["name"].rstrip("*"), entry.get("group")))
+                    if flag:
+                        entry["flag"] = flag
                     muxes.append(entry)
                 if muxes:
                     p["muxes"] = muxes

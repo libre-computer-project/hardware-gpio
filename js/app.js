@@ -1159,6 +1159,12 @@ function renderDetail(header, p) {
         `<td>${esc(m.group || "—")}</td>` +
         `<td>${esc(m.reg || m.register || "—")}</td><td>${esc(field)}</td>` +
         `<td>${m.value !== undefined ? esc(m.value) : "—"}</td></tr>`;
+      /* A mux the kernel states where the SoC's book does not (or states
+         differently) carries its classification and citations: shown under the
+         row, never hidden -- the reader decides whether to trust it. */
+      if (m.flag) {
+        html += `<tr class="mux-flag"><td colspan="${tied ? 6 : 5}">${esc(m.flag)}</td></tr>`;
+      }
     }
     html += "</table>";
   }

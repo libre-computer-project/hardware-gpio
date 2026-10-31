@@ -52,6 +52,17 @@ def old_canon(name):        # the pre-fix rule, kept here as the must-fire arm
 check("canon must-fire: the old rule leaves FLASH_VOL_SEL_u unpaired",
       old_canon("FLASH_VOL_SEL_u") == old_canon("flash_vol_sel"), False)
 
+CLASSES = ("BOOK-OMISSION", "DRIVER-EXTRA", "DRIVER-ERROR")
+check("driver-only: the table is closed (S905X GPIOH_6-9 TSIN_B, A311D GPIOX_5 SDCARD_CMD)",
+      sorted(gen.DRIVER_ONLY), sorted([("S905X", "GPIOH_6", "tsin_b_clk"), ("S905X", "GPIOH_7", "tsin_b_d0"),
+                                       ("S905X", "GPIOH_8", "tsin_b_sop"), ("S905X", "GPIOH_9", "tsin_b_d_valid"),
+                                       ("A311D", "GPIOX_5", "sdcard_cmd_x")]))
+check("driver-only: every flag names its class and cites a page",
+      [k for k, v in gen.DRIVER_ONLY.items()
+       if not (v.startswith("driver-only: ") and any(c in v for c in CLASSES) and ":" in v.split("(", 1)[-1])], [])
+check("driver-only: the two swapped TSIN_B bits carry DRIVER-ERROR, the other three do not",
+      sorted(k[2] for k, v in gen.DRIVER_ONLY.items() if "DRIVER-ERROR" in v), ["tsin_b_d0", "tsin_b_d_valid"])
+
 linux = next((Path(p) for p in (a.linux, HERE.parent.parent / "libretech-builder" / "linux",
                                 Path.home() / "git" / "libretech-builder" / "linux")
               if p and (Path(p) / gen.RockchipMux.DRIVER).is_file()), None)
