@@ -874,7 +874,7 @@
      "funcs": [
       "TSP_CLK",
       "CIF_CLKIN",
-      "SDMMC0EXT_CLK",
+      "SDMMC0EXT_CLKOUT",
       "SPI_RXD_M2",
       "USB3PHY_DEBUG3",
       "I2S2_SDI_M1_d"
@@ -910,12 +910,13 @@
        "value": 2
       },
       {
-       "name": "SDMMC0EXT_CLK",
-       "group": "sdmmc0ext_clk",
+       "name": "SDMMC0EXT_CLKOUT",
+       "group": "sdmmc0ext_clkout",
        "funcs": [],
        "reg": "0xff100038",
        "bit": 6,
-       "width": 3
+       "width": 3,
+       "value": 3
       },
       {
        "name": "SPI_RXD_M2",
