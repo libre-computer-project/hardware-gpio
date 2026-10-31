@@ -1306,7 +1306,7 @@
      "pad": "J22",
      "ref": "I2C_M3_SCL",
      "funcs": [
-      "IR_REMOTE_IN",
+      "IR_REMOTE_INPUT",
       "I2C_EE_M3_SCL"
      ],
      "cls": "i2c",
@@ -1319,6 +1319,15 @@
       "domain": "VDDIO_A"
      },
      "muxes": [
+      {
+       "name": "IR_REMOTE_INPUT",
+       "source": "datasheet",
+       "bit": 28,
+       "width": 4,
+       "value": 1,
+       "reg": "0xff6346f8",
+       "register": "PERIPHS_PIN_MUX_E"
+      },
       {
        "name": "I2C_EE_M3_SCL",
        "group": "i2c3_sck_a",

@@ -635,6 +635,17 @@
        "bit": 23,
        "width": 1,
        "value": 1
+      },
+      {
+       "name": "TSIN_B_VALID",
+       "group": "tsin_b_d_valid",
+       "funcs": [
+        "tsin_b"
+       ],
+       "reg": "0xc88344c8",
+       "bit": 19,
+       "width": 1,
+       "value": 1
       }
      ]
     },

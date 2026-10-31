@@ -900,6 +900,9 @@ class MesonGxlMux:
         "i2s_lr_clk_in": "i2s_in_lr_clk",
         "i2s_ao_clk_in": "i2s_in_ao_clk",
         "remote_output": "remote_input_ao",
+        # The wiring-tool maps say TSIN_B_VALID; pinctrl-meson-gxl.c names the
+        # GPIOH_9 group tsin_b_d_valid (reg 6, bit 19).
+        "tsin_b_valid": "tsin_b_d_valid",
     }
 
     def _base(self, token):
@@ -2100,7 +2103,9 @@ def main():
     for board, (n_gpio, n_elec, n_domain, n_analog) in sorted(elec_stats.items()):
         print(f"  {board:22s} {n_gpio:3d} / {n_elec:3d} / {n_domain:3d} / {n_analog:d}")
     if unmatched:
-        print(f"\n{len(unmatched)} unmatched mux tokens (kept without offsets):")
+        print(f"\n{len(unmatched)} mux tokens with no selector in the kernel "
+              "driver or the datasheet extract (shown without a register; "
+              "README \"Functions without a register\" lists the known ones):")
         for u in unmatched:
             print(f"  {u}")
     if unbound:

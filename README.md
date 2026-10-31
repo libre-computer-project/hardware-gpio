@@ -260,6 +260,27 @@ generator — an unmapped `Chip` value, an arrangement naming a header the board
 does not have, a driver the parser cannot read — leaves `data/` untouched
 rather than half-replaced.
 
+### Functions without a register
+
+A function in a wiring-tool map gets its pinmux register from the kernel's
+pinctrl driver, or failing that from the SoC's datasheet extract. Some have
+neither, because no pinmux field selects them, and the panel lists them
+without a register. The generator prints them at the end of every run. Each
+one below was checked against the driver and the datasheet text:
+
+| SoC | Pad | Function | Why there is no register |
+|---|---|---|---|
+| S905X, S805X | GPIOH_6-9 | JTAG_TCK/TMS/TDI/TDO | listed in the multiplex table with no pinmux bit; JTAG is routed to GPIOH or CARD by the `jtag_sel_*` fields of AO_SEC_REG1 (S905X datasheet, System Interface), not by a pinmux field |
+| S905X | GPIOCLK_0 | CLK12, CLK24 | listed with no pinmux bit |
+| S905X | GPIOAO_6 | I2S_IN_01 | listed with no pinmux bit |
+| S905X | TEST_N | wd_gpio | listed with no pinmux bit |
+| S805X | GPIOX_12/13 | SLIP_UART_TX/RX | a column of the book's function table (the UART's SLIP mode); no pinmux bit in the book, no group in the driver |
+| H5 | PC1, PA6 | SDC2_DS, PCM0_MCLK | listed with no function-select value |
+
+A name that is in the driver or the extract under another spelling is not
+in this list: it is an alias in the generator (`TSIN_B_VALID` is the GXL
+driver's `tsin_b_d_valid`) or a map fix.
+
 ### Electrical
 
 Where a datasheet extract exists for the SoC, the detail panel also carries an
