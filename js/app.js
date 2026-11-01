@@ -189,6 +189,7 @@ async function init() {
   diagramEl.addEventListener("pointerover", onPinOver);
   diagramEl.addEventListener("pointerout", onPinOut);
   diagramEl.addEventListener("click", onPinClick);
+  diagramEl.addEventListener("keydown", onPinKey);
   legendEl.addEventListener("click", onLegendClick);
   detailEl.addEventListener("click", onDetailClick);
   sheetCloseEl.addEventListener("click", closeDetail);
@@ -814,6 +815,13 @@ function pinEl(p, header, side) {
   el.style.setProperty("--pin-color",
     classColor(primaryClass(p) in CLASS_INFO ? primaryClass(p) : "gpio"));
   if (isAnalog(p)) el.dataset.analog = "1";
+  /* The keyboard's way in: the name rail is a button that opens the pin's
+     detail (Enter or Space, onPinKey); the numbered pad stays pointer-only so
+     a pin is one Tab stop, not two. */
+  el.tabIndex = 0;
+  el.setAttribute("role", "button");
+  el.setAttribute("aria-expanded", "false");
+  el.setAttribute("aria-label", `Pin ${p.pin}, ${focusedFunc(p) || p.name}`);
   const label = document.createElement("span");
   label.className = "pin-label";
   label.textContent = focusedFunc(p) || p.name;
@@ -971,6 +979,14 @@ function onPinOut(e) {
   tooltipEl.hidden = true;
 }
 
+/* Enter or Space on a pin's name rail does what a click does. */
+function onPinKey(e) {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  if (!e.target.matches('.pin[role="button"]')) return;
+  e.preventDefault();
+  onPinClick(e);
+}
+
 function onPinClick(e) {
   const el = e.target.closest("[data-pin]");
   if (!el) return;
@@ -986,11 +1002,15 @@ function onPinClick(e) {
      that was never open. */
   const wasSelected = el.classList.contains("selected");
   diagramEl.querySelectorAll(".selected").forEach((n) => n.classList.remove("selected"));
+  diagramEl.querySelectorAll('[aria-expanded="true"]').forEach((n) => n.setAttribute("aria-expanded", "false"));
   if (wasSelected) {
     renderDetailPlaceholder();
     return;
   }
-  pinCells(found.header.id, found.pin.pin).forEach((n) => n.classList.add("selected"));
+  pinCells(found.header.id, found.pin.pin).forEach((n) => {
+    n.classList.add("selected");
+    if (n.hasAttribute("aria-expanded")) n.setAttribute("aria-expanded", "true");
+  });
   renderDetail(found.header, found.pin);
   /* The sheet takes the bottom of the screen, so a pin tapped down there ends
      up underneath it. scroll-margin-bottom in the stylesheet is what the
@@ -1045,6 +1065,7 @@ function applyLabels() {
     const label = el.querySelector(".pin-label");
     const func = focusedFunc(pin);
     label.textContent = func || pin.name;
+    el.setAttribute("aria-label", `Pin ${pin.pin}, ${func || pin.name}`);
     el.classList.toggle("relabelled", Boolean(func));
   }
 }

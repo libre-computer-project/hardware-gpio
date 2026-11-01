@@ -237,6 +237,8 @@ main {
 }
 
 .pin .pin-label { overflow: hidden; text-overflow: ellipsis; }
+/* the kit's focus ring, drawn inside: the rails sit flush in a clipped stack */
+.pin:focus-visible { outline-offset: -2px; }
 
 /* One header position, two SoC lines (each through its own series resistor) */
 .pin-stack { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
