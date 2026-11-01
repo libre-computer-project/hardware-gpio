@@ -1977,8 +1977,7 @@ MUX_FOR_SOC = {
 #   DRIVER-EXTRA   only mainline has it
 #   DRIVER-ERROR   mainline's register field disagrees with the vendor sources
 # The mux stays on the site with the class and its citations; nothing is
-# dropped. Record: the docs repo's
-# tools/audit/2026-10-31-gpio-db-site-lwt-recursive-review.md (G1).
+# dropped.
 _S905X_TSIN = ("S905X book: no TSin_*_B on GPIOH_6-9 in the pin description (p19:35-41), the "
                "pin-multiplex table (p30:61-67) or the register table (p117:73-89); Amlogic "
                "4.9 vendor pinctrl_gxl.c has the TSIN_B groups on GPIOH_6-9")
@@ -2007,8 +2006,7 @@ DRIVER_ONLY = {
 # Muxes the book states that a pinmux takeover test on silicon did not
 # reproduce, by (SoC, pad, function name). No second source contradicts the
 # book, so the mux stays on the site with the flag; nothing is dropped. A
-# closed table. Record: the docs repo's
-# tools/audit/2026-10-31-gxl-gpioh7-i2s-two-polarity.md.
+# closed table.
 _GPIOH7_I2S_IN = ("not observed on silicon: REG6[22] did not take GPIOH_7 in a two-polarity "
                   "pinmux takeover test; the bit may sample the pad without muxing it")
 SILICON_NOT_OBSERVED = {(soc, "GPIOH_7", "I2S_AO_CLK_IN"): _GPIOH7_I2S_IN for soc in ("S905X", "S805X")}

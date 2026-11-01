@@ -8,7 +8,7 @@
   - MediatekMux (MT8385) reads the MT8183 pin table and mode-field geometry.
 
 The route arms read the kernel tree (--linux, default ../libretech-builder/linux
-beside this repo, else ~/git/libretech-builder/linux) and are skipped, and say
+beside this repo, else one in the home directory) and are skipped, and say
 so, when it is absent.
 
 usage: tools/test-gen-pinout-data.py [--linux DIR]
