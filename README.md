@@ -352,8 +352,10 @@ Each board carries a `status` in the generator's `BOARDS` table:
 
 `?hidden=1` adds the unlisted boards to the dropdown, badges the header, and
 banners the board itself. Without it a `?board=<unlisted-id>` deep link falls
-back to the default board, so an unannounced product cannot be reached by
-guessing its id.
+back to the default board, so a visitor is not shown an unannounced product as
+if it were one. It is a menu filter, not access control, by decision (operator,
+2026-11-01): `data/boards.json` names every board and `data/<id>.json` is
+public, so the data of every board here, listed or not, is published.
 
 ### Regenerating
 
