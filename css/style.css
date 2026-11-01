@@ -717,7 +717,9 @@ pre.usage {
    wrap and the page scrolls normally, because a locked frame would clip them. */
 
 @media (min-width: 900px) and (min-height: 560px) and (min-aspect-ratio: 1/1) {
-  html, body { height: 100%; }
+  /* (body.lc-doc, as specific as the kit's grow-with-content rule, so the
+     frame wins here) */
+  html, body.lc-doc { height: 100%; }
   body { overflow: hidden; }
   main { flex-wrap: nowrap; }
   #diagram, #panel { max-height: 100%; }
