@@ -813,6 +813,12 @@ function padEl(p, header, side) {
   return el;
 }
 
+/* A pin's spoken name. The arrows cross from one header to the next, so on a
+   board with several the header is part of the name ("J22 pin 3"). */
+function pinLabel(headerId, num, name) {
+  return `${board.headers.length > 1 ? `${headerId} pin` : "Pin"} ${num}, ${name}`;
+}
+
 /* The name rail either side of the connector: SoC name + mux square. */
 function pinEl(p, header, side) {
   const el = document.createElement("div");
@@ -834,7 +840,7 @@ function pinEl(p, header, side) {
   el.tabIndex = -1;
   el.setAttribute("role", "button");
   el.setAttribute("aria-expanded", "false");
-  el.setAttribute("aria-label", `Pin ${p.pin}, ${focusedFunc(p) || p.name}`);
+  el.setAttribute("aria-label", pinLabel(header.id, p.pin, focusedFunc(p) || p.name));
   const label = document.createElement("span");
   label.className = "pin-label";
   label.textContent = focusedFunc(p) || p.name;
@@ -955,6 +961,9 @@ function nearestInDirection(items, from, key) {
     const along = (x - x0) * dir[0] + (y - y0) * dir[1];
     if (along <= 1) continue;
     const across = Math.abs((x - x0) * dir[1] + (y - y0) * dir[0]);
+    /* only what lies that way (a 45-degree cone): with nothing there, the
+       key does nothing, rather than jumping to a header a screen away */
+    if (across > along) continue;
     const score = along + 3 * across;
     if (score < bestScore) {
       best = el;
@@ -995,6 +1004,8 @@ function onLegendKey(e) {
 /* Escape puts the pin detail away and returns to the pin it was for. */
 function onEscape(e) {
   if (e.key !== "Escape") return;
+  // in the search box or the board picker, Escape is theirs (clear, dismiss)
+  if (e.target.closest("input, select, textarea")) return;
   const sel = diagramEl.querySelector(".pin.selected");
   if (!sel) return;
   e.preventDefault();
@@ -1193,7 +1204,7 @@ function applyLabels() {
     const label = el.querySelector(".pin-label");
     const func = focusedFunc(pin);
     label.textContent = func || pin.name;
-    el.setAttribute("aria-label", `Pin ${pin.pin}, ${func || pin.name}`);
+    el.setAttribute("aria-label", pinLabel(el.dataset.h, pin.pin, func || pin.name));
     el.classList.toggle("relabelled", Boolean(func));
   }
 }
