@@ -392,37 +392,18 @@ main {
 /* The source citation is a title on .elec-head now -- see renderElectrical. */
 .elec-head[title] { cursor: help; text-decoration: underline dotted var(--border); }
 
-.func-chips { display: flex; flex-wrap: wrap; gap: 5px; }
-
-.func-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 2px 7px;
-  font-family: var(--mono);
-  font-size: 11.5px;
-}
+/* The kit's .lc-chip; this page's own: mux names in monospace, the class
+   dot, and the accent border on the mux the board's reference names. */
+.func-chip { font-family: var(--mono); }
+.func-chip.ref { border-color: var(--accent); color: var(--accent); }
+/* accent ink on the accent wash is too light; pressed reads in page ink */
+.func-chip.ref[aria-pressed="true"] { color: var(--text); }
 
 .chip-dot {
   width: 8px;
   height: 8px;
   border-radius: 2px;
   flex: none;
-}
-
-.func-chip { cursor: pointer; }
-.func-chip:hover { border-color: var(--text-dim); }
-.func-chip.ref { border-color: var(--accent); color: var(--accent); }
-/* White type on a white wash: readable on the dark chip, blank on the light
-   one. The page ink on a tint of itself reads in both. */
-.func-chip.focused {
-  border-color: var(--text);
-  color: var(--text);
-  background: color-mix(in srgb, var(--text) 12%, var(--bg));
-  font-weight: 700;
 }
 
 /* A mux name standing in for the pad name. Inverting the label to white

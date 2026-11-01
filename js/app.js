@@ -1019,7 +1019,7 @@ function onDetailClick(e) {
   const func = chip.dataset.func;
   labelFocus = labelFocus && labelFocus.func === func ? null : { func };
   detailEl.querySelectorAll(".func-chip").forEach((c) =>
-    c.classList.toggle("focused", labelFocus && c.dataset.func === func));
+    c.setAttribute("aria-pressed", String(!!labelFocus && c.dataset.func === func)));
   applyLabels();
 }
 
@@ -1115,14 +1115,14 @@ function renderDetail(header, p) {
      "-" -- gets no Muxes row rather than an empty one. An empty control reads
      as "we failed to load them"; no row reads as "there are none", which is
      the true statement about a pad wired to nothing. */
-  if (p.funcs.length) html += `<tr><th>Muxes</th><td><div class="func-chips">` +
+  if (p.funcs.length) html += `<tr><th>Muxes</th><td><div class="lc-chips">` +
     p.funcs.map((f) => {
       const c = funcClass(f);
       const color = classColor(c);
-      const focused = labelFocus && labelFocus.func === f ? " focused" : "";
-      return `<span class="func-chip${f === p.ref ? " ref" : ""}${focused}" ` +
-        `data-func="${esc(f)}" title="Label the header with this mux">` +
-        `<span class="chip-dot" style="background:${color}"></span>${esc(f)}</span>`;
+      const pressed = !!labelFocus && labelFocus.func === f;
+      return `<button type="button" class="lc-chip func-chip${f === p.ref ? " ref" : ""}" ` +
+        `aria-pressed="${pressed}" data-func="${esc(f)}" title="Label the header with this mux">` +
+        `<span class="chip-dot" style="background:${color}"></span>${esc(f)}</button>`;
     }).join("") +
     `</div></td></tr>`;
   for (const [k, v] of rows) html += `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`;
