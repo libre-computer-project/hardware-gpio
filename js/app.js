@@ -1,7 +1,7 @@
 /* Libre Computer GPIO Pinout — frontend logic. */
 "use strict";
 
-import { mountShell, setBoardLinks, showHiddenFlag, token } from "./lc-kit.js";
+import { boardNotice, mountShell, noteAsked, resolveBoard, setBoardLinks, showHiddenFlag, token } from "./lc-kit.js";
 
 /* Function classes. The colour of each is the --c-<key> token in
    css/style.css, read through classColor() below. */
@@ -168,8 +168,10 @@ async function init() {
   visibleBoards = boardIndex.filter((b) => showHidden || !b.hidden);
   buildSelect();
   markHiddenMode();
-  const wanted = params.get("board");
-  const initial = visibleBoards.find((b) => b.id === wanted) ||
+  // the board asked for here, else the one the previous tool was asked for
+  const wanted = params.get("asked") || params.get("board");
+  const { id: found, how } = resolveBoard(wanted, visibleBoards.map((b) => b.id));
+  const initial = visibleBoards.find((b) => b.id === found) ||
     visibleBoards.find((b) => b.id === "aml-s905x-cc") || visibleBoards[0];
   /* A query string cannot 404 -- index.html exists, so ?board=<anything>
      is a 200 on any host. Falling back silently therefore showed a DIFFERENT
@@ -178,10 +180,15 @@ async function init() {
      board. Say so instead. */
   if (wanted && initial.id !== wanted) {
     const onlyHidden = boardIndex.some((b) => b.id === wanted);
-    reportUnknownBoard(wanted, initial, onlyHidden);
+    reportUnknownBoard(wanted, initial, how, onlyHidden);
   }
+  noteAsked(wanted, initial.id);
   selectEl.value = initial.id;
-  selectEl.addEventListener("change", () => loadBoard(selectEl.value));
+  selectEl.addEventListener("change", () => {
+    noteAsked(null, null);  // a board picked here is the one asked for now
+    document.getElementById("board-notice")?.remove();  // and "showing X" is past
+    loadBoard(selectEl.value);
+  });
   searchEl.addEventListener("input", applySearch);
   /* pointerover/-out rather than mouseover/-out, so the handler can see what
      the pointer WAS -- a touch synthesises a mouseover the tooltip has no way
@@ -261,14 +268,12 @@ function markHiddenMode() {
     "makers' reference boards, are listed");
 }
 
-function reportUnknownBoard(wanted, shown, onlyHidden) {
+function reportUnknownBoard(wanted, shown, how, onlyHidden) {
   const note = document.createElement("p");
   note.id = "board-notice";
   note.className = "lc-notice";  // (the kit's, as on the layout and power tools)
   note.setAttribute("role", "status");
-  note.textContent = onlyHidden
-    ? `\u201c${wanted}\u201d is not listed publicly. Showing ${shown.name}.`
-    : `No board \u201c${wanted}\u201d. Showing ${shown.name}.`;
+  note.textContent = boardNotice(wanted, shown.name, how, onlyHidden);
   if (onlyHidden) {
     note.title = "Append &hidden=1 to list pre-production, unannounced and " +
       "reference boards";
