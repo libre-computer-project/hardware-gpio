@@ -86,8 +86,8 @@
    "name": "Alta Compute Module",
    "soc": "A311D",
    "vendor": "Amlogic",
-   "status": "unreleased",
-   "hidden": true,
+   "status": "preliminary",
+   "hidden": false,
    "npins": 200,
    "headers": [
     {
@@ -190,8 +190,8 @@
    "name": "Solitude Compute Module",
    "soc": "S905D3",
    "vendor": "Amlogic",
-   "status": "unreleased",
-   "hidden": true,
+   "status": "preliminary",
+   "hidden": false,
    "npins": 200,
    "headers": [
     {

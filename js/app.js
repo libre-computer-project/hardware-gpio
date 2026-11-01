@@ -140,6 +140,7 @@ const sheetCloseEl = document.getElementById("sheet-close");
 /* Pre-production and unreleased boards ship in the data but stay out of the
    picker until ?hidden=1 asks for them. */
 const STATUS_LABEL = { preprod: "pre-production", unreleased: "unreleased",
+                       preliminary: "preliminary pinout",
                        reference: "another maker's board, shown for comparison" };
 
 let boardIndex = [];       /* every board in data/boards.json */
@@ -694,10 +695,12 @@ function render() {
   if (STATUS_LABEL[status]) {
     const flag = document.createElement("div");
     flag.className = "board-flag";
-    flag.textContent = `${board.model} is ${STATUS_LABEL[status]} — ` +
-      (status === "reference"
-        ? "transcribed from its maker's datasheet, not a Libre Computer product."
-        : "pinout may change before launch.");
+    flag.textContent = status === "preliminary"
+      ? `${board.model}: this pinout is preliminary and not final.`
+      : `${board.model} is ${STATUS_LABEL[status]} — ` +
+        (status === "reference"
+          ? "transcribed from its maker's datasheet, not a Libre Computer product."
+          : "pinout may change before launch.");
     slot.appendChild(flag);
     slot.hidden = false;
   }

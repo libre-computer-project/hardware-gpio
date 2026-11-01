@@ -42,6 +42,8 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 #
 # status drives visibility on the site:
 #   production  shipping, sold to customers -- shown to everyone
+#   preliminary on sale, but its pin data is not final -- shown to everyone,
+#               with a banner saying so
 #   preprod     V0.X engineering build, never sold  -- only with ?hidden=1
 #   unreleased  production design, not launched yet -- only with ?hidden=1
 BOARDS = {
@@ -59,8 +61,8 @@ BOARDS = {
     "roc-rk3328-cc":   ("ROC-RK3328-CC",   "Renegade",             "RK3328", "Rockchip",  "production"),
     "roc-rk3328-cc-v2": ("ROC-RK3328-CC-V2", "Das Renegade",       "RK3328", "Rockchip",  "unreleased"),
     "roc-rk3399-pc":   ("ROC-RK3399-PC",   "Renegade Elite",       "RK3399", "Rockchip",  "production"),
-    "aml-a311d-cm":    ("AML-A311D-CM",    "Alta Compute Module",  "A311D",  "Amlogic",   "unreleased"),
-    "aml-s905d3-cm":   ("AML-S905D3-CM",   "Solitude Compute Module", "S905D3", "Amlogic", "unreleased"),
+    "aml-a311d-cm":    ("AML-A311D-CM",    "Alta Compute Module",  "A311D",  "Amlogic",   "preliminary"),
+    "aml-s905d3-cm":   ("AML-S905D3-CM",   "Solitude Compute Module", "S905D3", "Amlogic", "preliminary"),
     "med-mt83-ace":    ("MED-MT83-ACE",    "Livia",                "MT8385", "MediaTek",  "unreleased"),
     "rpi-cm4":         ("RPI-CM4",         "Raspberry Pi Compute Module 4", "BCM2711", "Raspberry Pi", "reference"),
     "rpi-cm5":         ("RPI-CM5",         "Raspberry Pi Compute Module 5", "BCM2712", "Raspberry Pi", "reference"),
@@ -2227,7 +2229,7 @@ def main():
         written[f"{board}.json"] = json.dumps(doc, indent=1) + "\n"
         index.append({
             "id": board, "model": model, "name": name, "soc": soc,
-            "vendor": vendor, "status": status, "hidden": status != "production",
+            "vendor": vendor, "status": status, "hidden": status not in ("production", "preliminary"),
             "npins": npins,
             "headers": [{"id": h["id"], "pins": len(h["pins"])} for h in headers],
         })

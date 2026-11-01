@@ -4,7 +4,7 @@
  "name": "Alta Compute Module",
  "soc": "A311D",
  "vendor": "Amlogic",
- "status": "unreleased",
+ "status": "preliminary",
  "mux": {
   "family": "meson-g12a",
   "driver": "drivers/pinctrl/meson/pinctrl-meson-g12a.c",
