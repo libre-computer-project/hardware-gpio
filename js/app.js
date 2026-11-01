@@ -1,7 +1,7 @@
 /* Libre Computer GPIO Pinout — frontend logic. */
 "use strict";
 
-import { mountShell, token } from "./lc-kit.js";
+import { mountShell, setBoardLinks, token } from "./lc-kit.js";
 
 /* Function classes. The colour of each is the --c-<key> token in
    css/style.css, read through classColor() below. */
@@ -272,6 +272,7 @@ async function loadBoard(id) {
      out re-armed the filter instead of clearing it. */
   labelFocus = null;
   render();
+  setBoardLinks(id);
   const url = new URL(location.href);
   url.searchParams.set("board", id);
   history.replaceState(null, "", url);

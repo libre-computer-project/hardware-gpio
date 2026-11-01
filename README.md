@@ -48,6 +48,7 @@ and classes only (no pinmux or electricals).
 | File | Content |
 |---|---|
 | `data/boards.json` | Board index (id, model, name, SoC, vendor, status, hidden) |
+| `data/lc-products.json` | VENDORED: each board's product page and 3D model, shown beside the board picker; written by the shell kit's sync from libre.computer's catalogue, checked by `tools/check-kit.py` |
 | `data/<board>.json` | Per-board headers and pins with function classes, pinmux registers, and (where published) per-pad electricals + the board's rail/DC tables, plus the connectors' physical placement (`layout`) where the board's CAD data gives it, and the maker's own grouping (`arrangement`) where they have given one for that board by name. A board may carry both. A board drawn by the maker's 40-pin-header rule carries neither key — that rule needs no per-board data and is applied by the frontend, so recording it here would forge a per-board claim |
 
 ### Board layout
