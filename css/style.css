@@ -40,7 +40,9 @@ html.dark {
    The pinout is a reference you read at a glance, so the frame is the window:
    header, board and detail panel are all visible at once and the document
    never scrolls. Only a column that genuinely overflows scrolls, inside
-   itself. On a narrow window the page does scroll, and both bars stay pinned.
+   itself. On a narrow window the page does scroll; the footer stays pinned,
+   and so does the top bar down to the kit's phone width, where it is too
+   tall to pin and scrolls away.
 
    A sticky element is bounded by its containing block, and so is a flex
    item's place in it: with the kit's `height: 100%` the body is one screen
@@ -50,7 +52,7 @@ html.dark {
    height back where the document never scrolls. */
 body { height: auto; min-height: 100%; font-size: 15px; }
 
-.lc-topbar { position: sticky; top: 0; }
+/* (the top bar is sticky in the kit, on every site) */
 .lc-footer { position: sticky; bottom: 0; z-index: 10; }
 
 /* ---- layout ---- */
@@ -96,19 +98,7 @@ footer {
 
 /* ---- unreleased / pre-production boards (?hidden=1) ---- */
 
-/* --warn, not the JTAG orange. That orange is a swatch; as small type on
-   the light bar it falls short of body text. --warn is the caution ink
-   and clears it on both grounds. */
-#hidden-flag {
-  border: 1px solid var(--c-jtag);
-  border-radius: 4px;
-  padding: 1px 7px;
-  color: var(--warn);
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: .3px;
-  text-transform: uppercase;
-}
+/* (the ?hidden=1 flag is the kit's .lc-flag, showHiddenFlag) */
 
 /* Its own full-width bar between the legend and main, aligned with them:
    inside #diagram the packed layout's column wrap gave it a whole column. */
@@ -586,10 +576,8 @@ pre.usage {
   /* Take the whole line: at 1024px the diagram's 620px basis and the panel's
      320px still fit side by side, so wrapping alone never stacks them. */
   #panel { flex: 1 1 100%; max-width: none; min-width: 0; }
-  input[type="search"] { min-width: 160px; flex: 1; }
-  /* 16px exactly: below it Safari zooms the page when the field takes focus,
-     and the only way back out of that zoom is a pinch. */
-  select, input[type="search"] { font-size: 16px; }
+  /* (the title bar's controls -- 16px on a phone, the search box growing
+     into its row -- are the kit's, the same on every site) */
   .pin-grid-dual { grid-template-columns: 1fr 24px 24px 1fr; }
 
   /* ---- touch targets ----

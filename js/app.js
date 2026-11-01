@@ -1,7 +1,7 @@
 /* Libre Computer GPIO Pinout — frontend logic. */
 "use strict";
 
-import { mountShell, setBoardLinks, token } from "./lc-kit.js";
+import { mountShell, setBoardLinks, showHiddenFlag, token } from "./lc-kit.js";
 
 /* Function classes. The colour of each is the --c-<key> token in
    css/style.css, read through classColor() below. */
@@ -237,13 +237,9 @@ function buildSelect() {
 /* Say so, loudly, when the picker is showing boards nobody can buy yet. */
 function markHiddenMode() {
   if (!showHidden) return;
-  const n = boardIndex.filter((b) => b.hidden).length;
-  const flag = document.createElement("span");
-  flag.id = "hidden-flag";
-  flag.textContent = `+${n} unlisted`;
-  flag.title = "?hidden=1 — pre-production and unannounced boards, and other " +
-    "makers' reference boards, are listed";
-  document.getElementById("brand").appendChild(flag);
+  showHiddenFlag(boardIndex.filter((b) => b.hidden).length,
+    "?hidden=1 — pre-production and unannounced boards, and other " +
+    "makers' reference boards, are listed");
 }
 
 function reportUnknownBoard(wanted, shown, onlyHidden) {

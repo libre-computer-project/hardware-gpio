@@ -19,22 +19,21 @@
 <script>try{var p=localStorage.getItem("theme")||"auto";if(p==="dark"||(p==="auto"&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark")}catch(e){}</script>
 </head>
 <body>
-<header class="lc-topbar" id="topbar">
-  <div class="lc-brand" id="brand">
+<header class="lc-topbar">
+  <div class="lc-brand">
     <a class="lc-brand-name" href="https://libre.computer">Libre Computer</a>
-    <nav class="lc-sites" aria-label="Hardware tools">
+    <nav class="lc-sites" aria-label="Libre Computer sites">
       <a class="lc-site" href="https://education.libre.computer/">Education</a>
-      <span class="lc-site" aria-current="page">GPIO Pinout</span>
-      <a class="lc-site" data-lc-site
-         href="https://layout.hardware.libre.computer/">Layout</a>
-      <a class="lc-site" data-lc-site
-         href="https://power.hardware.libre.computer/">Power</a>
+      <a class="lc-site" href="/" aria-current="page">GPIO Pinout</a>
+      <a class="lc-site" data-lc-site href="https://layout.hardware.libre.computer/">Layout</a>
+      <a class="lc-site" data-lc-site href="https://power.hardware.libre.computer/">Power</a>
+      <a class="lc-site" href="https://memory.software.libre.computer/">Memory</a>
     </nav>
   </div>
-  <div class="lc-controls" id="controls">
+  <div class="lc-controls">
     <label for="board-select">Board</label>
     <select id="board-select" aria-label="Select board"></select>
-    <input id="search" type="search" placeholder="Search: GPIOX_12, I2C, pin 7, B4…" autocomplete="off" spellcheck="false">
+    <input id="search" type="search" placeholder="Search: GPIOX_12, I2C, pin 7, B4…" autocomplete="off" spellcheck="false" aria-label="Search by pad, function, pin or ball">
   </div>
 </header>
 
@@ -52,10 +51,8 @@
 
 <footer class="lc-footer">
   Pin data from <a href="https://github.com/libre-computer-project/libretech-wiring-tool">libretech-wiring-tool</a> (MIT)
-  &middot; <a href="https://layout.hardware.libre.computer">Board layout</a>
-  &middot; <a href="https://power.hardware.libre.computer">Power tree</a>
-  &middot; <a href="https://libre.computer">libre.computer</a>
   &middot; Learn how it works: <a href="https://education.libre.computer/modules/io/">driving a pin, and the header's buses</a>
+  &middot; <a href="https://libre.computer">libre.computer</a>
 </footer>
 
 <div id="tooltip" hidden></div>
