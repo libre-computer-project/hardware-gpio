@@ -89,14 +89,6 @@ main {
   overflow: auto;
 }
 
-footer {
-  flex: none;
-  padding: 6px 20px 8px;
-  color: var(--text-dim);
-  font-size: 13px;
-  text-align: center;
-}
-
 /* ---- unreleased / pre-production boards (?hidden=1; the flag is the kit's) ---- */
 
 /* Its own full-width bar between the legend and main, aligned with them:
