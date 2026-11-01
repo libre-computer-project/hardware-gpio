@@ -132,7 +132,7 @@
    "vendor": "Amlogic",
    "status": "production",
    "hidden": false,
-   "npins": 48,
+   "npins": 44,
    "headers": [
     {
      "id": "7J1",
@@ -140,10 +140,6 @@
     },
     {
      "id": "2J2",
-     "pins": 4
-    },
-    {
-     "id": "9J5",
      "pins": 4
     }
    ]
