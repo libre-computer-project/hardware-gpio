@@ -191,6 +191,8 @@ async function init() {
   diagramEl.addEventListener("click", onPinClick);
   diagramEl.addEventListener("keydown", onPinKey);
   legendEl.addEventListener("click", onLegendClick);
+  legendEl.addEventListener("keydown", onLegendKey);
+  document.addEventListener("keydown", onEscape);
   detailEl.addEventListener("click", onDetailClick);
   sheetCloseEl.addEventListener("click", closeDetail);
   /* The board view's fit depends on the window, and it has to be able to come
@@ -204,10 +206,18 @@ async function init() {
   /* Class colours reach the page as inline styles on the pin bands and the
      legend swatches, so a stylesheet swapping the tokens underneath cannot
      repaint them -- they hold a resolved value from the theme they were built
-     in. Re-render on a theme change, which also keeps the selected pin, the
-     search and the relabel where they were. */
+     in. Re-render on a theme change; the search and the relabel survive a
+     render, and the selected pin is put back here (render closes the
+     detail). */
   document.addEventListener("themechange", () => {
-    if (board) render();
+    if (!board) return;
+    const sel = diagramEl.querySelector(".pin.selected");
+    const at = sel && findPin(sel.dataset.h, sel.dataset.pin);
+    render();
+    if (at) {
+      selectPin(at.header, at.pin);
+      setRovingStop([...pinCells(at.header.id, at.pin.pin)].find((n) => n.matches(".pin")));
+    }
   });
   await loadBoard(initial.id);
 }
@@ -733,6 +743,7 @@ function render() {
   renderDetailPlaceholder();
   applySearch();
   applyFilter();
+  setRovingStop(diagramEl.querySelector(".pin"));
 }
 
 /* Physical layout: odd pins on the left rail, even pins on the right,
@@ -816,9 +827,11 @@ function pinEl(p, header, side) {
     classColor(primaryClass(p) in CLASS_INFO ? primaryClass(p) : "gpio"));
   if (isAnalog(p)) el.dataset.analog = "1";
   /* The keyboard's way in: the name rail is a button that opens the pin's
-     detail (Enter or Space, onPinKey); the numbered pad stays pointer-only so
-     a pin is one Tab stop, not two. */
-  el.tabIndex = 0;
+     detail (Enter or Space, onPinKey). The diagram is ONE Tab stop -- the
+     arrow keys move between pins (roving tabindex, setRovingStop) -- so the
+     pin detail after it is not 54 Tabs away. The numbered pad stays
+     pointer-only. */
+  el.tabIndex = -1;
   el.setAttribute("role", "button");
   el.setAttribute("aria-expanded", "false");
   el.setAttribute("aria-label", `Pin ${p.pin}, ${focusedFunc(p) || p.name}`);
@@ -885,8 +898,13 @@ function renderLegend() {
       for (const c of muxClasses(p)) present.add(c);
   for (const [cls, info] of Object.entries(CLASS_INFO)) {
     if (!present.has(cls)) continue;
-    const item = document.createElement("div");
+    /* A filter toggle: a button saying whether it is on, and one Tab stop for
+       the row (Left/Right move along it, onLegendKey) */
+    const item = document.createElement("button");
+    item.type = "button";
     item.className = "legend-item" + (classFilter === cls ? " active" : "");
+    item.setAttribute("aria-pressed", String(classFilter === cls));
+    item.tabIndex = -1;
     item.dataset.cls = cls;
     item.title = "Show only pins that can mux to " + info.label;
     const sw = document.createElement("span");
@@ -900,6 +918,88 @@ function renderLegend() {
     item.append(sw, text);
     legendEl.appendChild(item);
   }
+  setRovingStop(legendEl.querySelector(".legend-item.active") || legendEl.querySelector(".legend-item"));
+}
+
+/* ---- keyboard: one Tab stop per group, arrows inside it ---- */
+
+/* Make `el` its group's one Tab stop (the diagram's pins, the legend row). */
+function setRovingStop(el) {
+  if (!el) return;
+  const group = el.closest("#diagram, #legend");
+  for (const o of group.querySelectorAll('[tabindex="0"]')) if (o !== el) o.tabIndex = -1;
+  el.tabIndex = 0;
+}
+
+function moveTo(el) {
+  if (!el) return;
+  setRovingStop(el);
+  el.focus();
+}
+
+/* The control nearest `from` in an arrow's direction, by where they sit on
+   screen: the header's own geometry (odd pins left, even right, a two-row
+   header, a strip, the board view) is the map the arrows follow. */
+function nearestInDirection(items, from, key) {
+  const dir = { ArrowRight: [1, 0], ArrowLeft: [-1, 0], ArrowDown: [0, 1], ArrowUp: [0, -1] }[key];
+  const mid = (el) => {
+    const r = el.getBoundingClientRect();
+    return [r.left + r.width / 2, r.top + r.height / 2];
+  };
+  const [x0, y0] = mid(from);
+  let best = null;
+  let bestScore = Infinity;
+  for (const el of items) {
+    if (el === from) continue;
+    const [x, y] = mid(el);
+    const along = (x - x0) * dir[0] + (y - y0) * dir[1];
+    if (along <= 1) continue;
+    const across = Math.abs((x - x0) * dir[1] + (y - y0) * dir[0]);
+    const score = along + 3 * across;
+    if (score < bestScore) {
+      best = el;
+      bestScore = score;
+    }
+  }
+  return best;
+}
+
+/* Arrows, Home and End within a group; true when the key was one of them.
+   `ends` is what Home and End jump along (a pin's own header). */
+function roveKey(e, items, ends = items) {
+  const from = e.target;
+  if (e.key === "Home") moveTo(ends[0]);
+  else if (e.key === "End") moveTo(ends[ends.length - 1]);
+  else if (e.key.startsWith("Arrow")) moveTo(nearestInDirection(items, from, e.key));
+  else return false;
+  e.preventDefault();
+  return true;
+}
+
+/* The legend is a list, wrapped onto lines on a phone: the arrows step
+   through it in order (Right/Down next, Left/Up previous) rather than by
+   screen position, which a wrap would strand. */
+function onLegendKey(e) {
+  if (!e.target.matches(".legend-item")) return;
+  const items = [...legendEl.querySelectorAll(".legend-item")];
+  const i = items.indexOf(e.target);
+  const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+  if (step) {
+    e.preventDefault();
+    moveTo(items[i + step]);
+  } else {
+    roveKey(e, items);
+  }
+}
+
+/* Escape puts the pin detail away and returns to the pin it was for. */
+function onEscape(e) {
+  if (e.key !== "Escape") return;
+  const sel = diagramEl.querySelector(".pin.selected");
+  if (!sel) return;
+  e.preventDefault();
+  closeDetail();
+  moveTo(sel);
 }
 
 function renderDetailPlaceholder() {
@@ -914,12 +1014,31 @@ function renderDetailPlaceholder() {
     "board's colour for that pin (yellow I2C, blue SPI, green GPIO); the far " +
     "half carries one strip per other mux the pad can reach. Hover a pin " +
     "for its mux list, select it for the full pinmux, or select a legend " +
-    "entry to filter.</p>";
+    "entry to filter. By keyboard: Tab to the pins, the arrow keys move " +
+    "between them, Enter opens one and Escape closes it.</p>";
+}
+
+function clearSelection() {
+  diagramEl.querySelectorAll(".selected").forEach((n) => n.classList.remove("selected"));
+  diagramEl.querySelectorAll('[aria-expanded="true"]').forEach((n) => n.setAttribute("aria-expanded", "false"));
+}
+
+function selectPin(header, pin) {
+  pinCells(header.id, pin.pin).forEach((n) => {
+    n.classList.add("selected");
+    if (n.hasAttribute("aria-expanded")) n.setAttribute("aria-expanded", "true");
+  });
+  renderDetail(header, pin);
 }
 
 function closeDetail() {
-  diagramEl.querySelectorAll(".selected").forEach((n) => n.classList.remove("selected"));
+  /* the sheet's Close: focus goes back to the pin it was opened from, not to
+     the page (the button it was on is about to be hidden) */
+  const sel = diagramEl.querySelector(".pin.selected");
+  const fromSheet = detailEl.parentElement.contains(document.activeElement);
+  clearSelection();
   renderDetailPlaceholder();
+  if (sel && fromSheet) moveTo(sel);
 }
 
 /* ---- pin lookup + events ---- */
@@ -979,12 +1098,19 @@ function onPinOut(e) {
   tooltipEl.hidden = true;
 }
 
-/* Enter or Space on a pin's name rail does what a click does. */
+/* On a pin: Enter or Space does what a click does; the arrows, Home and End
+   move between pins. Opening one into the phone's bottom sheet takes focus to
+   the sheet's Close, so the detail is the next thing read, not 50 pins on. */
 function onPinKey(e) {
-  if (e.key !== "Enter" && e.key !== " ") return;
   if (!e.target.matches('.pin[role="button"]')) return;
+  const rails = '.pin[role="button"]';
+  if (roveKey(e, [...diagramEl.querySelectorAll(rails)],
+    [...e.target.closest(".header-block").querySelectorAll(rails)])) return;
+  if (e.key !== "Enter" && e.key !== " ") return;
   e.preventDefault();
   onPinClick(e);
+  // the sheet layout only, where Close is shown (pin-open is set at every width)
+  if (document.body.classList.contains("pin-open") && sheetCloseEl.offsetParent) sheetCloseEl.focus();
 }
 
 function onPinClick(e) {
@@ -1001,17 +1127,16 @@ function onPinClick(e) {
      that outlived that would make the next click on that pin CLOSE a pane
      that was never open. */
   const wasSelected = el.classList.contains("selected");
-  diagramEl.querySelectorAll(".selected").forEach((n) => n.classList.remove("selected"));
-  diagramEl.querySelectorAll('[aria-expanded="true"]').forEach((n) => n.setAttribute("aria-expanded", "false"));
+  /* the pin (its name rail, also when its pad was clicked) becomes the
+     diagram's Tab stop, so Tab back into the diagram lands where you were */
+  const rail = el.matches(".pin") ? el : [...pinCells(found.header.id, found.pin.pin)].find((n) => n.matches(".pin"));
+  setRovingStop(rail);
+  clearSelection();
   if (wasSelected) {
     renderDetailPlaceholder();
     return;
   }
-  pinCells(found.header.id, found.pin.pin).forEach((n) => {
-    n.classList.add("selected");
-    if (n.hasAttribute("aria-expanded")) n.setAttribute("aria-expanded", "true");
-  });
-  renderDetail(found.header, found.pin);
+  selectPin(found.header, found.pin);
   /* The sheet takes the bottom of the screen, so a pin tapped down there ends
      up underneath it. scroll-margin-bottom in the stylesheet is what the
      "nearest" edge is measured against, so this lifts the pin clear of the
@@ -1025,8 +1150,11 @@ function onLegendClick(e) {
   if (!item) return;
   classFilter = classFilter === item.dataset.cls ? null : item.dataset.cls;
   labelFocus = classFilter ? { cls: classFilter } : null;
-  for (const el of legendEl.querySelectorAll(".legend-item"))
+  setRovingStop(item);
+  for (const el of legendEl.querySelectorAll(".legend-item")) {
     el.classList.toggle("active", el.dataset.cls === classFilter);
+    el.setAttribute("aria-pressed", String(el.dataset.cls === classFilter));
+  }
   applyFilter();
   applyLabels();
 }
