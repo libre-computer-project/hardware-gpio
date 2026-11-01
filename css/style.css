@@ -102,12 +102,13 @@ main {
 }
 #board-flag-slot[hidden] { display: none; }
 
+/* A box in the page, in the kit notice's caution wash and ink */
 .board-flag {
-  background: #ff922b18;
-  border: 1px solid var(--c-jtag);
+  background: color-mix(in srgb, var(--warn) 14%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--warn) 45%, var(--border));
   border-radius: 6px;
   padding: 8px 12px;
-  color: var(--warn);
+  color: var(--text);
   font-size: 13px;
 }
 
@@ -187,7 +188,7 @@ main {
   border-radius: 50%;
   background: linear-gradient(160deg, #d8be5c, #9a7d1c);
   color: #17140a;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-family: var(--mono);
   font-size: 10.5px;
   font-weight: 600;
   cursor: pointer;
@@ -215,7 +216,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 4px;
   cursor: pointer;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-family: var(--mono);
   font-size: 11.5px;
   white-space: nowrap;
   overflow: hidden;
@@ -351,7 +352,7 @@ main {
 }
 
 #pin-detail td {
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-family: var(--mono);
   font-size: 12.5px;
   padding: 3px 0;
   word-break: break-word;
@@ -401,7 +402,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 2px 7px;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-family: var(--mono);
   font-size: 11.5px;
 }
 
@@ -524,23 +525,12 @@ pre.usage {
 
 /* ---- tooltip ---- */
 
+/* The kit's .lc-tooltip (theme-following, as on the layout viewer); this
+   page's own: fixed to the window, pad names in monospace, line breaks kept */
 #tooltip {
   position: fixed;
-  z-index: 20;
-  /* The fill stays dark in both themes (a floating note, not a page
-     surface). Inheriting --text then paints the light theme's dark ink on
-     it. The ink is fixed light. */
-  background: #000c;
-  color: #e8eaed;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 6px 10px;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 12px;
-  pointer-events: none;
-  max-width: 340px;
+  font-family: var(--mono);
   white-space: pre-line;
-  backdrop-filter: blur(2px);
 }
 
 /* Portrait is stacked at ANY width, not just below 900px. A 1024x1366 tablet
@@ -845,13 +835,5 @@ pre.usage {
   opacity: .55;
 }
 
-/* Shown only when ?board= named something this page cannot display, so the
-   reader knows the pinout below is not the board they asked for. */
-#board-notice {
-  margin: 0;
-  padding: 7px 14px;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-raised);
-  color: var(--text-dim);
-  font-size: 13px;
-}
+/* (#board-notice, shown only when ?board= named something this page cannot
+   display, is the kit's .lc-notice, as on the layout and power tools) */

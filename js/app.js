@@ -245,6 +245,7 @@ function markHiddenMode() {
 function reportUnknownBoard(wanted, shown, onlyHidden) {
   const note = document.createElement("p");
   note.id = "board-notice";
+  note.className = "lc-notice";  // (the kit's, as on the layout and power tools)
   note.setAttribute("role", "status");
   note.textContent = onlyHidden
     ? `\u201c${wanted}\u201d is not listed publicly. Showing ${shown.name}.`
