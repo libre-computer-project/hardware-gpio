@@ -1108,7 +1108,7 @@ function renderDetail(header, p) {
      label, rather than a grey badge over a green word. */
   const primary = primaryClass(p) in CLASS_INFO ? primaryClass(p) : "gpio";
   let html = `<h3><span class="cls-badge" style="background:${classColor(primary)}"></span>` +
-    `${esc(header.id)} pin ${p.pin} <span class="muted" style="font-size:13px;font-weight:400">${esc(info.label)}</span></h3>`;
+    `${esc(header.id)} pin ${esc(p.pin)} <span class="muted" style="font-size:13px;font-weight:400">${esc(info.label)}</span></h3>`;
   html += "<table>";
   /* What the pin can BE comes before what it currently IS. The mux chips are
      the reason to open this pane -- and they are the clickable control that
@@ -1177,10 +1177,10 @@ function renderDetail(header, p) {
      table they mostly scroll past. */
   if (p.chip !== null) {
     html += `<pre class="usage"># inspect
-gpioinfo gpiochip${p.chip}
+gpioinfo gpiochip${esc(p.chip)}
 
 # drive as output (libgpiod)
-gpioset gpiochip${p.chip} ${p.line}=1</pre>`;
+gpioset gpiochip${esc(p.chip)} ${esc(p.line)}=1</pre>`;
   }
   html += renderElectrical(p);
   detailEl.innerHTML = html;
