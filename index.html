@@ -25,7 +25,7 @@
     <nav class="lc-sites" aria-label="Libre Computer sites">
       <a class="lc-site" href="https://education.libre.computer/">Education</a>
       <a class="lc-site" data-lc-site href="https://layout.hardware.libre.computer/">Layout</a>
-      <a class="lc-site" href="/" aria-current="page">GPIO Pinout</a>
+      <a class="lc-site" href="/" aria-current="true">GPIO Pinout</a>
       <a class="lc-site" data-lc-site href="https://power.hardware.libre.computer/">Power</a>
       <a class="lc-site" href="https://memory.software.libre.computer/">Memory</a>
     </nav>
@@ -42,12 +42,13 @@
 <div id="board-flag-slot" hidden></div>
 
 <main>
-  <section id="diagram" aria-label="Pin headers" aria-describedby="pin-keys"></section>
-  <p id="pin-keys" hidden>The arrow keys move between pins; Enter opens one, Escape closes it.</p>
+  <section id="diagram" aria-label="Pin headers"></section>
   <aside id="panel">
     <button id="sheet-close" type="button">Close &times;</button>
-    <div id="pin-detail"><p class="muted">Each pin's square is banded: the top is the board's colour for that pin (yellow I2C, blue SPI, orange 3.3V), and below it one vertical stripe per other mux the pad can reach. A GPIO-only pin has stripes alone. Select a pin for its full pinmux, again to close, or select a legend entry to filter.</p></div>
+    <div id="pin-detail"></div>
   </aside>
+  <!-- after #panel: style.css sizes the panel by `#diagram + #panel` -->
+  <p id="pin-keys" hidden>The arrow keys move between pins; Enter opens one, Escape closes it.</p>
 </main>
 
 <footer class="lc-footer">

@@ -211,13 +211,21 @@ async function init() {
      detail). */
   document.addEventListener("themechange", () => {
     if (!board) return;
-    const sel = diagramEl.querySelector(".pin.selected");
-    const at = sel && findPin(sel.dataset.h, sel.dataset.pin);
+    /* render() rebuilds the pins and the detail, so the selection, the
+       diagram's Tab stop and the focus (a pin, or a mux chip in the detail)
+       are noted first and put back on the new elements */
+    const rail = (n) => n && findPin(n.dataset.h, n.dataset.pin);
+    const sel = rail(diagramEl.querySelector(".pin.selected"));
+    const stop = rail(diagramEl.querySelector('.pin[tabindex="0"]'));
+    const active = document.activeElement;
+    const focusPin = active?.matches(".pin") ? rail(active) : null;
+    const focusChip = active?.matches(".func-chip") ? active.dataset.func : null;
+    const railOf = (at) => at && [...pinCells(at.header.id, at.pin.pin)].find((n) => n.matches(".pin"));
     render();
-    if (at) {
-      selectPin(at.header, at.pin);
-      setRovingStop([...pinCells(at.header.id, at.pin.pin)].find((n) => n.matches(".pin")));
-    }
+    if (sel) selectPin(sel.header, sel.pin);
+    setRovingStop(railOf(stop) || railOf(sel));
+    if (focusPin) railOf(focusPin)?.focus();
+    else if (focusChip) detailEl.querySelector(`.func-chip[data-func="${CSS.escape(focusChip)}"]`)?.focus();
   });
   await loadBoard(initial.id);
 }
@@ -840,6 +848,9 @@ function pinEl(p, header, side) {
   el.tabIndex = -1;
   el.setAttribute("role", "button");
   el.setAttribute("aria-expanded", "false");
+  // the keyboard hint, on the pin itself: a reader announces the focused
+  // element's description, not its section's
+  el.setAttribute("aria-describedby", "pin-keys");
   el.setAttribute("aria-label", pinLabel(header.id, p.pin, focusedFunc(p) || p.name));
   const label = document.createElement("span");
   label.className = "pin-label";
@@ -976,6 +987,8 @@ function nearestInDirection(items, from, key) {
 /* Arrows, Home and End within a group; true when the key was one of them.
    `ends` is what Home and End jump along (a pin's own header). */
 function roveKey(e, items, ends = items) {
+  // Alt+Left is the browser's Back, Ctrl+Home the page's top: not ours
+  if (e.altKey || e.ctrlKey || e.metaKey) return false;
   const from = e.target;
   if (e.key === "Home") moveTo(ends[0]);
   else if (e.key === "End") moveTo(ends[ends.length - 1]);
@@ -993,7 +1006,7 @@ function onLegendKey(e) {
   const items = [...legendEl.querySelectorAll(".legend-item")];
   const i = items.indexOf(e.target);
   const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
-  if (step) {
+  if (step && !(e.altKey || e.ctrlKey || e.metaKey)) {
     e.preventDefault();
     moveTo(items[i + step]);
   } else {
@@ -1168,6 +1181,7 @@ function onLegendClick(e) {
   }
   applyFilter();
   applyLabels();
+  syncChips();
 }
 
 /* Click a function in the detail panel to see where else that exact mux
@@ -1177,9 +1191,15 @@ function onDetailClick(e) {
   if (!chip) return;
   const func = chip.dataset.func;
   labelFocus = labelFocus && labelFocus.func === func ? null : { func };
-  detailEl.querySelectorAll(".func-chip").forEach((c) =>
-    c.setAttribute("aria-pressed", String(!!labelFocus && c.dataset.func === func)));
+  syncChips();
   applyLabels();
+}
+
+/* A mux chip is pressed while the diagram is relabelled by its function;
+   a legend entry replaces that focus, so both routes come through here. */
+function syncChips() {
+  detailEl.querySelectorAll(".func-chip").forEach((c) =>
+    c.setAttribute("aria-pressed", String(c.dataset.func === labelFocus?.func)));
 }
 
 /* The mux name this pin takes under the current focus, or null. */
@@ -1587,6 +1607,12 @@ function applyDim() {
   for (const el of diagramEl.querySelectorAll("[data-pin]"))
     el.classList.toggle("dim",
       el.classList.contains("nomatch") || el.classList.contains("nofilter"));
+  /* Tab back into the diagram lands on a pin the filter or search kept, not
+     one faded out (left alone while focus is in the diagram: moving the stop
+     under the reader's feet would lose their place) */
+  const stop = diagramEl.querySelector('.pin[tabindex="0"]');
+  if (stop?.classList.contains("dim") && !diagramEl.contains(document.activeElement))
+    setRovingStop(diagramEl.querySelector(".pin:not(.dim)"));
 }
 
 init();

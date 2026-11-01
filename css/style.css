@@ -237,8 +237,6 @@ main {
 }
 
 .pin .pin-label { overflow: hidden; text-overflow: ellipsis; }
-/* the kit's focus ring, drawn inside: the rails sit flush in a clipped stack */
-.pin:focus-visible { outline-offset: -2px; }
 
 /* One header position, two SoC lines (each through its own series resistor) */
 .pin-stack { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
@@ -310,6 +308,11 @@ main {
    background, so a selected pin and a search hit had no mark. */
 .pin.match, .pin-pad.match,
 .pin.selected, .pin-pad.selected { outline: 2px solid var(--text); outline-offset: -1px; }
+/* After the states, so the keyboard's ring wins over a selected or matched
+   pin's outline (the kit's ring is :where(), weight 0), and a faded pin that
+   has focus is drawn at full strength. Drawn inside: the rails sit flush in
+   a clipped stack. */
+.pin:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; opacity: 1; }
 
 /* ---- detail panel ---- */
 
@@ -617,6 +620,9 @@ pre.usage {
      a pin is open, and scrollIntoView on the selected pin has no room to
      work. Both numbers track max-height above. */
   body.pin-open main { padding-bottom: 62vh; }
+  /* The sticky footer sits under the sheet: hidden, so Tab past the sheet's
+     last link does not land on a link nobody can see. */
+  body.pin-open .lc-footer { visibility: hidden; }
   .pin, .pin-pad { scroll-margin-bottom: 62vh; }
 
   body.pin-open #sheet-close {
