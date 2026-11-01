@@ -2243,7 +2243,9 @@ def main():
     # Every board survived, so data/ can be replaced.
     out.mkdir(exist_ok=True)
     for stale in out.glob("*.json"):
-        stale.unlink()
+        # (lc-products.json is the shell kit's, written by its sync: not ours)
+        if stale.name != "lc-products.json":
+            stale.unlink()
     for fname, text in written.items():
         (out / fname).write_text(text)
 
