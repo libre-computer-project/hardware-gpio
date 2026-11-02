@@ -531,6 +531,14 @@
      ],
      "cls": "i2s",
      "primary": "gpio",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_AO"
+     },
      "muxes": [
       {
        "name": "I2SOUT_CH67",
@@ -1852,7 +1860,7 @@
    ]
   },
   {
-   "id": "9J1",
+   "id": "9J2",
    "rows": 1,
    "pins": [
     {
@@ -2158,5 +2166,46 @@
    "rpd": "\u03a9"
   },
   "dc_note": "Thresholds are stated against IOVREF, a separate 1.8 V reference rail, not as a fraction of the pad's own VDDIO. On a 3.3 V G12/SM1 pad that puts Vih min near 2.17 V rather than the 2.31 V a 0.7\u00d7VDDIO rule would predict. Every VDDIO domain is LV/HV selectable, so which column applies depends on what the board feeds that rail."
+ },
+ "layout": {
+  "units": "mm",
+  "origin": "board outline minimum corner; +x right, +y up (CAD frame)",
+  "source": "AML-S905X-CC-V3-ICC_20260104 ODB++ export: board edge 85.000 \u00d7 56.000 mm from its profile, each header from its own component record and the pads under it",
+  "board": {
+   "w": 85.0,
+   "h": 56.0
+  },
+  "headers": {
+   "7J1": {
+    "x1": 27.57,
+    "y1": 1.438,
+    "x2": 77.43,
+    "y2": 5.578,
+    "pads": 40
+   },
+   "2J3": {
+    "x1": 52.031,
+    "y1": 42.452,
+    "x2": 71.411,
+    "y2": 44.052,
+    "pads": 8
+   },
+   "2J1": {
+    "x1": 62.883,
+    "y1": 48.927,
+    "x2": 64.383,
+    "y2": 55.507,
+    "pads": 3
+   },
+   "9J2": {
+    "x1": 36.335,
+    "y1": 53.81,
+    "x2": 43.015,
+    "y2": 55.41,
+    "pads": 3
+   }
+  },
+  "orient": 180,
+  "orient_source": "As Le Potato (board owner, 2026-08-08): the 40-pin header reads first. The millimetres are untouched"
  }
 }

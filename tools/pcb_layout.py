@@ -43,6 +43,9 @@ the designator but gives a point; the gerber has the pads but no designator),
 and together they give the same thing the DXF does. See `fab_parts` and the
 comment block above it.
 
+The third is the JSON pcb_view.py writes from a board's ODB++ archive, which
+names each part and carries its pads in one record. See `odb_parts`.
+
 Run it directly against a DXF to see what it found before trusting it:
 
     tools/pcb_layout.py <file.dxf> [designator ...]
@@ -553,6 +556,48 @@ def fab_parts(spec):
             continue
         found[des] = {"x": rec["x"], "y": rec["y"], "rot": rec["rot"],
                       "npads": len(comp), "pads": box}
+    return outline, found
+
+
+def odb_parts(path):
+    """-> (outline, {designator: {"x","y","rot","pads","npads","pins"}}) from a
+    pcb_view.py JSON export of the board's ODB++ archive, in the design's own
+    frame.
+
+    This is the third kind of input, and the strongest: ODB++ carries each
+    component's designator AND its pads together, so nothing has to be matched
+    across two files. A header's extent is the bounding box of its own pads,
+    each grown by its pad size, and `pins` is the pin count the component
+    record states, so the caller can check the pads came to it."""
+    import json
+    data = json.loads(Path(path).read_bytes())
+    o = data.get("outline") or {}
+    outline = None
+    if all(k in o for k in ("min_x", "min_y", "max_x", "max_y")):
+        outline = (o["min_x"], o["min_y"], o["max_x"], o["max_y"])
+    comps = list(data.get("components") or [])
+    for side in (data.get("layers") or {}).values():
+        comps += side.get("components", [])
+    found = {}
+    for c in comps:
+        des = c.get("refdes")
+        if not des or des in found:
+            continue
+        pads = []
+        for g in (c.get("pin_pads") or {}).get("groups", []):
+            p = g["positions"]
+            for i in range(0, len(p) - 1, 2):
+                pads.append((p[i], p[i + 1], g["pad_w"], g["pad_h"]))
+        rec = {"x": (c.get("center") or {}).get("x"),
+               "y": (c.get("center") or {}).get("y"),
+               "rot": c.get("rotation", 0.0), "npads": len(pads),
+               "pins": c.get("pin_count")}
+        if pads:
+            rec["pads"] = (min(x - w / 2 for x, y, w, h in pads),
+                           min(y - h / 2 for x, y, w, h in pads),
+                           max(x + w / 2 for x, y, w, h in pads),
+                           max(y + h / 2 for x, y, w, h in pads))
+        found[des] = rec
     return outline, found
 
 

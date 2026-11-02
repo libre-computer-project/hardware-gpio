@@ -263,6 +263,66 @@ PCB_LAYOUT = {
                          "picks between the two views its data allows; the "
                          "millimetres are untouched",
     },
+    # The ODB++ boards: each pcb_view.py export names every part and carries its
+    # pads, the same files the layout site is built from. Every header's pads
+    # come to the pin count its record states and the wiring map lists, or the
+    # board is not placed (board_layout).
+    #
+    # Sweet Potato and Das Potato put 7J1 along the y-minimum edge exactly as
+    # Le Potato does, so they take Le Potato's orientation for the same reason.
+    "aml-s905x-cc-v2": {
+        "odb": "tools/pcb-viewer/AML-S905X-CC-V2.0-C_20230418.json",
+        "source": "AML-S905X-CC-V2.0-C_20230418 ODB++ export: board edge "
+                  "85.000 × 56.000 mm from its profile, each header from its "
+                  "own component record and the pads under it",
+        "orient": 180,
+        "orient_source": "As Le Potato (board owner, 2026-08-08): the 40-pin "
+                         "header reads first. The millimetres are untouched",
+    },
+    "aml-s905x-cc-v3": {
+        "odb": "tools/pcb-viewer/AML-S905X-CC-V3-ICC_20260104.json",
+        "source": "AML-S905X-CC-V3-ICC_20260104 ODB++ export: board edge "
+                  "85.000 × 56.000 mm from its profile, each header from its "
+                  "own component record and the pads under it",
+        "orient": 180,
+        "orient_source": "As Le Potato (board owner, 2026-08-08): the 40-pin "
+                         "header reads first. The millimetres are untouched",
+    },
+    "aml-s805x-ac-v2": {
+        "odb": "tools/pcb-viewer/AML-S805X-AC-V2.0C-0803.json",
+        "source": "AML-S805X-AC-V2.0C-0803 ODB++ export: board edge "
+                  "55.990 × 65.000 mm from its profile, each header from its "
+                  "own component record and the pads under it",
+    },
+    # Renegade V1.3-B has no ODB++: its pcb_view JSON is read from the vendor's
+    # vector PDF assembly drawing (designators and drawn pads, scaled by J1's
+    # 2.54 mm pitch), which the source line says, since that is a weaker
+    # measurement than a CAD export.
+    "roc-rk3328-cc": {
+        "odb": "tools/pcb-viewer/ROC-RK3328-CC-V1.3-B.json",
+        "source": "ROC-RK3328-CC-V1.3-B vendor assembly drawing (vector PDF): "
+                  "each header's designator and drawn pads, millimetres scaled "
+                  "from J1's 2.54 mm pitch; board edge 85.000 × 56.000 mm",
+    },
+    # Alta and Solitude are one PCB. Its CAD names the 40-pin header 7J2 where
+    # the schematic and the wiring map say 7J1; it is the board's only 40-pin
+    # part, so `cad_name` reads 7J1 from 7J2 and the page keeps the map's name.
+    "aml-a311d-cc": {
+        "odb": "tools/pcb-viewer/AML-A311D-CC-V1.0C_20231028.json",
+        "cad_name": {"7J1": "7J2"},
+        "source": "AML-A311D-CC-V1.0C_20231028 ODB++ export: board edge "
+                  "85.000 × 56.000 mm from its profile, each header from its "
+                  "own component record and the pads under it (the 40-pin "
+                  "header is 7J2 in this CAD)",
+    },
+    "aml-s905d3-cc": {
+        "odb": "tools/pcb-viewer/AML-S905D3-CC-V1.0C_20231028.json",
+        "cad_name": {"7J1": "7J2"},
+        "source": "AML-S905D3-CC-V1.0C_20231028 ODB++ export: board edge "
+                  "85.000 × 56.000 mm from its profile, each header from its "
+                  "own component record and the pads under it (the 40-pin "
+                  "header is 7J2 in this CAD)",
+    },
 }
 
 # Boards examined and NOT placed, so the next person does not re-walk the tree:
@@ -292,17 +352,6 @@ PCB_LAYOUT = {
 #                    Still not placed -- it carries an owner-directed
 #                    arrangement instead (BOARD_ARRANGEMENT below), which is a
 #                    weaker claim and says so on the page.
-#   aml-a311d-cc     A311D-V0.2_Gerber.zip / S905D3-V0.2_Gerber.zip are Gerber
-#   aml-s905d3-cc    only: apertures and stroked silkscreen, no reference
-#                    designators, and no pick-and-place or assembly file beside
-#                    them -- so unlike Le Potato below there is nothing to name
-#                    a pad array, and which one is which header cannot be read
-#                    out, only guessed.
-#   aml-s805x-ac-v2  Two .dwg (binary AutoCAD AC1018) and no reader: LibreCAD
-#                    ships only a dxf2pdf console tool that takes DXF, and fed
-#                    the file it produced nothing in 180 s; no dwg2dxf/libredwg/
-#                    QCAD anywhere on the fleet. V2.0 is a different PCB from the
-#                    V1.0A the La Frite entry stands on.
 #   everything else  No mechanical or layout export in the tree at all.
 
 
@@ -345,6 +394,12 @@ def board_layout(board, headers, docs_repo, require_all=True):
             raise Unplaced(f"layout source missing ({path})")
         name = path.name
         outline, found = pcb_layout.parts(str(path))
+    elif "odb" in spec:
+        path = Path(docs_repo) / spec["odb"]
+        if not path.is_file():
+            raise Unplaced(f"layout source missing ({path})")
+        name = path.name
+        outline, found = pcb_layout.odb_parts(str(path))
     else:
         fab = dict(spec["fab"])
         for key in ("pnp", "mask"):
@@ -362,12 +417,19 @@ def board_layout(board, headers, docs_repo, require_all=True):
         raise Unplaced(f"no board outline in {name}")
     x0, y0, x1, y1 = outline
     placed = {}
+    cad_name = spec.get("cad_name", {})
     for h in headers:
-        rec = found.get(h["id"])
+        rec = found.get(cad_name.get(h["id"], h["id"]))
         if not rec or "pads" not in rec:
             if require_all:
                 raise Unplaced(f"{h['id']} not placed in {name}")
             continue
+        # An ODB++ part states its pin count beside its pads, so the two are
+        # checked against each other and against the wiring map: a header
+        # whose pads do not come to its pins is not the header it is named.
+        if "odb" in spec and not (rec["npads"] == rec["pins"] == len(h["pins"])):
+            raise Unplaced(f"{h['id']}: {rec['npads']} pads, {rec['pins']} pins in "
+                           f"{name}, {len(h['pins'])} in the wiring map")
         px0, py0, px1, py1 = rec["pads"]
         placed[h["id"]] = {
             "x1": round(px0 - x0, 3), "y1": round(py0 - y0, 3),

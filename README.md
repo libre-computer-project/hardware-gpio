@@ -193,10 +193,10 @@ in the file, cited, undrawn.
 The rule now sits above the measurement too, for that reason plus one the La
 Frite case could not show. It is the owner's direction as well — the same person,
 generalised at their instruction from the boards they named — and it answers the
-same drawing question. What it adds is that it answers it **uniformly**. La
-Frite is measured and Das Frite is not; Le Potato is measured and Sweet Potato
-and Das Potato are not; and those are the same products at different revisions.
-Under measured-first they would be drawn differently from each other — three
+same drawing question. What it adds is that it answers it **uniformly**. The
+boards were measured from different kinds of export, at different times, and a
+board can lack one entirely (Tritium, Renegade Elite) while its revisions do
+not. Under measured-first they would be drawn differently from each other — three
 columns for La Frite against a stacked two for Das Frite, one tall column for Le
 Potato against two for the others — with the difference tracking nothing about
 the product and everything about which board happened to have a CAD export we
@@ -206,14 +206,14 @@ spans all overlap 7J1's, so the measured grid is a single column and the right
 side of its diagram is empty, which is the thing being fixed.
 
 **The cost is real and is stated rather than hidden: no board in the tree is
-drawn from its measurement today**, because both measured boards carry a 40-pin
-header the rule covers. `measuredGrid()` is the fallback for a board the rule
+drawn from its measurement today**, because every measured board carries a
+40-pin header the rule covers. `measuredGrid()` is the fallback for a board the rule
 does not reach — one with no 40-pin header, or whose other connectors do not fit
 beside it — and Renegade Elite is that shape but carries a direction of its own.
 
-The measurements are not deleted, edited or downgraded. La Frite's and Le
-Potato's board files carry their full `layout` blocks, cited to the DXF and to
-the fab package, unedited; they are what the note and its hover cite when the
+The measurements are not deleted, edited or downgraded. Every measured board's
+file carries its full `layout` block, cited to the export it was read from,
+unedited; they are what the note and its hover cite when the
 drawing says it departs from the board; and a later placement feature is
 entitled to them. Because those two drawings do depart, their note says so in
 the sentence rather than in the hover — "Side by side as the board's maker asks
@@ -233,11 +233,11 @@ unplaced row and look exactly like a deliberate omission.
 |---|---|---|---|
 | 🟡 La Frite (`aml-s805x-ac`) | 7J1 · 2J2 over 9J5 | measured, **but drawn by the 40-pin rule** | The board **is** measured, and that measurement is unchanged in its file: `AML-S805X-AC-TOP-190308.dxf`, a PADS/PowerPCB export of `XH_S805X_DDR4_V01_190302.pcb` — outline 55.999 × 65.000 mm from layer `BOARD_OUTLINE_00`, each header from its placed part and the pad stacks under it — which puts 7J1, 2J2 and 9J5 in **three separate columns** (2J2 at x 7.95 mm, 9J5 at x 47.066 mm). What is **drawn** is the 40-pin-header rule: 2J2 and 9J5 are single-row 4-pin connectors, so they stack into 8 of the 20 rows beside 7J1. That is the same drawing the owner directed for this board by name on 2026-08-08 — the per-board `arrangement` that carried it has been retired, because the rule now produces it. So 2J2 above 9J5 is a **grouping on the page, not a position on the board** — see the precedence rule above |
 | 🟡 Le Potato (`aml-s905x-cc`) | 7J1 · 2J3, 2J1, 9J1 | measured, **but drawn by the 40-pin rule** | The measurement is unchanged in its file: `AML-S905X-CC-V1.0-A-smt-production-180611.rar`, the V1.0-A SMT production package — designators, origins and pin counts from `坐标文件/tmp3774.xlsx`, pad extents from the soldermask layer `ln457zc06129a0.gts` of the fab gerbers inside it, outline 84.000 × 56.000 mm from `ln457zc06129a0.gko`. The gerbers are a 2-up panel with each board rotated 180°; the mapping between the two frames lands all four designators on their own pads to within 0.001 mm, and the grown arrays come to 40 / 8 / 3 / 3 pads against the P&P's own counts. `orient: 180` is not from the package — it is the board owner's, 2026-08-08, so the 40-pin header reads first (see `orient` above). What is **drawn** is the 40-pin-header rule: all four connectors' x spans overlap 7J1's, so the measured grid is one tall column with the right side of the diagram empty, which is what the owner asked to have fixed. 2J3, 2J1 and 9J1 are single-row 8-, 3- and 3-pin connectors, so they stack into 14 of the 20 rows beside 7J1 |
-| 🟡 Renegade Elite (`roc-rk3399-pc`) | J6, J15, J20 · J1, J12, J21 · J13 | **owner-directed, not measured** | Board owner, 2026-08-08: "the 40P header should always be first. for ROC-RK3399-PC, it should display similar like how it's laid out on the left/right side with the 6 pin then the 30 pin headers on each side. the 3P uart header can go on the bottom." Which connectors share a side is not in that direction and no export places this board (below), so the pairing follows the V1.1-A schematic's own grouping — `J12`+`J21` are one M.2 NGFF interface drawn side by side under a single label, `J15`+`J20` are the two connectors the product specification calls the 30-pin GPIO headers. **`J16` (1×4 SPI-NOR programming header) is not placed**: the direction never mentions it, so it falls to the end rather than being given a side |
+| 🟡 Renegade Elite (`roc-rk3399-pc`) | J6, J15, J20 · J1, J12, J21 · J13 | **owner-directed, not measured** | Board owner, 2026-08-08: "the 40P header should always be first. for ROC-RK3399-PC, it should display similar like how it's laid out on the left/right side with the 6 pin then the 30 pin headers on each side. the 3P uart header can go on the bottom." Which connectors share a side is not in that direction and no export places this board (below), so the pairing follows the V1.1-A schematic's own grouping — `J12`+`J21` are one M.2 NGFF interface drawn side by side under a single label, `J15`+`J20` are the two connectors the product specification calls the 30-pin GPIO headers. J16, the SPI-NOR programming footprint, is not fitted on production boards and is not in the pinout |
 | 🟡 Tritium H3 / H5 | — | shape rule, **not a placement** | The DXF places 7J1 (40 pads, board 84.000 × 56.000 mm), but 2J3 is in neither the top nor the bottom export, so one of two headers has no position. Nothing else in the directory carries placement: the two `.dwg` are unreadable (below) and `ALL-H3-CC-V1.0A Headers.xlsx` is a pin table, not coordinates. Each is 40 pins + one 3-pin header, so both are *drawn* 7J1 left / 2J3 right by the owner's 40-pin-header rule (above) — which is a default for that shape, not a claim about where 2J3 sits |
 | 🔴 Renegade Elite — *placement* | — | — | No layout export for *this* board, which is why the row above is an arrangement and not a placement. `rk3399-silkscreen-{top,bottom}.pdf` are filed under `roc-rk3399-pc-v2/` beside a v1.2A schematic and changelog, so they are the later board's plots — and they are CAM350 vector output regardless: 5404 stroked paths, zero text elements and zero images after `pdftocairo -svg`, so the designators cannot be read as text. Needs a DXF/ODB++/IPC-2581 export, or the layout in `ROC_3399_ACC_V1.0_180619.rar` (a git-LFS pointer whose object is not fetched) |
-| 🔴 Alta, Solitude (both revisions) | — | shape rule, **not a placement** | The V0.2 Gerber archives are apertures and stroked silkscreen only — no reference designators, and no pick-and-place or assembly file beside them. Which pad array is which header cannot be read out, only guessed. Each is 40 pins + one 3-pin header, so all four are *drawn* 7J1 left / 2J1 right by the 40-pin-header rule (above) — a default for that shape; nothing here places either connector |
-| 🔴 Das Frite, Sweet Potato, Das Potato, Renegade (both revisions) | — | shape rule, **not a placement** | No layout export names a connector on any of them — Das Frite has two binary AutoCAD `.dwg` (AC1018) and no reader (LibreCAD ships only a `dxf2pdf` console tool that takes DXF, and fed the file it produced nothing in 180 s; there is no `dwg2dxf`/libredwg/QCAD anywhere on the fleet), and V2.0 is a different PCB from the V1.0A La Frite stands on, so that DXF is not evidence for it. Each is a 40-pin header plus single-row connectors totalling well under its 20 rows — Das Frite 4+4 = 8, the two Potatoes 8+3+3 = 14, the two Renegades 3+3 = 6 — so all are *drawn* by the 40-pin-header rule (above), which places nothing |
+| 🟡 Das Frite, Sweet Potato, Das Potato, Alta, Solitude (V1.0C) | 7J1 · the rest | measured, **but drawn by the 40-pin rule** | Each from its own ODB++ export, the `pcb_view.py` JSON the layout site is built from (`odb` in `PCB_LAYOUT`): every header from its own component record and the pads under it, and placed only when the pads, the record's pin count and the wiring map's pins all agree. Alta and Solitude are one PCB whose CAD names the 40-pin header **7J2** where the schematic and the wiring map say 7J1 (`cad_name`). Sweet Potato and Das Potato take Le Potato's `orient: 180`. The V0.1 Alta and Solitude have no export and are not placed |
+| 🟡 Renegade (`roc-rk3328-cc`) | J1 · J21, J22 | measured from a **drawing**, drawn by the 40-pin rule | The V1.3-B layout-site JSON, read from the vendor's vector PDF assembly drawing: designators and drawn pads, millimetres scaled from J1's 2.54 mm pitch. A weaker measurement than a CAD export, and the source line says so. Das Renegade (V2) is not placed |
 | ⚪ everything else | — | — | No mechanical or layout export in the tree |
 
 `tools/pcb_layout.py` can be run directly against a DXF to see what it found

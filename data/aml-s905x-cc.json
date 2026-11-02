@@ -531,6 +531,14 @@
      ],
      "cls": "i2s",
      "primary": "gpio",
+     "elec": {
+      "pad_type": "DIO_2mA",
+      "dc_family": "DIO_xmA",
+      "direction": "I/O",
+      "pupd_reset": "pull-up",
+      "drive": "2mA",
+      "domain": "VDDIO_AO"
+     },
      "muxes": [
       {
        "name": "I2SOUT_CH67",

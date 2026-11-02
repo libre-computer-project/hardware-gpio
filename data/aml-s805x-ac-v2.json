@@ -1818,5 +1818,30 @@
    "rpd": "\u03a9"
   },
   "dc_note": "Thresholds are stated against IOVREF, a separate 1.8 V reference rail, not as a fraction of the pad's own VDDIO. On a 3.3 V G12/SM1 pad that puts Vih min near 2.17 V rather than the 2.31 V a 0.7\u00d7VDDIO rule would predict. Every VDDIO domain is LV/HV selectable, so which column applies depends on what the board feeds that rail."
+ },
+ "layout": {
+  "units": "mm",
+  "origin": "board outline minimum corner; +x right, +y up (CAD frame)",
+  "source": "AML-S805X-AC-V2.0C-0803 ODB++ export: board edge 55.990 \u00d7 65.000 mm from its profile, each header from its own component record and the pads under it",
+  "board": {
+   "w": 55.99,
+   "h": 65.0
+  },
+  "headers": {
+   "7J1": {
+    "x1": 0.856,
+    "y1": 7.551,
+    "x2": 4.996,
+    "y2": 57.411,
+    "pads": 40
+   },
+   "2J2": {
+    "x1": 7.146,
+    "y1": 43.015,
+    "x2": 8.746,
+    "y2": 52.235,
+    "pads": 4
+   }
+  }
  }
 }

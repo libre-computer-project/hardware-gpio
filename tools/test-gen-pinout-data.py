@@ -6,6 +6,8 @@
   - RockchipMux routes are RK3328's own: pinctrl-rockchip.c holds one route
     table per SoC, and a file-wide scan attached other SoCs' entries.
   - MediatekMux (MT8385) reads the MT8183 pin table and mode-field geometry.
+  - ODB++ placement reads a header under its CAD name and refuses one whose
+    pads do not come to its pin count.
 
 The route arms read the kernel tree (--linux, default ../libretech-builder/linux
 beside this repo, else one in the home directory) and are skipped, and say
@@ -114,6 +116,40 @@ else:
     check("mtk must-reject: a function of another pin is no selector here (SCL1 on GPIO81)",
           mt.lookup(0, 81, "SCL1"), None)
     check("mtk: all 192 pins of pinctrl-mtk-mt8183.h parsed", len(mt.pins), 192)
+
+# ODB++ placement (pcb_layout.odb_parts + board_layout's "odb" entries), on a
+# fixture: a 3-pin header named 7J2 in the CAD and 7J1 in the wiring map.
+import json
+import tempfile
+
+with tempfile.TemporaryDirectory() as tmp:
+    def odb_fixture(pin_count, positions):
+        doc = {"outline": {"min_x": -1.0, "min_y": 0.0, "max_x": 9.0, "max_y": 5.0},
+               "components": [{"refdes": "7J2", "pin_count": pin_count,
+                               "center": {"x": 4.0, "y": 2.0}, "rotation": 0.0,
+                               "pin_pads": {"groups": [{"positions": positions,
+                                                        "pad_w": 1.0, "pad_h": 1.0}]}}]}
+        p = Path(tmp) / f"fx{pin_count}.json"
+        p.write_text(json.dumps(doc))
+        return p.name
+
+    three = [1.0, 2.0, 3.0, 2.0, 5.0, 2.0]
+    gen.PCB_LAYOUT["test-odb"] = {"odb": odb_fixture(3, three), "source": "fixture",
+                                  "cad_name": {"7J1": "7J2"}}
+    hdr = [{"id": "7J1", "pins": [{}, {}, {}]}]
+    lay = gen.board_layout("test-odb", hdr, tmp)
+    check("odb must-accept: 7J1 is read from the CAD's 7J2, pad box in the outline's frame",
+          lay["headers"].get("7J1"), {"x1": 1.5, "y1": 1.5, "x2": 6.5, "y2": 2.5, "pads": 3})
+    check("odb: board size from the outline", lay["board"], {"w": 10.0, "h": 5.0})
+    gen.PCB_LAYOUT["test-odb"]["odb"] = odb_fixture(4, three)
+    try:
+        gen.board_layout("test-odb", hdr, tmp)
+        refused = None
+    except gen.Unplaced as exc:
+        refused = str(exc).split(":")[0]
+    check("odb must-fire: pads that do not come to the stated pin count are refused",
+          refused, "7J1")
+    del gen.PCB_LAYOUT["test-odb"]
 
 if fails:
     print("FAIL")

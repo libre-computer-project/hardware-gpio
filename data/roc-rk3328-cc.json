@@ -2204,5 +2204,37 @@
    "vccio5": "3.3",
    "vccio6": "3.3"
   }
+ },
+ "layout": {
+  "units": "mm",
+  "origin": "board outline minimum corner; +x right, +y up (CAD frame)",
+  "source": "ROC-RK3328-CC-V1.3-B vendor assembly drawing (vector PDF): each header's designator and drawn pads, millimetres scaled from J1's 2.54 mm pitch; board edge 85.000 \u00d7 56.000 mm",
+  "board": {
+   "w": 85.0,
+   "h": 56.0
+  },
+  "headers": {
+   "J1": {
+    "x1": 8.199,
+    "y1": 50.863,
+    "x2": 57.982,
+    "y2": 54.927,
+    "pads": 40
+   },
+   "J21": {
+    "x1": 16.041,
+    "y1": 0.851,
+    "x2": 22.645,
+    "y2": 2.375,
+    "pads": 3
+   },
+   "J22": {
+    "x1": 16.041,
+    "y1": 5.12,
+    "x2": 22.645,
+    "y2": 6.644,
+    "pads": 3
+   }
+  }
  }
 }
