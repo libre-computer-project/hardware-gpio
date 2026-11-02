@@ -1907,112 +1907,6 @@
    ]
   },
   {
-   "id": "J16",
-   "rows": 1,
-   "pins": [
-    {
-     "pin": 1,
-     "type": "GND",
-     "chip": null,
-     "line": null,
-     "sysfs": null,
-     "name": "GND",
-     "pad": "-",
-     "ref": "GND",
-     "funcs": [
-      "GND"
-     ],
-     "cls": "gnd",
-     "primary": "gnd"
-    },
-    {
-     "pin": 2,
-     "type": "gpio",
-     "chip": 1,
-     "line": 9,
-     "sysfs": 41,
-     "name": "GPIO1_B1",
-     "pad": "P28",
-     "ref": "SPI1_CLK",
-     "funcs": [
-      "SPI1_CLK",
-      "PMCU_JTAG_TCK_u",
-      "PMUM0JTAG_TCK"
-     ],
-     "cls": "spi",
-     "primary": "spi",
-     "elec": {
-      "direction": "I/O",
-      "io_reset": "I",
-      "pupd_reset": "pull-up",
-      "drive": "6mA",
-      "interrupt": true
-     },
-     "muxes": [
-      {
-       "name": "SPI1_CLK",
-       "group": "spi1_clk",
-       "funcs": [],
-       "reg": "0xff320014",
-       "register": "PMUGRF_GPIO1B_IOMUX",
-       "bit": 2,
-       "width": 2,
-       "value": 2
-      },
-      {
-       "name": "PMCU_JTAG_TCK_u",
-       "group": "pmcu_jtag_tck_u",
-       "funcs": [],
-       "reg": "0xff320014",
-       "register": "PMUGRF_GPIO1B_IOMUX",
-       "bit": 2,
-       "width": 2,
-       "flag": "alias: PMCU_JTAG_TCK_u is the TRM's pmum0jtag_tck (datasheet Table 2-3 p53:5; TRM V1.4 Part 1 p450:43)",
-       "value": 1
-      },
-      {
-       "name": "PMUM0JTAG_TCK",
-       "group": "pmum0jtag_tck",
-       "funcs": [],
-       "reg": "0xff320014",
-       "register": "PMUGRF_GPIO1B_IOMUX",
-       "bit": 2,
-       "width": 2,
-       "value": 1
-      }
-     ]
-    },
-    {
-     "pin": 3,
-     "type": "FLASH",
-     "chip": null,
-     "line": null,
-     "sysfs": null,
-     "name": "FLASH_WP",
-     "pad": "-",
-     "ref": "FLASH_WP",
-     "funcs": [],
-     "cls": "misc",
-     "primary": "misc"
-    },
-    {
-     "pin": 4,
-     "type": "3.3V",
-     "chip": null,
-     "line": null,
-     "sysfs": null,
-     "name": "VCC3V3_SYS",
-     "pad": "-",
-     "ref": "VCC3V3_SYS",
-     "funcs": [
-      "VCC3V3_SYS"
-     ],
-     "cls": "power3v3",
-     "primary": "power3v3"
-    }
-   ]
-  },
-  {
    "id": "J20",
    "rows": 2,
    "pins": [
@@ -3912,7 +3806,7 @@
  },
  "arrangement": {
   "kind": "authored",
-  "source": "Owner-directed arrangement, 2026-08-08 \u2014 NOT measured from the PCB: a 6-pin CON6A over two 30-pin CON30A on each side, the 3-pin UART header J13 across the bottom. Which connectors share a side follows the V1.1-A schematic's own grouping \u2014 the Extension Interface sheet draws J1 with the GPIO headers J15+J20 in one column, and J6 with the M.2 NGFF pair J12+J21 in the other \u2014 not any layout export: this board has none, so the sheet says which connectors go together and not where any of them sits on the PCB. J16 is not placed",
+  "source": "Owner-directed arrangement, 2026-08-08 \u2014 NOT measured from the PCB: a 6-pin CON6A over two 30-pin CON30A on each side, the 3-pin UART header J13 across the bottom. Which connectors share a side follows the V1.1-A schematic's own grouping \u2014 the Extension Interface sheet draws J1 with the GPIO headers J15+J20 in one column, and J6 with the M.2 NGFF pair J12+J21 in the other \u2014 not any layout export: this board has none, so the sheet says which connectors go together and not where any of them sits on the PCB.",
   "cells": {
    "J1": [
     0,

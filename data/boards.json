@@ -360,7 +360,7 @@
    "vendor": "Rockchip",
    "status": "production",
    "hidden": false,
-   "npins": 139,
+   "npins": 135,
    "headers": [
     {
      "id": "J1",
@@ -377,10 +377,6 @@
     {
      "id": "J15",
      "pins": 30
-    },
-    {
-     "id": "J16",
-     "pins": 4
     },
     {
      "id": "J20",

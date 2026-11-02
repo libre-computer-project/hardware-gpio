@@ -470,10 +470,8 @@ BOARD_ARRANGEMENT = {
             "J6": [1, 0], "J12": [1, 1], "J21": [1, 2],
             "J13": [0, 3, 2],
         },
-        # J16 is absent on purpose: a 1x4 SPI-NOR programming header the
-        # direction never mentions. It falls to the end rather than being given
-        # a side, because the two sides are the owner's statement and adding to
-        # them would be ours.
+        # J16, the 1x4 SPI-NOR programming footprint, is not in the map: no
+        # header is fitted on production boards (owner, 2026-11-02).
         "source": "Owner-directed arrangement, 2026-08-08 — NOT measured from "
                   "the PCB: a 6-pin CON6A over two 30-pin CON30A on each side, "
                   "the 3-pin UART header J13 across the bottom. Which "
@@ -482,8 +480,7 @@ BOARD_ARRANGEMENT = {
                   "GPIO headers J15+J20 in one column, and J6 with the M.2 "
                   "NGFF pair J12+J21 in the other — not any layout export: "
                   "this board has none, so the sheet says which connectors go "
-                  "together and not where any of them sits on the PCB. J16 is "
-                  "not placed",
+                  "together and not where any of them sits on the PCB.",
     },
 }
 
@@ -585,10 +582,10 @@ CHIP_CLASS = {
     # omission -- skipping the row would renumber the drawing and make the
     # reader count pads wrong, which is the failure this class exists to stop.
     "NC":    "nc",
-    # roc-rk3399-pc J16.3 FLASH_WP: the SPI NOR's own write-protect pin,
-    # brought to the programming header through a 1K series resistor. It is a
-    # board-level control line with no path to the SoC at all -- not a gpiochip
-    # line, not a bus -- which is exactly what "Other / control" means here.
+    # A flash write-protect line on a header (roc-rk3399-pc's J16.3 FLASH_WP,
+    # an unfitted footprint today): a board-level control line with no path
+    # to the SoC -- not a gpiochip line, not a bus -- which is exactly what
+    # "Other / control" means here.
     "FLASH": "misc",
     # roc-rk3399-pc J1.1/2/4/6 POE1-4: the RJ45 magnetics' centre taps, brought
     # to a 2x3 header with nothing between them and the cable. Its own class
