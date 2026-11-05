@@ -21,15 +21,17 @@
 /* The signal-class palette (--c-power5v, --c-i2c, ...) is NOT here. It moved
    to lc-kit.css when the layout viewer began colouring the same header's pads
    with it: one palette, both tools, so a colour means the same thing on either
-   site. What stays are the two backgrounds only this page draws. */
+   site. What stays are the two backgrounds only this page draws, in the
+   kit's (libre.computer's) slate family so the page reads as one with the
+   product page it opens inside. */
 :root {
-  --bg-pin: #f2f5f8;
-  --bg-connector: #e4e9ee;
+  --bg-pin: #f1f5f9;
+  --bg-connector: #e2e8f0;
 }
 
 html.dark {
-  --bg-pin: #22262d;
-  --bg-connector: #0e1013;
+  --bg-pin: #1e293b;
+  --bg-connector: #020617;
 }
 
 /* The page frame, the top bar and its brand and controls, the form controls
