@@ -77,7 +77,7 @@ for (const d of await readdir(ROOT, { withFileTypes: true })) {
   }
 }
 
-await writeFile(path.join(ROOT, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
+await writeFile(path.join(ROOT, "robots.txt"), `User-agent: *\nContent-Signal: search=yes, ai-input=yes, ai-train=yes\nAllow: /\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
 await writeFile(path.join(ROOT, "sitemap.xml"),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${
     [null, ...listed.map((b) => b.id)].map((id) => `  <url><loc>${esc(urlOf(id))}</loc></url>`).join("\n")}\n</urlset>\n`);

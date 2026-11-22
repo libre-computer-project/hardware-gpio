@@ -98,7 +98,7 @@ try {
   });
 
   await check("robots.txt, sitemap.xml, llms.txt", async () => {
-    assert.equal(await site("robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
+    assert.equal(await site("robots.txt"), `User-agent: *\nContent-Signal: search=yes, ai-input=yes, ai-train=yes\nAllow: /\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
     const locs = [...(await site("sitemap.xml")).matchAll(/<loc>([^<]*)<\/loc>/g)].map((m) => m[1]);
     assert.deepEqual(locs, [`${ORIGIN}/`, ...listed.map((b) => `${ORIGIN}/${b.id}/`)]);
     const llms = await site("llms.txt");
