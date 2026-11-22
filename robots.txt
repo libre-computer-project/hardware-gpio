@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gpio.hardware.libre.computer/sitemap.xml

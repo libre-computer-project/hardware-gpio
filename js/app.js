@@ -2,85 +2,31 @@
 "use strict";
 
 import { boardNotice, mountShell, noteAsked, resolveBoard, setBoardLinks, showHiddenFlag, token } from "./lc-kit.js";
+/* The classes, the mux rules and the pin table are js/pinout.js: pure, so
+   tools/render.mjs draws each board's static page with the same functions. */
+import {
+  CLASS_INFO, MAIN_HEADER_POSITIONS, STATUS_LABEL, boardPageHtml, esc, funcClass,
+  headerPositions, isAnalog, muxClasses, primaryClass, statusNote,
+} from "./pinout.js";
 
-/* Function classes. The colour of each is the --c-<key> token in
-   css/style.css, read through classColor() below. */
-const CLASS_INFO = {
-  /* The supply rails are one warm ramp ordered by voltage, and lightness
-     carries the ordering: 12V L*43, 5V L*54, 3.3V L*62, the low rails L*76.
-     Higher voltage reads deeper and more alarming, which is the only reading
-     that is safe to be wrong about. 12V gets its own deeper red rather than
-     sharing 5V's: on Renegade Elite J21 the two sit four pins apart, and one
-     swatch for both would make the drawing unable to tell them apart at
-     exactly the place it matters (dE 19 in CIE Lab, against 5.5 for the
-     closest pair already in this table). 1.8V and 3.0V share one class --
-     each is a single pin on a single board, the pin's own name says which,
-     and what the colour has to say is "supply, not signal". */
-  /* PoE sits at the top of that same ramp and is drawn as its top: L*21,
-     below 12V's L*43, because it is the one thing on any of these boards that
-     can present a voltage the board neither makes nor limits -- a PSE drives
-     up to 57 V DC into Renegade Elite's J1, which is the RJ45 magnetics'
-     centre taps on a 2x3 header with no rectifier or current limit in
-     between. Deep enough to read as "do not bridge this to anything", and
-     dE 38.5 in CIE Lab from 12V, which is the neighbour that matters: J6
-     (12V) and J1 (PoE) are two headers on one sheet. Nearest class of any
-     kind is dE 33.7 (video), against 5.5 for the closest pair already in this
-     table. It is deliberately NOT "eth": that is a green, and green on this
-     page means signal. */
-  poe:      { label: "PoE (hazardous)",    short: "PoE" },
-  power12v: { label: "12V power",          short: "12V" },
-  power5v:  { label: "5V power",           short: "5V" },
-  power3v3: { label: "3.3V power",         short: "3.3V" },
-  powerlv:  { label: "Low-voltage rail",   short: "Rail" },
-  gnd:      { label: "Ground",             short: "GND" },
-  /* Not connected: a pad that is on the connector and wired to nothing. The
-     colour has to do two opposite things -- be visible enough that the
-     position reads as DRAWN (the whole point of carrying the row), and be
-     quiet enough that it never competes with a live signal. So: lower
-     lightness and lower chroma than every signal class, a warm neutral
-     rather than a slate. Warm, specifically, because the one confusion that
-     would be dangerous is NC vs ground, and on J12 the two are adjacent
-     (11/12 GND, 13-30 NC) -- GND is a cool slate, this is its opposite hue
-     at a different lightness, dE 15.8 apart in CIE Lab, against 5.5 for the
-     closest pair already in this table. dE 16.0 from the pin background, so
-     an NC pad still reads as a pad and not as a hole in the drawing. */
-  nc:       { label: "Not connected",      short: "NC" },
-  gpio:     { label: "GPIO" },
-  i2c:      { label: "I2C" },
-  spi:      { label: "SPI" },
-  uart:     { label: "UART / serial",      short: "UART" },
-  pwm:      { label: "PWM" },
-  /* One class per audio bus. They are not variants of each other: I2S, PCM
-     and TDM are separate controllers with separate pin groups, and a codec
-     wired for one will not work on another. Colours are spaced in CIE Lab
-     (worst in-family pair 15.1, nearest non-audio class 18.5) because several
-     of them can land on the same pin's strip set. */
-  i2s:      { label: "I2S" },
-  pcm:      { label: "PCM" },
-  tdm:      { label: "TDM" },
-  spdif:    { label: "S/PDIF",             short: "SPDIF" },
-  pdm:      { label: "PDM / DMIC",         short: "PDM" },
-  /* Both directions: La Frite's line-out and the meson AL_CH/AR_CH muxes, and
-     Renegade Elite's codec header, which brings out HPO_L/R alongside MIC_IN
-     and LINE_IN. Labelling that header "analog audio out" would be a mislabel
-     in the same class as painting it green. */
-  dac:      { label: "Analog audio",       short: "Audio" },
-  adc:      { label: "ADC" },
-  clk:      { label: "Clock" },
-  jtag:     { label: "JTAG" },
-  cec:      { label: "CEC" },
-  ir:       { label: "IR / remote",        short: "IR" },
-  sdio:     { label: "SDIO / SD card",     short: "SDIO" },
-  nand:     { label: "NAND / flash",       short: "NAND" },
-  video:    { label: "TS / camera / video", short: "Video" },
-  pcie:     { label: "PCI Express",        short: "PCIe" },
-  usb:      { label: "USB" },
-  eth:      { label: "Ethernet",           short: "ETH" },
-  misc:     { label: "Other / control",    short: "Other" },
-};
+/* The site's root: the page may be the home page or a board's own page one
+   directory down (<id>/index.html, tools/render.mjs), so the data is found
+   from this module, not from the document. */
+const SITE = new URL("../", import.meta.url);
+
+/* The vendored kit fetches data/lc-products.json relative to the DOCUMENT
+   (lc-kit.js setBoardLinks), which on a board's page is <id>/data/... and a
+   404 -- the product links beside the picker would vanish there. The kit is
+   not edited here (tools/check-kit.py), so a relative path is resolved
+   against the site root instead, for every fetch on the page. */
+{
+  const fetchFromPage = globalThis.fetch.bind(globalThis);
+  globalThis.fetch = (u, opts) => fetchFromPage(
+    typeof u === "string" && !/^([a-z][a-z0-9+.-]*:|\/)/i.test(u) ? new URL(u, SITE) : u, opts);
+}
 
 /* A class's colour, from the stylesheet. It used to be a hex literal beside
-   each label above, duplicating the --c-* token of the same name -- the CSS
+   each label in CLASS_INFO, duplicating the --c-* token of the same name -- the CSS
    even carried "see CLASS_INFO.poe in js/app.js" beside one of them, which is
    a comment you only write when two files hold one fact. Now the token is the
    fact, which is also what makes the palette theme-aware: the light and dark
@@ -89,45 +35,9 @@ const CLASS_INFO = {
 
    The reasoning behind the values -- the voltage ramp's lightness ordering,
    PoE's depth, the CIE Lab spacings that keep adjacent classes apart -- stays
-   with the classes above, because it is about what the classes mean. */
+   with the classes in js/pinout.js, because it is about what the classes
+   mean. */
 const classColor = (c) => token(`--c-${c in CLASS_INFO ? c : "misc"}`);
-
-/* Function token -> class. First match wins, so order is load-bearing:
-   UART_EE_B_TX-PWM_D is a UART pin, CLKOUT_GMAC is Ethernet not clock. */
-const FUNC_RULES = [
-  [/^12V$|12V$/i,                             "power12v"],
-  [/^3\.3V$|^VCC3/i,                          "power3v3"],
-  [/^5V$|^VCC5/i,                             "power5v"],
-  [/^VCC_?1V8$|^VCCA?3V0/i,                   "powerlv"],
-  [/^GND$/i,                                  "gnd"],
-  /* Ahead of the clock rule: PCIE_REF_CLKN is a lane pair's reference clock,
-     and it belongs with the lanes it clocks, not with CLK32K_OUT. */
-  [/^PCIE/i,                                  "pcie"],
-  [/JTAG/i,                                   "jtag"],
-  [/CEC/i,                                    "cec"],
-  [/IR_REMOTE|REMOTE_OUT/i,                   "ir"],
-  [/SARADC|^ADC/i,                            "adc"],
-  /* Audio master clocks are clocks: MCLK and the meson AM_CLK feed a codec,
-     they do not carry samples. The bus's own SCLK/LRCLK stay with the bus. */
-  [/MCLK|AM_CLK/i,                            "clk"],
-  [/SPDIF/i,                                  "spdif"],
-  [/^(PDM|DMIC)/i,                            "pdm"],
-  [/^A[LR]_CH/i,                              "dac"],
-  [/^TDM/i,                                   "tdm"],
-  [/^PCM/i,                                   "pcm"],
-  [/^I2S|I2SOUT|LRCK|WORLD_SYNC/i,            "i2s"],
-  [/^I2C|^TWI|^HDMITX_S[CD]/i,                "i2c"],
-  [/^SPI/i,                                   "spi"],
-  [/UART/i,                                   "uart"],
-  [/PWM/i,                                    "pwm"],
-  [/^SDIO|^SDMMC|^CARD_/i,                    "sdio"],
-  [/^NAND|^FLASH_/i,                          "nand"],
-  [/^TSIN|^TSP_|^CIF_|^CVBS|^ISO7816/i,       "video"],
-  [/^USB/i,                                   "usb"],
-  [/FEPHY|GMAC|^ETH/i,                        "eth"],
-  [/^CLK|CLKOUT|CLK_32K/i,                    "clk"],
-  [/^GPIO|EINT|_gpio$/i,                      "gpio"],
-];
 
 const selectEl = document.getElementById("board-select");
 const searchEl = document.getElementById("search");
@@ -137,11 +47,9 @@ const legendEl = document.getElementById("legend");
 const tooltipEl = document.getElementById("tooltip");
 const sheetCloseEl = document.getElementById("sheet-close");
 
-/* Pre-production and unreleased boards ship in the data but stay out of the
-   picker until ?hidden=1 asks for them. */
-const STATUS_LABEL = { preprod: "pre-production", unreleased: "unreleased",
-                       preliminary: "preliminary pinout",
-                       reference: "another maker's board, shown for comparison" };
+/* The board a generated page is for: <id>/index.html, written by
+   tools/render.mjs, says so on its body (data-board). Null on the home page. */
+const pageBoard = () => document.body.dataset.board || null;
 
 let boardIndex = [];       /* every board in data/boards.json */
 let visibleBoards = [];    /* the ones this visitor may pick */
@@ -169,8 +77,12 @@ async function init() {
   visibleBoards = boardIndex.filter((b) => showHidden || !b.hidden);
   buildSelect();
   markHiddenMode();
-  // the board asked for here, else the one the previous tool was asked for
-  const wanted = params.get("asked") || params.get("board");
+  /* The static pin table is for a reader that runs no script; with the
+     drawing up it gives way where the page has no room for it (style.css). */
+  document.body.classList.add("app-ready");
+  // the board asked for here, else the one the previous tool was asked for,
+  // else the board this page is for
+  const wanted = params.get("asked") || params.get("board") || pageBoard();
   const { id: found, how } = resolveBoard(wanted, visibleBoards.map((b) => b.id));
   const initial = visibleBoards.find((b) => b.id === found) ||
     visibleBoards.find((b) => b.id === "aml-s905x-cc") || visibleBoards[0];
@@ -186,6 +98,7 @@ async function init() {
   noteAsked(wanted, initial.id);
   selectEl.value = initial.id;
   selectEl.addEventListener("change", () => {
+    if (goToBoardPage(selectEl.value)) return;
     noteAsked(null, null);  // a board picked here is the one asked for now
     document.getElementById("board-notice")?.remove();  // and "showing X" is past
     loadBoard(selectEl.value);
@@ -238,8 +151,25 @@ async function init() {
   await loadBoard(initial.id);
 }
 
+/* On a board's own page, another board is its own page: go there, with the
+   other parameters (?embed=, ?theme=, ?hidden=) and without board/asked. A
+   board listed only under ?hidden=1 has no page, so it opens in the home
+   page's ?board= view. True when navigating. */
+function goToBoardPage(id) {
+  const here = pageBoard();
+  if (!here || id === here) return false;
+  const entry = boardIndex.find((b) => b.id === id);
+  const url = new URL(entry && entry.hidden ? "./" : `${encodeURIComponent(id)}/`, SITE);
+  url.search = location.search;
+  url.searchParams.delete("board");
+  url.searchParams.delete("asked");
+  if (entry && entry.hidden) url.searchParams.set("board", id);
+  location.assign(url);
+  return true;
+}
+
 function fetchJSON(url) {
-  return fetch(url).then((r) => {
+  return fetch(new URL(url, SITE)).then((r) => {
     if (!r.ok) throw new Error(url + ": HTTP " + r.status);
     return r.json();
   });
@@ -294,51 +224,26 @@ async function loadBoard(id) {
      out re-armed the filter instead of clearing it. */
   labelFocus = null;
   render();
+  syncPinTable();
   setBoardLinks(id);
   const url = new URL(location.href);
-  url.searchParams.set("board", id);
+  /* A board's own page names its board in the path; the address carries
+     ?board= only when it shows another one. */
+  if (id === pageBoard()) url.searchParams.delete("board");
+  else url.searchParams.set("board", id);
   history.replaceState(null, "", url);
 }
 
-/* ---- function classification ---- */
-
-function funcClass(name) {
-  for (const [re, cls] of FUNC_RULES) if (re.test(name)) return cls;
-  return "misc";
-}
-
-/* Every mux this pin can be switched to, as an ordered, de-duplicated class
-   list. GPIO is mux 0 on every muxable pad, so it leads. */
-function muxClasses(p) {
-  if (p.type !== "gpio") return [p.cls];
-  const out = ["gpio"];
-  for (const f of p.funcs) {
-    const c = funcClass(f);
-    if (!out.includes(c)) out.push(c);
-  }
-  return out;
-}
-
-/* What the board itself calls this pin -- the silkscreen's colour, not the
-   SoC's full mux list. Boards paint the header's I2C pins yellow and its SPI
-   block blue; every other muxable pad is just a green GPIO. SPI wins a tie
-   because the shared pads (e.g. Le Potato 23/24, I2C_x_D + SPI_SCLK/SS0) sit
-   in the header's SPI block. */
-function primaryClass(p) {
-  if (p.type !== "gpio") return p.cls;               /* 5V, 3.3V, GND */
-  if (p.funcs.some((f) => /^SPI/i.test(f))) return "spi";
-  if (p.funcs.some((f) => /^(I2C|TWI)/i.test(f))) return "i2c";
-  return "gpio";
-}
-
-/* Analog header pins -- the SoC's SARADC inputs and the audio DAC's line-out --
-   are not digital GPIO pads: they have no mux, no pull or drive control, and
-   the DC thresholds in the datasheet's digital-GPIO table do not describe them.
-   The generator marks them in the data (elec.pad_type === "analog"); the
-   diagram draws their tile round so they read as different silicon rather than
-   as one more green GPIO. */
-function isAnalog(p) {
-  return Boolean(p.elec && p.elec.pad_type === "analog");
+/* The page's plain-HTML pin table (section#pin-table, drawn by
+   tools/render.mjs with the same boardPageHtml) follows the board shown, so it
+   never names one board under another's drawing. It carries data-board for the
+   board it holds; a board's own page that never changes board is left as
+   rendered. */
+function syncPinTable() {
+  const sec = document.getElementById("pin-table");
+  if (!sec || sec.dataset.board === board.id) return;
+  sec.innerHTML = boardPageHtml(board);
+  sec.dataset.board = board.id;
 }
 
 /* ---- board view ----
@@ -504,20 +409,10 @@ function authoredGrid() {
    right side."; "for La Frite, 2J2 and 9J5 should be one on top of another to
    make better use of the space."; and "das frite, le potato, sweet potato all
    need this fix. we need to improve heuristics rather than hard code." */
-/* The connector the direction (and the page) is about, in positions — the same
-   count HEADER_FIRST_POSITIONS orders by in the generator and the header title
-   shows, so "40P header" means the same thing in all three. */
-const MAIN_HEADER_POSITIONS = 40;
-
-/* What a connector costs the drawing vertically, in pin rows — the unit the
-   diagram is actually built out of. A dual-row header draws two pads per row,
-   which is the whole reason a 40-pin connector is the SHORT way round and has
-   room beside it. Positions, not map rows: a pin wired to two SoC lines is two
-   rows in the data and one pad on the connector. */
-function headerPositions(h) {
-  return new Set(h.pins.map((p) => p.pin)).size;
-}
-
+/* MAIN_HEADER_POSITIONS and headerPositions (positions, not map rows) are in
+   js/pinout.js, which the pin table shares. A connector's height in pin rows:
+   a dual-row header draws two pads per row, which is the whole reason a
+   40-pin connector is the SHORT way round and has room beside it. */
 function headerRows(h) {
   const n = headerPositions(h);
   return h.rows === 2 ? Math.ceil(n / 2) : n;
@@ -692,15 +587,11 @@ function render() {
   slot.hidden = true;
   const entry = boardIndex.find((b) => b.id === board.id);
   const status = board.status || (entry && entry.status);
-  if (STATUS_LABEL[status]) {
+  const note = statusNote(board, status);
+  if (note) {
     const flag = document.createElement("div");
     flag.className = "board-flag";
-    flag.textContent = status === "preliminary"
-      ? `${board.model}: this pinout is preliminary and not final.`
-      : `${board.model} is ${STATUS_LABEL[status]} — ` +
-        (status === "reference"
-          ? "transcribed from its maker's datasheet, not a Libre Computer product."
-          : "pinout may change before launch.");
+    flag.textContent = note;
     slot.appendChild(flag);
     slot.hidden = false;
   }
@@ -1570,12 +1461,6 @@ function renderElectrical(p) {
       `<h4 class="elec-head" title="Source: ${esc(src.join(" · "))}">` +
       "Electrical</h4>");
   return html;
-}
-
-function esc(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
-  }[c]));
 }
 
 /* ---- search + legend filter ---- */

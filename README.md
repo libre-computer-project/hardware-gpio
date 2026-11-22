@@ -365,6 +365,7 @@ tools/gen-pinout-data.py --lwt <path>    # explicit wiring-tool checkout
 tools/gen-pinout-data.py --out <dir>     # write elsewhere (data/ is replaced)
 tools/gen-pinout-data.py --allow-unplaced   # accept losing a board's layout
 tools/test-gen-pinout-data.py            # Rockchip name pairing + RK3328 route-table scoping
+node tools/render.mjs                    # then re-render the board pages (Frontend "Render")
 ```
 
 Add a board by extending the `BOARDS` dict in the generator and re-running it.
@@ -379,10 +380,30 @@ a regeneration made for one board can change others; review the whole
 
 ## Frontend
 
-Framework-free static site: `index.html`, `css/style.css`, `js/app.js`, plus the
-shared shell in `css/lc-kit.css` and `js/lc-kit.js`. Deep links use
-`?board=<id>`. Serve the directory over HTTP to run locally
-(`python3 -m http.server`); `file://` blocks the JSON fetches.
+Framework-free static site: `index.html`, `css/style.css`, `js/app.js`,
+`js/pinout.js`, plus the shared shell in `css/lc-kit.css` and `js/lc-kit.js`.
+Each listed board has its own page at `/<board-id>/` (for example
+`https://gpio.hardware.libre.computer/aml-s905x-cc/`), which opens the
+interactive view on that board and carries its pin table as plain HTML; picking
+another board there goes to that board's page. `?board=<id>` on the home page
+still works, as do `?hidden=1` and `?embed=1`. Serve the directory over HTTP to
+run locally (`python3 -m http.server`); `file://` blocks the JSON fetches.
+
+### Render
+
+The board pages, the home page's board list and canonical, `robots.txt`,
+`sitemap.xml` and `llms.txt` are generated from `index.html` and `data/`:
+
+```sh
+node tools/render.mjs          # rewrite them (Node, no npm dependencies)
+node tools/test-render.mjs     # pages, hidden boards, sitemap, idempotence
+```
+
+Run `node tools/render.mjs` after changing `index.html` or `data/` and commit
+its output with the change; CI fails when the committed pages are stale. The
+pin table is `boardPageHtml` in `js/pinout.js`, the one function both the
+renderer and the app draw it with. A board hidden by default (`?hidden=1` only)
+gets no page and no sitemap entry.
 
 The theme is light, dark, or auto following the OS, which is the default. The
 preference is `localStorage.theme`, the same key libre.computer uses.

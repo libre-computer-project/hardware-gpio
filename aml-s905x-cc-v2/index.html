@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Scripts from this site only, plus the inline theme snippet by its sha256
+     (tools/check-kit.py recomputes it); data, styles and images same-origin,
+     data: for the kit's logo. GitHub Pages sets no headers, so it is a meta. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-oHIc59mqgn9ICn5smlJlKAoSorMm9lRvLXPlZJXSqW8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sweet Potato (AML-S905X-CC-V2) GPIO Pinout — Libre Computer</title>
+<meta name="description" content="GPIO pinout and pinmux for the Libre Computer Sweet Potato (AML-S905X-CC-V2, Amlogic S905X): every header pin&#39;s name, type, alternate functions and GPIO line.">
+<link rel="canonical" href="https://gpio.hardware.libre.computer/aml-s905x-cc-v2/">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../css/lc-kit.css">
+<link rel="stylesheet" href="../css/style.css">
+<!-- Sets the theme before first paint, so a dark visitor never sees a white
+     flash. Must stay inline and must stay ahead of the stylesheets; the copy
+     is checked by tools/lc-ui-kit/sync.py against HEAD_SNIPPET in lc-kit.js. -->
+<script>try{var q=new URLSearchParams(location.search),e=q.get("embed")==="1",t=e&&q.get("theme");if(e)document.documentElement.classList.add("lc-embed");var p=t==="light"||t==="dark"?t:localStorage.getItem("theme")||"auto";if(p==="dark"||(p==="auto"&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark")}catch(x){}</script>
+</head>
+<body class="lc-doc" data-board="aml-s905x-cc-v2">
+<a class="lc-skip" href="#main">Skip to content</a>
+<header class="lc-topbar">
+  <div class="lc-brand">
+    <a class="lc-brand-name" href="https://libre.computer">Libre Computer</a>
+    <nav class="lc-sites" aria-label="Libre Computer sites">
+      <a class="lc-site" href="https://education.libre.computer/">Education</a>
+      <a class="lc-site" data-lc-site href="https://layout.hardware.libre.computer/">Layout</a>
+      <a class="lc-site" href="/" aria-current="true">GPIO Pinout</a>
+      <a class="lc-site" data-lc-site href="https://power.hardware.libre.computer/">Power</a>
+      <a class="lc-site" href="https://u-boot.software.libre.computer/">Software</a>
+    </nav>
+  </div>
+  <div class="lc-controls">
+    <label for="board-select">Board</label>
+    <select id="board-select" aria-label="Select board"></select>
+    <input id="search" type="search" placeholder="Search: GPIOX_12, I2C, pin 7, B4…" autocomplete="off" spellcheck="false" aria-label="Search by pad, function, pin or ball">
+  </div>
+</header>
+
+<nav id="legend-bar" aria-label="Mux classes"><div id="legend"></div></nav>
+
+<div id="board-flag-slot" hidden></div>
+
+<main id="main">
+  <h1 class="lc-vh">GPIO pinout</h1>
+  <section id="diagram" aria-label="Pin headers"></section>
+  <aside id="panel">
+    <button id="sheet-close" type="button">Close &times;</button>
+    <div id="pin-detail"></div>
+  </aside>
+  <!-- after #panel: style.css sizes the panel by `#diagram + #panel` -->
+  <p id="pin-keys" hidden>The arrow keys move between pins; Enter opens one, Escape closes it.</p>
+  <!-- the board's pins as plain HTML, written by tools/render.mjs and kept
+       in step by js/app.js (both through js/pinout.js boardPageHtml) -->
+  <section id="pin-table" data-board="aml-s905x-cc-v2" aria-labelledby="pin-table-title"><h2 id="pin-table-title">Sweet Potato (AML-S905X-CC-V2) pin table</h2><p>Amlogic S905X · 4 headers: 7J1 (40 pins), 2J3 (8 pins), 2J1 (3 pins), 9J2 (3 pins).</p><div class="lc-table-scroll"><table class="lc-table pin-table"><caption>7J1 · 40 pins</caption><thead><tr><th scope="col">Pin</th><th scope="col">Name</th><th scope="col">Board signal</th><th scope="col">Type</th><th scope="col">Functions</th><th scope="col">GPIO</th></tr></thead><tbody><tr><th scope="row">1</th><td>3.3V</td><td>VCC3.3V</td><td>3.3V power</td><td></td><td></td></tr><tr><th scope="row">2</th><td>5V</td><td>VCC5V</td><td>5V power</td><td></td><td></td></tr><tr><th scope="row">3</th><td>GPIOAO_5</td><td>I2C_SDA_AO</td><td>I2C</td><td>UART_RX_AO_B, I2C_SDA_AO, I2C_SLAVE_SDA_AO</td><td>gpiochip0 line 5</td></tr><tr><th scope="row">4</th><td>5V</td><td>VCC5V</td><td>5V power</td><td></td><td></td></tr><tr><th scope="row">5</th><td>GPIOAO_4</td><td>I2C_SCK_AO</td><td>I2C</td><td>UART_TX_AO_B, I2C_SCK_AO, I2C_SLAVE_SCK_AO</td><td>gpiochip0 line 4</td></tr><tr><th scope="row">6</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">7</th><td>GPIOCLK_0</td><td></td><td>GPIO</td><td>CLK24, CLK12</td><td>gpiochip1 line 98</td></tr><tr><th scope="row">8</th><td>GPIOX_12</td><td>UART_A_TX</td><td>GPIO</td><td>UART_TX_A</td><td>gpiochip1 line 91</td></tr><tr><th scope="row">9</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">10</th><td>GPIOX_13</td><td>UART_A_RX</td><td>GPIO</td><td>UART_RX_A</td><td>gpiochip1 line 92</td></tr><tr><th scope="row">11</th><td>GPIOAO_8*</td><td>I2SOUT-CH23</td><td>GPIO</td><td>AO_CEC, EE_CEC, I2SOUT_CH23, PWM_AO_A</td><td>gpiochip0 line 8</td></tr><tr><th scope="row">12</th><td>GPIOAO_6</td><td>PWM_F</td><td>GPIO</td><td>I2S_IN_01, SPDIF_OUT, PWM_AO_B</td><td>gpiochip0 line 6</td></tr><tr><th scope="row">13</th><td>GPIOAO_9</td><td>I2SOUT-CH45</td><td>GPIO</td><td>REMOTE_OUTPUT, SPDIF_OUT, I2SOUT_CH45, PWM_AO_B</td><td>gpiochip0 line 9</td></tr><tr><th scope="row">14</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">15</th><td>TEST_N**</td><td>I2SOUT-CH67</td><td>GPIO</td><td>wd_gpio, I2SOUT_CH67</td><td>gpiochip0 line 10</td></tr><tr><th scope="row">16</th><td>GPIOX_14</td><td>UART_A_CTS_N</td><td>GPIO</td><td>UART_CTS_A</td><td>gpiochip1 line 93</td></tr><tr><th scope="row">17</th><td>3.3V</td><td>VCC3.3V</td><td>3.3V power</td><td></td><td></td></tr><tr><th scope="row">18</th><td>GPIOX_15</td><td>UART_A_RTS_N</td><td>GPIO</td><td>UART_RTS_A</td><td>gpiochip1 line 94</td></tr><tr><th scope="row">19</th><td>GPIOX_8</td><td>BTPCM_DOUT</td><td>SPI</td><td>PCM_OUT_A, UART_TX_C, SPI_MOSI</td><td>gpiochip1 line 87</td></tr><tr><th scope="row">20</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">21</th><td>GPIOX_9</td><td>BTPCM_DIN</td><td>SPI</td><td>PCM_IN_A, UART_RX_C, SPI_MISO</td><td>gpiochip1 line 88</td></tr><tr><th scope="row">22</th><td>GPIOX_0</td><td>WIFI_SD_D0</td><td>GPIO</td><td>SDIO_D0</td><td>gpiochip1 line 79</td></tr><tr><th scope="row">23</th><td>GPIOX_11</td><td>BTPCM_CLK</td><td>SPI</td><td>PCM_CLK_A, UART_RTS_C, I2C_SCK_D, SPI_SCLK</td><td>gpiochip1 line 90</td></tr><tr><th scope="row">24</th><td>GPIOX_10</td><td>BTPCM_SYNC</td><td>SPI</td><td>PCM_FS_A, UART_CTS_C, I2C_SDA_D, SPI_SS0</td><td>gpiochip1 line 89</td></tr><tr><th scope="row">25</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">26</th><td>GPIOX_1</td><td>WIFI_SD_D1</td><td>GPIO</td><td>SDIO_D1</td><td>gpiochip1 line 80</td></tr><tr><th scope="row">27</th><td>GPIODV_26</td><td>I2C_SDA_A</td><td>I2C</td><td>UART_CTS_B, I2C_SDA_B</td><td>gpiochip1 line 75</td></tr><tr><th scope="row">28</th><td>GPIODV_27</td><td>I2C_SCK_A</td><td>I2C</td><td>UART_RTS_B, I2C_SCK_B</td><td>gpiochip1 line 76</td></tr><tr><th scope="row">29</th><td>GPIOX_17</td><td>BT_EN</td><td>GPIO</td><td></td><td>gpiochip1 line 96</td></tr><tr><th scope="row">30</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">31</th><td>GPIOX_18</td><td>BT_WAKE_HOST</td><td>GPIO</td><td></td><td>gpiochip1 line 97</td></tr><tr><th scope="row">32</th><td>GPIOX_16</td><td>WIFI_32K</td><td>GPIO</td><td>PWM_E</td><td>gpiochip1 line 95</td></tr><tr><th scope="row">33</th><td>GPIOX_6</td><td>WIFI_PWREN</td><td>GPIO</td><td>PWM_A</td><td>gpiochip1 line 85</td></tr><tr><th scope="row">34</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">35</th><td>GPIOX_7</td><td>WIFI_WAKE_HOST</td><td>GPIO</td><td>SDIO_IRQ, PWM_F</td><td>gpiochip1 line 86</td></tr><tr><th scope="row">36</th><td>GPIOX_2</td><td>WIFI_SD_D2</td><td>GPIO</td><td>SDIO_D2</td><td>gpiochip1 line 81</td></tr><tr><th scope="row">37</th><td>GPIOX_5</td><td>WIFI_SD_CMD</td><td>GPIO</td><td>SDIO_CMD</td><td>gpiochip1 line 84</td></tr><tr><th scope="row">38</th><td>GPIOX_3</td><td>WIFI_SD_D3</td><td>GPIO</td><td>SDIO_D3</td><td>gpiochip1 line 82</td></tr><tr><th scope="row">39</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">40</th><td>GPIOX_4</td><td>WIFI_SD_CLK</td><td>GPIO</td><td>SDIO_CLK</td><td>gpiochip1 line 83</td></tr></tbody></table></div><div class="lc-table-scroll"><table class="lc-table pin-table"><caption>2J3 · 8 pins</caption><thead><tr><th scope="col">Pin</th><th scope="col">Name</th><th scope="col">Board signal</th><th scope="col">Type</th><th scope="col">Functions</th><th scope="col">GPIO</th></tr></thead><tbody><tr><th scope="row">1</th><td>SARADC_CH0</td><td>ADC0</td><td>ADC (analog pad)</td><td></td><td></td></tr><tr><th scope="row">2</th><td>SARADC_CH2</td><td>ADC2</td><td>ADC (analog pad)</td><td></td><td></td></tr><tr><th scope="row">3</th><td>GPIOH_9</td><td>I2SOUT-CH01</td><td>GPIO</td><td>JTAG_TDO, I2SOUT_CH01, TSIN_B_VALID</td><td>gpiochip1 line 25</td></tr><tr><th scope="row">4</th><td>GPIOH_8</td><td>I2S-LR-CLK</td><td>GPIO</td><td>JTAG_TDI, I2S_LR_CLK_OUT, I2S_LR_CLK_IN, TSIN_B_SOP</td><td>gpiochip1 line 24</td></tr><tr><th scope="row">5</th><td>GPIOH_7</td><td>I2S-AO-CLK</td><td>GPIO</td><td>JTAG_TMS, I2S_AO_CLK_OUT, I2S_AO_CLK_IN, TSIN_B_D0</td><td>gpiochip1 line 23</td></tr><tr><th scope="row">6</th><td>GPIOH_6</td><td>I2S-AM-CLK</td><td>GPIO</td><td>JTAG_TCK, I2S_AM_CLK, TSIN_B_CLK</td><td>gpiochip1 line 22</td></tr><tr><th scope="row">7</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">8</th><td>3.3V</td><td>VDDIO_AO3.3V</td><td>3.3V power</td><td></td><td></td></tr></tbody></table></div><div class="lc-table-scroll"><table class="lc-table pin-table"><caption>2J1 · 3 pins</caption><thead><tr><th scope="col">Pin</th><th scope="col">Name</th><th scope="col">Board signal</th><th scope="col">Type</th><th scope="col">Functions</th><th scope="col">GPIO</th></tr></thead><tbody><tr><th scope="row">1</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">2</th><td>GPIOAO_0</td><td>Linux_TX</td><td>GPIO</td><td>UART_TX_AO_A, UART_TX_AO_B</td><td>gpiochip0 line 0</td></tr><tr><th scope="row">3</th><td>GPIOAO_1</td><td>Linux_RX</td><td>GPIO</td><td>UART_RX_AO_A, UART_RX_AO_B</td><td>gpiochip0 line 1</td></tr></tbody></table></div><div class="lc-table-scroll"><table class="lc-table pin-table"><caption>9J2 · 3 pins</caption><thead><tr><th scope="col">Pin</th><th scope="col">Name</th><th scope="col">Board signal</th><th scope="col">Type</th><th scope="col">Functions</th><th scope="col">GPIO</th></tr></thead><tbody><tr><th scope="row">1</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">2</th><td>GPIOH_4</td><td>SPDIF_OUT</td><td>GPIO</td><td>SPDIF_OUT, SPDIF_IN</td><td>gpiochip1 line 20</td></tr><tr><th scope="row">3</th><td>5V</td><td>VCC5V</td><td>5V power</td><td></td><td></td></tr></tbody></table></div></section><!-- /pin-table -->
+</main>
+
+<footer class="lc-footer">
+  Pin data from <a href="https://github.com/libre-computer-project/libretech-wiring-tool">libretech-wiring-tool</a> (MIT)
+  &middot; Learn how it works: <a href="https://education.libre.computer/modules/io/">driving a pin, and the header's buses</a>
+  &middot; <a href="https://libre.computer">libre.computer</a>
+</footer>
+
+<div id="tooltip" class="lc-tooltip" hidden></div>
+<script type="module" src="../js/app.js"></script>
+</body>
+</html>

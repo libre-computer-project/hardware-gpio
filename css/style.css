@@ -91,6 +91,22 @@ main {
   overflow: auto;
 }
 
+/* ---- the pin table (section#pin-table) ----
+
+   The board's pins as plain HTML, written into each page by tools/render.mjs
+   for a reader or crawler that runs no script, and kept on the board shown by
+   js/app.js. Its own full-width row under the drawing where the page scrolls;
+   where it does not -- the one-page frame below, and a frame on another site
+   (?embed=1) -- it gives way once the drawing is up, so neither layout
+   changes. */
+#pin-table { flex: 1 1 100%; min-width: 0; }
+#pin-table:empty { display: none; }
+#pin-table h2 { font-size: 18px; margin: 8px 0 4px; }
+#pin-table .lc-table-scroll { margin: 14px 0; }
+#pin-table .pin-table caption { font-weight: 600; color: var(--text); }
+#pin-table .pin-table td, #pin-table .pin-table th { font-size: 13px; }
+html.lc-embed body.app-ready #pin-table { display: none; }
+
 /* ---- unreleased / pre-production boards (?hidden=1; the flag is the kit's) ---- */
 
 /* Its own full-width bar between the legend and main, aligned with them:
@@ -702,6 +718,9 @@ pre.usage {
   body { overflow: hidden; }
   main { flex-wrap: nowrap; }
   #diagram, #panel { max-height: 100%; }
+  /* the frame never scrolls, so the plain pin table has no room once the
+     drawing is up (see "the pin table" above) */
+  body.app-ready #pin-table { display: none; }
   /* Stack the headers into COLUMNS rather than rows. Each keeps its natural
      width -- a 40-pin header is wide because two rails of pad names are wide,
      and squeezing it to share a row only ellipses the names. What wastes

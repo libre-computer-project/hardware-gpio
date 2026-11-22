@@ -24,3 +24,12 @@ jobs:
           python-version: "3.12"
       - name: Verify the vendored shell kit
         run: python3 tools/check-kit.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Test the static board pages' renderer
+        run: node tools/test-render.mjs
+      # the pages are committed render output: a change to index.html or
+      # data/ without a re-run leaves crawlers reading the old pins
+      - name: The committed pages are current
+        run: node tools/render.mjs && git diff --exit-code && test -z "$(git status --porcelain)"
