@@ -246,9 +246,9 @@ export function boardPageHtml(board) {
 
 /** The inside of section#pin-table on the home page: every listed board,
  *  linked to its page (boards: data/boards.json entries, hidden ones out). */
-export function boardListHtml(boards) {
-  return `<h2 id="pin-table-title">Boards</h2><ul class="board-list">` +
-    boards.map((b) => `<li><a href="${esc(b.id)}/">${esc(b.name)} (${esc(b.model)})</a> · ` +
+export function boardListHtml(boards, lede = "") {
+  return `<h2 id="pin-table-title">Boards</h2>${lede ? `<p class="board-list-lede">${esc(lede)}</p>` : ""}<ul class="board-list">` +
+    boards.map((b) => `<li><a href="/${esc(b.id)}/">${esc(b.name)} (${esc(b.model)})</a> · ` +
       `${esc(b.vendor)} ${esc(b.soc)}, ${esc(b.npins)} pins</li>`).join("") +
     `</ul>`;
 }

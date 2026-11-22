@@ -50,7 +50,10 @@ const urlOf = (id) => `${ORIGIN}/${id ? `${id}/` : ""}`;
 
 // The home page: the listed boards, linked to their pages
 let home = await read("index.html");
-home = fill(home, boardListHtml(listed), urlOf(null));
+// with what the tool shows (the page's description) above the list
+const lede = (home.match(/<meta name="description" content="([^"]*)"/) || [, ""])[1]
+  .replace(/&quot;/g, '"').replace(/&amp;/g, "&");
+home = fill(home, boardListHtml(listed, lede), urlOf(null));
 await writeFile(path.join(ROOT, "index.html"), home);
 
 // One page per listed board, from the home page's HTML one directory down

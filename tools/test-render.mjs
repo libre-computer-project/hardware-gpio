@@ -93,8 +93,8 @@ try {
     const html = await site("index.html");
     assert.match(html, new RegExp(`<link rel="canonical" href="${ORIGIN}/">`));
     assert.doesNotMatch(html, /<body[^>]* data-board=/);
-    for (const b of listed) assert.ok(html.includes(`<a href="${b.id}/">`), b.id);
-    for (const b of hidden) assert.ok(!html.includes(`"${b.id}/"`), `${b.id} listed`);
+    for (const b of listed) assert.ok(html.includes(`<a href="/${b.id}/">`), b.id);
+    for (const b of hidden) assert.ok(!html.includes(`"/${b.id}/"`), `${b.id} listed`);
   });
 
   await check("robots.txt, sitemap.xml, llms.txt", async () => {
