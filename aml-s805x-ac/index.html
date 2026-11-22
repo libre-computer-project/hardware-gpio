@@ -25,11 +25,14 @@
   <div class="lc-brand">
     <a class="lc-brand-name" href="https://libre.computer">Libre Computer</a>
     <nav class="lc-sites" aria-label="Libre Computer sites">
+      <a class="lc-site" href="https://libre.computer/products/">Products</a>
+      <a class="lc-site" href="https://libre.computer/downloads/">Downloads</a>
+      <a class="lc-site" href="https://hardware.libre.computer/" aria-current="true">Hardware</a>
+      <a class="lc-site" href="https://software.libre.computer/">Software</a>
       <a class="lc-site" href="https://education.libre.computer/">Education</a>
-      <a class="lc-site" data-lc-site href="https://layout.hardware.libre.computer/">Layout</a>
-      <a class="lc-site" href="/" aria-current="true">GPIO Pinout</a>
-      <a class="lc-site" data-lc-site href="https://power.hardware.libre.computer/">Power</a>
-      <a class="lc-site" href="https://u-boot.software.libre.computer/">Software</a>
+      <a class="lc-site" href="https://hub.libre.computer/">Support</a>
+      <a class="lc-site" href="https://libre.computer/news/">News</a>
+      <a class="lc-site" href="https://libre.computer/#contact">Contact</a>
     </nav>
   </div>
   <div class="lc-controls">
@@ -38,6 +41,15 @@
     <input id="search" type="search" placeholder="Search: GPIOX_12, I2C, pin 7, B4…" autocomplete="off" spellcheck="false" aria-label="Search by pad, function, pin or ball">
   </div>
 </header>
+<nav class="lc-subnav" aria-label="Hardware">
+    <div class="lc-subnav-sites">
+      <span class="lc-subnav-label">Hardware</span>
+      <a href="https://hardware.libre.computer/">Overview</a>
+      <a href="https://gpio.hardware.libre.computer/" aria-current="true">GPIO</a>
+      <a data-lc-site href="https://layout.hardware.libre.computer/">Layout</a>
+      <a data-lc-site href="https://power.hardware.libre.computer/">Power</a>
+    </div>
+</nav>
 
 <nav id="legend-bar" aria-label="Mux classes"><div id="legend"></div></nav>
 
@@ -57,10 +69,24 @@
   <section id="pin-table" data-board="aml-s805x-ac" aria-labelledby="pin-table-title"><h2 id="pin-table-title">La Frite (AML-S805X-AC) pin table</h2><p>Amlogic S805X · 3 headers: 7J1 (40 pins), 2J2 (4 pins), 9J5 (4 pins).</p><div class="lc-table-scroll"><table class="lc-table pin-table"><caption>7J1 · 40 pins</caption><thead><tr><th scope="col">Pin</th><th scope="col">Name</th><th scope="col">Board signal</th><th scope="col">Type</th><th scope="col">Functions</th><th scope="col">GPIO</th></tr></thead><tbody><tr><th scope="row">1</th><td>3.3V</td><td>VCC3.3V</td><td>3.3V power</td><td></td><td></td></tr><tr><th scope="row">2</th><td>5V</td><td>VCC5V</td><td>5V power</td><td></td><td></td></tr><tr><th scope="row">3</th><td>GPIOAO_1</td><td>LINUX_RX</td><td>GPIO</td><td>UART_RX_AO_A, UART_RX_AO_B</td><td>gpiochip0 line 1</td></tr><tr><th scope="row">4</th><td>5V</td><td>VCC5V</td><td>5V power</td><td></td><td></td></tr><tr><th scope="row">5</th><td>GPIOAO_0</td><td>LINUX_TX</td><td>GPIO</td><td>UART_TX_AO_A, UART_TX_AO_B</td><td>gpiochip0 line 0</td></tr><tr><th scope="row">6</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">7</th><td>GPIOH_6</td><td>TCK</td><td>GPIO</td><td>JTAG_TCK, I2S_AM_CLK, TSIN_B_CLK</td><td>gpiochip1 line 22</td></tr><tr><th scope="row">8</th><td>GPIOX_12</td><td>BT_EN</td><td>GPIO</td><td>UART_TX_A, SLIP_UART_TX</td><td>gpiochip1 line 91</td></tr><tr><th scope="row">9</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">10</th><td>GPIOX_13</td><td>BT_WAKE_HOST</td><td>GPIO</td><td>UART_RX_A, SLIP_UART_RX</td><td>gpiochip1 line 92</td></tr><tr><th scope="row">11</th><td>GPIOAO_8*</td><td>PWM</td><td>GPIO</td><td>AO_CEC, EE_CEC, I2SOUT_CH23, PWM_AO_A</td><td>gpiochip0 line 8</td></tr><tr><th scope="row">12</th><td>GPIOH_7</td><td>TMS</td><td>GPIO</td><td>JTAG_TMS, I2S_AO_CLK_OUT, I2S_AO_CLK_IN, TSIN_B_D0</td><td>gpiochip1 line 23</td></tr><tr><th scope="row">13</th><td>GPIOH_4</td><td>SPDIF_OUT</td><td>GPIO</td><td>SPDIF_OUT, SPDIF_IN</td><td>gpiochip1 line 20</td></tr><tr><th scope="row">14</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">15</th><td>GPIOH_5</td><td>MUTE</td><td>GPIO</td><td></td><td>gpiochip1 line 21</td></tr><tr><th scope="row">16</th><td>GPIOH_8</td><td>TDI</td><td>GPIO</td><td>JTAG_TDI, I2S_LR_CLK_OUT, I2S_LR_CLK_IN, TSIN_B_SOP</td><td>gpiochip1 line 24</td></tr><tr><th scope="row">17</th><td>3.3V</td><td>VCC3.3V</td><td>3.3V power</td><td></td><td></td></tr><tr><th scope="row">18</th><td>GPIOH_9</td><td>TDO</td><td>GPIO</td><td>JTAG_TDO, I2SOUT_CH01, TSIN_B_VALID</td><td>gpiochip1 line 25</td></tr><tr><th scope="row">19</th><td>GPIOX_8</td><td>UART_C_TX</td><td>SPI</td><td>PCM_OUT_A, UART_TX_C, SPI_MOSI</td><td>gpiochip1 line 87</td></tr><tr><th scope="row">20</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">21</th><td>GPIOX_9</td><td>UART_C_RX</td><td>SPI</td><td>PCM_IN_A, UART_RX_C, SPI_MISO</td><td>gpiochip1 line 88</td></tr><tr><th scope="row">22</th><td>GPIOX_0</td><td>WIFI_D0</td><td>GPIO</td><td>SDIO_D0</td><td>gpiochip1 line 79</td></tr><tr><th scope="row">23</th><td>GPIOX_11</td><td>UART_C_RTS_N</td><td>SPI</td><td>PCM_CLK_A, UART_RTS_C, I2C_SCK_D, SPI_SCLK</td><td>gpiochip1 line 90</td></tr><tr><th scope="row">24</th><td>GPIOX_10</td><td>UART_C_CTS_N</td><td>SPI</td><td>PCM_FS_A, UART_CTS_C, I2C_SDA_D, SPI_SS0</td><td>gpiochip1 line 89</td></tr><tr><th scope="row">25</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">26</th><td>GPIOX_1</td><td>WIFI_D1</td><td>GPIO</td><td>SDIO_D1</td><td>gpiochip1 line 80</td></tr><tr><th scope="row">27</th><td>GPIODV_24</td><td>I2C_SDA_A</td><td>I2C</td><td>UART_TX_B, DMIC_IN, I2C_SDA_A</td><td>gpiochip1 line 73</td></tr><tr><th scope="row">28</th><td>GPIODV_25</td><td>I2C_SCK_A</td><td>I2C</td><td>UART_RX_B, DMIC_CLK_OUT, I2C_SCK_A</td><td>gpiochip1 line 74</td></tr><tr><th scope="row">29</th><td>GPIODV_27</td><td>SYS_LED</td><td>I2C</td><td>UART_RTS_B, I2C_SCK_B</td><td>gpiochip1 line 76</td></tr><tr><th scope="row">30</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">31</th><td>GPIOAO_2</td><td>PWR_KEY_DET</td><td>GPIO</td><td>UART_CTS_AO_A, UART_CTS_AO_B</td><td>gpiochip0 line 2</td></tr><tr><th scope="row">32</th><td>GPIOX_16</td><td>WIFI_32K</td><td>GPIO</td><td>PWM_E</td><td>gpiochip1 line 95</td></tr><tr><th scope="row">33</th><td>GPIOX_6</td><td>WIFI_PWREN</td><td>GPIO</td><td>PWM_A</td><td>gpiochip1 line 85</td></tr><tr><th scope="row">34</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">35</th><td>GPIOX_7</td><td>WIFI_WAKE_HOST</td><td>GPIO</td><td>SDIO_IRQ, PWM_F</td><td>gpiochip1 line 86</td></tr><tr><th scope="row">36</th><td>GPIOX_2</td><td>WIFI_D2</td><td>GPIO</td><td>SDIO_D2</td><td>gpiochip1 line 81</td></tr><tr><th scope="row">37</th><td>GPIOX_5</td><td>WIFI_CMD</td><td>GPIO</td><td>SDIO_CMD</td><td>gpiochip1 line 84</td></tr><tr><th scope="row">38</th><td>GPIOX_3</td><td>WIFI_D3</td><td>GPIO</td><td>SDIO_D3</td><td>gpiochip1 line 82</td></tr><tr><th scope="row">39</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">40</th><td>GPIOX_4</td><td>WIFI_SD_CLK</td><td>GPIO</td><td>SDIO_CLK</td><td>gpiochip1 line 83</td></tr></tbody></table></div><div class="lc-table-scroll"><table class="lc-table pin-table"><caption>2J2 · 4 pins</caption><thead><tr><th scope="col">Pin</th><th scope="col">Name</th><th scope="col">Board signal</th><th scope="col">Type</th><th scope="col">Functions</th><th scope="col">GPIO</th></tr></thead><tbody><tr><th scope="row">1</th><td>5V</td><td>VCC5V</td><td>5V power</td><td></td><td></td></tr><tr><th scope="row">2</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">3</th><td>SARADC_CH1</td><td>ADC1</td><td>ADC (analog pad)</td><td></td><td></td></tr><tr><th scope="row">4</th><td>SARADC_CH0</td><td>ADC2</td><td>ADC (analog pad)</td><td></td><td></td></tr></tbody></table></div><div class="lc-table-scroll"><table class="lc-table pin-table"><caption>9J5 · 4 pins</caption><thead><tr><th scope="col">Pin</th><th scope="col">Name</th><th scope="col">Board signal</th><th scope="col">Type</th><th scope="col">Functions</th><th scope="col">GPIO</th></tr></thead><tbody><tr><th scope="row">1</th><td>LOLN</td><td>ML_CH</td><td>Analog audio (analog pad)</td><td></td><td></td></tr><tr><th scope="row">2</th><td>LORN</td><td>MR_CH</td><td>Analog audio (analog pad)</td><td></td><td></td></tr><tr><th scope="row">3</th><td>GND</td><td></td><td>Ground</td><td></td><td></td></tr><tr><th scope="row">4</th><td>CVBS_IOUT</td><td>CVBS</td><td>TS / camera / video</td><td></td><td></td></tr></tbody></table></div></section><!-- /pin-table -->
 </main>
 
+<p class="lc-page-note">Pin data from <a href="https://github.com/libre-computer-project/libretech-wiring-tool">libretech-wiring-tool</a> (MIT)
+  &middot; Learn how it works: <a href="https://education.libre.computer/modules/io/">driving a pin, and the header's buses</a></p>
 <footer class="lc-footer">
-  Pin data from <a href="https://github.com/libre-computer-project/libretech-wiring-tool">libretech-wiring-tool</a> (MIT)
-  &middot; Learn how it works: <a href="https://education.libre.computer/modules/io/">driving a pin, and the header's buses</a>
-  &middot; <a href="https://libre.computer">libre.computer</a>
+  <nav class="lc-footer-links" aria-label="Libre Computer">
+    <a href="https://libre.computer/products/">Products</a> &middot;
+    <a href="https://libre.computer/downloads/">Downloads</a> &middot;
+    <a href="https://hardware.libre.computer/">Hardware</a> &middot;
+    <a href="https://software.libre.computer/">Software</a> &middot;
+    <a href="https://education.libre.computer/">Education</a> &middot;
+    <a href="https://libre.computer/security/">Security</a> &middot;
+    <a href="https://libre.computer/news/">News</a> &middot;
+    <a href="https://libre.computer/press/">Press</a> &middot;
+    <a href="https://hub.libre.computer/">Support</a> &middot;
+    <a href="https://libre.computer/privacy/">Privacy</a> &middot;
+    <a href="https://libre.computer/terms/">Terms</a>
+  </nav>
+  <p class="lc-footer-social"><a href="https://facebook.com/librecomputer" rel="noopener">Facebook</a> &middot; <a href="https://x.com/LibreComputer" rel="noopener">X</a> &middot; <a href="https://t.me/libre_computer" rel="noopener">Telegram</a> &middot; <a href="https://www.instagram.com/librecomputer/" rel="noopener">Instagram</a> &middot; <a href="https://www.youtube.com/c/LibreComputer" rel="noopener">YouTube</a></p>
+  <p class="lc-footer-company">Libre Computer is an <a href="https://imprecisionsystems.com/" rel="noopener">Imprecision Systems LLC</a> company.</p>
 </footer>
 
 <div id="tooltip" class="lc-tooltip" hidden></div>
