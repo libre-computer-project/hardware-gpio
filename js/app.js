@@ -14,17 +14,6 @@ import {
    from this module, not from the document. */
 const SITE = new URL("../", import.meta.url);
 
-/* The vendored kit fetches data/lc-products.json relative to the DOCUMENT
-   (lc-kit.js setBoardLinks), which on a board's page is <id>/data/... and a
-   404 -- the product links beside the picker would vanish there. The kit is
-   not edited here (tools/check-kit.py), so a relative path is resolved
-   against the site root instead, for every fetch on the page. */
-{
-  const fetchFromPage = globalThis.fetch.bind(globalThis);
-  globalThis.fetch = (u, opts) => fetchFromPage(
-    typeof u === "string" && !/^([a-z][a-z0-9+.-]*:|\/)/i.test(u) ? new URL(u, SITE) : u, opts);
-}
-
 /* A class's colour, from the stylesheet. It used to be a hex literal beside
    each label in CLASS_INFO, duplicating the --c-* token of the same name -- the CSS
    even carried "see CLASS_INFO.poe in js/app.js" beside one of them, which is
