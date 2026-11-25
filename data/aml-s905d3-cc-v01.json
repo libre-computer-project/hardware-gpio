@@ -27,7 +27,7 @@
      "sysfs": null,
      "name": "3.3V",
      "pad": "3.3V",
-     "ref": "VCC3.3V",
+     "ref": "VDDAO_3_3V",
      "funcs": [
       "3.3V"
      ],
@@ -685,7 +685,7 @@
      "sysfs": null,
      "name": "3.3V",
      "pad": "3.3V",
-     "ref": "VCC3.3V",
+     "ref": "VDDAO_3_3V",
      "funcs": [
       "3.3V"
      ],

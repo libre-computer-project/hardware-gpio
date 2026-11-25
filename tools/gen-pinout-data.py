@@ -142,11 +142,15 @@ REFERENCE_MAPS = REPO_ROOT / "reference"
 # pins on one row and even on the other: the CM4 and CM5 datasheets number them
 # that way (J1 pins 1-100, J2 pins 101-200), and the AML CM V0.2 layout export
 # places J1/J2 as 2x50 arrays on the same numbering.
+# MED-MT83-ACE's 40-pin CON1 is package DIP-2.54MM-20X2-LC in its V0.1 ODB++
+# (MED-MT83-ACE-V0.1-20251205) and CON20X2_P2.54_Female on its drawing's sheet
+# 19 -- "20X2" states the geometry. Its J3 and J4004 are 3-pin, so one row.
 DUAL_ROW_HEADERS = {"7J1", "J1", "J12", "J15", "J20",
                     "roc-rk3399-pc:J1", "roc-rk3399-pc:J6",
                     "roc-rk3399-pc:J21",
                     "aml-a311d-cm:J2", "aml-s905d3-cm:J2",
-                    "rpi-cm4:J2", "rpi-cm5:J2"}
+                    "rpi-cm4:J2", "rpi-cm5:J2",
+                    "med-mt83-ace-v01:CON1"}
 
 
 def is_dual_row(board, header):

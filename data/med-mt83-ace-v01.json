@@ -16,7 +16,7 @@
  "headers": [
   {
    "id": "CON1",
-   "rows": 1,
+   "rows": 2,
    "pins": [
     {
      "pin": 1,
@@ -1773,6 +1773,208 @@
        "value": 7
       }
      ]
+    }
+   ]
+  },
+  {
+   "id": "J4004",
+   "rows": 1,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "gpio",
+     "chip": 0,
+     "line": 95,
+     "sysfs": 607,
+     "name": "GPIO95",
+     "pad": "AD2",
+     "ref": "URXD0",
+     "funcs": [
+      "URXD0",
+      "UTXD0"
+     ],
+     "cls": "gpio",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "URXD0",
+       "group": "URXD0",
+       "funcs": [
+        "URXD0"
+       ],
+       "reg": "0x100053b0",
+       "bit": 28,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "UTXD0",
+       "group": "UTXD0",
+       "funcs": [
+        "UTXD0"
+       ],
+       "reg": "0x100053b0",
+       "bit": 28,
+       "width": 4,
+       "value": 2
+      }
+     ]
+    },
+    {
+     "pin": 2,
+     "type": "gpio",
+     "chip": 0,
+     "line": 96,
+     "sysfs": 608,
+     "name": "GPIO96",
+     "pad": "AD1",
+     "ref": "UTXD0",
+     "funcs": [
+      "UTXD0",
+      "URXD0"
+     ],
+     "cls": "gpio",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "UTXD0",
+       "group": "UTXD0",
+       "funcs": [
+        "UTXD0"
+       ],
+       "reg": "0x100053c0",
+       "bit": 0,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "URXD0",
+       "group": "URXD0",
+       "funcs": [
+        "URXD0"
+       ],
+       "reg": "0x100053c0",
+       "bit": 0,
+       "width": 4,
+       "value": 2
+      }
+     ]
+    },
+    {
+     "pin": 3,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "D_GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
+    }
+   ]
+  },
+  {
+   "id": "J3",
+   "rows": 1,
+   "pins": [
+    {
+     "pin": 1,
+     "type": "gpio",
+     "chip": 0,
+     "line": 121,
+     "sysfs": 633,
+     "name": "GPIO121",
+     "pad": "H3",
+     "ref": "UART1_RX",
+     "funcs": [
+      "CONN_HRST_B",
+      "URXD1"
+     ],
+     "cls": "uart",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "CONN_HRST_B",
+       "group": "CONN_HRST_B",
+       "funcs": [
+        "CONN_HRST_B"
+       ],
+       "reg": "0x100053f0",
+       "bit": 4,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "URXD1",
+       "group": "URXD1",
+       "funcs": [
+        "URXD1"
+       ],
+       "reg": "0x100053f0",
+       "bit": 4,
+       "width": 4,
+       "value": 2
+      }
+     ]
+    },
+    {
+     "pin": 2,
+     "type": "gpio",
+     "chip": 0,
+     "line": 115,
+     "sysfs": 627,
+     "name": "GPIO115",
+     "pad": "H4",
+     "ref": "UART1_TX",
+     "funcs": [
+      "CONN_BT_CLK",
+      "UTXD1"
+     ],
+     "cls": "uart",
+     "primary": "gpio",
+     "muxes": [
+      {
+       "name": "CONN_BT_CLK",
+       "group": "CONN_BT_CLK",
+       "funcs": [
+        "CONN_BT_CLK"
+       ],
+       "reg": "0x100053e0",
+       "bit": 12,
+       "width": 4,
+       "value": 1
+      },
+      {
+       "name": "UTXD1",
+       "group": "UTXD1",
+       "funcs": [
+        "UTXD1"
+       ],
+       "reg": "0x100053e0",
+       "bit": 12,
+       "width": 4,
+       "value": 2
+      }
+     ]
+    },
+    {
+     "pin": 3,
+     "type": "GND",
+     "chip": null,
+     "line": null,
+     "sysfs": null,
+     "name": "GND",
+     "pad": "GND",
+     "ref": "D_GND",
+     "funcs": [
+      "GND"
+     ],
+     "cls": "gnd",
+     "primary": "gnd"
     }
    ]
   }

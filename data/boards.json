@@ -296,11 +296,19 @@
    "vendor": "MediaTek",
    "status": "preprod",
    "hidden": true,
-   "npins": 40,
+   "npins": 46,
    "headers": [
     {
      "id": "CON1",
      "pins": 40
+    },
+    {
+     "id": "J4004",
+     "pins": 3
+    },
+    {
+     "id": "J3",
+     "pins": 3
     }
    ]
   },
