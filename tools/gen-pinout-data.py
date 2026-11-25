@@ -63,7 +63,7 @@ BOARDS = {
     "roc-rk3399-pc":   ("ROC-RK3399-PC",   "Renegade Elite",       "RK3399", "Rockchip",  "production"),
     "aml-a311d-cm":    ("AML-A311D-CM",    "Alta Compute Module",  "A311D",  "Amlogic",   "preliminary"),
     "aml-s905d3-cm":   ("AML-S905D3-CM",   "Solitude Compute Module", "S905D3", "Amlogic", "preliminary"),
-    "med-mt83-ace":    ("MED-MT83-ACE",    "Livia",                "MT8385", "MediaTek",  "unreleased"),
+    "med-mt83-ace-v01": ("MED-MT83-ACE-V01", "Livia (pre-prod)",   "MT8385", "MediaTek",  "preprod"),
     "rpi-cm4":         ("RPI-CM4",         "Raspberry Pi Compute Module 4", "BCM2711", "Raspberry Pi", "reference"),
     "rpi-cm5":         ("RPI-CM5",         "Raspberry Pi Compute Module 5", "BCM2712", "Raspberry Pi", "reference"),
 }

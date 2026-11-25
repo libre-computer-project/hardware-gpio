@@ -289,12 +289,12 @@
    ]
   },
   {
-   "id": "med-mt83-ace",
-   "model": "MED-MT83-ACE",
-   "name": "Livia",
+   "id": "med-mt83-ace-v01",
+   "model": "MED-MT83-ACE-V01",
+   "name": "Livia (pre-prod)",
    "soc": "MT8385",
    "vendor": "MediaTek",
-   "status": "unreleased",
+   "status": "preprod",
    "hidden": true,
    "npins": 40,
    "headers": [
