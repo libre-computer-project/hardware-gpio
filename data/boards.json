@@ -313,6 +313,22 @@
    ]
   },
   {
+   "id": "med-mt88-mx-g5-v04",
+   "model": "MED-MT88-MX-G5-V04",
+   "name": "Virginia (pre-prod)",
+   "soc": "MT8370",
+   "vendor": "MediaTek",
+   "status": "preprod",
+   "hidden": true,
+   "npins": 262,
+   "headers": [
+    {
+     "id": "J2502",
+     "pins": 262
+    }
+   ]
+  },
+  {
    "id": "roc-rk3328-cc",
    "model": "ROC-RK3328-CC",
    "name": "Renegade",

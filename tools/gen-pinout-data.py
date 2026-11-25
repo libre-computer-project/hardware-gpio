@@ -64,6 +64,7 @@ BOARDS = {
     "aml-a311d-cm":    ("AML-A311D-CM",    "Alta Compute Module",  "A311D",  "Amlogic",   "preliminary"),
     "aml-s905d3-cm":   ("AML-S905D3-CM",   "Solitude Compute Module", "S905D3", "Amlogic", "preliminary"),
     "med-mt83-ace-v01": ("MED-MT83-ACE-V01", "Livia (pre-prod)",   "MT8385", "MediaTek",  "preprod"),
+    "med-mt88-mx-g5-v04": ("MED-MT88-MX-G5-V04", "Virginia (pre-prod)", "MT8370", "MediaTek", "preprod"),
     "rpi-cm4":         ("RPI-CM4",         "Raspberry Pi Compute Module 4", "BCM2711", "Raspberry Pi", "reference"),
     "rpi-cm5":         ("RPI-CM5",         "Raspberry Pi Compute Module 5", "BCM2712", "Raspberry Pi", "reference"),
 }
@@ -145,12 +146,17 @@ REFERENCE_MAPS = REPO_ROOT / "reference"
 # MED-MT83-ACE's 40-pin CON1 is package DIP-2.54MM-20X2-LC in its V0.1 ODB++
 # (MED-MT83-ACE-V0.1-20251205) and CON20X2_P2.54_Female on its drawing's sheet
 # 19 -- "20X2" states the geometry. Its J3 and J4004 are 3-pin, so one row.
+# MED-MT88-MX-G5's J2502 is the module's SODIMM-262 edge, package SODIMM-262PIN
+# in its V0.4 layout (MED-G510-V0.1-0805-1). The footprint puts every odd pin's
+# pad on layer-top and every even pin's on layer-bottom (J2502.1 top, .2
+# bottom, ... .261 top, .262 bottom, read off the export's copper): one row per
+# face, odd on one and even on the other -- the two rails the site draws.
 DUAL_ROW_HEADERS = {"7J1", "J1", "J12", "J15", "J20",
                     "roc-rk3399-pc:J1", "roc-rk3399-pc:J6",
                     "roc-rk3399-pc:J21",
                     "aml-a311d-cm:J2", "aml-s905d3-cm:J2",
                     "rpi-cm4:J2", "rpi-cm5:J2",
-                    "med-mt83-ace-v01:CON1"}
+                    "med-mt83-ace-v01:CON1", "med-mt88-mx-g5-v04:J2502"}
 
 
 def is_dual_row(board, header):
@@ -673,6 +679,11 @@ CHIP_CLASS = {
     "VREF":  "powerlv",   # GPIO_VREF: the carrier's reference for one IO bank
     "BAT":   "powerlv",   # CM5 VBAT (RTC coin cell)
     "CTRL":  "misc",      # module control pins: enables, boot, LEDs, power good
+    "DP":    "video",     # MX SODIMM J2502: eDP lanes and AUX
+    # MX J2502 DC_IN: the module's wide-range DC input (RT6276A, 4.5-23 V on
+    # the V0.4 drawing). The deepest supply colour: the voltage is the
+    # carrier's choice and may be the highest on the connector.
+    "VIN":   "power12v",
 }
 
 
@@ -1469,17 +1480,25 @@ class MediatekMux:
 
     family = "mediatek-paris"
 
-    def __init__(self, linux, header, driver, base, mode_off):
+    # MT8188's pin header spells every function with its direction in front --
+    # B_GPIO63, B1_SCL4, I0_UDI_NTRST, O_UTXD1 (B bidirectional, I in, O out,
+    # the digit an instance) -- where the datasheet and the map say SCL4. With
+    # dir_prefix the prefix is dropped before matching; MT8183's header has no
+    # such prefix and is read as written.
+    DIR_PREFIX = re.compile(r"^(?:B|B0|B1|I0|I1|O)_")
+
+    def __init__(self, linux, header, driver, base, mode_off, dir_prefix=False):
         self.driver = driver
         self.header = header
         self.base, self.mode_off = base, mode_off
         text = (linux / header).read_text()
         self.pins = {}     # pin number -> {func name: value}
         spans = list(re.finditer(r"MTK_PIN\(\s*(\d+),\s*\"GPIO\d+\"", text))
+        strip = (lambda n: self.DIR_PREFIX.sub("", n)) if dir_prefix else (lambda n: n)
         for i, m in enumerate(spans):
             end = spans[i + 1].start() if i + 1 < len(spans) else len(text)
             self.pins[int(m.group(1))] = {
-                name.upper(): int(val) for val, name in
+                strip(name).upper(): int(val) for val, name in
                 re.findall(r"MTK_FUNCTION\((\d+),\s*\"(\w+)\"\)", text[m.end():end])}
         if not self.pins:
             sys.exit(f"MediatekMux: no MTK_PIN entries parsed from {header}")
@@ -2031,6 +2050,14 @@ MUX_FOR_SOC = {
     "MT8385": lambda linux, rk_json, docs: MediatekMux(
         linux, "drivers/pinctrl/mediatek/pinctrl-mtk-mt8183.h",
         "drivers/pinctrl/mediatek/pinctrl-mt8183.c", 0x10005000, 0x300),
+    # MT8370 is the MT8188 die (the docs repo's mediatek/mt8188 tree). Its mode
+    # field is PIN_FIELD(0, 177, 0x0300, 0x10, 0, 4) in pinctrl-mt8188.c on
+    # register base 0 -- reg-names[0] "iocfg0", pio reg[0] 0x10005000 in
+    # mt8188.dtsi: 4 bits per pin, 8 pins per register, 0x10 apart, the same
+    # shape as MT8183's.
+    "MT8370": lambda linux, rk_json, docs: MediatekMux(
+        linux, "drivers/pinctrl/mediatek/pinctrl-mtk-mt8188.h",
+        "drivers/pinctrl/mediatek/pinctrl-mt8188.c", 0x10005000, 0x300, dir_prefix=True),
 }
 
 
