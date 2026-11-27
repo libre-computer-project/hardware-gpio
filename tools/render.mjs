@@ -106,8 +106,26 @@ await writeFile(path.join(ROOT, "llms.txt"), [
   `> ${meta(home, /<meta name="description" content="([^"]*)"/)}`, "",
   "Part of Libre Computer (https://libre.computer/llms.txt). Every board page carries its pin table as HTML.", "",
   "## Boards", "",
-  ...listed.map((b) => `- [${b.name}](${urlOf(b.id)})`), "",
+  ...await Promise.all(listed.map(async (b) => `- [${b.name}](${urlOf(b.id)}): ${headerFact(JSON.parse(await read(`data/${b.id}.json`)))}`)), "",
 ].join("\n"));
+
+/** One line of what a board's page says, for llms.txt: its largest header,
+ *  how many of its pins have a GPIO line, the buses they can carry, and the
+ *  board's other headers. */
+function headerFact(board) {
+  const hs = [...(board.headers || [])].sort((a, b) => b.pins.length - a.pins.length);
+  if (!hs.length) return "no header in the data";
+  const [h, ...rest] = hs;
+  const lines = h.pins.filter((p) => p.chip !== null && p.chip !== undefined).length;
+  // a bus and the function-name prefixes that mean it (Allwinner names I2C "TWI")
+  const BUS = { I2C: ["I2C", "TWI"], SPI: ["SPI"], UART: ["UART"], PWM: ["PWM"], I2S: ["I2S"], PCM: ["PCM"],
+    SPDIF: ["SPDIF"], SDIO: ["SDIO"], CAN: ["CAN"], JTAG: ["JTAG"] };
+  const buses = Object.keys(BUS).filter((x) => h.pins.some((p) =>
+    (p.funcs || []).some((f) => BUS[x].some((pre) => f.toUpperCase().startsWith(pre)))));
+  return [`${h.id}, ${h.pins.length} pins: ${lines} with a GPIO line`,
+    ...(buses.length ? [`functions ${buses.join(", ")}`] : []),
+    ...(rest.length ? [`also ${rest.map((x) => `${x.id} (${x.pins.length} pins)`).join(", ")}`] : [])].join("; ");
+}
 
 console.log(`rendered index.html, ${listed.length} board pages, robots.txt, sitemap.xml, llms.txt` +
   ` (${index.length - listed.length} hidden boards skipped)`);
