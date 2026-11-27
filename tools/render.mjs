@@ -20,6 +20,8 @@
 import { readFile, writeFile, mkdir, readdir, rm } from "node:fs/promises";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import path from "node:path";
+import { sitemapWithLastmod } from "./lastmod.mjs";
+import { stampOg } from "./og.mjs";
 
 /** The kit's rows as tools/lc-ui-kit/sync.py last wrote them into this
  *  board page -- the top bar (Products current on a board's page) and the
@@ -95,9 +97,9 @@ for (const d of await readdir(ROOT, { withFileTypes: true })) {
 }
 
 await writeFile(path.join(ROOT, "robots.txt"), `User-agent: *\nContent-Signal: search=yes, ai-input=yes, ai-train=yes\nAllow: /\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
-await writeFile(path.join(ROOT, "sitemap.xml"),
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${
-    [null, ...listed.map((b) => b.id)].map((id) => `  <url><loc>${esc(urlOf(id))}</loc></url>`).join("\n")}\n</urlset>\n`);
+const urls = [null, ...listed.map((b) => b.id)].map(urlOf);
+await stampOg(ROOT, ORIGIN, urls);
+await writeFile(path.join(ROOT, "sitemap.xml"), await sitemapWithLastmod(ROOT, ORIGIN, urls));
 
 await writeFile(path.join(ROOT, "llms.txt"), [
   `# ${meta(home, /<title>([^<]*)<\/title>/)}`, "",

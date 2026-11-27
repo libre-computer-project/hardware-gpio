@@ -1,0 +1,54 @@
+{
+ "https://gpio.hardware.libre.computer/": {
+  "hash": "f6b526e8520cb2de",
+  "date": "2026-11-26"
+ },
+ "https://gpio.hardware.libre.computer/all-h3-cc-h3/": {
+  "hash": "4fb562a9088dbdec",
+  "date": "2026-11-26"
+ },
+ "https://gpio.hardware.libre.computer/all-h3-cc-h5/": {
+  "hash": "6810e9d395482812",
+  "date": "2026-11-26"
+ },
+ "https://gpio.hardware.libre.computer/aml-a311d-cc/": {
+  "hash": "a16a4c89e04aa78d",
+  "date": "2026-11-26"
+ },
+ "https://gpio.hardware.libre.computer/aml-a311d-cm/": {
+  "hash": "a09f09fb8c68fad7",
+  "date": "2026-11-26"
+ },
+ "https://gpio.hardware.libre.computer/aml-s805x-ac/": {
+  "hash": "56d1b0e61a72d4b8",
+  "date": "2026-11-26"
+ },
+ "https://gpio.hardware.libre.computer/aml-s805x-ac-v2/": {
+  "hash": "7b2649bf37049b89",
+  "date": "2026-11-26"
+ },
+ "https://gpio.hardware.libre.computer/aml-s905d3-cc/": {
+  "hash": "93eec804695325bb",
+  "date": "2026-11-26"
+ },
+ "https://gpio.hardware.libre.computer/aml-s905d3-cm/": {
+  "hash": "348a1ff66b6c04aa",
+  "date": "2026-11-26"
+ },
+ "https://gpio.hardware.libre.computer/aml-s905x-cc/": {
+  "hash": "185c9ec748ecd5b9",
+  "date": "2026-11-26"
+ },
+ "https://gpio.hardware.libre.computer/aml-s905x-cc-v2/": {
+  "hash": "4cb913222964b1e5",
+  "date": "2026-11-26"
+ },
+ "https://gpio.hardware.libre.computer/roc-rk3328-cc/": {
+  "hash": "477f3fab0b1a6d56",
+  "date": "2026-11-26"
+ },
+ "https://gpio.hardware.libre.computer/roc-rk3399-pc/": {
+  "hash": "c4729177f5239cf0",
+  "date": "2026-11-26"
+ }
+}

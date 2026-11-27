@@ -45,7 +45,7 @@ async function snapshot(dir) {
 }
 
 try {
-  for (const f of ["index.html", "js", "data", "tools/render.mjs"]) {
+  for (const f of ["index.html", "js", "data", "tools/render.mjs", "tools/lastmod.mjs", "tools/og.mjs"]) {
     await cp(path.join(ROOT, f), path.join(tmp, f), { recursive: true });
   }
   const render = () => execFileSync(process.execPath, [path.join(tmp, "tools/render.mjs")], { encoding: "utf8" });
